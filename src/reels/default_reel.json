@@ -1,0 +1,582 @@
+{
+  "meta": {
+    "version": "9.8",
+    "type": "FACTORY_DEFAULT_UPDATED_ACTIONS",
+    "date": "2026-01-25"
+  },
+  "characters": [
+    {
+      "id": "C_CORP_01",
+      "category": "CORP",
+      "name": "The Tech CEO",
+      "details": "Age: 38. Female. A commanding presence with volumized sleek dark hair and sharp, intelligent eyes.",
+      "outfit": "luxury textured Chanel tweed blazer in deep navy over a crisp white silk blouse. Hyper-realistic skin texture."
+    },
+    {
+      "id": "C_CORP_02",
+      "category": "CORP",
+      "name": "The Thought Leader",
+      "details": "Age: 46. Male. Salt-and-pepper beard, laugh lines, wearing rimless titanium spectacles.",
+      "outfit": "high-end grey cashmere turtleneck, relaxed but expensive. Skin shows realistic aging details."
+    },
+    {
+      "id": "C_CORP_03",
+      "category": "CORP",
+      "name": "The Marketing Director",
+      "details": "Age: 29. Female. Dynamic and energetic. Shoulder-length auburn hair with loose waves.",
+      "outfit": "lavender satin blouse that catches highlights, paired with a statement gold necklace."
+    },
+    {
+      "id": "C_CORP_04",
+      "category": "CORP",
+      "name": "The Satisfied Customer",
+      "details": "Age: 32. Male. Approachable 'Everyman', warm open smile, neat casual grooming.",
+      "outfit": "solid slate blue polo shirt. Cotton fabric texture is visible."
+    },
+    {
+      "id": "C_LIFE_01",
+      "category": "LIFE",
+      "name": "The Cheerful Best Friend",
+      "details": "Age: 22. Female. Wild curly brunette hair, freckles scattered across the nose. Genuine open laugh.",
+      "outfit": "oversized oatmeal cable-knit sweater, sleeves pulled over hands. Wool texture is prominent."
+    },
+    {
+      "id": "C_LIFE_02",
+      "category": "LIFE",
+      "name": "The Lifestyle Creator",
+      "details": "Age: 24. Female. Polished Gen-Z influencer, perfect highlighted hair, ring-light reflections in eyes.",
+      "outfit": "trendy athleisure crop top with layered gold jewelry. Skin is glowing and high-definition."
+    },
+    {
+      "id": "C_LIFE_03",
+      "category": "LIFE",
+      "name": "The Tech Streamer",
+      "details": "Age: 23. Male. Focused gamer, large over-ear headphones. Skin reflects cool monitor glow.",
+      "outfit": "graphic streetwear hoodie. Expression is intense focus with a slight smirk."
+    },
+    {
+      "id": "C_LIFE_04",
+      "category": "LIFE",
+      "name": "The Busy Parent",
+      "details": "Age: 34. Female. Tired but warm, messy bun, slight dark circles under eyes.",
+      "outfit": "wrinkled soft cotton t-shirt and a flannel shirt tied around the waist."
+    },
+    {
+      "id": "C_LIFE_05",
+      "category": "LIFE",
+      "name": "Grandma Baker",
+      "details": "Age: 72. Female. Short grey hair, rosy cheeks, soft wrinkling around eyes.",
+      "outfit": "floral print blouse protected by a flour-dusted apron."
+    },
+    {
+      "id": "C_LIFE_06",
+      "category": "LIFE",
+      "name": "Teen Skater Boy",
+      "details": "Age: 17. Male. Mop of curly hair, light acne on forehead. Youthful rebel vibe.",
+      "outfit": "baggy graphic tee and worn denim. Skin texture is young and unpolished."
+    },
+    {
+      "id": "C_LIFE_07",
+      "category": "LIFE",
+      "name": "The Weekend Traveler",
+      "details": "Age: 28. Male. Rugged, sun-kissed skin, windblown hair. Adventurous vibe.",
+      "outfit": "khaki utility vest over a linen shirt. Fabric textures are rough and natural."
+    },
+    {
+      "id": "C_LIFE_08",
+      "category": "LIFE",
+      "name": "The Chef",
+      "details": "Age: 35. Male. Fiery creative intensity. Hands are scarred from kitchen work.",
+      "outfit": "pristine white chef's coat with double-breasted buttons. Stiff heavy cotton."
+    },
+    {
+      "id": "C_LIFE_09",
+      "category": "LIFE",
+      "name": "Senior Sal",
+      "details": "Age: 68. Male. Eccentric, wild white hair, intense wide-eyed stare. Manic expression.",
+      "outfit": "bright green cashmere cardigan. Prominent cashmere texture."
+    },
+    {
+      "id": "C_TECH_01",
+      "category": "TECH",
+      "name": "The Microsurgeon",
+      "details": "Age: 41. Female. Patterned surgical cap, customized loupes flipped up on forehead.",
+      "outfit": "sterile blue scrubs with high-quality fabric weave. Slight sheen of perspiration."
+    },
+    {
+      "id": "C_TECH_02",
+      "category": "TECH",
+      "name": "Android Companion",
+      "details": "Age: N/A. Symmetrical perfect face, synthetic sheen. Eyes have data-blue luminescence.",
+      "outfit": "sleek white composite paneling integrated with neck. Silicone and carbon fiber."
+    },
+    {
+      "id": "C_TECH_03",
+      "category": "TECH",
+      "name": "Radiation Mutant",
+      "details": "Age: Unknown. Blistered skin. Welding mask fused to skull.",
+      "outfit": "ragged layers of heavy canvas. Texture includes rust, scars, and peeling paint."
+    },
+    {
+      "id": "C_UTIL_01",
+      "category": "UTIL",
+      "name": "The Delivery Driver",
+      "details": "Age: 35. Male. Square jaw, light 5 o'clock shadow. Arms show realistic veins and definition.",
+      "outfit": "navy blue performance-fabric uniform polo and utility cargo shorts."
+    },
+    {
+      "id": "C_UTIL_02",
+      "category": "UTIL",
+      "name": "The Hero Hand (Male)",
+      "details": "Age: 30. Male. Macro close-up, hyper-detailed skin pores, fine hairs, cuticle details.",
+      "outfit": "watch strap. Focus is entirely on hand structure."
+    },
+    {
+      "id": "C_UTIL_03",
+      "category": "UTIL",
+      "name": "The Welder",
+      "details": "Age: 45. Male. soot-smudged face, heavy welding helmet with visor up.",
+      "outfit": "thick leather protective apron. Texture includes scratched leather and burn marks."
+    },
+    {
+      "id": "C_LUXE_01",
+      "category": "LUXE",
+      "name": "Retro Pin-Up Model",
+      "details": "Age: 25. Female. 1950s glamour, Victory rolls, matte red lipstick, beauty mark.",
+      "outfit": "polka dot halter top. Skin has a powdered makeup finish."
+    },
+    {
+      "id": "C_LUXE_02",
+      "category": "LUXE",
+      "name": "Minimalist Editorial",
+      "details": "Age: 21. Female. Shaved head, striking bone structure. Flawless severe makeup.",
+      "outfit": "black architectural wool coat with high collar. Heavy wool fabric grain."
+    },
+    {
+      "id": "C_LUXE_03",
+      "category": "LUXE",
+      "name": "The Retired Detective",
+      "details": "Age: 62. Male. Noir archetype, deep facial lines, Blue Steel intense gaze.",
+      "outfit": "classic tan trench coat with popped collar. Weathered skin and heavy fabric."
+    },
+    {
+      "id": "C_VOID_01",
+      "category": "VOID",
+      "name": "Minimalist Coder (3D)",
+      "details": "Age: N/A. Stylized 3D Claymorphism, friendly exaggerated proportions. Matte toy-like aesthetic.",
+      "outfit": "oversized 'Digital Teal' hoodie. Soft matte clay texture."
+    },
+    {
+      "id": "C_VOID_02",
+      "category": "VOID",
+      "name": "Isometric Manager (Vector)",
+      "details": "Age: N/A. 2D Flat Vector Illustration. Corporate Memphis style, long limbs, small head.",
+      "outfit": "Bright, flat solids (Blue, Yellow). No shading, clean lines."
+    },
+    {
+      "id": "C_VOID_03",
+      "category": "VOID",
+      "name": "The Plush-Core Influencer",
+      "details": "Age: N/A. Living Plush Toy. Eyes are black plastic buttons. Yarn and felt texture.",
+      "outfit": "pastel blue knit scarf. Texture includes loose yarn fibers."
+    }
+  ],
+  "scenes": [
+    {
+      "id": "S_TECH_01",
+      "category": "TECH",
+      "name": "Critical Moment OR",
+      "desc": "Surgical theater, sterile blue drapes",
+      "lighting": "Spotlights"
+    },
+    {
+      "id": "S_UTIL_01",
+      "category": "UTIL",
+      "name": "Logistics Hub",
+      "desc": "Industrial warehouse, metal shelving",
+      "lighting": "Fluorescent teal"
+    },
+    {
+      "id": "S_UTIL_02",
+      "category": "UTIL",
+      "name": "Abandoned Warehouse",
+      "desc": "Cracked concrete, industrial decay",
+      "lighting": "Diagonal beam light"
+    },
+    {
+      "id": "S_TECH_02",
+      "category": "TECH",
+      "name": "Precision Surgical Suite",
+      "desc": "State-of-the-art sterile OR",
+      "lighting": "Shadow-minimized clinical"
+    },
+    {
+      "id": "S_LIFE_01",
+      "category": "LIFE",
+      "name": "Golden Hour Driveway",
+      "desc": "Suburban exterior, manicured lawn",
+      "lighting": "Warm backlight"
+    },
+    {
+      "id": "S_LUXE_01",
+      "category": "LUXE",
+      "name": "Urban Noir Loft",
+      "desc": "Brick walls, grimy windows",
+      "lighting": "Volumetric shafts"
+    },
+    {
+      "id": "S_LIFE_02",
+      "category": "LIFE",
+      "name": "Industrial Loft Studio",
+      "desc": "Exposed brick, factory windows",
+      "lighting": "Natural daylight"
+    },
+    {
+      "id": "S_LUXE_02",
+      "category": "LUXE",
+      "name": "Urban Noir Hideaway",
+      "desc": "Converted warehouse loft",
+      "lighting": "Low-key hard side-light"
+    },
+    {
+      "id": "S_LIFE_03",
+      "category": "LIFE",
+      "name": "Jungle Waterfall",
+      "desc": "Tropical foliage, secluded clearing",
+      "lighting": "Natural backlighting"
+    },
+    {
+      "id": "S_CORP_01",
+      "category": "CORP",
+      "name": "6AM News Desk",
+      "desc": "Interior broadcast studio, blue panels",
+      "lighting": "Balanced high-key"
+    },
+    {
+      "id": "S_CORP_02",
+      "category": "CORP",
+      "name": "Glass Atrium",
+      "desc": "Corporate lobby, floor-to-ceiling glass",
+      "lighting": "Natural High-Key"
+    },
+    {
+      "id": "S_TECH_03",
+      "category": "TECH",
+      "name": "Tech Startup Lab",
+      "desc": "Black lab tables, glass equipment",
+      "lighting": "High-spec clean-room"
+    },
+    {
+      "id": "S_TECH_04",
+      "category": "TECH",
+      "name": "Neon Command",
+      "desc": "Holographic terminals, steam rising",
+      "lighting": "Bi-color Neon"
+    },
+    {
+      "id": "S_TECH_05",
+      "category": "TECH",
+      "name": "Orbital Crew Quarters",
+      "desc": "Sleek composite panels, viewport curvature",
+      "lighting": "Cool LED"
+    },
+    {
+      "id": "S_TECH_06",
+      "category": "TECH",
+      "name": "Futuristic Transit Tunnel",
+      "desc": "Cylindrical passage, structural ribs",
+      "lighting": "Continuous linear LED"
+    },
+    {
+      "id": "S_LUXE_03",
+      "category": "LUXE",
+      "name": "Art Deco Hall",
+      "desc": "Spiral staircase, geometric tile",
+      "lighting": "Dramatic curves"
+    },
+    {
+      "id": "S_LUXE_04",
+      "category": "LUXE",
+      "name": "Modern Zen Bedroom",
+      "desc": "Ribbed wood slats, marble accents",
+      "lighting": "Soft indirect LED"
+    },
+    {
+      "id": "S_LUXE_05",
+      "category": "LUXE",
+      "name": "Art Deco Salon",
+      "desc": "Ornate ceiling, dark wood paneling",
+      "lighting": "Warm ambient"
+    },
+    {
+      "id": "S_LUXE_06",
+      "category": "LUXE",
+      "name": "Industrial Luxe Loft",
+      "desc": "Double-height loft, red brick, leather",
+      "lighting": "Warm pendant bulbs"
+    },
+    {
+      "id": "S_VOID_01",
+      "category": "VOID",
+      "name": "Minimalist Grid",
+      "desc": "Infinite white void, 3D grid",
+      "lighting": "Flat ambient"
+    },
+    {
+      "id": "S_UTIL_03",
+      "category": "UTIL",
+      "name": "Infinite Studio White",
+      "desc": "Pure white cyclorama",
+      "lighting": "Commercial softbox lighting"
+    },
+    {
+      "id": "S_UTIL_04",
+      "category": "UTIL",
+      "name": "Infinite Studio Black",
+      "desc": "Pure black void",
+      "lighting": "Rim lighting only"
+    },
+    {
+      "id": "S_UTIL_05",
+      "category": "UTIL",
+      "name": "Chroma Key Green",
+      "desc": "Flat even green screen lighting",
+      "lighting": "Flat illumination"
+    },
+    {
+      "id": "S_LUXE_07",
+      "category": "LUXE",
+      "name": "The Red Carpet",
+      "desc": "Paparazzi flashes, velvet ropes",
+      "lighting": "Night event lighting"
+    },
+    {
+      "id": "S_VOID_02",
+      "category": "VOID",
+      "name": "Epic Fantasy Ruins",
+      "desc": "Mossy stone arches, mist",
+      "lighting": "Magical ambient glow"
+    }
+  ],
+  "actions": [
+    {
+      "id": "A_S_01",
+      "type": "S",
+      "name": "Pose: Power Stance (Heroic)",
+      "desc": "standing tall, hands on hips, low camera angle, wind in hair, heroic silhouette"
+    },
+    {
+      "id": "A_S_02",
+      "type": "S",
+      "name": "Pose: Editorial Lean",
+      "desc": "leaning casually against a wall, detached cool expression, looking off-camera"
+    },
+    {
+      "id": "A_S_03",
+      "type": "S",
+      "name": "Sit: Upright & Attentive",
+      "desc": "sitting upright, hands resting on thighs, posture attentive"
+    },
+    {
+      "id": "A_S_04",
+      "type": "S",
+      "name": "Sit: Leaning Forward",
+      "desc": "leaning forward while seated, elbows on knees, focused expression"
+    },
+    {
+      "id": "A_S_05",
+      "type": "S",
+      "name": "Sit: Guarded",
+      "desc": "sitting back with arms crossed, posture guarded"
+    },
+    {
+      "id": "A_S_06",
+      "type": "S",
+      "name": "Sit: Introspective",
+      "desc": "sitting still, shoulders slightly hunched, introspective mood"
+    },
+    {
+      "id": "A_S_07",
+      "type": "S",
+      "name": "Stand: Relaxed Alert",
+      "desc": "standing with weight evenly distributed, relaxed but alert"
+    },
+    {
+      "id": "A_S_08",
+      "type": "S",
+      "name": "Stand: Squared Shoulders",
+      "desc": "standing with arms at sides, shoulders squared, formal posture"
+    },
+    {
+      "id": "A_S_09",
+      "type": "S",
+      "name": "Stand: Hands Behind Back",
+      "desc": "standing with hands clasped behind back, composed posture"
+    },
+    {
+      "id": "A_S_10",
+      "type": "S",
+      "name": "Gaze: Unblinking Stare",
+      "desc": "eyes open wider than natural, blinking absent or extremely rare, intense focus"
+    },
+    {
+      "id": "A_S_11",
+      "type": "S",
+      "name": "Gaze: Locked on Viewer",
+      "desc": "eyes focused directly toward the viewer, gaze held too long without blinking"
+    },
+    {
+      "id": "A_S_12",
+      "type": "S",
+      "name": "Gaze: Staring Past",
+      "desc": "gaze fixed just beyond the viewer/subject as if something stands behind them"
+    },
+    {
+      "id": "A_S_13",
+      "type": "S",
+      "name": "Gaze: Off-Camera Fixation",
+      "desc": "eyes locked on something outside the frame, attention rigid and unbroken"
+    },
+    {
+      "id": "A_U_01",
+      "type": "U",
+      "name": "Phone: Listening Intently",
+      "desc": "holding phone to ear, brow furrowed, listening intently"
+    },
+    {
+      "id": "A_U_02",
+      "type": "U",
+      "name": "Phone: Animated Gesture",
+      "desc": "phone to ear, free hand mid-gesture, animated expression"
+    },
+    {
+      "id": "A_U_03",
+      "type": "U",
+      "name": "Phone: Discreet Call",
+      "desc": "looking downward while on phone, voice implied low and controlled"
+    },
+    {
+      "id": "A_U_04",
+      "type": "U",
+      "name": "Chat: Leaning In",
+      "desc": "leaning slightly toward the other person, quiet conversation"
+    },
+    {
+      "id": "A_U_05",
+      "type": "U",
+      "name": "Chat: Private Exchange",
+      "desc": "standing close, shoulders aligned, private exchange"
+    },
+    {
+      "id": "A_U_06",
+      "type": "U",
+      "name": "Chat: Distracted",
+      "desc": "speaking without eye contact, eyes forward, restrained expression"
+    },
+    {
+      "id": "A_U_07",
+      "type": "U",
+      "name": "React: Turning Head",
+      "desc": "turning head over shoulder, reacting to something unseen"
+    },
+    {
+      "id": "A_U_08",
+      "type": "U",
+      "name": "React: Frozen Mid-Step",
+      "desc": "mid-step, body caught in motion, pause in action"
+    },
+    {
+      "id": "A_U_09",
+      "type": "U",
+      "name": "Task: Reaching Out",
+      "desc": "reaching out with one hand, action paused"
+    },
+    {
+      "id": "A_U_10",
+      "type": "U",
+      "name": "Task: Adjusting Clothing",
+      "desc": "adjusting clothing or accessory, fixing cuff or collar"
+    },
+    {
+      "id": "A_C_01",
+      "type": "C",
+      "name": "Fight: Fists Clenched",
+      "desc": "fists clenched, jaw tight, body tense, pre-fight tension"
+    },
+    {
+      "id": "A_C_02",
+      "type": "C",
+      "name": "Fight: Coiled Tension",
+      "desc": "lowering stance slightly, preparing to strike, controlled breathing"
+    },
+    {
+      "id": "A_C_03",
+      "type": "C",
+      "name": "Fight: Aggressive Lean",
+      "desc": "leaning forward a fraction, aggressive intent implied"
+    },
+    {
+      "id": "A_C_04",
+      "type": "C",
+      "name": "Threat: Invading Space",
+      "desc": "leaning in slightly, invading personal space, dominant posture"
+    },
+    {
+      "id": "A_C_05",
+      "type": "C",
+      "name": "Threat: Calm Menace",
+      "desc": "chin raised, shoulders squared, calm menace, one hand subtly raised"
+    },
+    {
+      "id": "A_C_06",
+      "type": "C",
+      "name": "Defense: Recoil",
+      "desc": "shoulders tense, body angled backward, uncertain response"
+    },
+    {
+      "id": "A_C_07",
+      "type": "C",
+      "name": "Defense: Frozen Stance",
+      "desc": "frozen stance, attention locked on aggressor, weight shifted back"
+    },
+    {
+      "id": "A_C_08",
+      "type": "C",
+      "name": "Weapon: Aiming Down Sights",
+      "desc": "one eye closed, weapon raised to eye level, intense focus"
+    },
+    {
+      "id": "A_C_09",
+      "type": "C",
+      "name": "Weapon: Tactical Advance",
+      "desc": "moving forward in a crouch, weapon tucked close, scanning"
+    },
+    {
+      "id": "A_C_10",
+      "type": "C",
+      "name": "Result: Adrenaline",
+      "desc": "standing still, chest rising, adrenaline visible, wiping face"
+    },
+    {
+      "id": "A_C_11",
+      "type": "C",
+      "name": "Result: Defeated",
+      "desc": "hands raised slowly above head, weapon dropped, expression resigned"
+    }
+  ],
+  "interactions": [
+    "Interviewing",
+    "Confronting",
+    "Collaborating",
+    "Shadowing",
+    "Instructing",
+    "Ignoring",
+    "Analyzing",
+    "Protecting",
+    "Witness Foreground / Threat Background",
+    "Shared Space Tension",
+    "Realization Recoil",
+    "Shock vs. Calm",
+    "Vertical Separation"
+  ]
+}
