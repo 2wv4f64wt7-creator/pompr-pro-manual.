@@ -1,7 +1,7 @@
 // -------------------------------------------------------------------
 // FILE: App.jsx
-// VERSION: 10.10
-// ARCHITECT NOTE: Strict Deduplication Logic.
+// VERSION: 10.12
+// ARCHITECT NOTE: Passed onRemoveActor2 to ScriptConsole. Removed footerSlot.
 // -------------------------------------------------------------------
 
 import React, { useState, useEffect } from 'react';
@@ -24,9 +24,11 @@ export default function App() {
   const [characters, setCharacters] = useState([...customCharacters, ...reelData.characters].filter(Boolean));
   const [scenes, setScenes] = useState([...customScenes, ...reelData.scenes].filter(Boolean));
   
-  const [scene, setScene] = useState(scenes[0]);
-  const [actor1, setActor1] = useState(characters[0]); 
+  // State Initialization: Null start
+  const [scene, setScene] = useState(null);
+  const [actor1, setActor1] = useState(null); 
   const [actor2, setActor2] = useState(null);
+  
   const [activeSlot, setActiveSlot] = useState(1);
   const [action, setAction] = useState(reelData.actions[0]);
   const [interaction, setInteraction] = useState(reelData.interactions[0]);
@@ -53,14 +55,11 @@ export default function App() {
     setScenes([...customScenes, ...reelData.scenes].filter(Boolean));
   }, [customScenes]);
 
-  // --- STRICT DEDUPLICATION SETTERS ---
   const smartSetCustomCharacters = (newItems) => {
     setCustomCharacters(prev => {
-      // Create a Set of IDs that ALREADY EXIST in the state
       const existingIds = new Set(prev.map(c => c.id));
-      // Only allow items that are NOT in the existing set
       const trulyNew = newItems.filter(c => !existingIds.has(c.id));
-      return [...trulyNew, ...prev]; // Add new ones to top
+      return [...trulyNew, ...prev]; 
     });
   };
 
@@ -73,14 +72,18 @@ export default function App() {
   };
 
   const getDynamicPrompt = () => {
+    const sceneText = scene ? `SCENE: ${scene.name} (${scene.desc}).` : "";
+    const cineText = scene ? `CINEMATOGRAPHY: ${scene.lighting}, Cinematic Lens.` : "";
+
     if (!actor1) {
       return {
         subject: null, ensemble: null, action: null,
-        scene: `SCENE: ${scene.name} (${scene.desc}).`,
-        cine: `CINEMATOGRAPHY: ${scene.lighting}, Cinematic Lens.`,
+        scene: sceneText,
+        cine: cineText,
         commercialTail: `${renderParams.suffix}`
       };
     }
+
     const ensembleText = actor2 ? `\nENSEMBLE: ${interaction} ${actor2.name} (${actor2.details}), wearing ${actor2.outfit}.` : "";
     let commercialFlags = "";
     const isMjOrNiji = ['mj61', 'mj7', 'niji6'].includes(renderParams.id);
@@ -92,8 +95,8 @@ export default function App() {
       subject: `SUBJECT: ${actor1.name} (${actor1.details}), wearing ${actor1.outfit}.`,
       ensemble: ensembleText,
       action: `\nACTION: ${action.name} (${action.desc}).`,
-      scene: `\nSCENE: ${scene.name} (${scene.desc}).`,
-      cine: `\nCINEMATOGRAPHY: ${scene.lighting}, Cinematic Lens.`,
+      scene: scene ? `\n${sceneText}` : "",
+      cine: scene ? `\n${cineText}` : "",
       commercialTail: `${commercialFlags}${renderParams.suffix}`
     };
   };
@@ -136,9 +139,11 @@ export default function App() {
 
       <div style={{ ...laneStyle, left: '0%', width: '30%' }}>
         <ReelColumn 
-          title="SCENE RIG" items={scenes} activeIds={[scene.id]} colorTheme="blue"
+          title="SCENE RIG" items={scenes} 
+          activeIds={scene ? [scene.id] : []} 
+          colorTheme="blue"
           showCreateButton={true} onCreateClick={() => setShowSceneModal(true)} onExport={exportAsset}
-          onSelect={(s) => { setIsManual(false); setScene(s); }}
+          onSelect={(s) => { setIsManual(false); setScene(s.id === scene?.id ? null : s); }} 
         />
       </div>
 
@@ -157,7 +162,7 @@ export default function App() {
               <button onClick={() => {setActiveSlot(2); if(!actor2 && actor1) setActor2(reelData.characters[1])}} style={{flex:1, fontSize:'10px', padding: '8px', background: activeSlot===2 ? '#ff8a00':'transparent', color: activeSlot===2?'white':'#888', border:'none', cursor:'pointer', fontWeight:'900', borderRadius:'2px'}}>ACTOR 2</button>
             </div>
           }
-          footerSlot={ actor2 && <button onClick={() => { setActor2(null); setActiveSlot(1); }} style={{ width: '100%', marginTop: '10px', background: 'rgba(255, 68, 68, 0.2)', color: '#ffaaaa', border: '1px solid rgba(255, 68, 68, 0.3)', fontSize: '11px', padding: '10px', cursor: 'pointer', fontWeight: 'bold' }}>REMOVE ACTOR 2</button> }
+          /* FOOTER SLOT REMOVED HERE */
         />
       </div>
 
@@ -168,6 +173,7 @@ export default function App() {
           actions={reelData.actions} action={action} setAction={(a) => { setAction(a); setIsManual(false); }}
           interactions={reelData.interactions} interaction={interaction} setInteraction={(i) => { setInteraction(i); setIsManual(false); }}
           actor1={actor1} actor2={actor2} actor2Active={!!actor2}
+          onRemoveActor2={() => { setActor2(null); setActiveSlot(1); }} // <--- NEW PROP
           onRandomix={triggerRandomix} isRandomizing={isRandomizing} seed={seed} setSeed={setSeed} sref={sref} setSref={setSref}
           renderParams={renderParams} setRenderParams={setRenderParams}
         />
@@ -175,7 +181,6 @@ export default function App() {
 
       <div style={{ position: 'absolute', zIndex: 100 }}>
         {showCastModal && <CastingModal onClose={() => setShowCastModal(false)} onSave={(c) => setCustomCharacters([c])} />} 
-        {/* Note: CastingModal returns single obj, smartSet handles array merge logic usually, but here we keep simple since creation is always new */}
         {showSceneModal && <SceneBuilderModal onClose={() => setShowSceneModal(false)} onSave={(s) => setCustomScenes([s])} />}
         {showVault && <TechVaultModal onClose={() => setShowVault(false)} customCharacters={customCharacters} setCustomCharacters={smartSetCustomCharacters} customScenes={customScenes} setCustomScenes={smartSetCustomScenes} fullCharacters={characters} fullScenes={scenes} />}
       </div>

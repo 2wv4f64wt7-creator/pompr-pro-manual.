@@ -24,7 +24,7 @@ export default function Header({ onOpenVault }) {
         <button style={baseButtonStyle} onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.1)'; }} onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(0,0,0,0.4)'; }}>Shop</button>
         <button style={baseButtonStyle} onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.1)'; }} onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(0,0,0,0.4)'; }}>Premiere</button>
       </nav>
-      <button onClick={onOpenVault} style={{ ...baseButtonStyle, color: '#00C6FF', borderColor: 'rgba(0, 198, 255, 0.4)', boxShadow: '0 0 15px rgba(0, 198, 255, 0.1)' }} onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(0, 198, 255, 0.1)'; e.currentTarget.style.boxShadow = '0 0 20px rgba(0, 198, 255, 0.2)'; }} onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(0,0,0,0.4)'; e.currentTarget.style.boxShadow = '0 0 15px rgba(0, 198, 255, 0.1)'; }}>Tech Vault</button>
+      <button onClick={onOpenVault} style={{ ...baseButtonStyle, color: '#00C6FF', borderColor: 'rgba(0, 198, 255, 0.4)', boxShadow: '0 0 15px rgba(0, 198, 255, 0.1)' }} onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(0, 198, 255, 0.1)'; e.currentTarget.style.boxShadow = '0 0 20px rgba(0, 198, 255, 0.2)'; }} onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(0,0,0,0.4)'; e.currentTarget.style.boxShadow = '0 0 15px rgba(0, 198, 255, 0.1)'; }}>Reel Loader</button>
     </header>
   );
 }

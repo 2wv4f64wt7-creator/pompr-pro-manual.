@@ -1,7 +1,7 @@
 // -------------------------------------------------------------------
 // FILE: ReelColumn.jsx
-// VERSION: 10.12 (The "Save Button" Restoration)
-// PRODUCER NOTE: Hard-coded Download Icon for JSON Export.
+// VERSION: 10.13
+// ARCHITECT NOTE: Enforced Category Sorting (ALL, CORP, LIFE, TECH, LUXE, UTIL, VOID).
 // -------------------------------------------------------------------
 
 import React, { useState, useEffect } from 'react';
@@ -16,7 +16,7 @@ export default function ReelColumn({
   onCreateClick,
   headerSlot,
   footerSlot,
-  onExport // <--- THIS is the critical connection
+  onExport 
 }) {
   const [filter, setFilter] = useState('ALL');
 
@@ -53,7 +53,6 @@ export default function ReelColumn({
   const getItemCategory = (item) => {
     if (!item) return 'OTHER';
     if (item.category) return item.category.toUpperCase();
-    // Fallback logic for items without explicit category
     if (item.id && item.id.includes('USER')) return 'USER';
     if (item.id && item.id.includes('_')) {
       const parts = item.id.split('_');
@@ -67,8 +66,22 @@ export default function ReelColumn({
     return code ? code.charAt(0).toUpperCase() + code.slice(1).toLowerCase() : "";
   };
 
+  // --- SORTING LOGIC ---
+  const PRESET_ORDER = ['ALL', 'CORP', 'LIFE', 'TECH', 'LUXE', 'UTIL', 'VOID'];
+  
   const safeItems = Array.isArray(items) ? items.filter(Boolean) : [];
-  const availableCategories = ['ALL', ...new Set(safeItems.map(item => getItemCategory(item)))];
+  const rawCategories = ['ALL', ...new Set(safeItems.map(item => getItemCategory(item)))];
+  
+  // Sort categories: Presets first in order, then others alphabetically
+  const availableCategories = rawCategories.sort((a, b) => {
+    const indexA = PRESET_ORDER.indexOf(a);
+    const indexB = PRESET_ORDER.indexOf(b);
+
+    if (indexA !== -1 && indexB !== -1) return indexA - indexB; // Both in preset
+    if (indexA !== -1) return -1; // Only A in preset
+    if (indexB !== -1) return 1;  // Only B in preset
+    return a.localeCompare(b);    // Neither in preset, alpha sort
+  });
   
   const filteredItems = filter === 'ALL' 
     ? safeItems 
@@ -169,10 +182,10 @@ export default function ReelColumn({
                 </div>
               </div>
 
-              {/* RIGHT: DOWNLOAD BUTTON (The Fix) */}
+              {/* RIGHT: DOWNLOAD BUTTON */}
               <button 
                 onClick={(e) => {
-                  e.stopPropagation(); // Stop selection
+                  e.stopPropagation(); 
                   if(onExport) onExport(item);
                 }}
                 title="Download JSON Card"
