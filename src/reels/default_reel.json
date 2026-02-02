@@ -1,8 +1,14 @@
 {
   "meta": {
-    "version": "9.9",
+    "version": "10.0",
     "type": "FACTORY_DEFAULT_UPDATED_ACTIONS",
-    "date": "2026-01-25"
+    "date": "2026-01-26",
+    "actionTypes": {
+      "S": "Static / Pose",
+      "U": "Utility / Interaction",
+      "C": "Conflict / Combat",
+      "V": "Video / Movement"
+    }
   },
   "characters": [
     {
@@ -44,7 +50,7 @@
       "id": "C_LIFE_02",
       "category": "LIFE",
       "name": "The Lifestyle Creator",
-      "details": "Age: 24. Female. Polished Gen-Z influencer, perfect highlighted hair, ring-light reflections in eyes.",
+      "details": "Age: 24. Female. Polished Gen-Z influencer, perfect highlighted hair, high-light reflections in eyes.",
       "outfit": "trendy athleisure crop top with layered gold jewelry. Skin is glowing and high-definition."
     },
     {
@@ -94,7 +100,7 @@
       "category": "LIFE",
       "name": "Senior Sal",
       "details": "Subject is a thin, slightly stooped, 60 year old male, Caucasian. Features include a thin lower lip and short upper lip with a thin line mustache, sparse grey beard on a weak chin, oval face, large fleshy nose, sharp brown alert eyes, and dark grey thinning hair with a receding hairline. Skin texture is weathered.",
-"outfit": "green cashmere turtleneck sweater, charcoal gray gaberdine slacks, dark brown leather shoes, beige trench overcoat, black leather full-size messenger bag. Expression is creative, energetic, friendly."
+      "outfit": "green cashmere turtleneck sweater, charcoal gray gaberdine slacks, dark brown leather shoes, beige trench overcoat, black leather full-size messenger bag. Expression is creative, energetic, friendly."
     },
     {
       "id": "C_TECH_01",
@@ -114,7 +120,7 @@
       "id": "C_TECH_03",
       "category": "TECH",
       "name": "Radiation Mutant",
-      "details": "Age: Unknown. Blistered skin. Welding mask fused to skull.",
+      "details": "Age: Unknown. Square face, blistered skin, glowing yellow eyes, crooked nose, cracked lips, jawline warped by tumors. Patchy hair, ears deformed. An elaborate arm tattoo of the name, “MONA” is partially deformed from all of the blisters and infections. Stocky, muscular, unstable gait. Welder's helmet fused to head.",
       "outfit": "ragged layers of heavy canvas. Texture includes rust, scars, and peeling paint."
     },
     {
@@ -437,6 +443,7 @@
       "name": "Gaze: Off-Camera Fixation",
       "desc": "eyes locked on something outside the frame, attention rigid and unbroken"
     },
+
     {
       "id": "A_U_01",
       "type": "U",
@@ -458,19 +465,19 @@
     {
       "id": "A_U_04",
       "type": "U",
-      "name": "Chat: Leaning In",
+      "name": "Communicating: Leaning In",
       "desc": "leaning slightly toward the other person, quiet conversation"
     },
     {
       "id": "A_U_05",
       "type": "U",
-      "name": "Chat: Private Exchange",
+      "name": "Communicating: Private Exchange",
       "desc": "standing close, shoulders aligned, private exchange"
     },
     {
       "id": "A_U_06",
       "type": "U",
-      "name": "Chat: Distracted",
+      "name": "Communicating: Distracted",
       "desc": "speaking without eye contact, eyes forward, restrained expression"
     },
     {
@@ -503,6 +510,7 @@
       "name": "Task: Sprinting",
       "desc": "body caught in motion, forward lean, arms bent"
     },
+
     {
       "id": "A_C_01",
       "type": "C",
@@ -568,24 +576,221 @@
       "type": "C",
       "name": "Result: Defeated",
       "desc": "hands raised slowly above head, weapon dropped, expression resigned"
+    },
+
+    {
+      "id": "A_S_14",
+      "type": "S",
+      "name": "Pose: Relaxed Stand",
+      "desc": "standing with weight evenly distributed, arms relaxed at sides, neutral posture"
+    },
+    {
+      "id": "A_S_15",
+      "type": "S",
+      "name": "Pose: Contrapposto",
+      "desc": "standing with weight on one leg, hip subtly shifted, relaxed but balanced stance"
+    },
+    {
+      "id": "A_S_16",
+      "type": "S",
+      "name": "Pose: Closed Stand",
+      "desc": "standing with arms crossed over chest, feet shoulder-width apart, guarded posture"
+    },
+    {
+      "id": "A_S_17",
+      "type": "S",
+      "name": "Pose: Casual Lean",
+      "desc": "standing with one hand in pocket, slight lean, relaxed posture"
+    },
+    {
+      "id": "A_S_18",
+      "type": "S",
+      "name": "Pose: At Attention",
+      "desc": "standing with feet together, arms straight at sides, formal posture"
+    },
+    {
+      "id": "A_S_19",
+      "type": "S",
+      "name": "Pose: Crossed Ankles",
+      "desc": "standing with legs loosely crossed at ankles, arms relaxed, casual stance"
+    },
+
+    {
+      "id": "A_U_12",
+      "type": "U",
+      "name": "Pose: Deep Squat",
+      "desc": "balanced deep squat, heels on ground, elbows resting lightly on knees"
+    },
+    {
+      "id": "A_U_13",
+      "type": "U",
+      "name": "Pose: Tall Kneel",
+      "desc": "kneeling on both knees, torso upright, hands resting on thighs"
+    },
+    {
+      "id": "A_U_14",
+      "type": "U",
+      "name": "Pose: Half Kneel",
+      "desc": "one knee on ground, other foot planted in front, balanced ready posture"
+    },
+    {
+      "id": "A_U_15",
+      "type": "U",
+      "name": "Pose: Tabletop",
+      "desc": "on hands and knees, back level, head neutral, stable base"
+    },
+
+    {
+      "id": "A_V_12",
+      "type": "V",
+      "name": "Move: Mid-Walk",
+      "desc": "walking forward mid-step, one foot lifted, arms swinging naturally"
+    },
+    {
+      "id": "A_V_13",
+      "type": "V",
+      "name": "Move: Sprint",
+      "desc": "running with forward lean, bent arms driving in rhythm"
+    },
+    {
+      "id": "A_V_14",
+      "type": "V",
+      "name": "Move: Vertical Jump",
+      "desc": "both feet off ground, arms raised for balance, upward motion implied"
+    },
+    {
+      "id": "A_V_15",
+      "type": "V",
+      "name": "Move: Forward Lunge",
+      "desc": "front knee bent, back leg extended behind, weight driving forward"
+    },
+    {
+      "id": "A_V_16",
+      "type": "V",
+      "name": "Move: Look-Back Turn",
+      "desc": "turning to look over one shoulder, one foot stepping back mid-rotation"
+    },
+    {
+      "id": "A_V_17",
+      "type": "V",
+      "name": "Move: Side Dash",
+      "desc": "quick sideways step, torso tilted, arms out for balance"
+    },
+    {
+      "id": "A_V_18",
+      "type": "V",
+      "name": "Move: Hero Fly",
+      "desc": "horizontal flying pose, body extended, one or both arms reaching forward"
+    },
+
+    {
+      "id": "A_S_20",
+      "type": "S",
+      "name": "Gesture: Open Welcome",
+      "desc": "standing with arms wide open, chest forward, welcoming stance"
+    },
+    {
+      "id": "A_V_19",
+      "type": "V",
+      "name": "Gesture: Friendly Wave",
+      "desc": "one arm raised in a wave, slight lean forward, approachable posture"
+    },
+    {
+      "id": "A_S_21",
+      "type": "S",
+      "name": "Gesture: Behind-Back",
+      "desc": "hands clasped behind back, head slightly tilted, composed stance"
+    },
+    {
+      "id": "A_S_22",
+      "type": "S",
+      "name": "Gesture: Thinker",
+      "desc": "one hand touching chin, other arm supporting elbow, thoughtful posture"
+    },
+    {
+      "id": "A_S_23",
+      "type": "S",
+      "name": "Gesture: Reserved Fold",
+      "desc": "arms folded across chest, shoulders slightly angled, guarded stance"
+    },
+    {
+      "id": "A_V_20",
+      "type": "V",
+      "name": "Gesture: Pointing Lead",
+      "desc": "one arm extended to point toward something, body subtly turned that way"
+    },
+    {
+      "id": "A_S_24",
+      "type": "S",
+      "name": "Gesture: Shy Cover",
+      "desc": "hands gently covering part of face or eyes, upper body slightly curved inward"
+    },
+
+    {
+      "id": "A_C_12",
+      "type": "C",
+      "name": "Fight: Face-Off",
+      "desc": "two characters standing face-to-face, tense body language, arms partly raised"
+    },
+    {
+      "id": "A_C_13",
+      "type": "C",
+      "name": "Fight: Advance-Retreat",
+      "desc": "one character stepping forward with an outstretched arm, the other leaning back defensively"
+    },
+    {
+      "id": "A_C_14",
+      "type": "C",
+      "name": "Fight: Spar Stance",
+      "desc": "both characters in guarded stance, bent knees, facing each other"
+    },
+    {
+      "id": "A_C_15",
+      "type": "C",
+      "name": "Fight: Blocked Strike",
+      "desc": "one character with extended arm in strike motion, other turning aside with arms lifted to block"
+    },
+    {
+      "id": "A_C_16",
+      "type": "C",
+      "name": "Fight: Push-Brace",
+      "desc": "one character pushing forward with both hands, the other bracing with feet apart"
+    },
+    {
+      "id": "A_C_17",
+      "type": "C",
+      "name": "Fight: Back-to-Back",
+      "desc": "two characters standing back-to-back, slightly crouched, arms ready"
+    },
+    {
+      "id": "A_C_18",
+      "type": "C",
+      "name": "Fight: Redirect",
+      "desc": "one character advancing, the other sliding sideways, arm extended to redirect movement"
+    },
+    {
+      "id": "A_C_19",
+      "type": "C",
+      "name": "Fight: High-Low",
+      "desc": "one character in low guarded stance, the other standing above with raised arm in controlled strike or block"
     }
   ],
   "interactions": [
-    "Interviewing",
-    "Confronting",
-    "Arguing",
-    "Canoodling",
-    "Collaborating",
-    "Shadowing",
-    "Instructing",
     "Ignoring",
     "Analyzing",
+    "Interviewing",
+    "Instructing",
+    "Collaborating",
+    "Shadowing",
+    "Canoodling",
     "Sprinting",
-    "Protecting",
-    "Witness Foreground / Threat Background",
+    "Vertical Separation",
     "Shared Space Tension",
+    "Witness Foreground / Threat Background",
     "Realization Recoil",
     "Shock vs. Calm",
-    "Vertical Separation"
+    "Confronting",
+    "Arguing",
+    "Protecting"
   ]
 }
