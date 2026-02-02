@@ -1,6 +1,6 @@
 {
   "meta": {
-    "version": "9.8",
+    "version": "9.9",
     "type": "FACTORY_DEFAULT_UPDATED_ACTIONS",
     "date": "2026-01-25"
   },
@@ -58,8 +58,8 @@
       "id": "C_LIFE_04",
       "category": "LIFE",
       "name": "The Busy Parent",
-      "details": "Age: 34. Female. Tired but warm, messy bun, slight dark circles under eyes.",
-      "outfit": "wrinkled soft cotton t-shirt and a flannel shirt tied around the waist."
+      "details": "Age: 34. Female. Tired but warm, messy hair bun, alert eyes.",
+      "outfit": "clean but wrinkled soft cotton t-shirt and a flannel shirt tied around the waist."
     },
     {
       "id": "C_LIFE_05",
@@ -73,7 +73,7 @@
       "category": "LIFE",
       "name": "Teen Skater Boy",
       "details": "Age: 17. Male. Mop of curly hair, light acne on forehead. Youthful rebel vibe.",
-      "outfit": "baggy graphic tee and worn denim. Skin texture is young and unpolished."
+      "outfit": "baggy graphic tee that says \"POMPR\" and worn denim. Skin texture is young and unpolished."
     },
     {
       "id": "C_LIFE_07",
@@ -93,8 +93,8 @@
       "id": "C_LIFE_09",
       "category": "LIFE",
       "name": "Senior Sal",
-      "details": "Age: 68. Male. Eccentric, wild white hair, intense wide-eyed stare. Manic expression.",
-      "outfit": "bright green cashmere cardigan. Prominent cashmere texture."
+      "details": "Subject is a thin, slightly stooped, 60 year old male, Caucasian. Features include a thin lower lip and short upper lip with a thin line mustache, sparse grey beard on a weak chin, oval face, large fleshy nose, sharp brown alert eyes, and dark grey thinning hair with a receding hairline. Skin texture is weathered.",
+"outfit": "green cashmere turtleneck sweater, charcoal gray gaberdine slacks, dark brown leather shoes, beige trench overcoat, black leather full-size messenger bag. Expression is creative, energetic, friendly."
     },
     {
       "id": "C_TECH_01",
@@ -498,6 +498,12 @@
       "desc": "adjusting clothing or accessory, fixing cuff or collar"
     },
     {
+      "id": "A_U_11",
+      "type": "U",
+      "name": "Task: Sprinting",
+      "desc": "body caught in motion, forward lean, arms bent"
+    },
+    {
       "id": "A_C_01",
       "type": "C",
       "name": "Fight: Fists Clenched",
@@ -567,11 +573,14 @@
   "interactions": [
     "Interviewing",
     "Confronting",
+    "Arguing",
+    "Canoodling",
     "Collaborating",
     "Shadowing",
     "Instructing",
     "Ignoring",
     "Analyzing",
+    "Sprinting",
     "Protecting",
     "Witness Foreground / Threat Background",
     "Shared Space Tension",
