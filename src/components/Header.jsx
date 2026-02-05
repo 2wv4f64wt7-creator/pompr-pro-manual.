@@ -17,7 +17,7 @@ export default function Header({ onOpenVault }) {
       <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
         <img src="/logo.svg" alt="POMPR-PRO" style={{ height: '24px', width: 'auto', display: 'block' }} onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'block'; }} />
         <h1 style={{ display: 'none', fontSize: '24px', fontWeight: '900', letterSpacing: '-1px', margin: 0, color: 'white' }}>POMPR-PRO</h1>
-        <span style={{ background: '#10b981', color: 'black', fontSize: '10px', fontWeight: '900', padding: '2px 6px', borderRadius: '4px' }}>V10.6 ACTIVE</span>
+        <span style={{ background: '#10b981', color: 'black', fontSize: '10px', fontWeight: '900', padding: '2px 6px', borderRadius: '4px' }}>V11 MODULAR</span>
       </div>
       <nav style={{ display: 'flex', gap: '15px' }}>
         <button 
