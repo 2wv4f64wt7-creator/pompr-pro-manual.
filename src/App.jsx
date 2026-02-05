@@ -1,17 +1,19 @@
 // -------------------------------------------------------------------
 // FILE: App.jsx
-// VERSION: 10.12
-// ARCHITECT NOTE: Passed onRemoveActor2 to ScriptConsole. Removed footerSlot.
+// VERSION: 11.0 (MASTER REFACTOR COMPLETE)
+// ARCHITECT NOTE: All core logic moved to /components. App.jsx acts as Controller.
 // -------------------------------------------------------------------
 
 import React, { useState, useEffect } from 'react';
 import reelData from './reels/default_reel.json';
-import CastingModal from './CastingModal';
-import SceneBuilderModal from './SceneBuilderModal';
-import ReelColumn from './ReelColumn';
-import ScriptConsole from './ScriptConsole';
-import Header from './Header';
-import TechVaultModal from './TechVaultModal';
+
+// --- MODULAR IMPORTS (ALL COMPONENTS) ---
+import CastingModal from './components/CastingModal'; 
+import SceneBuilderModal from './components/SceneBuilderModal';
+import ReelColumn from './components/ReelColumn'; 
+import Header from './components/Header'; 
+import ScriptConsole from './components/ScriptConsole'; // <--- MOVED
+import TechVaultModal from './components/TechVaultModal'; // <--- MOVED
 
 export default function App() {
   const [customCharacters, setCustomCharacters] = useState(() => {
@@ -24,7 +26,7 @@ export default function App() {
   const [characters, setCharacters] = useState([...customCharacters, ...reelData.characters].filter(Boolean));
   const [scenes, setScenes] = useState([...customScenes, ...reelData.scenes].filter(Boolean));
   
-  // State Initialization: Null start
+  // State Initialization
   const [scene, setScene] = useState(null);
   const [actor1, setActor1] = useState(null); 
   const [actor2, setActor2] = useState(null);
@@ -162,7 +164,6 @@ export default function App() {
               <button onClick={() => {setActiveSlot(2); if(!actor2 && actor1) setActor2(reelData.characters[1])}} style={{flex:1, fontSize:'10px', padding: '8px', background: activeSlot===2 ? '#ff8a00':'transparent', color: activeSlot===2?'white':'#888', border:'none', cursor:'pointer', fontWeight:'900', borderRadius:'2px'}}>ACTOR 2</button>
             </div>
           }
-          /* FOOTER SLOT REMOVED HERE */
         />
       </div>
 
@@ -173,15 +174,15 @@ export default function App() {
           actions={reelData.actions} action={action} setAction={(a) => { setAction(a); setIsManual(false); }}
           interactions={reelData.interactions} interaction={interaction} setInteraction={(i) => { setInteraction(i); setIsManual(false); }}
           actor1={actor1} actor2={actor2} actor2Active={!!actor2}
-          onRemoveActor2={() => { setActor2(null); setActiveSlot(1); }} // <--- NEW PROP
+          onRemoveActor2={() => { setActor2(null); setActiveSlot(1); }} 
           onRandomix={triggerRandomix} isRandomizing={isRandomizing} seed={seed} setSeed={setSeed} sref={sref} setSref={setSref}
           renderParams={renderParams} setRenderParams={setRenderParams}
         />
       </div>
 
       <div style={{ position: 'absolute', zIndex: 100 }}>
-        {showCastModal && <CastingModal onClose={() => setShowCastModal(false)} onSave={(c) => setCustomCharacters([c])} />} 
-        {showSceneModal && <SceneBuilderModal onClose={() => setShowSceneModal(false)} onSave={(s) => setCustomScenes([s])} />}
+        {showCastModal && <CastingModal onClose={() => setShowCastModal(false)} onSave={(c) => smartSetCustomCharacters([c])} />} 
+        {showSceneModal && <SceneBuilderModal onClose={() => setShowSceneModal(false)} onSave={(s) => smartSetCustomScenes([s])} />}
         {showVault && <TechVaultModal onClose={() => setShowVault(false)} customCharacters={customCharacters} setCustomCharacters={smartSetCustomCharacters} customScenes={customScenes} setCustomScenes={smartSetCustomScenes} fullCharacters={characters} fullScenes={scenes} />}
       </div>
     </div>
