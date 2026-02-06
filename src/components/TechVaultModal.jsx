@@ -1,6 +1,6 @@
 // -------------------------------------------------------------------
 // FILE: src/components/TechVaultModal.jsx
-// VERSION: 10.10 (Modularized)
+// VERSION: 11.1 (Reel Loader Action Support)
 // -------------------------------------------------------------------
 
 import React, { useRef } from 'react';
@@ -9,8 +9,10 @@ export default function TechVaultModal({
   onClose, 
   setCustomCharacters, 
   setCustomScenes,
+  setCustomActions, // NEW
   fullCharacters,
-  fullScenes 
+  fullScenes,
+  fullActions // NEW
 }) {
   const fileInputRef = useRef(null);
 
@@ -24,39 +26,52 @@ export default function TechVaultModal({
         const data = JSON.parse(event.target.result);
         let charCount = 0;
         let sceneCount = 0;
+        let actionCount = 0;
 
         // 1. DATA DETECTION
         const rawChars = data.characters || (data.details ? [data] : []);
         const rawScenes = data.scenes || (data.desc ? [data] : []);
+        const rawActions = data.actions || []; // NEW: Check for actions array
 
-        // 2. PROCESS CHARACTERS (PRESERVE IDS)
+        // 2. PROCESS CHARACTERS
         if (rawChars.length > 0) {
           const processedChars = rawChars.map(c => ({
             ...c,
-            // CRITICAL FIX: Only generate ID if missing. Trust the file's ID.
             id: c.id || `C_USER_IMP_${Math.random().toString(36).substr(2, 9)}`,
             isCustom: true
           }));
-          setCustomCharacters(processedChars); // Send to App for merging
+          setCustomCharacters(processedChars); 
           charCount = processedChars.length;
         }
 
-        // 3. PROCESS SCENES (PRESERVE IDS)
+        // 3. PROCESS SCENES
         if (rawScenes.length > 0) {
           const processedScenes = rawScenes.map(s => ({
             ...s,
             id: s.id || `S_USER_IMP_${Math.random().toString(36).substr(2, 9)}`,
             isCustom: true
           }));
-          setCustomScenes(processedScenes); // Send to App for merging
+          setCustomScenes(processedScenes); 
           sceneCount = processedScenes.length;
         }
 
-        if (charCount > 0 || sceneCount > 0) {
-          alert(`VAULT IMPORT:\n- ${charCount} Characters Processed\n- ${sceneCount} Scenes Processed`);
+        // 4. PROCESS ACTIONS (NEW)
+        if (rawActions.length > 0) {
+          const processedActions = rawActions.map(a => ({
+            ...a,
+            id: a.id || `A_USER_IMP_${Math.random().toString(36).substr(2, 9)}`,
+            type: a.type || 'USER', // Default type if missing
+            isCustom: true
+          }));
+          if (setCustomActions) setCustomActions(processedActions);
+          actionCount = processedActions.length;
+        }
+
+        if (charCount > 0 || sceneCount > 0 || actionCount > 0) {
+          alert(`VAULT IMPORT REPORT:\n- ${charCount} Characters\n- ${sceneCount} Scenes\n- ${actionCount} Actions`);
           onClose();
         } else {
-          alert("IMPORT WARNING: No valid characters or scenes found.");
+          alert("IMPORT WARNING: No valid items found in file.");
         }
 
       } catch (err) {
@@ -70,9 +85,11 @@ export default function TechVaultModal({
   const handleExport = () => {
     const bundle = {
       export_date: new Date().toISOString(),
-      app_version: "10.10",
+      app_version: "11.1",
       characters: fullCharacters.filter(c => c.isCustom || c.id.includes('USER') || c.id.includes('IMP')),
-      scenes: fullScenes.filter(s => s.isCustom || s.id.includes('USER') || s.id.includes('IMP'))
+      scenes: fullScenes.filter(s => s.isCustom || s.id.includes('USER') || s.id.includes('IMP')),
+      // NEW: Include custom actions in export
+      actions: fullActions ? fullActions.filter(a => a.isCustom || (a.id && a.id.includes('USER')) || (a.id && a.id.includes('IMP'))) : []
     };
     
     const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(bundle, null, 2));
@@ -85,7 +102,7 @@ export default function TechVaultModal({
   };
 
   const handleReset = () => {
-    if (window.confirm("FACTORY RESET: This will delete ALL custom talent and scenes. Proceed?")) {
+    if (window.confirm("FACTORY RESET: This will delete ALL custom data. Proceed?")) {
       localStorage.clear();
       window.location.reload();
     }

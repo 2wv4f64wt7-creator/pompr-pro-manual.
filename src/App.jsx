@@ -1,7 +1,7 @@
 // -------------------------------------------------------------------
 // FILE: App.jsx
-// VERSION: 11.0 (MASTER REFACTOR COMPLETE)
-// ARCHITECT NOTE: All core logic moved to /components. App.jsx acts as Controller.
+// VERSION: 11.1
+// ARCHITECT NOTE: Added support for Custom Action Import via Reel Loader.
 // -------------------------------------------------------------------
 
 import React, { useState, useEffect } from 'react';
@@ -12,21 +12,29 @@ import CastingModal from './components/CastingModal';
 import SceneBuilderModal from './components/SceneBuilderModal';
 import ReelColumn from './components/ReelColumn'; 
 import Header from './components/Header'; 
-import ScriptConsole from './components/ScriptConsole'; // <--- MOVED
-import TechVaultModal from './components/TechVaultModal'; // <--- MOVED
+import ScriptConsole from './components/ScriptConsole';
+import TechVaultModal from './components/TechVaultModal';
 
 export default function App() {
+  // --- STATE: CUSTOM DATA (LOCAL STORAGE) ---
   const [customCharacters, setCustomCharacters] = useState(() => {
     try { return JSON.parse(localStorage.getItem('PPRO_CUSTOM_CAST') || '[]'); } catch { return []; }
   });
   const [customScenes, setCustomScenes] = useState(() => {
     try { return JSON.parse(localStorage.getItem('PPRO_CUSTOM_SCENES') || '[]'); } catch { return []; }
   });
+  // NEW: Custom Actions State
+  const [customActions, setCustomActions] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('PPRO_CUSTOM_ACTIONS') || '[]'); } catch { return []; }
+  });
 
+  // --- STATE: MERGED DATA (DEFAULT + CUSTOM) ---
   const [characters, setCharacters] = useState([...customCharacters, ...reelData.characters].filter(Boolean));
   const [scenes, setScenes] = useState([...customScenes, ...reelData.scenes].filter(Boolean));
+  // NEW: Merged Actions
+  const [actions, setActions] = useState([...customActions, ...reelData.actions].filter(Boolean));
   
-  // State Initialization
+  // --- STATE: SELECTIONS ---
   const [scene, setScene] = useState(null);
   const [actor1, setActor1] = useState(null); 
   const [actor2, setActor2] = useState(null);
@@ -47,6 +55,7 @@ export default function App() {
   const [showVault, setShowVault] = useState(false);
   const [isRandomizing, setIsRandomizing] = useState(false);
 
+  // --- STORAGE EFFECTS ---
   useEffect(() => {
     localStorage.setItem('PPRO_CUSTOM_CAST', JSON.stringify(customCharacters));
     setCharacters([...customCharacters, ...reelData.characters].filter(Boolean));
@@ -57,6 +66,13 @@ export default function App() {
     setScenes([...customScenes, ...reelData.scenes].filter(Boolean));
   }, [customScenes]);
 
+  // NEW: Actions Storage Effect
+  useEffect(() => {
+    localStorage.setItem('PPRO_CUSTOM_ACTIONS', JSON.stringify(customActions));
+    setActions([...customActions, ...reelData.actions].filter(Boolean));
+  }, [customActions]);
+
+  // --- SMART SETTERS (DEDUPLICATION) ---
   const smartSetCustomCharacters = (newItems) => {
     setCustomCharacters(prev => {
       const existingIds = new Set(prev.map(c => c.id));
@@ -69,6 +85,15 @@ export default function App() {
     setCustomScenes(prev => {
       const existingIds = new Set(prev.map(s => s.id));
       const trulyNew = newItems.filter(s => !existingIds.has(s.id));
+      return [...trulyNew, ...prev];
+    });
+  };
+
+  // NEW: Smart Setter for Actions
+  const smartSetCustomActions = (newItems) => {
+    setCustomActions(prev => {
+      const existingIds = new Set(prev.map(a => a.id));
+      const trulyNew = newItems.filter(a => !existingIds.has(a.id));
       return [...trulyNew, ...prev];
     });
   };
@@ -171,7 +196,8 @@ export default function App() {
         <ScriptConsole 
           isEditing={isEditing} setIsEditing={setIsEditing} isManual={isManual} setIsManual={setIsManual}
           manualText={manualText} setManualText={setManualText} dynamicPrompt={dp} fullDynamicString={fullDynamicString}
-          actions={reelData.actions} action={action} setAction={(a) => { setAction(a); setIsManual(false); }}
+          actions={actions} // UPDATED: Passing merged actions, not reelData.actions
+          action={action} setAction={(a) => { setAction(a); setIsManual(false); }}
           interactions={reelData.interactions} interaction={interaction} setInteraction={(i) => { setInteraction(i); setIsManual(false); }}
           actor1={actor1} actor2={actor2} actor2Active={!!actor2}
           onRemoveActor2={() => { setActor2(null); setActiveSlot(1); }} 
@@ -183,7 +209,17 @@ export default function App() {
       <div style={{ position: 'absolute', zIndex: 100 }}>
         {showCastModal && <CastingModal onClose={() => setShowCastModal(false)} onSave={(c) => smartSetCustomCharacters([c])} />} 
         {showSceneModal && <SceneBuilderModal onClose={() => setShowSceneModal(false)} onSave={(s) => smartSetCustomScenes([s])} />}
-        {showVault && <TechVaultModal onClose={() => setShowVault(false)} customCharacters={customCharacters} setCustomCharacters={smartSetCustomCharacters} customScenes={customScenes} setCustomScenes={smartSetCustomScenes} fullCharacters={characters} fullScenes={scenes} />}
+        {showVault && 
+          <TechVaultModal 
+            onClose={() => setShowVault(false)} 
+            setCustomCharacters={smartSetCustomCharacters} 
+            setCustomScenes={smartSetCustomScenes}
+            setCustomActions={smartSetCustomActions} // NEW PROP
+            fullCharacters={characters} 
+            fullScenes={scenes} 
+            fullActions={actions} // NEW PROP
+          />
+        }
       </div>
     </div>
   );

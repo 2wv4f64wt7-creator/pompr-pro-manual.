@@ -1,6 +1,6 @@
 // -------------------------------------------------------------------
 // FILE: src/components/Header.jsx
-// VERSION: 10.6 (Modularized)
+// VERSION: 11 (Modularized)
 // -------------------------------------------------------------------
 import React from 'react';
 
