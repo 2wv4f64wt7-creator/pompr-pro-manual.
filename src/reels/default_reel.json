@@ -1,8 +1,8 @@
 {
   "meta": {
-    "version": "10.0",
-    "type": "FACTORY_DEFAULT_UPDATED_ACTIONS",
-    "date": "2026-01-26",
+    "version": "11.7",
+    "type": "FACTORY_DEFAULT_EXPANDED",
+    "date": "2026-02-12",
     "actionTypes": {
       "S": "Static / Pose",
       "U": "Utility / Interaction",
@@ -369,428 +369,4026 @@
       "id": "A_S_01",
       "type": "S",
       "name": "Pose: Power Stance (Heroic)",
-      "desc": "standing tall, hands on hips, low camera angle, wind in hair, heroic silhouette"
+      "desc": "standing tall, hands on hips, low camera angle, wind in hair, heroic silhouette",
+      "intensity": 3
     },
     {
       "id": "A_S_02",
       "type": "S",
       "name": "Pose: Editorial Lean",
-      "desc": "leaning casually against a wall, detached cool expression, looking off-camera"
+      "desc": "leaning casually against a wall, detached cool expression, looking off-camera",
+      "intensity": 2
     },
     {
       "id": "A_S_03",
       "type": "S",
       "name": "Sit: Upright & Attentive",
-      "desc": "sitting upright, hands resting on thighs, posture attentive"
+      "desc": "sitting upright, hands resting on thighs, posture attentive",
+      "intensity": 1
     },
     {
       "id": "A_S_04",
       "type": "S",
       "name": "Sit: Leaning Forward",
-      "desc": "leaning forward while seated, elbows on knees, focused expression"
+      "desc": "leaning forward while seated, elbows on knees, focused expression",
+      "intensity": 2
     },
     {
       "id": "A_S_05",
       "type": "S",
       "name": "Sit: Guarded",
-      "desc": "sitting back with arms crossed, posture guarded"
+      "desc": "sitting back with arms crossed, posture guarded",
+      "intensity": 2
     },
     {
       "id": "A_S_06",
       "type": "S",
       "name": "Sit: Introspective",
-      "desc": "sitting still, shoulders slightly hunched, introspective mood"
+      "desc": "sitting still, shoulders slightly hunched, introspective mood",
+      "intensity": 1
     },
     {
       "id": "A_S_07",
       "type": "S",
       "name": "Stand: Relaxed Alert",
-      "desc": "standing with weight evenly distributed, relaxed but alert"
+      "desc": "standing with weight evenly distributed, relaxed but alert",
+      "intensity": 2
     },
     {
       "id": "A_S_08",
       "type": "S",
       "name": "Stand: Squared Shoulders",
-      "desc": "standing with arms at sides, shoulders squared, formal posture"
+      "desc": "standing with arms at sides, shoulders squared, formal posture",
+      "intensity": 3
     },
     {
       "id": "A_S_09",
       "type": "S",
       "name": "Stand: Hands Behind Back",
-      "desc": "standing with hands clasped behind back, composed posture"
+      "desc": "standing with hands clasped behind back, composed posture",
+      "intensity": 2
     },
     {
       "id": "A_S_10",
       "type": "S",
       "name": "Gaze: Unblinking Stare",
-      "desc": "eyes open wider than natural, blinking absent or extremely rare, intense focus"
+      "desc": "eyes open wider than natural, blinking absent or extremely rare, intense focus",
+      "intensity": 4
     },
     {
       "id": "A_S_11",
       "type": "S",
       "name": "Gaze: Locked on Viewer",
-      "desc": "eyes focused directly toward the viewer, gaze held too long without blinking"
+      "desc": "eyes focused directly toward the viewer, gaze held too long without blinking",
+      "intensity": 4
     },
     {
       "id": "A_S_12",
       "type": "S",
       "name": "Gaze: Staring Past",
-      "desc": "gaze fixed just beyond the viewer/subject as if something stands behind them"
+      "desc": "gaze fixed just beyond the viewer/subject as if something stands behind them",
+      "intensity": 2
     },
     {
       "id": "A_S_13",
       "type": "S",
       "name": "Gaze: Off-Camera Fixation",
-      "desc": "eyes locked on something outside the frame, attention rigid and unbroken"
+      "desc": "eyes locked on something outside the frame, attention rigid and unbroken",
+      "intensity": 3
     },
-
     {
       "id": "A_U_01",
       "type": "U",
       "name": "Phone: Listening Intently",
-      "desc": "holding phone to ear, brow furrowed, listening intently"
+      "desc": "holding phone to ear, brow furrowed, listening intently",
+      "intensity": 3
     },
     {
       "id": "A_U_02",
       "type": "U",
       "name": "Phone: Animated Gesture",
-      "desc": "phone to ear, free hand mid-gesture, animated expression"
+      "desc": "phone to ear, free hand mid-gesture, animated expression",
+      "intensity": 5
     },
     {
       "id": "A_U_03",
       "type": "U",
       "name": "Phone: Discreet Call",
-      "desc": "looking downward while on phone, voice implied low and controlled"
+      "desc": "looking downward while on phone, voice implied low and controlled",
+      "intensity": 2
     },
     {
       "id": "A_U_04",
       "type": "U",
       "name": "Communicating: Leaning In",
-      "desc": "leaning slightly toward the other person, quiet conversation"
+      "desc": "leaning slightly toward the other person, quiet conversation",
+      "intensity": 3
     },
     {
       "id": "A_U_05",
       "type": "U",
       "name": "Communicating: Private Exchange",
-      "desc": "standing close, shoulders aligned, private exchange"
+      "desc": "standing close, shoulders aligned, private exchange",
+      "intensity": 3
     },
     {
       "id": "A_U_06",
       "type": "U",
       "name": "Communicating: Distracted",
-      "desc": "speaking without eye contact, eyes forward, restrained expression"
+      "desc": "speaking without eye contact, eyes forward, restrained expression",
+      "intensity": 2
     },
     {
       "id": "A_U_07",
       "type": "U",
       "name": "React: Turning Head",
-      "desc": "turning head over shoulder, reacting to something unseen"
+      "desc": "turning head over shoulder, reacting to something unseen",
+      "intensity": 4
     },
     {
       "id": "A_U_08",
       "type": "U",
       "name": "React: Frozen Mid-Step",
-      "desc": "mid-step, body caught in motion, pause in action"
+      "desc": "mid-step, body caught in motion, pause in action",
+      "intensity": 4
     },
     {
       "id": "A_U_09",
       "type": "U",
       "name": "Task: Reaching Out",
-      "desc": "reaching out with one hand, action paused"
+      "desc": "reaching out with one hand, action paused",
+      "intensity": 3
     },
     {
       "id": "A_U_10",
       "type": "U",
       "name": "Task: Adjusting Clothing",
-      "desc": "adjusting clothing or accessory, fixing cuff or collar"
+      "desc": "adjusting clothing or accessory, fixing cuff or collar",
+      "intensity": 2
     },
     {
       "id": "A_U_11",
       "type": "U",
       "name": "Task: Sprinting",
-      "desc": "body caught in motion, forward lean, arms bent"
+      "desc": "body caught in motion, forward lean, arms bent",
+      "intensity": 9
     },
-
     {
       "id": "A_C_01",
       "type": "C",
       "name": "Fight: Fists Clenched",
-      "desc": "fists clenched, jaw tight, body tense, pre-fight tension"
+      "desc": "fists clenched, jaw tight, body tense, pre-fight tension",
+      "intensity": 7
     },
     {
       "id": "A_C_02",
       "type": "C",
       "name": "Fight: Coiled Tension",
-      "desc": "lowering stance slightly, preparing to strike, controlled breathing"
+      "desc": "lowering stance slightly, preparing to strike, controlled breathing",
+      "intensity": 8
     },
     {
       "id": "A_C_03",
       "type": "C",
       "name": "Fight: Aggressive Lean",
-      "desc": "leaning forward a fraction, aggressive intent implied"
+      "desc": "leaning forward a fraction, aggressive intent implied",
+      "intensity": 7
     },
     {
       "id": "A_C_04",
       "type": "C",
       "name": "Threat: Invading Space",
-      "desc": "leaning in slightly, invading personal space, dominant posture"
+      "desc": "leaning in slightly, invading personal space, dominant posture",
+      "intensity": 8
     },
     {
       "id": "A_C_05",
       "type": "C",
       "name": "Threat: Calm Menace",
-      "desc": "chin raised, shoulders squared, calm menace, one hand subtly raised"
+      "desc": "chin raised, shoulders squared, calm menace, one hand subtly raised",
+      "intensity": 7
     },
     {
       "id": "A_C_06",
       "type": "C",
       "name": "Defense: Recoil",
-      "desc": "shoulders tense, body angled backward, uncertain response"
+      "desc": "shoulders tense, body angled backward, uncertain response",
+      "intensity": 6
     },
     {
       "id": "A_C_07",
       "type": "C",
       "name": "Defense: Frozen Stance",
-      "desc": "frozen stance, attention locked on aggressor, weight shifted back"
+      "desc": "frozen stance, attention locked on aggressor, weight shifted back",
+      "intensity": 5
     },
     {
       "id": "A_C_08",
       "type": "C",
       "name": "Weapon: Aiming Down Sights",
-      "desc": "one eye closed, weapon raised to eye level, intense focus"
+      "desc": "one eye closed, weapon raised to eye level, intense focus",
+      "intensity": 9
     },
     {
       "id": "A_C_09",
       "type": "C",
       "name": "Weapon: Tactical Advance",
-      "desc": "moving forward in a crouch, weapon tucked close, scanning"
+      "desc": "moving forward in a crouch, weapon tucked close, scanning",
+      "intensity": 8
     },
     {
       "id": "A_C_10",
       "type": "C",
       "name": "Result: Adrenaline",
-      "desc": "standing still, chest rising, adrenaline visible, wiping face"
+      "desc": "standing still, chest rising, adrenaline visible, wiping face",
+      "intensity": 6
     },
     {
       "id": "A_C_11",
       "type": "C",
       "name": "Result: Defeated",
-      "desc": "hands raised slowly above head, weapon dropped, expression resigned"
+      "desc": "hands raised slowly above head, weapon dropped, expression resigned",
+      "intensity": 4
     },
-
     {
       "id": "A_S_14",
       "type": "S",
       "name": "Pose: Relaxed Stand",
-      "desc": "standing with weight evenly distributed, arms relaxed at sides, neutral posture"
+      "desc": "standing with weight evenly distributed, arms relaxed at sides, neutral posture",
+      "intensity": 1
     },
     {
       "id": "A_S_15",
       "type": "S",
       "name": "Pose: Contrapposto",
-      "desc": "standing with weight on one leg, hip subtly shifted, relaxed but balanced stance"
+      "desc": "standing with weight on one leg, hip subtly shifted, relaxed but balanced stance",
+      "intensity": 2
     },
     {
       "id": "A_S_16",
       "type": "S",
       "name": "Pose: Closed Stand",
-      "desc": "standing with arms crossed over chest, feet shoulder-width apart, guarded posture"
+      "desc": "standing with arms crossed over chest, feet shoulder-width apart, guarded posture",
+      "intensity": 2
     },
     {
       "id": "A_S_17",
       "type": "S",
       "name": "Pose: Casual Lean",
-      "desc": "standing with one hand in pocket, slight lean, relaxed posture"
+      "desc": "standing with one hand in pocket, slight lean, relaxed posture",
+      "intensity": 1
     },
     {
       "id": "A_S_18",
       "type": "S",
       "name": "Pose: At Attention",
-      "desc": "standing with feet together, arms straight at sides, formal posture"
+      "desc": "standing with feet together, arms straight at sides, formal posture",
+      "intensity": 3
     },
     {
       "id": "A_S_19",
       "type": "S",
       "name": "Pose: Crossed Ankles",
-      "desc": "standing with legs loosely crossed at ankles, arms relaxed, casual stance"
+      "desc": "standing with legs loosely crossed at ankles, arms relaxed, casual stance",
+      "intensity": 1
     },
-
     {
       "id": "A_U_12",
       "type": "U",
       "name": "Pose: Deep Squat",
-      "desc": "balanced deep squat, heels on ground, elbows resting lightly on knees"
+      "desc": "balanced deep squat, heels on ground, elbows resting lightly on knees",
+      "intensity": 4
     },
     {
       "id": "A_U_13",
       "type": "U",
       "name": "Pose: Tall Kneel",
-      "desc": "kneeling on both knees, torso upright, hands resting on thighs"
+      "desc": "kneeling on both knees, torso upright, hands resting on thighs",
+      "intensity": 3
     },
     {
       "id": "A_U_14",
       "type": "U",
       "name": "Pose: Half Kneel",
-      "desc": "one knee on ground, other foot planted in front, balanced ready posture"
+      "desc": "one knee on ground, other foot planted in front, balanced ready posture",
+      "intensity": 4
     },
     {
       "id": "A_U_15",
       "type": "U",
       "name": "Pose: Tabletop",
-      "desc": "on hands and knees, back level, head neutral, stable base"
+      "desc": "on hands and knees, back level, head neutral, stable base",
+      "intensity": 3
     },
-
     {
       "id": "A_V_12",
       "type": "V",
       "name": "Move: Mid-Walk",
-      "desc": "walking forward mid-step, one foot lifted, arms swinging naturally"
+      "desc": "walking forward mid-step, one foot lifted, arms swinging naturally",
+      "intensity": 5
     },
     {
       "id": "A_V_13",
       "type": "V",
       "name": "Move: Sprint",
-      "desc": "running with forward lean, bent arms driving in rhythm"
+      "desc": "running with forward lean, bent arms driving in rhythm",
+      "intensity": 9
     },
     {
       "id": "A_V_14",
       "type": "V",
       "name": "Move: Vertical Jump",
-      "desc": "both feet off ground, arms raised for balance, upward motion implied"
+      "desc": "both feet off ground, arms raised for balance, upward motion implied",
+      "intensity": 8
     },
     {
       "id": "A_V_15",
       "type": "V",
       "name": "Move: Forward Lunge",
-      "desc": "front knee bent, back leg extended behind, weight driving forward"
+      "desc": "front knee bent, back leg extended behind, weight driving forward",
+      "intensity": 7
     },
     {
       "id": "A_V_16",
       "type": "V",
       "name": "Move: Look-Back Turn",
-      "desc": "turning to look over one shoulder, one foot stepping back mid-rotation"
+      "desc": "turning to look over one shoulder, one foot stepping back mid-rotation",
+      "intensity": 6
     },
     {
       "id": "A_V_17",
       "type": "V",
       "name": "Move: Side Dash",
-      "desc": "quick sideways step, torso tilted, arms out for balance"
+      "desc": "quick sideways step, torso tilted, arms out for balance",
+      "intensity": 8
     },
     {
       "id": "A_V_18",
       "type": "V",
       "name": "Move: Hero Fly",
-      "desc": "horizontal flying pose, body extended, one or both arms reaching forward"
+      "desc": "horizontal flying pose, body extended, one or both arms reaching forward",
+      "intensity": 9
     },
-
     {
       "id": "A_S_20",
       "type": "S",
       "name": "Gesture: Open Welcome",
-      "desc": "standing with arms wide open, chest forward, welcoming stance"
+      "desc": "standing with arms wide open, chest forward, welcoming stance",
+      "intensity": 4
     },
     {
       "id": "A_V_19",
       "type": "V",
       "name": "Gesture: Friendly Wave",
-      "desc": "one arm raised in a wave, slight lean forward, approachable posture"
+      "desc": "one arm raised in a wave, slight lean forward, approachable posture",
+      "intensity": 4
     },
     {
       "id": "A_S_21",
       "type": "S",
       "name": "Gesture: Behind-Back",
-      "desc": "hands clasped behind back, head slightly tilted, composed stance"
+      "desc": "hands clasped behind back, head slightly tilted, composed stance",
+      "intensity": 2
     },
     {
       "id": "A_S_22",
       "type": "S",
       "name": "Gesture: Thinker",
-      "desc": "one hand touching chin, other arm supporting elbow, thoughtful posture"
+      "desc": "one hand touching chin, other arm supporting elbow, thoughtful posture",
+      "intensity": 1
     },
     {
       "id": "A_S_23",
       "type": "S",
       "name": "Gesture: Reserved Fold",
-      "desc": "arms folded across chest, shoulders slightly angled, guarded stance"
+      "desc": "arms folded across chest, shoulders slightly angled, guarded stance",
+      "intensity": 2
     },
     {
       "id": "A_V_20",
       "type": "V",
       "name": "Gesture: Pointing Lead",
-      "desc": "one arm extended to point toward something, body subtly turned that way"
+      "desc": "one arm extended to point toward something, body subtly turned that way",
+      "intensity": 5
     },
     {
       "id": "A_S_24",
       "type": "S",
       "name": "Gesture: Shy Cover",
-      "desc": "hands gently covering part of face or eyes, upper body slightly curved inward"
+      "desc": "hands gently covering part of face or eyes, upper body slightly curved inward",
+      "intensity": 2
     },
-
     {
       "id": "A_C_12",
       "type": "C",
       "name": "Fight: Face-Off",
-      "desc": "two characters standing face-to-face, tense body language, arms partly raised"
+      "desc": "two characters standing face-to-face, tense body language, arms partly raised",
+      "intensity": 7
     },
     {
       "id": "A_C_13",
       "type": "C",
       "name": "Fight: Advance-Retreat",
-      "desc": "one character stepping forward with an outstretched arm, the other leaning back defensively"
+      "desc": "one character stepping forward with an outstretched arm, the other leaning back defensively",
+      "intensity": 8
     },
     {
       "id": "A_C_14",
       "type": "C",
       "name": "Fight: Spar Stance",
-      "desc": "both characters in guarded stance, bent knees, facing each other"
+      "desc": "both characters in guarded stance, bent knees, facing each other",
+      "intensity": 7
     },
     {
       "id": "A_C_15",
       "type": "C",
       "name": "Fight: Blocked Strike",
-      "desc": "one character with extended arm in strike motion, other turning aside with arms lifted to block"
+      "desc": "one character with extended arm in strike motion, other turning aside with arms lifted to block",
+      "intensity": 9
     },
     {
       "id": "A_C_16",
       "type": "C",
       "name": "Fight: Push-Brace",
-      "desc": "one character pushing forward with both hands, the other bracing with feet apart"
+      "desc": "one character pushing forward with both hands, the other bracing with feet apart",
+      "intensity": 8
     },
     {
       "id": "A_C_17",
       "type": "C",
       "name": "Fight: Back-to-Back",
-      "desc": "two characters standing back-to-back, slightly crouched, arms ready"
+      "desc": "two characters standing back-to-back, slightly crouched, arms ready",
+      "intensity": 6
     },
     {
       "id": "A_C_18",
       "type": "C",
       "name": "Fight: Redirect",
-      "desc": "one character advancing, the other sliding sideways, arm extended to redirect movement"
+      "desc": "one character advancing, the other sliding sideways, arm extended to redirect movement",
+      "intensity": 8
     },
     {
       "id": "A_C_19",
       "type": "C",
       "name": "Fight: High-Low",
-      "desc": "one character in low guarded stance, the other standing above with raised arm in controlled strike or block"
-    }
+      "desc": "one character in low guarded stance, the other standing above with raised arm in controlled strike or block",
+      "intensity": 9
+    },
+    {
+"id": "A_EXT_001",
+"type": "S",
+"name": "Sit: Power Slouch",
+"desc": "sitting low in chair, back rounded, knees apart, one arm draped on armrest, chin slightly down, effortless dominance",
+"intensity": 1
+},
+{
+"id": "A_EXT_002",
+"type": "S",
+"name": "Sit: Velvet Poise",
+"desc": "sitting upright with ankles crossed, hands folded neatly in lap, shoulders relaxed, calm high-status posture",
+"intensity": 1
+},
+{
+"id": "A_EXT_003",
+"type": "S",
+"name": "Sit: Edge Perch",
+"desc": "sitting on the front edge of a chair, feet planted, hands lightly on thighs, alert but still",
+"intensity": 1
+},
+{
+"id": "A_EXT_004",
+"type": "S",
+"name": "Sit: Side Saddle",
+"desc": "sitting sideways on chair, torso turned toward camera, one arm over chair back, relaxed editorial angle",
+"intensity": 1
+},
+{
+"id": "A_EXT_005",
+"type": "S",
+"name": "Sit: Closed Shell",
+"desc": "sitting with knees together, arms wrapped loosely around torso, shoulders slightly forward, protective posture",
+"intensity": 1
+},
+{
+"id": "A_EXT_006",
+"type": "S",
+"name": "Sit: Long Exhale",
+"desc": "sitting back, head tilted slightly up, shoulders dropped, hands open on thighs, quiet release",
+"intensity": 1
+},
+{
+"id": "A_EXT_007",
+"type": "S",
+"name": "Sit: Chin Rest",
+"desc": "seated with elbow on knee, chin resting on knuckles, gaze down and inward, still contemplative",
+"intensity": 1
+},
+{
+"id": "A_EXT_008",
+"type": "S",
+"name": "Sit: Ankles Tucked",
+"desc": "sitting with feet tucked slightly back, hands clasped softly, posture polite and small",
+"intensity": 1
+},
+{
+"id": "A_EXT_009",
+"type": "S",
+"name": "Sit: Chair Spin",
+"desc": "sitting slightly turned away, torso twisted back to camera, one hand on chair back, subtle intrigue",
+"intensity": 1
+},
+{
+"id": "A_EXT_010",
+"type": "S",
+"name": "Sit: Temple Touch",
+"desc": "seated, fingertips pressed lightly to temple, elbow supported, eyes half-lidded in thought",
+"intensity": 1
+},
+{
+"id": "A_EXT_011",
+"type": "S",
+"name": "Pose: Soft Stand",
+"desc": "standing still, arms loose at sides, weight centered, shoulders relaxed, neutral calm silhouette",
+"intensity": 1
+},
+{
+"id": "A_EXT_012",
+"type": "S",
+"name": "Pose: Quiet Lean",
+"desc": "standing with shoulder against wall, head slightly angled down, hands relaxed, minimal motion",
+"intensity": 1
+},
+{
+"id": "A_EXT_013",
+"type": "S",
+"name": "Pose: Pocket Drift",
+"desc": "standing with one hand in pocket, slight hip shift, other arm loose, casual confidence",
+"intensity": 1
+},
+{
+"id": "A_EXT_014",
+"type": "S",
+"name": "Pose: Crossed Calm",
+"desc": "standing with arms folded low, shoulders soft, feet planted, expression neutral, guarded but calm",
+"intensity": 1
+},
+{
+"id": "A_EXT_015",
+"type": "S",
+"name": "Pose: Collar Up",
+"desc": "standing, fingers lightly adjusting collar or lapel, chin slightly raised, clean composed silhouette",
+"intensity": 1
+},
+{
+"id": "A_EXT_016",
+"type": "S",
+"name": "Pose: Hands Folded",
+"desc": "standing with hands clasped in front at waist level, elbows relaxed, quiet attentive presence",
+"intensity": 1
+},
+{
+"id": "A_EXT_017",
+"type": "S",
+"name": "Pose: Behind Back",
+"desc": "standing with hands clasped behind back, shoulders open, slight head tilt, composed authority",
+"intensity": 1
+},
+{
+"id": "A_EXT_018",
+"type": "S",
+"name": "Pose: Heel Hook",
+"desc": "standing with one heel lightly hooked behind the other ankle, arms relaxed, effortless casual stance",
+"intensity": 1
+},
+{
+"id": "A_EXT_019",
+"type": "S",
+"name": "Pose: Side Profile",
+"desc": "standing in clean profile, shoulders squared, hands at sides, minimal expression, graphic silhouette",
+"intensity": 1
+},
+{
+"id": "A_EXT_020",
+"type": "S",
+"name": "Pose: Soft Contrapp",
+"desc": "standing with weight on one leg, hip subtly shifted, one shoulder dropped, balanced editorial poise",
+"intensity": 1
+},
+{
+"id": "A_EXT_021",
+"type": "S",
+"name": "Gaze: Gentle Lock",
+"desc": "eyes directly to camera, eyelids relaxed, steady calm connection, minimal facial tension",
+"intensity": 1
+},
+{
+"id": "A_EXT_022",
+"type": "S",
+"name": "Gaze: Downcast",
+"desc": "eyes lowered toward floor, chin slightly tucked, quiet inward mood, still posture",
+"intensity": 1
+},
+{
+"id": "A_EXT_023",
+"type": "S",
+"name": "Gaze: Far Horizon",
+"desc": "eyes looking into the distance beyond frame, jaw relaxed, reflective presence",
+"intensity": 1
+},
+{
+"id": "A_EXT_024",
+"type": "S",
+"name": "Gaze: Side Glance",
+"desc": "eyes cutting sideways without turning head fully, subtle suspicion or curiosity",
+"intensity": 1
+},
+{
+"id": "A_EXT_025",
+"type": "S",
+"name": "Gaze: Half Smile",
+"desc": "soft closed-mouth smile, eyes relaxed, friendly warmth without big expression",
+"intensity": 1
+},
+{
+"id": "A_EXT_026",
+"type": "U",
+"name": "Prop: Coffee Hold",
+"desc": "holding a coffee cup with both hands near chest, shoulders relaxed, cozy stillness",
+"intensity": 1
+},
+{
+"id": "A_EXT_027",
+"type": "U",
+"name": "Prop: Book Rest",
+"desc": "holding a book loosely at waist, thumb marking a page, gaze lowered toward cover",
+"intensity": 1
+},
+{
+"id": "A_EXT_028",
+"type": "U",
+"name": "Task: Note Pause",
+"desc": "holding a small notepad, pen hovering mid-air, eyes unfocused as if thinking of the next line",
+"intensity": 1
+},
+{
+"id": "A_EXT_029",
+"type": "U",
+"name": "Task: Phone Glow",
+"desc": "phone held low near waist, screen glow implied, gaze softly down, minimal movement",
+"intensity": 1
+},
+{
+"id": "A_EXT_030",
+"type": "U",
+"name": "Task: Earbud Adjust",
+"desc": "one hand lifting to adjust an earbud, head angled slightly, calm listening mood",
+"intensity": 1
+},
+{
+"id": "A_EXT_031",
+"type": "S",
+"name": "Sit: Floor Fold",
+"desc": "sitting on the floor with knees drawn up, arms loosely around shins, chin resting on knee, quiet and small",
+"intensity": 1
+},
+{
+"id": "A_EXT_032",
+"type": "S",
+"name": "Sit: Floor Cross",
+"desc": "sitting cross-legged on floor, hands resting on ankles, straight back, calm meditative stillness",
+"intensity": 1
+},
+{
+"id": "A_EXT_033",
+"type": "S",
+"name": "Pose: Wall Slide",
+"desc": "standing close to wall, shoulder and hip touching it, arms relaxed, head slightly turned away",
+"intensity": 1
+},
+{
+"id": "A_EXT_034",
+"type": "S",
+"name": "Pose: Hand Pocket",
+"desc": "standing with both hands in pockets, elbows angled out slightly, chin neutral, relaxed stance",
+"intensity": 1
+},
+{
+"id": "A_EXT_035",
+"type": "S",
+"name": "Pose: Toe Tap",
+"desc": "standing still with one toe lightly tapping forward, arms at sides, mild impatience implied",
+"intensity": 1
+},
+{
+"id": "A_EXT_036",
+"type": "S",
+"name": "Pose: Shoulder Drop",
+"desc": "standing with shoulders visibly lowered, head slightly forward, tired but composed silhouette",
+"intensity": 1
+},
+{
+"id": "A_EXT_037",
+"type": "S",
+"name": "Sit: Knee Cross",
+"desc": "sitting with one knee crossed over the other, one hand on ankle, calm confident posture",
+"intensity": 1
+},
+{
+"id": "A_EXT_038",
+"type": "S",
+"name": "Sit: Armrest Claim",
+"desc": "sitting with one elbow planted on armrest, fingers near mouth, eyes forward, quiet control",
+"intensity": 1
+},
+{
+"id": "A_EXT_039",
+"type": "S",
+"name": "Sit: Shoulder Turn",
+"desc": "seated, torso angled 30 degrees, head turned back toward camera, clean editorial twist",
+"intensity": 1
+},
+{
+"id": "A_EXT_040",
+"type": "U",
+"name": "Task: Sleeve Roll",
+"desc": "standing, slowly rolling up a sleeve, eyes focused on cuff, deliberate calm preparation",
+"intensity": 1
+},
+{
+"id": "A_EXT_041",
+"type": "U",
+"name": "Task: Watch Check",
+"desc": "glancing down at wristwatch, one hand adjusting strap, subtle time pressure without motion",
+"intensity": 1
+},
+{
+"id": "A_EXT_042",
+"type": "U",
+"name": "Task: Badge Clip",
+"desc": "clipping a badge or lanyard in place, chin down, fingers precise, neat composed posture",
+"intensity": 1
+},
+{
+"id": "A_EXT_043",
+"type": "U",
+"name": "Task: Tie Neaten",
+"desc": "adjusting tie or scarf at neck, shoulders squared, controlled tidy movement",
+"intensity": 1
+},
+{
+"id": "A_EXT_044",
+"type": "S",
+"name": "Gaze: Soft Shock",
+"desc": "eyes slightly widened, lips parted just a little, body still, quiet surprise without recoil",
+"intensity": 1
+},
+{
+"id": "A_EXT_045",
+"type": "S",
+"name": "Gaze: Warm Laugh",
+"desc": "eyes creased with a small laugh, head tilted slightly back, shoulders relaxed, friendly ease",
+"intensity": 1
+},
+{
+"id": "A_EXT_046",
+"type": "S",
+"name": "Pose: Hands Steeple",
+"desc": "standing or seated, fingertips steepled at chest level, elbows close, calm strategic composure",
+"intensity": 1
+},
+{
+"id": "A_EXT_047",
+"type": "S",
+"name": "Pose: Soft Prayer",
+"desc": "hands together near face, head slightly bowed, quiet hope or gratitude, still silhouette",
+"intensity": 1
+},
+{
+"id": "A_EXT_048",
+"type": "S",
+"name": "Pose: Head Tilt",
+"desc": "standing, head tilted to one side, shoulders relaxed, curious softness in posture",
+"intensity": 1
+},
+{
+"id": "A_EXT_049",
+"type": "S",
+"name": "Pose: Micro Shrug",
+"desc": "shoulders raised slightly, palms open near waist, expression neutral, small uncertainty read",
+"intensity": 1
+},
+{
+"id": "A_EXT_050",
+"type": "U",
+"name": "Prop: Tote Hold",
+"desc": "holding a tote bag close at side, fingers curled around strap, relaxed stance, minimal motion",
+"intensity": 1
+},
+{
+"id": "A_EXT_051",
+"type": "S",
+"name": "Pose: Editorial Angle",
+"desc": "standing angled 45 degrees, one shoulder forward, chin slightly down, strong runway silhouette",
+"intensity": 2
+},
+{
+"id": "A_EXT_052",
+"type": "S",
+"name": "Pose: Hip Pop",
+"desc": "standing with weight hard on one hip, knee relaxed, one hand resting at waist, confident casual",
+"intensity": 2
+},
+{
+"id": "A_EXT_053",
+"type": "S",
+"name": "Pose: Doorway Lean",
+"desc": "leaning against a doorframe, one foot braced behind, arms relaxed, gaze off-frame",
+"intensity": 2
+},
+{
+"id": "A_EXT_054",
+"type": "S",
+"name": "Pose: Wall Foot",
+"desc": "back against wall, one foot pressed to wall behind, arms loose, cool unbothered posture",
+"intensity": 2
+},
+{
+"id": "A_EXT_055",
+"type": "S",
+"name": "Pose: Crossed Arms",
+"desc": "standing with arms crossed higher on chest, elbows sharp, chin slightly up, guarded confidence",
+"intensity": 2
+},
+{
+"id": "A_EXT_056",
+"type": "S",
+"name": "Pose: Hands On Hips",
+"desc": "standing with hands on hips, elbows wide, chest open, ready-to-speak authority",
+"intensity": 2
+},
+{
+"id": "A_EXT_057",
+"type": "S",
+"name": "Pose: One Hand Up",
+"desc": "standing with one hand raised slightly as if to interject, shoulders forward, engaged presence",
+"intensity": 2
+},
+{
+"id": "A_EXT_058",
+"type": "S",
+"name": "Pose: Finger Snap",
+"desc": "standing, hand poised mid-snap near shoulder height, small grin, playful command of attention",
+"intensity": 2
+},
+{
+"id": "A_EXT_059",
+"type": "S",
+"name": "Pose: Jacket Toss",
+"desc": "standing, one hand flipping jacket lapel back, torso angled, runway attitude",
+"intensity": 2
+},
+{
+"id": "A_EXT_060",
+"type": "S",
+"name": "Pose: Shoulder Brush",
+"desc": "brushing imaginary dust off shoulder, head turned slightly, dismissive cool gesture",
+"intensity": 2
+},
+{
+"id": "A_EXT_061",
+"type": "S",
+"name": "Sit: Boss Cross",
+"desc": "seated, ankle over knee, elbow on chair arm, hand relaxed near cheek, quiet dominance",
+"intensity": 2
+},
+{
+"id": "A_EXT_062",
+"type": "S",
+"name": "Sit: Lounge Diag",
+"desc": "seated diagonally across chair, one arm over backrest, legs relaxed, effortless confidence",
+"intensity": 2
+},
+{
+"id": "A_EXT_063",
+"type": "S",
+"name": "Sit: Forward Intent",
+"desc": "seated leaning forward, hands clasped between knees, shoulders engaged, eyes locked",
+"intensity": 2
+},
+{
+"id": "A_EXT_064",
+"type": "S",
+"name": "Sit: Side Look",
+"desc": "seated upright, torso forward, head turned sharply to side as if someone spoke, alert read",
+"intensity": 2
+},
+{
+"id": "A_EXT_065",
+"type": "S",
+"name": "Sit: Arms Draped",
+"desc": "seated, arms draped wide across chair back, legs planted, claiming space",
+"intensity": 2
+},
+{
+"id": "A_EXT_066",
+"type": "S",
+"name": "Sit: Hand To Heart",
+"desc": "seated, one hand pressed lightly to chest, shoulders soft, sincere emotional read",
+"intensity": 2
+},
+{
+"id": "A_EXT_067",
+"type": "S",
+"name": "Gaze: Side Burn",
+"desc": "eyes fixed off-frame with tightened brow, jaw set, restrained irritation without movement",
+"intensity": 2
+},
+{
+"id": "A_EXT_068",
+"type": "S",
+"name": "Gaze: Quick Up",
+"desc": "eyes snapping upward while head stays mostly still, sudden attention shift",
+"intensity": 2
+},
+{
+"id": "A_EXT_069",
+"type": "S",
+"name": "Gaze: Under Brow",
+"desc": "chin slightly down, eyes looking up from under brows, intense quiet challenge",
+"intensity": 2
+},
+{
+"id": "A_EXT_070",
+"type": "S",
+"name": "Gaze: Distant Smile",
+"desc": "soft smile while gaze drifts beyond camera, nostalgic warmth, relaxed shoulders",
+"intensity": 2
+},
+{
+"id": "A_EXT_071",
+"type": "U",
+"name": "Phone: Screen Check",
+"desc": "holding phone in front, thumb hovering, eyes down, face lit softly by screen glow",
+"intensity": 2
+},
+{
+"id": "A_EXT_072",
+"type": "U",
+"name": "Phone: Quick Text",
+"desc": "phone held low, two-thumb typing, shoulders slightly hunched forward, focused expression",
+"intensity": 2
+},
+{
+"id": "A_EXT_073",
+"type": "U",
+"name": "Phone: Call Whisper",
+"desc": "phone to ear, free hand shielding mouth slightly, head angled down, discreet tone implied",
+"intensity": 2
+},
+{
+"id": "A_EXT_074",
+"type": "U",
+"name": "Task: Clipboard Hold",
+"desc": "holding a clipboard to chest, pen tucked in fingers, stance steady, ready to note something",
+"intensity": 2
+},
+{
+"id": "A_EXT_075",
+"type": "U",
+"name": "Task: Laptop Hover",
+"desc": "standing beside table, hands hovering over laptop keyboard, posture poised before typing",
+"intensity": 2
+},
+{
+"id": "A_EXT_076",
+"type": "U",
+"name": "Task: Bag Strap",
+"desc": "adjusting a shoulder strap, hand gripping strap near collarbone, torso angled, purposeful tidy motion",
+"intensity": 2
+},
+{
+"id": "A_EXT_077",
+"type": "U",
+"name": "Prop: Sip Pause",
+"desc": "lifting a cup to lips, eyes forward over rim, slow sip implied, calm control",
+"intensity": 2
+},
+{
+"id": "A_EXT_078",
+"type": "U",
+"name": "Prop: Sunglass Lift",
+"desc": "lifting sunglasses slightly with two fingers, eyes meeting camera, sharp reveal moment",
+"intensity": 2
+},
+{
+"id": "A_EXT_079",
+"type": "U",
+"name": "Task: Hair Fix",
+"desc": "hand smoothing hair back from forehead, chin up, composed reset gesture",
+"intensity": 2
+},
+{
+"id": "A_EXT_080",
+"type": "U",
+"name": "Task: Pocket Pat",
+"desc": "briefly patting pocket as if checking for keys, head angled down, tiny urgency",
+"intensity": 2
+},
+{
+"id": "A_EXT_081",
+"type": "V",
+"name": "Move: Slow Turn",
+"desc": "standing rotation in place, shoulders leading, head follows last, controlled cinematic reveal",
+"intensity": 2
+},
+{
+"id": "A_EXT_082",
+"type": "V",
+"name": "Move: One Step",
+"desc": "single deliberate step forward, heel landing first, shoulders steady, intent implied",
+"intensity": 2
+},
+{
+"id": "A_EXT_083",
+"type": "V",
+"name": "Move: Side Step",
+"desc": "one clean step sideways, torso stays mostly forward, arms balanced, subtle reposition",
+"intensity": 2
+},
+{
+"id": "A_EXT_084",
+"type": "V",
+"name": "Move: Back Step",
+"desc": "one step backward, hands slightly raised for balance, cautious retreat without panic",
+"intensity": 2
+},
+{
+"id": "A_EXT_085",
+"type": "S",
+"name": "Gesture: Small Wave",
+"desc": "hand raised for a short friendly wave, elbow close to body, warm approachable energy",
+"intensity": 2
+},
+{
+"id": "A_EXT_086",
+"type": "S",
+"name": "Gesture: Tiny Point",
+"desc": "subtle point with index finger at waist level, body barely turned, quiet direction cue",
+"intensity": 2
+},
+{
+"id": "A_EXT_087",
+"type": "S",
+"name": "Gesture: Come Here",
+"desc": "beckoning with fingers, palm facing upward, shoulders relaxed, confident invitation",
+"intensity": 2
+},
+{
+"id": "A_EXT_088",
+"type": "S",
+"name": "Gesture: Stop Palm",
+"desc": "one palm raised forward at chest height, feet planted, calm boundary gesture",
+"intensity": 2
+},
+{
+"id": "A_EXT_089",
+"type": "S",
+"name": "Gesture: Thumb Up",
+"desc": "thumbs-up near shoulder height, small smile, body angled slightly toward viewer",
+"intensity": 2
+},
+{
+"id": "A_EXT_090",
+"type": "S",
+"name": "Gesture: Shrug Open",
+"desc": "both palms turned up, elbows bent, shoulders raised slightly, playful uncertainty",
+"intensity": 2
+},
+{
+"id": "A_EXT_091",
+"type": "S",
+"name": "Pose: Light Bounce",
+"desc": "standing with slight knee bend as if bouncing once in place, energized but controlled",
+"intensity": 2
+},
+{
+"id": "A_EXT_092",
+"type": "S",
+"name": "Pose: Lean Forward",
+"desc": "standing with torso leaned slightly forward, hands on thighs, engaged curiosity read",
+"intensity": 2
+},
+{
+"id": "A_EXT_093",
+"type": "S",
+"name": "Pose: Heel Pivot",
+"desc": "standing mid-pivot on heel, shoulders turning, head following, poised transition moment",
+"intensity": 2
+},
+{
+"id": "A_EXT_094",
+"type": "S",
+"name": "Pose: Over Shoulder",
+"desc": "standing, torso angled away, head turned back to camera over shoulder, sharp cinematic glance",
+"intensity": 2
+},
+{
+"id": "A_EXT_095",
+"type": "S",
+"name": "Sit: Leg Tuck",
+"desc": "seated, one leg tucked back under chair slightly, hands folded, composed and contained",
+"intensity": 2
+},
+{
+"id": "A_EXT_096",
+"type": "S",
+"name": "Sit: Arm Cross",
+"desc": "seated with arms crossed tighter, shoulders squared, chin slightly up, firm refusal read",
+"intensity": 2
+},
+{
+"id": "A_EXT_097",
+"type": "S",
+"name": "Sit: Palm Up",
+"desc": "seated, one hand palm-up as if asking a question, other hand on thigh, engaged conversation read",
+"intensity": 2
+},
+{
+"id": "A_EXT_098",
+"type": "S",
+"name": "Gaze: Quick Double",
+"desc": "eyes darting left then right, head mostly still, subtle scanning anxiety",
+"intensity": 2
+},
+{
+"id": "A_EXT_099",
+"type": "S",
+"name": "Gaze: Sharp Focus",
+"desc": "eyes narrowed slightly, brow engaged, head angled forward, attention locked with restraint",
+"intensity": 2
+},
+{
+"id": "A_EXT_100",
+"type": "U",
+"name": "Task: Pocket Note",
+"desc": "sliding a small note or card into pocket, eyes down, quick careful motion",
+"intensity": 2
+},
+{
+"id": "A_EXT_101",
+"type": "S",
+"name": "Pose: Calm Hero",
+"desc": "standing tall, feet planted, shoulders open, chin level, quiet heroic silhouette without exaggeration",
+"intensity": 3
+},
+{
+"id": "A_EXT_102",
+"type": "S",
+"name": "Pose: Bold Stance",
+"desc": "wide stance, hands on hips, elbows out, chest forward, confident command of frame",
+"intensity": 3
+},
+{
+"id": "A_EXT_103",
+"type": "S",
+"name": "Pose: Ready Lean",
+"desc": "standing with slight forward lean, knees soft, hands loose, poised as if about to move",
+"intensity": 3
+},
+{
+"id": "A_EXT_104",
+"type": "S",
+"name": "Pose: Sharp Angle",
+"desc": "standing with one shoulder advanced, arms relaxed but tense, chin down, cinematic intensity read",
+"intensity": 3
+},
+{
+"id": "A_EXT_105",
+"type": "S",
+"name": "Pose: Front Guard",
+"desc": "standing, forearms loosely crossed in front of torso, hands open, protective readiness without attack",
+"intensity": 3
+},
+{
+"id": "A_EXT_106",
+"type": "S",
+"name": "Pose: Open Chest",
+"desc": "standing with arms slightly away from body, palms visible, chest open, confident invitation",
+"intensity": 3
+},
+{
+"id": "A_EXT_107",
+"type": "S",
+"name": "Pose: Hands Steady",
+"desc": "standing, both hands held low and still as if calming a room, shoulders square, control read",
+"intensity": 3
+},
+{
+"id": "A_EXT_108",
+"type": "S",
+"name": "Pose: Chair Rise",
+"desc": "half-risen from chair, hands on armrests, knees bent, caught between sitting and standing",
+"intensity": 3
+},
+{
+"id": "A_EXT_109",
+"type": "S",
+"name": "Pose: Step Plant",
+"desc": "standing with one foot forward planted, weight shifting into it, shoulders aligned, purposeful stance",
+"intensity": 3
+},
+{
+"id": "A_EXT_110",
+"type": "S",
+"name": "Pose: Back Straight",
+"desc": "standing at attention with strong posture, arms straight, chin neutral, disciplined silhouette",
+"intensity": 3
+},
+{
+"id": "A_EXT_111",
+"type": "S",
+"name": "Gesture: Big Welcome",
+"desc": "arms opened wider than shoulder span, palms forward, torso lifted, charismatic greeting",
+"intensity": 3
+},
+{
+"id": "A_EXT_112",
+"type": "S",
+"name": "Gesture: Direct Point",
+"desc": "arm extended pointing outward, body turned slightly in that direction, eyes tracking target",
+"intensity": 3
+},
+{
+"id": "A_EXT_113",
+"type": "S",
+"name": "Gesture: Explain Hands",
+"desc": "both hands mid-air, palms alternately facing up, as if explaining a concept with rhythm",
+"intensity": 3
+},
+{
+"id": "A_EXT_114",
+"type": "S",
+"name": "Gesture: Cut Off",
+"desc": "hand slicing lightly across air at chest height, eyebrows raised, firm interruption gesture",
+"intensity": 3
+},
+{
+"id": "A_EXT_115",
+"type": "S",
+"name": "Gesture: Plead Soft",
+"desc": "hands together near chest, shoulders slightly forward, eyes searching, gentle plea without collapse",
+"intensity": 3
+},
+{
+"id": "A_EXT_116",
+"type": "S",
+"name": "Gesture: Applause",
+"desc": "hands clapping mid-chest, elbows out slightly, smile engaged, celebratory but controlled",
+"intensity": 3
+},
+{
+"id": "A_EXT_117",
+"type": "S",
+"name": "Gaze: Pierce",
+"desc": "eyes locked forward with narrowed focus, chin slightly down, still face, unmistakable intensity",
+"intensity": 3
+},
+{
+"id": "A_EXT_118",
+"type": "S",
+"name": "Gaze: Hard Side",
+"desc": "head turned slightly, eyes cutting hard to side, brow tightened, suspicion read",
+"intensity": 3
+},
+{
+"id": "A_EXT_119",
+"type": "S",
+"name": "Gaze: Clocked You",
+"desc": "eyes snap to a subject, lips pressed, shoulders steady, the moment of recognition",
+"intensity": 3
+},
+{
+"id": "A_EXT_120",
+"type": "S",
+"name": "Gaze: Over Shoulder",
+"desc": "head turned back over shoulder, eyes wide and alert, torso angled away, cinematic check-behind",
+"intensity": 3
+},
+{
+"id": "A_EXT_121",
+"type": "U",
+"name": "Phone: Fast Call",
+"desc": "phone to ear, free hand raised in a quick hush gesture, brows tense, urgent listening",
+"intensity": 3
+},
+{
+"id": "A_EXT_122",
+"type": "U",
+"name": "Phone: Walk Talk",
+"desc": "phone to ear while body angles forward, free hand gesturing, engaged animated conversation",
+"intensity": 3
+},
+{
+"id": "A_EXT_123",
+"type": "U",
+"name": "Task: Quick Write",
+"desc": "writing fast on notepad, shoulders forward, head down, hand moving with urgency",
+"intensity": 3
+},
+{
+"id": "A_EXT_124",
+"type": "U",
+"name": "Task: Clipboard Mark",
+"desc": "holding clipboard, pen making a decisive check mark, chin down, brisk approval gesture",
+"intensity": 3
+},
+{
+"id": "A_EXT_125",
+"type": "U",
+"name": "Task: Laptop Type",
+"desc": "hands on laptop keyboard, posture forward, eyes locked on screen, rapid focused typing",
+"intensity": 3
+},
+{
+"id": "A_EXT_126",
+"type": "U",
+"name": "Prop: Bag Swing",
+"desc": "swinging a bag strap onto shoulder, torso twisting, quick tidy motion, ready to move",
+"intensity": 3
+},
+{
+"id": "A_EXT_127",
+"type": "U",
+"name": "Prop: Drink Offer",
+"desc": "extending a cup outward, elbow slightly bent, friendly offering gesture, eyes on recipient",
+"intensity": 3
+},
+{
+"id": "A_EXT_128",
+"type": "U",
+"name": "Task: Door Push",
+"desc": "hand on door edge pushing it open, body angled through doorway, cautious entry posture",
+"intensity": 3
+},
+{
+"id": "A_EXT_129",
+"type": "U",
+"name": "Task: Key Fumble",
+"desc": "hands close together as if finding keys, shoulders tense, head down, small urgency read",
+"intensity": 3
+},
+{
+"id": "A_EXT_130",
+"type": "V",
+"name": "Move: Brisk Walk",
+"desc": "walking forward with faster cadence, arms tighter, shoulders engaged, purposeful momentum",
+"intensity": 3
+},
+{
+"id": "A_EXT_131",
+"type": "V",
+"name": "Move: Pivot Turn",
+"desc": "sharp pivot on planted foot, torso whips first, head snaps last, quick cinematic redirect",
+"intensity": 3
+},
+{
+"id": "A_EXT_132",
+"type": "V",
+"name": "Move: Quick Step",
+"desc": "short quick step forward, knees bent slightly, arms balanced, sudden decision moment",
+"intensity": 3
+},
+{
+"id": "A_EXT_133",
+"type": "V",
+"name": "Move: Stop Short",
+"desc": "body halting mid-motion, heels planting, shoulders bracing, hands slightly out for balance",
+"intensity": 3
+},
+{
+"id": "A_EXT_134",
+"type": "V",
+"name": "Move: Side Slip",
+"desc": "quick sideways slide-step, torso angled, arms out slightly, avoiding someone passing close",
+"intensity": 3
+},
+{
+"id": "A_EXT_135",
+"type": "S",
+"name": "Chat: Lean In",
+"desc": "two characters close, one leaning in to speak quietly, the other listening with head tilted",
+"intensity": 3
+},
+{
+"id": "A_EXT_136",
+"type": "S",
+"name": "Chat: Mirror Nod",
+"desc": "two characters facing, one nodding slowly while the other speaks, synchronized calm agreement",
+"intensity": 3
+},
+{
+"id": "A_EXT_137",
+"type": "U",
+"name": "Chat: Side Whisper",
+"desc": "two characters shoulder-to-shoulder, one whispering toward the other’s ear, private exchange implied",
+"intensity": 3
+},
+{
+"id": "A_EXT_138",
+"type": "S",
+"name": "Chat: Close Stare",
+"desc": "two characters face-to-face, close distance, still bodies, tension held without overt aggression",
+"intensity": 3
+},
+{
+"id": "A_EXT_139",
+"type": "S",
+"name": "Pose: Half Kneel",
+"desc": "one knee down, other foot planted, torso upright, hands resting lightly on thigh, ready but calm",
+"intensity": 3
+},
+{
+"id": "A_EXT_140",
+"type": "S",
+"name": "Pose: Tall Kneel",
+"desc": "kneeling on both knees, back straight, hands on thighs, steady composed base",
+"intensity": 3
+},
+{
+"id": "A_EXT_141",
+"type": "S",
+"name": "Pose: Deep Squat",
+"desc": "balanced deep squat, elbows near knees, heels down, gaze forward, grounded readiness",
+"intensity": 3
+},
+{
+"id": "A_EXT_142",
+"type": "S",
+"name": "Pose: Tabletop",
+"desc": "on hands and knees, back level, head forward, stable low profile silhouette",
+"intensity": 3
+},
+{
+"id": "A_EXT_143",
+"type": "S",
+"name": "Pose: Wall Brace",
+"desc": "one palm on wall, torso leaned in, head turned slightly, as if pausing to think or listen",
+"intensity": 3
+},
+{
+"id": "A_EXT_144",
+"type": "U",
+"name": "Task: Map Check",
+"desc": "holding a folded map or paper, eyes scanning it, finger tracing a route, mild urgency",
+"intensity": 3
+},
+{
+"id": "A_EXT_145",
+"type": "U",
+"name": "Task: Flashlight Hold",
+"desc": "holding a small flashlight low, beam implied forward, shoulders tense, cautious scan posture",
+"intensity": 3
+},
+{
+"id": "A_EXT_146",
+"type": "S",
+"name": "Gaze: Alarm",
+"desc": "eyes widened, brow raised, head slightly forward, body held still in sudden alertness",
+"intensity": 3
+},
+{
+"id": "A_EXT_147",
+"type": "S",
+"name": "Gaze: Disbelief",
+"desc": "eyes narrow then widen slightly, lips pressed, head tilts back a fraction, silent disbelief read",
+"intensity": 3
+},
+{
+"id": "A_EXT_148",
+"type": "S",
+"name": "Gesture: Hush",
+"desc": "index finger near lips, shoulders tight, eyes scanning, quiet command for silence",
+"intensity": 3
+},
+{
+"id": "A_EXT_149",
+"type": "S",
+"name": "Gesture: Hold Back",
+"desc": "one hand extended sideways as if stopping someone beside them, stance firm, protective control",
+"intensity": 3
+},
+{
+"id": "A_EXT_150",
+"type": "S",
+"name": "Gesture: Handshake",
+"desc": "two characters in a clean handshake, shoulders squared, eye contact held, professional agreement",
+"intensity": 3
+},
+{
+"id": "A_EXT_151",
+"type": "S",
+"name": "Pose: Sharp Stare",
+"desc": "standing still, shoulders squared, chin slightly down, eyes fixed forward with crisp intensity",
+"intensity": 4
+},
+{
+"id": "A_EXT_152",
+"type": "S",
+"name": "Pose: Arms Wide",
+"desc": "standing with arms opened wide, palms forward, chest lifted, confident welcoming silhouette",
+"intensity": 4
+},
+{
+"id": "A_EXT_153",
+"type": "S",
+"name": "Pose: Ready Set",
+"desc": "feet staggered, knees soft, torso slightly forward, hands loose at sides, poised to move",
+"intensity": 4
+},
+{
+"id": "A_EXT_154",
+"type": "S",
+"name": "Pose: Wall Listen",
+"desc": "standing close to wall, head angled toward it, one hand lightly touching wall, listening posture",
+"intensity": 4
+},
+{
+"id": "A_EXT_155",
+"type": "S",
+"name": "Pose: Stair Pause",
+"desc": "one foot up on a step, body paused mid-climb, hand on rail, eyes scanning ahead",
+"intensity": 4
+},
+{
+"id": "A_EXT_156",
+"type": "S",
+"name": "Pose: Floor Sit",
+"desc": "sitting on floor with one knee up, one leg extended, hand braced behind, calm but alert",
+"intensity": 4
+},
+{
+"id": "A_EXT_157",
+"type": "S",
+"name": "Pose: Knee Bounce",
+"desc": "standing, one knee bouncing subtly, hands at sides, contained impatience with still posture",
+"intensity": 4
+},
+{
+"id": "A_EXT_158",
+"type": "S",
+"name": "Pose: Braced Lean",
+"desc": "leaning forward with hands on table edge, shoulders engaged, eyes locked ahead",
+"intensity": 4
+},
+{
+"id": "A_EXT_159",
+"type": "S",
+"name": "Pose: Door Guard",
+"desc": "standing near a doorway, one shoulder angled to it, feet planted, protective positioning",
+"intensity": 4
+},
+{
+"id": "A_EXT_160",
+"type": "S",
+"name": "Pose: Cross Block",
+"desc": "forearms crossed high in front of chest, elbows sharp, stance firm, non-violent barrier gesture",
+"intensity": 4
+},
+{
+"id": "A_EXT_161",
+"type": "S",
+"name": "Sit: Lean Listen",
+"desc": "seated leaning toward someone, elbows near knees, eyes intent, listening with pressure",
+"intensity": 4
+},
+{
+"id": "A_EXT_162",
+"type": "S",
+"name": "Sit: Edge Ready",
+"desc": "seated at chair edge, hands gripping thighs lightly, feet planted, ready to stand",
+"intensity": 4
+},
+{
+"id": "A_EXT_163",
+"type": "S",
+"name": "Sit: Side Brace",
+"desc": "seated, one hand braced on chair arm, torso angled as if about to rise, eyes forward",
+"intensity": 4
+},
+{
+"id": "A_EXT_164",
+"type": "S",
+"name": "Sit: Tight Fold",
+"desc": "seated with arms folded tight, shoulders squared, chin up, firm refusal read",
+"intensity": 4
+},
+{
+"id": "A_EXT_165",
+"type": "S",
+"name": "Sit: Turned Back",
+"desc": "seated facing slightly away, head turned back to camera, guarded attention behind",
+"intensity": 4
+},
+{
+"id": "A_EXT_166",
+"type": "S",
+"name": "Gaze: Unbroken",
+"desc": "eyes locked forward with minimal blinking, facial muscles held still, intense focus read",
+"intensity": 4
+},
+{
+"id": "A_EXT_167",
+"type": "S",
+"name": "Gaze: Side Fix",
+"desc": "eyes fixed hard off-frame, head barely turned, attention rigid and anchored",
+"intensity": 4
+},
+{
+"id": "A_EXT_168",
+"type": "S",
+"name": "Gaze: Past You",
+"desc": "gaze aimed just beyond the viewer, jaw set, still posture as if tracking something behind",
+"intensity": 4
+},
+{
+"id": "A_EXT_169",
+"type": "S",
+"name": "Gaze: Cold Scan",
+"desc": "eyes moving subtly left to right, chin level, expression controlled, assessing read",
+"intensity": 4
+},
+{
+"id": "A_EXT_170",
+"type": "S",
+"name": "Gaze: Flick Up",
+"desc": "eyes lift suddenly upward, brows raised a notch, body still, sharp attention spike",
+"intensity": 4
+},
+{
+"id": "A_EXT_171",
+"type": "S",
+"name": "Gesture: Big Wave",
+"desc": "arm raised high waving with elbow open, torso leaning forward slightly, friendly high-energy hello",
+"intensity": 4
+},
+{
+"id": "A_EXT_172",
+"type": "S",
+"name": "Gesture: Stop Now",
+"desc": "palm out at shoulder height, feet planted, shoulders squared, clear boundary command",
+"intensity": 4
+},
+{
+"id": "A_EXT_173",
+"type": "S",
+"name": "Gesture: Point Hard",
+"desc": "arm fully extended pointing, body turned toward target, eyes tracking with urgency",
+"intensity": 4
+},
+{
+"id": "A_EXT_174",
+"type": "S",
+"name": "Gesture: Come On",
+"desc": "beckoning with whole forearm motion, shoulders engaged, impatient invitation forward",
+"intensity": 4
+},
+{
+"id": "A_EXT_175",
+"type": "S",
+"name": "Gesture: Calm Down",
+"desc": "both palms down moving slightly as if lowering the room, stance firm, steadying authority",
+"intensity": 4
+},
+{
+"id": "A_EXT_176",
+"type": "U",
+"name": "Phone: Sharp Call",
+"desc": "phone to ear, brow tight, free hand raised mid-gesture, voice implied clipped and urgent",
+"intensity": 4
+},
+{
+"id": "A_EXT_177",
+"type": "U",
+"name": "Phone: Pace Talk",
+"desc": "phone to ear while pacing a step, shoulders forward, free hand slicing the air for emphasis",
+"intensity": 4
+},
+{
+"id": "A_EXT_178",
+"type": "U",
+"name": "Phone: Screen Shock",
+"desc": "phone held up, eyes widening at screen, shoulders tighten, sudden realization read",
+"intensity": 4
+},
+{
+"id": "A_EXT_179",
+"type": "U",
+"name": "Task: Bag Grab",
+"desc": "hand snapping to bag strap, pulling it close, torso turning as if preparing to leave",
+"intensity": 4
+},
+{
+"id": "A_EXT_180",
+"type": "U",
+"name": "Task: Door Crack",
+"desc": "opening a door just a little, head angled into the gap, cautious peek posture",
+"intensity": 4
+},
+{
+"id": "A_EXT_181",
+"type": "U",
+"name": "Task: Jacket On",
+"desc": "slipping arms into jacket with brisk motion, shoulders rolling back, gearing up to go",
+"intensity": 4
+},
+{
+"id": "A_EXT_182",
+"type": "U",
+"name": "Task: Quick Sip",
+"desc": "taking a fast sip from cup, eyes still forward over rim, tension held in shoulders",
+"intensity": 4
+},
+{
+"id": "A_EXT_183",
+"type": "U",
+"name": "Task: Note Rip",
+"desc": "tearing a small paper cleanly in half, hands close to chest, controlled decisive motion",
+"intensity": 4
+},
+{
+"id": "A_EXT_184",
+"type": "V",
+"name": "Move: Fast Walk",
+"desc": "walking forward quickly, arms tighter, shoulders engaged, purposeful momentum",
+"intensity": 4
+},
+{
+"id": "A_EXT_185",
+"type": "V",
+"name": "Move: Sudden Turn",
+"desc": "sharp turn in place, torso whips first, head snaps last, reacting to something behind",
+"intensity": 4
+},
+{
+"id": "A_EXT_186",
+"type": "V",
+"name": "Move: Quick Back",
+"desc": "two quick steps backward, hands slightly raised for balance, cautious retreat",
+"intensity": 4
+},
+{
+"id": "A_EXT_187",
+"type": "V",
+"name": "Move: Side Cut",
+"desc": "quick diagonal side-step, torso leaning, arms out slightly, dodging someone passing close",
+"intensity": 4
+},
+{
+"id": "A_EXT_188",
+"type": "V",
+"name": "Move: Step In",
+"desc": "one assertive step into someone’s space, shoulders squared, chin level, controlled pressure",
+"intensity": 4
+},
+{
+"id": "A_EXT_189",
+"type": "S",
+"name": "Chat: Close Argue",
+"desc": "two characters face-to-face, tense shoulders, hands gesturing sharply, argument implied without contact",
+"intensity": 4
+},
+{
+"id": "A_EXT_190",
+"type": "S",
+"name": "Chat: Point Blame",
+"desc": "two characters, one pointing while speaking, the other stiff and silent, confrontation energy",
+"intensity": 4
+},
+{
+"id": "A_EXT_191",
+"type": "S",
+"name": "Chat: Break Eye",
+"desc": "two characters, one speaking with intensity while the other looks away, jaw tight, discomfort visible",
+"intensity": 4
+},
+{
+"id": "A_EXT_192",
+"type": "S",
+"name": "Chat: Step Apart",
+"desc": "two characters shifting apart slightly, arms tense, space widening, tension cooling but unresolved",
+"intensity": 4
+},
+{
+"id": "A_EXT_193",
+"type": "U",
+"name": "Prop: Flash Pose",
+"desc": "holding a phone up as if taking a quick photo, elbow lifted, head angled, crisp snapshot moment",
+"intensity": 4
+},
+{
+"id": "A_EXT_194",
+"type": "U",
+"name": "Prop: Clipboard Snap",
+"desc": "clipboard held like a shield at chest height, pen pointing outward, brisk commanding posture",
+"intensity": 4
+},
+{
+"id": "A_EXT_195",
+"type": "S",
+"name": "Pose: Shoulder Check",
+"desc": "standing, head turned with a sharp over-shoulder check, one foot angled back, alert read",
+"intensity": 4
+},
+{
+"id": "A_EXT_196",
+"type": "S",
+"name": "Pose: Arm Hook",
+"desc": "arms folded with one hand gripping upper arm, shoulders tight, contained tension posture",
+"intensity": 4
+},
+{
+"id": "A_EXT_197",
+"type": "S",
+"name": "Pose: Step Guard",
+"desc": "one foot forward, torso angled, forearm slightly raised, protective positioning without attack",
+"intensity": 4
+},
+{
+"id": "A_EXT_198",
+"type": "S",
+"name": "Gaze: Warning",
+"desc": "eyes narrowed, brow lowered, chin forward, expression reading as a clear warning",
+"intensity": 4
+},
+{
+"id": "A_EXT_199",
+"type": "S",
+"name": "Gesture: Cut It",
+"desc": "hand slicing across air at chest height, shoulders squared, firm stop-the-talk gesture",
+"intensity": 4
+},
+{
+"id": "A_EXT_200",
+"type": "U",
+"name": "Task: Hasty Pack",
+"desc": "shoving items into a bag quickly, shoulders hunched forward, eyes down, controlled urgency",
+"intensity": 4
+},
+{
+"id": "A_EXT_201",
+"type": "V",
+"name": "Move: Jog Start",
+"desc": "breaking into a jog from standing, forward lean, arms bent, momentum beginning",
+"intensity": 5
+},
+{
+"id": "A_EXT_202",
+"type": "V",
+"name": "Move: Quick Jog",
+"desc": "steady jogging pace, arms driving, head forward, focused movement",
+"intensity": 5
+},
+{
+"id": "A_EXT_203",
+"type": "V",
+"name": "Move: Hard Stop",
+"desc": "skidding to a stop, feet planting wide, shoulders bracing, hands out for balance",
+"intensity": 5
+},
+{
+"id": "A_EXT_204",
+"type": "V",
+"name": "Move: Pivot Back",
+"desc": "rapid pivot to face behind, torso twists sharply, head snaps to target, reactive turn",
+"intensity": 5
+},
+{
+"id": "A_EXT_205",
+"type": "V",
+"name": "Move: Burst Step",
+"desc": "short explosive step forward, knees bent, arms tight, sudden decision to move",
+"intensity": 5
+},
+{
+"id": "A_EXT_206",
+"type": "V",
+"name": "Move: Duck Pass",
+"desc": "ducking slightly while moving forward, shoulder dips, avoiding something at head level",
+"intensity": 5
+},
+{
+"id": "A_EXT_207",
+"type": "V",
+"name": "Move: Hurdle Low",
+"desc": "stepping over a low obstacle, knee lifted high, arms balancing, continuous motion",
+"intensity": 5
+},
+{
+"id": "A_EXT_208",
+"type": "V",
+"name": "Move: Quick Climb",
+"desc": "hands on ledge or railing, pulling body upward, one knee driving up, urgent ascent",
+"intensity": 5
+},
+{
+"id": "A_EXT_209",
+"type": "V",
+"name": "Move: Slide Aside",
+"desc": "fast lateral slide step, torso tilted, arms wide for balance, evasive reposition",
+"intensity": 5
+},
+{
+"id": "A_EXT_210",
+"type": "V",
+"name": "Move: Heel Spin",
+"desc": "tight spin on heel, coat or hair implied to swing, cinematic turnaround",
+"intensity": 5
+},
+{
+"id": "A_EXT_211",
+"type": "U",
+"name": "Task: Carry Box",
+"desc": "carrying a medium box at chest height, elbows tucked, steps careful but brisk",
+"intensity": 5
+},
+{
+"id": "A_EXT_212",
+"type": "U",
+"name": "Task: Heavy Lift",
+"desc": "lifting a heavy object from low position, knees bent, back straight, face strained but controlled",
+"intensity": 5
+},
+{
+"id": "A_EXT_213",
+"type": "U",
+"name": "Task: Drag Chair",
+"desc": "pulling a chair backward with one hand, legs braced, quick repositioning motion",
+"intensity": 5
+},
+{
+"id": "A_EXT_214",
+"type": "U",
+"name": "Task: Slam Folder",
+"desc": "slapping a folder or paper stack down on a table, shoulders forward, decisive impact",
+"intensity": 5
+},
+{
+"id": "A_EXT_215",
+"type": "U",
+"name": "Task: Rapid Type",
+"desc": "typing fast on a laptop, shoulders hunched, eyes locked, urgent work energy",
+"intensity": 5
+},
+{
+"id": "A_EXT_216",
+"type": "U",
+"name": "Task: Wire Fix",
+"desc": "kneeling slightly while hands work on a cable or connector, brows tight, focused precision",
+"intensity": 5
+},
+{
+"id": "A_EXT_217",
+"type": "U",
+"name": "Task: Clipboard Bark",
+"desc": "holding clipboard out while giving direction, pen stabbing the air, assertive instruction energy",
+"intensity": 5
+},
+{
+"id": "A_EXT_218",
+"type": "U",
+"name": "Task: Door Hold",
+"desc": "holding a door open with one arm extended, body angled, head turning to check behind",
+"intensity": 5
+},
+{
+"id": "A_EXT_219",
+"type": "U",
+"name": "Task: Pull Someone",
+"desc": "two characters, one grabbing the other's forearm and pulling them forward urgently, both moving",
+"intensity": 5
+},
+{
+"id": "A_EXT_220",
+"type": "U",
+"name": "Phone: Speaker Mode",
+"desc": "phone held out on speaker, other hand gesturing sharply, animated argument energy",
+"intensity": 5
+},
+{
+"id": "A_EXT_221",
+"type": "S",
+"name": "Pose: Firm Stance",
+"desc": "feet planted wide, shoulders squared, hands at sides with tension, ready to confront",
+"intensity": 5
+},
+{
+"id": "A_EXT_222",
+"type": "S",
+"name": "Pose: Finger Jabs",
+"desc": "hand jabbing the air while speaking, torso forward, jaw tight, heated emphasis",
+"intensity": 5
+},
+{
+"id": "A_EXT_223",
+"type": "S",
+"name": "Pose: Arms Flare",
+"desc": "arms thrown outward in disbelief, elbows bent, shoulders high, frustration visible",
+"intensity": 5
+},
+{
+"id": "A_EXT_224",
+"type": "S",
+"name": "Pose: Chest Tap",
+"desc": "hand tapping chest as if saying 'me', chin up, stance firm, defensive self-claim",
+"intensity": 5
+},
+{
+"id": "A_EXT_225",
+"type": "S",
+"name": "Pose: Hold Line",
+"desc": "one arm extended sideways blocking someone, feet braced, protective authority posture",
+"intensity": 5
+},
+{
+"id": "A_EXT_226",
+"type": "S",
+"name": "Gaze: Laser Lock",
+"desc": "eyes narrowed and fixed, brows drawn, chin down slightly, unwavering attention",
+"intensity": 5
+},
+{
+"id": "A_EXT_227",
+"type": "S",
+"name": "Gaze: Hot Anger",
+"desc": "eyes wide with tight brow, lips pressed, nostrils flared slightly, anger contained",
+"intensity": 5
+},
+{
+"id": "A_EXT_228",
+"type": "S",
+"name": "Gaze: Panic Spark",
+"desc": "eyes darting, jaw tight, shoulders lifted, fear beginning to break through control",
+"intensity": 5
+},
+{
+"id": "A_EXT_229",
+"type": "S",
+"name": "Gesture: Shout Point",
+"desc": "arm extended pointing while mouth open mid-shout, body leaning forward, high emphasis",
+"intensity": 5
+},
+{
+"id": "A_EXT_230",
+"type": "S",
+"name": "Gesture: Back Off",
+"desc": "both hands forward palms out, feet planted, shoulders tense, commanding distance",
+"intensity": 5
+},
+{
+"id": "A_EXT_231",
+"type": "S",
+"name": "Chat: Heated Argue",
+"desc": "two characters arguing, both gesturing, shoulders tense, faces close, no contact",
+"intensity": 5
+},
+{
+"id": "A_EXT_232",
+"type": "S",
+"name": "Chat: Table Clash",
+"desc": "two characters across a table, one leaning in with hands planted, the other stiff and braced",
+"intensity": 5
+},
+{
+"id": "A_EXT_233",
+"type": "S",
+"name": "Chat: Walk Debate",
+"desc": "two characters walking side-by-side, one talking with sharp hand motions, the other tense and silent",
+"intensity": 5
+},
+{
+"id": "A_EXT_234",
+"type": "U",
+"name": "Task: Pull Open",
+"desc": "yanking open a drawer or door with force, shoulders engaged, quick search energy",
+"intensity": 5
+},
+{
+"id": "A_EXT_235",
+"type": "U",
+"name": "Task: Toss Bag",
+"desc": "throwing a bag onto shoulder in one motion, torso twisting, immediate movement implied",
+"intensity": 5
+},
+{
+"id": "A_EXT_236",
+"type": "U",
+"name": "Task: Rip Tape",
+"desc": "tearing packing tape or wrapping quickly, hands working fast, urgency read",
+"intensity": 5
+},
+{
+"id": "A_EXT_237",
+"type": "U",
+"name": "Task: Sprint Prep",
+"desc": "leaning forward, knees bent, arms set, preparing to run at a moment’s notice",
+"intensity": 5
+},
+{
+"id": "A_EXT_238",
+"type": "V",
+"name": "Move: Fast Climb",
+"desc": "climbing up quickly, one hand reaching higher, knee driving up, body compact and urgent",
+"intensity": 5
+},
+{
+"id": "A_EXT_239",
+"type": "V",
+"name": "Move: Hop Down",
+"desc": "dropping down from a low ledge, knees bending on landing, arms out to stabilize",
+"intensity": 5
+},
+{
+"id": "A_EXT_240",
+"type": "V",
+"name": "Move: Chase Look",
+"desc": "moving forward while looking back over shoulder, arms driving, alarmed awareness",
+"intensity": 5
+},
+{
+"id": "A_EXT_241",
+"type": "S",
+"name": "Pose: Sports Ready",
+"desc": "athletic stance, knees bent, hands on thighs briefly, eyes forward, ready for action",
+"intensity": 5
+},
+{
+"id": "A_EXT_242",
+"type": "S",
+"name": "Pose: Stretch Up",
+"desc": "arms raised overhead stretching, torso extended, breath visible in posture, energized prep",
+"intensity": 5
+},
+{
+"id": "A_EXT_243",
+"type": "S",
+"name": "Gesture: Victory Pump",
+"desc": "single fist pump near shoulder height, grin sharp, shoulders lifted in triumph",
+"intensity": 5
+},
+{
+"id": "A_EXT_244",
+"type": "U",
+"name": "Prop: Ball Hold",
+"desc": "holding a ball at waist or chest, elbows out slightly, athletic readiness read",
+"intensity": 5
+},
+{
+"id": "A_EXT_245",
+"type": "U",
+"name": "Prop: Tool Grip",
+"desc": "holding a common tool close to body, stance braced, eyes focused on task area",
+"intensity": 5
+},
+{
+"id": "A_EXT_246",
+"type": "S",
+"name": "Gaze: Determined",
+"desc": "eyes forward, brow engaged, jaw set, shoulders squared, unwavering determination",
+"intensity": 5
+},
+{
+"id": "A_EXT_247",
+"type": "S",
+"name": "Pose: Elbow Plant",
+"desc": "leaning forward with elbows planted on knees or table, hands clasped, pressure and focus",
+"intensity": 5
+},
+{
+"id": "A_EXT_248",
+"type": "U",
+"name": "Task: Pull Rope",
+"desc": "hands gripping a rope or cable, body leaning back slightly, pulling with effort",
+"intensity": 5
+},
+{
+"id": "A_EXT_249",
+"type": "S",
+"name": "Chat: Crowd Lead",
+"desc": "one character gesturing forward as if guiding others, another close behind following quickly",
+"intensity": 5
+},
+{
+"id": "A_EXT_250",
+"type": "V",
+"name": "Move: Quick Lunge",
+"desc": "stepping forward into a strong lunge, arms balancing, body driving toward a goal",
+"intensity": 5
+},
+{
+"id": "A_EXT_251",
+"type": "V",
+"name": "Move: Run Launch",
+"desc": "breaking into a run from near-standstill, hard forward lean, arms pumping immediately",
+"intensity": 6
+},
+{
+"id": "A_EXT_252",
+"type": "V",
+"name": "Move: Full Sprint",
+"desc": "running fast with deep forward lean, elbows driving, face focused, high output motion",
+"intensity": 6
+},
+{
+"id": "A_EXT_253",
+"type": "V",
+"name": "Move: Vault Low",
+"desc": "hands on a low obstacle, legs swinging through, body compact in a quick vault",
+"intensity": 6
+},
+{
+"id": "A_EXT_254",
+"type": "V",
+"name": "Move: Jump Down",
+"desc": "dropping from a higher ledge, knees bent on landing, arms wide to stabilize",
+"intensity": 6
+},
+{
+"id": "A_EXT_255",
+"type": "V",
+"name": "Move: Dive Cover",
+"desc": "diving forward and down behind cover, arms tucking in, shoulders bracing for impact with ground",
+"intensity": 6
+},
+{
+"id": "A_EXT_256",
+"type": "V",
+"name": "Move: Slide Stop",
+"desc": "sliding to a stop on one knee, other foot planted, hands out for balance, dramatic halt",
+"intensity": 6
+},
+{
+"id": "A_EXT_257",
+"type": "V",
+"name": "Move: Hard Pivot",
+"desc": "fast pivot while moving, torso twists, head snaps to new direction, chase reroute",
+"intensity": 6
+},
+{
+"id": "A_EXT_258",
+"type": "V",
+"name": "Move: Zigzag Run",
+"desc": "running with quick direction changes, shoulders tilting, arms correcting balance",
+"intensity": 6
+},
+{
+"id": "A_EXT_259",
+"type": "V",
+"name": "Move: Shoulder Bash",
+"desc": "driving shoulder into a heavy door or barrier to force it open, legs braced, impact implied",
+"intensity": 6
+},
+{
+"id": "A_EXT_260",
+"type": "V",
+"name": "Move: Pull Up",
+"desc": "hanging from ledge and pulling up, elbows bending hard, knee lifting to climb",
+"intensity": 6
+},
+{
+"id": "A_EXT_261",
+"type": "U",
+"name": "Task: Drag Load",
+"desc": "dragging a heavy bag or object across floor, torso leaned back, arms straining",
+"intensity": 6
+},
+{
+"id": "A_EXT_262",
+"type": "U",
+"name": "Task: Carry Sprint",
+"desc": "running while carrying a bag tight to chest, elbows tucked, urgency and strain visible",
+"intensity": 6
+},
+{
+"id": "A_EXT_263",
+"type": "U",
+"name": "Task: Shield Push",
+"desc": "pushing forward with forearm raised as a shield, head down slightly, braced advance",
+"intensity": 6
+},
+{
+"id": "A_EXT_264",
+"type": "U",
+"name": "Task: Pull Away",
+"desc": "two characters, one pulling the other away from danger by the sleeve or forearm, urgent retreat",
+"intensity": 6
+},
+{
+"id": "A_EXT_265",
+"type": "U",
+"name": "Task: Slam Shut",
+"desc": "slamming a door shut with force, shoulder turned, hands pushing, panic urgency",
+"intensity": 6
+},
+{
+"id": "A_EXT_266",
+"type": "U",
+"name": "Task: Bar Door",
+"desc": "pushing something heavy against a door as a barricade, legs braced, face strained",
+"intensity": 6
+},
+{
+"id": "A_EXT_267",
+"type": "U",
+"name": "Task: Quick Reload",
+"desc": "hands moving fast to swap a magazine or load a tool, eyes locked down, practiced urgency",
+"intensity": 6
+},
+{
+"id": "A_EXT_268",
+"type": "S",
+"name": "Pose: Fight Ready",
+"desc": "athletic stance with hands up and open, elbows bent, knees soft, defensive readiness",
+"intensity": 6
+},
+{
+"id": "A_EXT_269",
+"type": "S",
+"name": "Pose: Defensive Turn",
+"desc": "torso turned sideways, forearm raised, weight shifted back, braced against a threat",
+"intensity": 6
+},
+{
+"id": "A_EXT_270",
+"type": "S",
+"name": "Pose: Brace Impact",
+"desc": "feet planted wide, shoulders tight, arms raised slightly as if bracing for incoming force",
+"intensity": 6
+},
+{
+"id": "A_EXT_271",
+"type": "S",
+"name": "Gaze: Fear Lock",
+"desc": "eyes wide and fixed, brows lifted, mouth tight, body tense as fear holds them still",
+"intensity": 6
+},
+{
+"id": "A_EXT_272",
+"type": "S",
+"name": "Gaze: Rage Flash",
+"desc": "eyes intense, brow hard, jaw clenched, shoulders lifted, anger breaking through control",
+"intensity": 6
+},
+{
+"id": "A_EXT_273",
+"type": "S",
+"name": "Gaze: Shock Snap",
+"desc": "eyes widen suddenly, head jerks slightly, shoulders rise, instant shock reaction",
+"intensity": 6
+},
+{
+"id": "A_EXT_274",
+"type": "S",
+"name": "Gesture: Get Down",
+"desc": "one hand pushing downward urgently as if ordering someone to duck, stance braced",
+"intensity": 6
+},
+{
+"id": "A_EXT_275",
+"type": "S",
+"name": "Gesture: Pull Back",
+"desc": "arm hooking back as if yanking someone behind you, torso twisting, protective urgency",
+"intensity": 6
+},
+{
+"id": "A_EXT_276",
+"type": "S",
+"name": "Chat: Full Blowup",
+"desc": "two characters shouting, arms flaring, bodies leaning in, argument at peak intensity without contact",
+"intensity": 6
+},
+{
+"id": "A_EXT_277",
+"type": "S",
+"name": "Chat: Threat Stance",
+"desc": "two characters close, one stepping in with squared shoulders, the other leaning back defensively",
+"intensity": 6
+},
+{
+"id": "A_EXT_278",
+"type": "C",
+"name": "Fight: Guard Up",
+"desc": "hands raised in a defensive guard, elbows tucked, knees bent, ready to block or evade",
+"intensity": 6
+},
+{
+"id": "A_EXT_279",
+"type": "C",
+"name": "Fight: Block Hit",
+"desc": "one character swings an arm, the other raises forearms to block, impact implied without detail",
+"intensity": 6
+},
+{
+"id": "A_EXT_280",
+"type": "C",
+"name": "Fight: Push Off",
+"desc": "one character shoves forward with both hands, the other staggers back, feet scrambling for balance",
+"intensity": 6
+},
+{
+"id": "A_EXT_281",
+"type": "C",
+"name": "Fight: Grapple Start",
+"desc": "two characters collide chest-to-chest, hands grabbing shoulders or sleeves, struggling for control",
+"intensity": 6
+},
+{
+"id": "A_EXT_282",
+"type": "C",
+"name": "Fight: Break Away",
+"desc": "two characters separating abruptly, arms up, shoulders tense, both resetting stance",
+"intensity": 6
+},
+{
+"id": "A_EXT_283",
+"type": "U",
+"name": "Weapon: Low Ready",
+"desc": "holding a weapon low and close to body, finger off trigger, eyes scanning forward, controlled caution",
+"intensity": 6
+},
+{
+"id": "A_EXT_284",
+"type": "U",
+"name": "Weapon: Quick Aim",
+"desc": "weapon raised to eye line, elbows bent, one eye narrowed, sighting quickly with tense focus",
+"intensity": 6
+},
+{
+"id": "A_EXT_285",
+"type": "U",
+"name": "Task: Flashlight Run",
+"desc": "running with a flashlight beam implied ahead, shoulders tight, head turning to scan corners",
+"intensity": 6
+},
+{
+"id": "A_EXT_286",
+"type": "V",
+"name": "Move: Corner Peek",
+"desc": "body pressed near a corner, quick lean-out to peek, then recoil back, tense movement beat",
+"intensity": 6
+},
+{
+"id": "A_EXT_287",
+"type": "V",
+"name": "Move: Door Kick",
+"desc": "kicking a door near the latch, hips driving, arms up for balance, forced entry implied",
+"intensity": 6
+},
+{
+"id": "A_EXT_288",
+"type": "V",
+"name": "Move: Leap Gap",
+"desc": "jumping across a small gap, arms out for balance, legs tucked mid-air, urgent escape",
+"intensity": 6
+},
+{
+"id": "A_EXT_289",
+"type": "V",
+"name": "Move: Slide Under",
+"desc": "dropping low and sliding under an obstacle, shoulders tucked, hands guiding movement",
+"intensity": 6
+},
+{
+"id": "A_EXT_290",
+"type": "S",
+"name": "Pose: Adrenaline",
+"desc": "standing still after exertion, chest rising, hands on knees briefly, eyes wide and alert",
+"intensity": 6
+},
+{
+"id": "A_EXT_291",
+"type": "S",
+"name": "Pose: Wipe Face",
+"desc": "hand wiping sweat from brow, shoulders heaving slightly, intense fatigue read",
+"intensity": 6
+},
+{
+"id": "A_EXT_292",
+"type": "S",
+"name": "Gesture: Signal Go",
+"desc": "arm chopping forward as a 'go' signal, feet braced, eyes locked on a path",
+"intensity": 6
+},
+{
+"id": "A_EXT_293",
+"type": "S",
+"name": "Gesture: Cover Me",
+"desc": "hand raised in a quick signal while body lowers slightly, eyes scanning ahead, tactical urgency",
+"intensity": 6
+},
+{
+"id": "A_EXT_294",
+"type": "U",
+"name": "Task: Strap Tight",
+"desc": "tightening a strap across chest or waist, shoulders tense, preparing for movement",
+"intensity": 6
+},
+{
+"id": "A_EXT_295",
+"type": "U",
+"name": "Task: Break Glass",
+"desc": "striking a glass panel or case with an elbow or object, shards implied, urgent emergency action",
+"intensity": 6
+},
+{
+"id": "A_EXT_296",
+"type": "U",
+"name": "Task: Pull Alarm",
+"desc": "reaching up and yanking an alarm handle, shoulders engaged, face tight with urgency",
+"intensity": 6
+},
+{
+"id": "A_EXT_297",
+"type": "V",
+"name": "Move: Crowd Push",
+"desc": "forcing through a crowd, shoulders driving, arms tucked, determined forward motion",
+"intensity": 6
+},
+{
+"id": "A_EXT_298",
+"type": "V",
+"name": "Move: Stumble Run",
+"desc": "running while stumbling slightly, one hand out to catch balance, panic energy rising",
+"intensity": 6
+},
+{
+"id": "A_EXT_299",
+"type": "C",
+"name": "Fight: Knee Strike",
+"desc": "one character drives a knee upward in close range, the other recoils, impact implied without detail",
+"intensity": 6
+},
+{
+"id": "A_EXT_300",
+"type": "C",
+"name": "Fight: Trip Sweep",
+"desc": "one character hooks a leg to sweep, the other loses balance and begins to fall, motion frozen mid-action",
+"intensity": 6
+},
+{
+"id": "A_EXT_301",
+"type": "V",
+"name": "Run: Hard Push",
+"desc": "running at high pace, forward lean deepens, arms driving tight, jaw set, high-output stride",
+"intensity": 7
+},
+{
+"id": "A_EXT_302",
+"type": "V",
+"name": "Run: Cut Left",
+"desc": "fast directional cut to the left, torso tilts, inside foot plants hard, arms flare for balance",
+"intensity": 7
+},
+{
+"id": "A_EXT_303",
+"type": "V",
+"name": "Run: Cut Right",
+"desc": "fast directional cut to the right, shoulders whip, outside leg pushes, head snaps to new path",
+"intensity": 7
+},
+{
+"id": "A_EXT_304",
+"type": "V",
+"name": "Move: Vault Rail",
+"desc": "hands grab a rail, hips lift, legs swing over in one smooth vault, landing in a run",
+"intensity": 7
+},
+{
+"id": "A_EXT_305",
+"type": "V",
+"name": "Move: Wall Run",
+"desc": "one foot plants on wall mid-stride, body angles upward briefly, arms pump, dynamic parkour beat",
+"intensity": 7
+},
+{
+"id": "A_EXT_306",
+"type": "V",
+"name": "Move: Climb Up",
+"desc": "pulling up over a ledge, elbows bend hard, knee drives up, weight shifts onto platform",
+"intensity": 7
+},
+{
+"id": "A_EXT_307",
+"type": "V",
+"name": "Move: Drop Down",
+"desc": "dropping from height, knees bend on landing, arms out wide, immediate recovery stance",
+"intensity": 7
+},
+{
+"id": "A_EXT_308",
+"type": "V",
+"name": "Move: Slide Cover",
+"desc": "sliding into cover on one knee, other foot planted, shoulders low, hands ready to move again",
+"intensity": 7
+},
+{
+"id": "A_EXT_309",
+"type": "V",
+"name": "Move: Dive Roll",
+"desc": "diving forward into a shoulder roll, legs tuck, momentum carries into a low stand",
+"intensity": 7
+},
+{
+"id": "A_EXT_310",
+"type": "V",
+"name": "Move: Sprint Start",
+"desc": "explosive launch from standstill, one foot pushes hard, torso low, arms snap into drive",
+"intensity": 7
+},
+{
+"id": "A_EXT_311",
+"type": "V",
+"name": "Move: Stairs Run",
+"desc": "charging up stairs two at a time, hands pumping, shoulders forward, urgent ascent",
+"intensity": 7
+},
+{
+"id": "A_EXT_312",
+"type": "V",
+"name": "Move: Crowd Break",
+"desc": "forcing through a dense crowd, shoulders driving, elbows tucked, eyes scanning for gaps",
+"intensity": 7
+},
+{
+"id": "A_EXT_313",
+"type": "V",
+"name": "Move: Shoulder Check",
+"desc": "running while checking over shoulder, head turned back, stride stays strong, threat awareness",
+"intensity": 7
+},
+{
+"id": "A_EXT_314",
+"type": "V",
+"name": "Move: Leap Ledge",
+"desc": "jumping to grab a ledge, arms extended, legs tucked mid-air, fingers curling over edge",
+"intensity": 7
+},
+{
+"id": "A_EXT_315",
+"type": "V",
+"name": "Move: Hurdle High",
+"desc": "stepping over a tall obstacle, knee lifted high, foot clears, arms counterbalance sharply",
+"intensity": 7
+},
+{
+"id": "A_EXT_316",
+"type": "V",
+"name": "Move: Skid Turn",
+"desc": "skidding into a tight turn, feet scraping, torso twisted, hands out for balance",
+"intensity": 7
+},
+{
+"id": "A_EXT_317",
+"type": "V",
+"name": "Move: Dive Grab",
+"desc": "diving forward to grab an object or hand, body fully extended, fingers reaching at last moment",
+"intensity": 7
+},
+{
+"id": "A_EXT_318",
+"type": "V",
+"name": "Move: Quick Crawl",
+"desc": "low crawl forward, elbows and knees driving, head down, fast stealthy movement",
+"intensity": 7
+},
+{
+"id": "A_EXT_319",
+"type": "V",
+"name": "Move: Duck Sprint",
+"desc": "sprinting while ducking low, shoulders compressed, arms tight, avoiding something overhead",
+"intensity": 7
+},
+{
+"id": "A_EXT_320",
+"type": "V",
+"name": "Move: Side Roll",
+"desc": "fast lateral roll across ground, knees tucked, shoulder leads, recovery into crouch",
+"intensity": 7
+},
+{
+"id": "A_EXT_321",
+"type": "S",
+"name": "Pose: Battle Ready",
+"desc": "athletic stance, knees bent, hands up and open, elbows tucked, defensive readiness silhouette",
+"intensity": 7
+},
+{
+"id": "A_EXT_322",
+"type": "S",
+"name": "Pose: Low Guard",
+"desc": "torso lowered, forearms raised, weight on back foot, braced to block or evade",
+"intensity": 7
+},
+{
+"id": "A_EXT_323",
+"type": "S",
+"name": "Pose: Threat Step",
+"desc": "one assertive step forward, shoulders squared, chin down, hands loose with visible tension",
+"intensity": 7
+},
+{
+"id": "A_EXT_324",
+"type": "S",
+"name": "Pose: Brace Wall",
+"desc": "back to wall, knees bent slightly, head turning, palms hovering ready, preparing for impact",
+"intensity": 7
+},
+{
+"id": "A_EXT_325",
+"type": "S",
+"name": "Gaze: Fear Spike",
+"desc": "eyes wide and locked, brows high, mouth tight, shoulders lifted, fear held in place",
+"intensity": 7
+},
+{
+"id": "A_EXT_326",
+"type": "S",
+"name": "Gaze: Rage Lock",
+"desc": "eyes narrowed, brow heavy, jaw clenched, head slightly forward, controlled fury",
+"intensity": 7
+},
+{
+"id": "A_EXT_327",
+"type": "S",
+"name": "Gaze: Hunt",
+"desc": "eyes scanning with sharp micro-movements, chin level, expression cold, tracking a target",
+"intensity": 7
+},
+{
+"id": "A_EXT_328",
+"type": "S",
+"name": "Gesture: Get Back",
+"desc": "arm extended with palm out, other hand pulling someone behind, stance braced and protective",
+"intensity": 7
+},
+{
+"id": "A_EXT_329",
+"type": "S",
+"name": "Gesture: Push Down",
+"desc": "hand pressing downward urgently as if ordering someone to duck, shoulders tight, eyes scanning",
+"intensity": 7
+},
+{
+"id": "A_EXT_330",
+"type": "S",
+"name": "Gesture: Go Now",
+"desc": "arm chopping forward hard, torso leaning into direction, command to move immediately",
+"intensity": 7
+},
+{
+"id": "A_EXT_331",
+"type": "U",
+"name": "Task: Drag Friend",
+"desc": "two characters, one gripping the other's forearm and dragging them forward urgently, both off-balance",
+"intensity": 7
+},
+{
+"id": "A_EXT_332",
+"type": "U",
+"name": "Task: Lift Carry",
+"desc": "lifting a person by the arm and shoulder to help them move, legs braced, urgent support",
+"intensity": 7
+},
+{
+"id": "A_EXT_333",
+"type": "U",
+"name": "Task: Barricade",
+"desc": "shoving a heavy object into place as a barricade, feet wide, shoulders straining, decisive force",
+"intensity": 7
+},
+{
+"id": "A_EXT_334",
+"type": "U",
+"name": "Task: Slam Door",
+"desc": "slamming a door shut with full body weight, shoulder turned, hands pushing hard",
+"intensity": 7
+},
+{
+"id": "A_EXT_335",
+"type": "U",
+"name": "Task: Break In",
+"desc": "forcing a stuck door or gate, hands braced, hips driving, urgent entry attempt",
+"intensity": 7
+},
+{
+"id": "A_EXT_336",
+"type": "U",
+"name": "Weapon: Low Ready",
+"desc": "weapon held low and close, elbows tucked, finger off trigger, eyes scanning forward",
+"intensity": 7
+},
+{
+"id": "A_EXT_337",
+"type": "U",
+"name": "Weapon: Aim Up",
+"desc": "weapon raised to eye line, shoulders locked, one eye narrowed, quick sighting posture",
+"intensity": 7
+},
+{
+"id": "A_EXT_338",
+"type": "U",
+"name": "Weapon: Corner Hold",
+"desc": "pressed near a corner, weapon angled downrange, head tilted to listen, tight controlled posture",
+"intensity": 7
+},
+{
+"id": "A_EXT_339",
+"type": "U",
+"name": "Prop: Shield Bag",
+"desc": "holding a bag or case up as an improvised shield, shoulders tight, head tucked slightly",
+"intensity": 7
+},
+{
+"id": "A_EXT_340",
+"type": "U",
+"name": "Task: Flashlight Scan",
+"desc": "holding a flashlight forward, beam implied sweeping left to right, knees bent, cautious advance",
+"intensity": 7
+},
+{
+"id": "A_EXT_341",
+"type": "C",
+"name": "Fight: First Clash",
+"desc": "two characters collide, forearms meet, shoulders tense, impact implied, both bracing for control",
+"intensity": 7
+},
+{
+"id": "A_EXT_342",
+"type": "C",
+"name": "Fight: Push Off",
+"desc": "one character shoves hard with both hands, the other stumbles back, feet scrambling for balance",
+"intensity": 7
+},
+{
+"id": "A_EXT_343",
+"type": "C",
+"name": "Fight: Block High",
+"desc": "one character swings an arm, the other raises forearms to block high, faces tight with effort",
+"intensity": 7
+},
+{
+"id": "A_EXT_344",
+"type": "C",
+"name": "Fight: Body Hook",
+"desc": "one character drives a short punch toward the midsection, the other twists to absorb and guard, impact implied",
+"intensity": 7
+},
+{
+"id": "A_EXT_345",
+"type": "C",
+"name": "Fight: Knee Drive",
+"desc": "close-range knee strike motion, other character recoils, both bodies compressed, impact implied",
+"intensity": 7
+},
+{
+"id": "A_EXT_346",
+"type": "C",
+"name": "Fight: Elbow Turn",
+"desc": "one character pivots and throws an elbow, the other flinches back, silhouettes sharp and tight",
+"intensity": 7
+},
+{
+"id": "A_EXT_347",
+"type": "C",
+"name": "Fight: Grapple Lock",
+"desc": "two characters clinched, hands gripping shoulders or sleeves, heads close, straining for leverage",
+"intensity": 7
+},
+{
+"id": "A_EXT_348",
+"type": "C",
+"name": "Fight: Break Free",
+"desc": "two characters separating abruptly, arms up, shoulders tense, both resetting their stance",
+"intensity": 7
+},
+{
+"id": "A_EXT_349",
+"type": "C",
+"name": "Fight: Sweep Trip",
+"desc": "one character hooks a leg for a sweep, the other begins to fall sideways, motion frozen mid-balance",
+"intensity": 7
+},
+{
+"id": "A_EXT_350",
+"type": "C",
+"name": "Fight: Back Grab",
+"desc": "one character grabs from behind at shoulder or collar, the other twists forward, struggle implied",
+"intensity": 7
+},
+{
+"id": "A_EXT_351",
+"type": "V",
+"name": "Move: Wall Kick",
+"desc": "planting a foot on wall to push off and change direction, body angled, arms counterbalancing",
+"intensity": 8
+},
+{
+"id": "A_EXT_352",
+"type": "V",
+"name": "Move: Long Vault",
+"desc": "launching over a wider obstacle, hands touch briefly, legs tuck tight, landing hard into stride",
+"intensity": 8
+},
+{
+"id": "A_EXT_353",
+"type": "V",
+"name": "Move: Roof Jump",
+"desc": "jumping between elevated surfaces, arms wide for balance, knees tucked, intense commitment mid-air",
+"intensity": 8
+},
+{
+"id": "A_EXT_354",
+"type": "V",
+"name": "Move: Drop Roll",
+"desc": "dropping from height and rolling on landing, shoulder leads, feet recover into a run",
+"intensity": 8
+},
+{
+"id": "A_EXT_355",
+"type": "V",
+"name": "Move: Slide Under",
+"desc": "sliding low under an obstacle, shoulders tucked, one hand guiding, legs extended forward",
+"intensity": 8
+},
+{
+"id": "A_EXT_356",
+"type": "V",
+"name": "Move: Dive Cover",
+"desc": "full-body dive behind cover, arms tucking in, head down, urgency and danger implied",
+"intensity": 8
+},
+{
+"id": "A_EXT_357",
+"type": "V",
+"name": "Move: Stair Leap",
+"desc": "taking stairs with a leap, skipping multiple steps, arms pumping, explosive upward motion",
+"intensity": 8
+},
+{
+"id": "A_EXT_358",
+"type": "V",
+"name": "Move: Sprint Burst",
+"desc": "sprinting at near-max output, torso low, arms driving hard, stride extended and aggressive",
+"intensity": 8
+},
+{
+"id": "A_EXT_359",
+"type": "V",
+"name": "Move: Zigzag Dash",
+"desc": "high-speed zigzag run, shoulders tilting, feet chopping quick, evasive movement pattern",
+"intensity": 8
+},
+{
+"id": "A_EXT_360",
+"type": "V",
+"name": "Move: Tackle Hit",
+"desc": "two characters, one lunging shoulder-first into the other, both bodies tipping, impact implied",
+"intensity": 8
+},
+{
+"id": "A_EXT_361",
+"type": "V",
+"name": "Move: Shoulder Ram",
+"desc": "driving shoulder into a heavy door or barrier, legs braced, torso tight, forceful impact implied",
+"intensity": 8
+},
+{
+"id": "A_EXT_362",
+"type": "V",
+"name": "Move: Crash Through",
+"desc": "bursting through a lightweight barrier, arms up to protect face, debris implied without detail",
+"intensity": 8
+},
+{
+"id": "A_EXT_363",
+"type": "V",
+"name": "Move: Hang Swing",
+"desc": "hanging from a bar or ledge and swinging legs through to gain momentum, dynamic arc motion",
+"intensity": 8
+},
+{
+"id": "A_EXT_364",
+"type": "V",
+"name": "Move: One-Hand Climb",
+"desc": "pulling up with one hand while the other reaches higher, legs kicking for purchase, urgent ascent",
+"intensity": 8
+},
+{
+"id": "A_EXT_365",
+"type": "V",
+"name": "Move: Kick Door",
+"desc": "kicking a door near the latch, hips driving, arms up for balance, forced entry implied",
+"intensity": 8
+},
+{
+"id": "A_EXT_366",
+"type": "S",
+"name": "Pose: Corner Ready",
+"desc": "pressed near a corner, knees bent, shoulders tight, hands up and open, ready to spring",
+"intensity": 8
+},
+{
+"id": "A_EXT_367",
+"type": "S",
+"name": "Pose: Crouch Scan",
+"desc": "deep crouch, heels down, elbows near knees, head turning, scanning for threats",
+"intensity": 8
+},
+{
+"id": "A_EXT_368",
+"type": "S",
+"name": "Pose: Shield Brace",
+"desc": "forearms raised to protect head, torso hunched, feet wide, bracing against impact",
+"intensity": 8
+},
+{
+"id": "A_EXT_369",
+"type": "S",
+"name": "Pose: Rage Stance",
+"desc": "wide stance, fists tight, shoulders lifted, chin forward, contained aggression ready to burst",
+"intensity": 8
+},
+{
+"id": "A_EXT_370",
+"type": "S",
+"name": "Gaze: Terror Wide",
+"desc": "eyes fully wide, brows high, mouth tense, head slightly back, panic flooding the face",
+"intensity": 8
+},
+{
+"id": "A_EXT_371",
+"type": "S",
+"name": "Gaze: Kill Focus",
+"desc": "eyes narrowed into a hard line, brow locked, jaw clenched, attention tunneled forward",
+"intensity": 8
+},
+{
+"id": "A_EXT_372",
+"type": "S",
+"name": "Gesture: Cover Head",
+"desc": "hands up shielding head, elbows forward, shoulders hunched, bracing for debris or impact",
+"intensity": 8
+},
+{
+"id": "A_EXT_373",
+"type": "S",
+"name": "Gesture: Pull Down",
+"desc": "grabbing someone by collar or shoulder and yanking them down, body twisting, protective urgency",
+"intensity": 8
+},
+{
+"id": "A_EXT_374",
+"type": "S",
+"name": "Gesture: Point Exit",
+"desc": "arm fully extended pointing to an exit, torso leaned forward, eyes locked on path, urgent command",
+"intensity": 8
+},
+{
+"id": "A_EXT_375",
+"type": "U",
+"name": "Task: Drag Heavy",
+"desc": "dragging a heavy object across the ground, torso leaned back, arms straining, feet digging in",
+"intensity": 8
+},
+{
+"id": "A_EXT_376",
+"type": "U",
+"name": "Task: Carry Run",
+"desc": "running while carrying a bulky item tight to chest, elbows tucked, strain visible in posture",
+"intensity": 8
+},
+{
+"id": "A_EXT_377",
+"type": "U",
+"name": "Task: Break Glass",
+"desc": "striking a glass panel or case, shards implied, shoulders tight, urgent emergency motion",
+"intensity": 8
+},
+{
+"id": "A_EXT_378",
+"type": "U",
+"name": "Task: Pull Alarm",
+"desc": "yanking an alarm handle or lever, shoulders engaged, face tense, instant emergency beat",
+"intensity": 8
+},
+{
+"id": "A_EXT_379",
+"type": "U",
+"name": "Task: Cut Power",
+"desc": "hands on a breaker or switch, flipping it fast, body leaned in, urgency implied",
+"intensity": 8
+},
+{
+"id": "A_EXT_380",
+"type": "U",
+"name": "Weapon: Aim Down",
+"desc": "weapon raised to eye level, shoulders locked, cheek near stock, intense focus on target",
+"intensity": 8
+},
+{
+"id": "A_EXT_381",
+"type": "U",
+"name": "Weapon: Advance",
+"desc": "moving forward in a crouch, weapon tucked close, head scanning left and right, tactical urgency",
+"intensity": 8
+},
+{
+"id": "A_EXT_382",
+"type": "U",
+"name": "Weapon: Reload",
+"desc": "hands moving fast to swap a magazine, eyes down then up, practiced motion under pressure",
+"intensity": 8
+},
+{
+"id": "A_EXT_383",
+"type": "U",
+"name": "Weapon: Cover Peek",
+"desc": "behind cover, weapon angled out, quick lean to peek then pull back, tight controlled posture",
+"intensity": 8
+},
+{
+"id": "A_EXT_384",
+"type": "C",
+"name": "Fight: Slam Wall",
+"desc": "two characters, one drives the other into a wall or surface, shoulders compressed, impact implied",
+"intensity": 8
+},
+{
+"id": "A_EXT_385",
+"type": "C",
+"name": "Fight: Clinch Turn",
+"desc": "two characters locked in clinch, one pivots hips to turn the other, feet shifting for leverage",
+"intensity": 8
+},
+{
+"id": "A_EXT_386",
+"type": "C",
+"name": "Fight: Ground Drop",
+"desc": "two characters tumble downward, one knee hits ground first, hands grabbing to control fall",
+"intensity": 8
+},
+{
+"id": "A_EXT_387",
+"type": "C",
+"name": "Fight: Choke Hold",
+"desc": "one character behind another with forearm across upper chest, the other clawing at arm, struggle implied",
+"intensity": 8
+},
+{
+"id": "A_EXT_388",
+"type": "C",
+"name": "Fight: Throw Over",
+"desc": "one character hooks an arm and pivots to throw the other off balance, bodies mid-rotation, impact implied",
+"intensity": 8
+},
+{
+"id": "A_EXT_389",
+"type": "C",
+"name": "Fight: Block Kick",
+"desc": "one character throws a kick, the other raises a forearm or shin to block, both faces tight with effort",
+"intensity": 8
+},
+{
+"id": "A_EXT_390",
+"type": "C",
+"name": "Fight: Knife Threat",
+"desc": "one character holds a blade close, the other freezes with hands raised, tension high, no gore",
+"intensity": 8
+},
+{
+"id": "A_EXT_391",
+"type": "C",
+"name": "Fight: Disarm Try",
+"desc": "two characters, one reaching for the other's weapon hand, wrists locked, struggle over control",
+"intensity": 8
+},
+{
+"id": "A_EXT_392",
+"type": "C",
+"name": "Fight: Back Kick",
+"desc": "one character kicks backward without turning fully, the other recoils, impact implied",
+"intensity": 8
+},
+{
+"id": "A_EXT_393",
+"type": "C",
+"name": "Fight: Headbutt",
+"desc": "close-range headbutt motion, shoulders collide, the other character jerks back, impact implied",
+"intensity": 8
+},
+{
+"id": "A_EXT_394",
+"type": "C",
+"name": "Fight: Double Takedown",
+"desc": "two characters collide and drop to knees, arms locked, both fighting for top position",
+"intensity": 8
+},
+{
+"id": "A_EXT_395",
+"type": "S",
+"name": "Result: Winded",
+"desc": "standing bent forward, hands on knees, chest heaving, sweat implied, eyes still alert",
+"intensity": 8
+},
+{
+"id": "A_EXT_396",
+"type": "S",
+"name": "Result: Shaking",
+"desc": "hands trembling slightly, shoulders high, eyes wide, adrenaline visible in posture",
+"intensity": 8
+},
+{
+"id": "A_EXT_397",
+"type": "S",
+"name": "Result: Smoke Look",
+"desc": "standing still, head turning through haze, eyes narrowed, scanning aftermath, tense silhouette",
+"intensity": 8
+},
+{
+"id": "A_EXT_398",
+"type": "V",
+"name": "Move: Explode Back",
+"desc": "body thrown backward by a shockwave, arms flung wide, feet lifting, impact implied",
+"intensity": 8
+},
+{
+"id": "A_EXT_399",
+"type": "V",
+"name": "Move: Dive Away",
+"desc": "full-body dive away from a blast area, arms forward, legs trailing, urgent escape arc",
+"intensity": 8
+},
+{
+"id": "A_EXT_400",
+"type": "S",
+"name": "Gaze: Shock Blank",
+"desc": "eyes wide but unfocused, mouth slightly open, shoulders frozen, stunned stillness",
+"intensity": 8
+},
+{
+"id": "A_EXT_401",
+"type": "V",
+"name": "Move: Life Sprint",
+"desc": "maximum sprint effort, torso almost horizontal, arms pumping hard, legs fully extended stride",
+"intensity": 9
+},
+{
+"id": "A_EXT_402",
+"type": "V",
+"name": "Move: Panic Run",
+"desc": "sprinting wildly while looking back, arms choppy, shoulders high, fear driving motion",
+"intensity": 9
+},
+{
+"id": "A_EXT_403",
+"type": "V",
+"name": "Move: Leap Gap",
+"desc": "jumping across a dangerous gap, arms flung wide, knees tucked, body fully committed mid-air",
+"intensity": 9
+},
+{
+"id": "A_EXT_404",
+"type": "V",
+"name": "Move: Roof Dive",
+"desc": "diving from a height toward a lower surface, arms forward, legs trailing, impact imminent",
+"intensity": 9
+},
+{
+"id": "A_EXT_405",
+"type": "V",
+"name": "Move: Glass Crash",
+"desc": "bursting through a glass window, shards implied around body, arms up shielding face, mid-air",
+"intensity": 9
+},
+{
+"id": "A_EXT_406",
+"type": "V",
+"name": "Move: Car Slide",
+"desc": "sliding across a vehicle hood or surface, torso low, hands braced, legs trailing, desperate movement",
+"intensity": 9
+},
+{
+"id": "A_EXT_407",
+"type": "V",
+"name": "Move: Door Smash",
+"desc": "shoulder smashing through a door, wood splinters implied, head tucked, forceful entry",
+"intensity": 9
+},
+{
+"id": "A_EXT_408",
+"type": "V",
+"name": "Move: Wall Break",
+"desc": "charging into a thin wall or panel, arms up, debris implied, body driving through",
+"intensity": 9
+},
+{
+"id": "A_EXT_409",
+"type": "V",
+"name": "Move: Slide Fire",
+"desc": "sliding on knees while aiming forward, elbows tight, head low, dramatic action beat",
+"intensity": 9
+},
+{
+"id": "A_EXT_410",
+"type": "V",
+"name": "Move: Dive Shield",
+"desc": "diving over someone to shield them, arms spread, back arched, protective sacrifice silhouette",
+"intensity": 9
+},
+{
+"id": "A_EXT_411",
+"type": "S",
+"name": "Pose: Surrender",
+"desc": "hands raised high, palms open, shoulders tense, stance wide, fear and compliance visible",
+"intensity": 9
+},
+{
+"id": "A_EXT_412",
+"type": "S",
+"name": "Pose: Last Stand",
+"desc": "feet planted wide, fists tight, shoulders squared, chin down, refusing to retreat",
+"intensity": 9
+},
+{
+"id": "A_EXT_413",
+"type": "S",
+"name": "Pose: Cover Crouch",
+"desc": "deep crouch behind cover, one forearm up, head tucked, eyes peeking over edge",
+"intensity": 9
+},
+{
+"id": "A_EXT_414",
+"type": "S",
+"name": "Pose: Shock Recoil",
+"desc": "torso jerking back, shoulders high, hands up instinctively, eyes wide, sudden threat reaction",
+"intensity": 9
+},
+{
+"id": "A_EXT_415",
+"type": "S",
+"name": "Gaze: Pure Panic",
+"desc": "eyes wide and darting, brows raised high, jaw trembling, breath implied in posture",
+"intensity": 9
+},
+{
+"id": "A_EXT_416",
+"type": "S",
+"name": "Gaze: Dead Aim",
+"desc": "eyes narrowed to a point, head still, jaw locked, focus intense and unblinking",
+"intensity": 9
+},
+{
+"id": "A_EXT_417",
+"type": "S",
+"name": "Gesture: Shield Face",
+"desc": "forearms covering face, elbows forward, shoulders hunched, bracing for debris or strike",
+"intensity": 9
+},
+{
+"id": "A_EXT_418",
+"type": "S",
+"name": "Gesture: Drag Away",
+"desc": "two characters, one pulling the other backward by the collar or arm, urgent retreat under threat",
+"intensity": 9
+},
+{
+"id": "A_EXT_419",
+"type": "U",
+"name": "Weapon: Full Aim",
+"desc": "weapon fully raised, cheek aligned, elbows locked, stance wide, intense aim down sights",
+"intensity": 9
+},
+{
+"id": "A_EXT_420",
+"type": "U",
+"name": "Weapon: Burst Move",
+"desc": "moving fast in a crouch with weapon tucked, scanning corners, shoulders tight, tactical urgency",
+"intensity": 9
+},
+{
+"id": "A_EXT_421",
+"type": "U",
+"name": "Weapon: Reload Fast",
+"desc": "hands blur swapping a magazine, eyes up between motions, practiced reload under pressure",
+"intensity": 9
+},
+{
+"id": "A_EXT_422",
+"type": "U",
+"name": "Weapon: Cover Fire",
+"desc": "behind cover, leaning out slightly to aim, then tucking back in, controlled engagement beat",
+"intensity": 9
+},
+{
+"id": "A_EXT_423",
+"type": "U",
+"name": "Task: Fire Ext",
+"desc": "holding a fire extinguisher, stance braced, arms extended, spray implied forward into haze",
+"intensity": 9
+},
+{
+"id": "A_EXT_424",
+"type": "U",
+"name": "Task: Smoke Run",
+"desc": "running through smoke, one arm shielding mouth, head low, eyes squinting forward",
+"intensity": 9
+},
+{
+"id": "A_EXT_425",
+"type": "U",
+"name": "Task: Carry Wounded",
+"desc": "two characters, one supporting the other under the arm, both stumbling forward, urgency and strain",
+"intensity": 9
+},
+{
+"id": "A_EXT_426",
+"type": "U",
+"name": "Task: Break Lock",
+"desc": "kicking or striking a lock area, hips driving, shoulders tight, forced access implied",
+"intensity": 9
+},
+{
+"id": "A_EXT_427",
+"type": "U",
+"name": "Task: Pull Lever",
+"desc": "yanking a large lever with full body weight, feet planted, back engaged, emergency action",
+"intensity": 9
+},
+{
+"id": "A_EXT_428",
+"type": "C",
+"name": "Fight: Full Brawl",
+"desc": "two characters trading heavy blows, arms swinging wide, bodies twisting, impact implied without detail",
+"intensity": 9
+},
+{
+"id": "A_EXT_429",
+"type": "C",
+"name": "Fight: Takedown",
+"desc": "one character drives into the other’s hips, both tipping, arms grabbing for control, slam implied",
+"intensity": 9
+},
+{
+"id": "A_EXT_430",
+"type": "C",
+"name": "Fight: Ground Pin",
+"desc": "one character pinning the other on the ground, knees planted, hands controlling shoulders, struggle implied",
+"intensity": 9
+},
+{
+"id": "A_EXT_431",
+"type": "C",
+"name": "Fight: Choke Slam",
+"desc": "one character gripping collar or throat area and shoving the other back, faces tense, no gore",
+"intensity": 9
+},
+{
+"id": "A_EXT_432",
+"type": "C",
+"name": "Fight: Knife Lunge",
+"desc": "one character lunges with a blade, the other twists away with forearm up, near-miss implied",
+"intensity": 9
+},
+{
+"id": "A_EXT_433",
+"type": "C",
+"name": "Fight: Disarm Win",
+"desc": "two characters, one wrenching the other’s weapon hand aside, the other recoiling, control shift implied",
+"intensity": 9
+},
+{
+"id": "A_EXT_434",
+"type": "C",
+"name": "Fight: Wall Choke",
+"desc": "one character pins the other against a wall by collar, the other’s hands push back, intense strain",
+"intensity": 9
+},
+{
+"id": "A_EXT_435",
+"type": "C",
+"name": "Fight: Back Break",
+"desc": "two characters separate sharply, one staggering back clutching ribs, breathing hard, no gore",
+"intensity": 9
+},
+{
+"id": "A_EXT_436",
+"type": "C",
+"name": "Fight: Double Fall",
+"desc": "both characters tumble to the ground tangled, limbs splayed mid-fall, impact imminent",
+"intensity": 9
+},
+{
+"id": "A_EXT_437",
+"type": "V",
+"name": "Move: Explosion Run",
+"desc": "sprinting away as a blast blooms behind, hair and clothing blown forward, arms pumping full force",
+"intensity": 9
+},
+{
+"id": "A_EXT_438",
+"type": "V",
+"name": "Move: Shockwave",
+"desc": "body lifted and thrown sideways by shockwave, arms flung, legs off-ground, chaos implied",
+"intensity": 9
+},
+{
+"id": "A_EXT_439",
+"type": "V",
+"name": "Move: Debris Dodge",
+"desc": "dodging falling debris, shoulders hunched, forearm shielding head, feet scrambling for space",
+"intensity": 9
+},
+{
+"id": "A_EXT_440",
+"type": "S",
+"name": "Result: Defeated",
+"desc": "standing with hands raised, shoulders slumped, head lowered, resignation and exhaustion",
+"intensity": 9
+},
+{
+"id": "A_EXT_441",
+"type": "S",
+"name": "Result: Adrenaline",
+"desc": "standing still, chest heaving, eyes wide, hands shaking slightly, adrenaline visible",
+"intensity": 9
+},
+{
+"id": "A_EXT_442",
+"type": "S",
+"name": "Result: Ash Stare",
+"desc": "face smeared with soot implied, eyes fixed ahead, shoulders tight, stunned aftermath stillness",
+"intensity": 9
+},
+{
+"id": "A_EXT_443",
+"type": "S",
+"name": "Chat: Final Threat",
+"desc": "two characters close, one glaring and speaking low with rigid posture, the other frozen and tense",
+"intensity": 9
+},
+{
+"id": "A_EXT_444",
+"type": "U",
+"name": "Prop: Gas Mask",
+"desc": "pulling on a gas mask, straps tight, head low, eyes forward, urgent protection beat",
+"intensity": 9
+},
+{
+"id": "A_EXT_445",
+"type": "U",
+"name": "Task: Throw Switch",
+"desc": "slamming a large switch or breaker, body lunging into it, panic urgency, sparks implied",
+"intensity": 9
+},
+{
+"id": "A_EXT_446",
+"type": "U",
+"name": "Task: Rescue Lift",
+"desc": "lifting a person off the ground under their arms, feet braced, face strained, urgent rescue",
+"intensity": 9
+},
+{
+"id": "A_EXT_447",
+"type": "V",
+"name": "Move: Hang Drop",
+"desc": "hanging from a ledge then dropping, hands releasing, knees bending on landing, immediate sprint",
+"intensity": 9
+},
+{
+"id": "A_EXT_448",
+"type": "V",
+"name": "Move: Slide Escape",
+"desc": "sliding through a narrow gap or closing door, shoulders turned sideways, arms tucked, desperate timing",
+"intensity": 9
+},
+{
+"id": "A_EXT_449",
+"type": "V",
+"name": "Move: Tumble Away",
+"desc": "falling and tumbling across ground, hands out, legs folding, chaotic uncontrolled motion",
+"intensity": 9
+},
+{
+"id": "A_EXT_450",
+"type": "S",
+"name": "Gaze: Doom",
+"desc": "eyes fixed ahead with total dread, brows high, lips parted, body rigid in fear",
+"intensity": 9
+},
+{
+"id": "A_EXT_451",
+"type": "V",
+"name": "Move: Chaos Sprint",
+"desc": "all-out sprint through chaos, head ducking, arms pumping, legs fully extended, pure survival motion",
+"intensity": 10
+},
+{
+"id": "A_EXT_452",
+"type": "V",
+"name": "Move: Window Jump",
+"desc": "leaping through a glass window, shards implied, body fully horizontal mid-air, arms shielding head",
+"intensity": 10
+},
+{
+"id": "A_EXT_453",
+"type": "V",
+"name": "Move: Fireball Dodge",
+"desc": "diving sideways as a fireball blooms, arm shielding face, legs trailing, heat implied",
+"intensity": 10
+},
+{
+"id": "A_EXT_454",
+"type": "V",
+"name": "Move: Blast Lift",
+"desc": "body lifted off feet by explosion shock, limbs flung outward, clothing whipped, chaos freeze-frame",
+"intensity": 10
+},
+{
+"id": "A_EXT_455",
+"type": "V",
+"name": "Move: Debris Storm",
+"desc": "running as debris rains down, forearms over head, shoulders hunched, feet scrambling for safety",
+"intensity": 10
+},
+{
+"id": "A_EXT_456",
+"type": "V",
+"name": "Move: Collapse Leap",
+"desc": "jumping across a collapsing surface, arms wide, knees tucked, background chaos implied",
+"intensity": 10
+},
+{
+"id": "A_EXT_457",
+"type": "V",
+"name": "Move: Flame Run",
+"desc": "sprinting past flames, head low, one arm shielding, the other driving, intense heat implied",
+"intensity": 10
+},
+{
+"id": "A_EXT_458",
+"type": "V",
+"name": "Move: Truck Dive",
+"desc": "diving out of the path of a fast-moving vehicle, arms forward, legs trailing, near-miss implied",
+"intensity": 10
+},
+{
+"id": "A_EXT_459",
+"type": "V",
+"name": "Move: Free Fall",
+"desc": "falling through open space, arms spread, legs bent, hair and clothing lifting, gravity moment",
+"intensity": 10
+},
+{
+"id": "A_EXT_460",
+"type": "V",
+"name": "Move: Hanging Slip",
+"desc": "hands slipping on a ledge, body dangling, one hand reaching to recover grip, terror beat",
+"intensity": 10
+},
+{
+"id": "A_EXT_461",
+"type": "V",
+"name": "Move: Hero Fly",
+"desc": "flying pose, body fully extended, one arm reaching forward, cape or coat implied trailing",
+"intensity": 10
+},
+{
+"id": "A_EXT_462",
+"type": "V",
+"name": "Move: Spin Kick",
+"desc": "full spin kick mid-rotation, torso twisted, leg extended, other arm counterbalancing, impact implied",
+"intensity": 10
+},
+{
+"id": "A_EXT_463",
+"type": "V",
+"name": "Move: Air Tackle",
+"desc": "two characters collide mid-motion, one diving into the other, bodies tilting, chaos freeze-frame",
+"intensity": 10
+},
+{
+"id": "A_EXT_464",
+"type": "V",
+"name": "Move: Slide Shot",
+"desc": "sliding low while aiming forward, elbows tight, head down, dramatic action silhouette",
+"intensity": 10
+},
+{
+"id": "A_EXT_465",
+"type": "V",
+"name": "Move: Door Breach",
+"desc": "bursting through a door with full force, arms up, debris implied, immediate forward drive",
+"intensity": 10
+},
+{
+"id": "A_EXT_466",
+"type": "S",
+"name": "Pose: Total Panic",
+"desc": "knees bent, shoulders up, hands half-raised, eyes wild, body jittery and ready to bolt",
+"intensity": 10
+},
+{
+"id": "A_EXT_467",
+"type": "S",
+"name": "Pose: End Stand",
+"desc": "feet planted, fists tight, shoulders squared, chin down, refusing to break under chaos",
+"intensity": 10
+},
+{
+"id": "A_EXT_468",
+"type": "S",
+"name": "Pose: Cover Crawl",
+"desc": "low crawl behind cover, elbows driving, head tucked, moving fast and desperate",
+"intensity": 10
+},
+{
+"id": "A_EXT_469",
+"type": "S",
+"name": "Gaze: Screaming",
+"desc": "mouth open in a scream, eyes wide, brows high, face strained, pure terror expression",
+"intensity": 10
+},
+{
+"id": "A_EXT_470",
+"type": "S",
+"name": "Gaze: Frenzy",
+"desc": "eyes wide and locked, brow tight, jaw clenched, breath implied, feral focus",
+"intensity": 10
+},
+{
+"id": "A_EXT_471",
+"type": "S",
+"name": "Gesture: Shield Head",
+"desc": "forearms over head, elbows forward, shoulders hunched, bracing as debris falls",
+"intensity": 10
+},
+{
+"id": "A_EXT_472",
+"type": "S",
+"name": "Gesture: Drag Out",
+"desc": "two characters, one hauling the other by the arm through danger, both leaning forward in flight",
+"intensity": 10
+},
+{
+"id": "A_EXT_473",
+"type": "U",
+"name": "Weapon: Full Auto",
+"desc": "weapon shouldered, stance wide, recoil implied, eyes locked forward, intense engagement beat",
+"intensity": 10
+},
+{
+"id": "A_EXT_474",
+"type": "U",
+"name": "Weapon: Dual Aim",
+"desc": "two characters aiming in opposite directions, backs near each other, scanning for threats",
+"intensity": 10
+},
+{
+"id": "A_EXT_475",
+"type": "U",
+"name": "Weapon: Last Mag",
+"desc": "hands slamming in final magazine, shoulders tight, eyes up, desperation and speed",
+"intensity": 10
+},
+{
+"id": "A_EXT_476",
+"type": "U",
+"name": "Task: Fire Ext Blast",
+"desc": "firing a fire extinguisher into thick smoke, feet planted, arms extended, spray force implied",
+"intensity": 10
+},
+{
+"id": "A_EXT_477",
+"type": "U",
+"name": "Task: Rescue Carry",
+"desc": "carrying a person over shoulder or supported across back, legs straining, sprinting through danger",
+"intensity": 10
+},
+{
+"id": "A_EXT_478",
+"type": "U",
+"name": "Task: Smash Window",
+"desc": "striking a window to escape, shards implied, arm shielding face, urgent breakout motion",
+"intensity": 10
+},
+{
+"id": "A_EXT_479",
+"type": "U",
+"name": "Task: Cut Wire",
+"desc": "hands cutting a wire or cable at the last second, shoulders tense, eyes locked, high stakes",
+"intensity": 10
+},
+{
+"id": "A_EXT_480",
+"type": "U",
+"name": "Task: Pull Pin",
+"desc": "pulling a pin on a device, arm extended away, shoulders tight, imminent action implied",
+"intensity": 10
+},
+{
+"id": "A_EXT_481",
+"type": "C",
+"name": "Fight: Brutal Clash",
+"desc": "two characters in full brawl, wide swings and blocks, bodies twisting, impacts implied without gore",
+"intensity": 10
+},
+{
+"id": "A_EXT_482",
+"type": "C",
+"name": "Fight: Ground Pound",
+"desc": "one character above the other on ground, arm raised to strike, the other shielding face, impact implied",
+"intensity": 10
+},
+{
+"id": "A_EXT_483",
+"type": "C",
+"name": "Fight: Knife Fight",
+"desc": "two characters trading quick blade feints, forearms up, bodies angled, near-misses implied, no gore",
+"intensity": 10
+},
+{
+"id": "A_EXT_484",
+"type": "C",
+"name": "Fight: Gun Disarm",
+"desc": "two characters struggling over a firearm, wrists locked, barrel diverted away, intense control fight",
+"intensity": 10
+},
+{
+"id": "A_EXT_485",
+"type": "C",
+"name": "Fight: Head Slam",
+"desc": "one character slams the other into a surface, shoulders compressed, impact implied, no gore",
+"intensity": 10
+},
+{
+"id": "A_EXT_486",
+"type": "C",
+"name": "Fight: Final Throw",
+"desc": "one character pivots hips and throws the other across frame, bodies mid-air, chaos freeze-frame",
+"intensity": 10
+},
+{
+"id": "A_EXT_487",
+"type": "C",
+"name": "Fight: Choke Out",
+"desc": "one character locks an arm around upper chest from behind, the other claws at arm, desperation implied",
+"intensity": 10
+},
+{
+"id": "A_EXT_488",
+"type": "C",
+"name": "Fight: Shield Bash",
+"desc": "one character uses an object as a shield to bash forward, the other recoils, impact implied",
+"intensity": 10
+},
+{
+"id": "A_EXT_489",
+"type": "C",
+"name": "Fight: Double Pin",
+"desc": "two characters on ground, both grappling and pinning, limbs tangled, struggle for dominance",
+"intensity": 10
+},
+{
+"id": "A_EXT_490",
+"type": "C",
+"name": "Fight: Back Break",
+"desc": "one character stomps forward aggressively as the other collapses backward, exhaustion and defeat implied",
+"intensity": 10
+},
+{
+"id": "A_EXT_491",
+"type": "S",
+"name": "Result: Ash Kneel",
+"desc": "kneeling amid smoke, shoulders slumped, hands on thighs, head bowed, survival exhaustion",
+"intensity": 10
+},
+{
+"id": "A_EXT_492",
+"type": "S",
+"name": "Result: Shaking Hands",
+"desc": "hands trembling in front of face, shoulders high, eyes wide, adrenaline overflow",
+"intensity": 10
+},
+{
+"id": "A_EXT_493",
+"type": "S",
+"name": "Result: Shock Stand",
+"desc": "standing frozen, soot and dust implied, eyes blank, mouth open slightly, stunned aftermath",
+"intensity": 10
+},
+{
+"id": "A_EXT_494",
+"type": "S",
+"name": "Result: Victory Roar",
+"desc": "head thrown back, mouth open in roar, fists clenched, chest lifted, raw victorious release",
+"intensity": 10
+},
+{
+"id": "A_EXT_495",
+"type": "S",
+"name": "Result: Collapse",
+"desc": "dropping to knees, hands bracing on ground, shoulders heaving, total exhaustion",
+"intensity": 10
+},
+{
+"id": "A_EXT_496",
+"type": "V",
+"name": "Move: Spin Fall",
+"desc": "spinning uncontrolled as falling, arms flailing, legs tucked, chaos and gravity dominating",
+"intensity": 10
+},
+{
+"id": "A_EXT_497",
+"type": "V",
+"name": "Move: Blast Dive",
+"desc": "diving forward as a blast erupts, arms out, head down, hair and clothing whipped by force",
+"intensity": 10
+},
+{
+"id": "A_EXT_498",
+"type": "U",
+"name": "Prop: Flare Throw",
+"desc": "throwing a bright flare, arm fully extended, torso twisting, intense light and smoke implied",
+"intensity": 10
+},
+{
+"id": "A_EXT_499",
+"type": "U",
+"name": "Task: Fire Slide",
+"desc": "sliding a fire door or heavy gate shut with full force, feet braced, arms straining, last-second save",
+"intensity": 10
+},
+{
+"id": "A_EXT_500",
+"type": "V",
+"name": "Move: Final Leap",
+"desc": "maximum leap across frame, arms reaching, legs fully extended, life-or-death commitment mid-air",
+"intensity": 10
+}
   ],
   "interactions": [
-    "Ignoring",
-    "Analyzing",
-    "Interviewing",
-    "Instructing",
-    "Collaborating",
-    "Shadowing",
-    "Canoodling",
-    "Sprinting",
-    "Vertical Separation",
-    "Shared Space Tension",
-    "Witness Foreground / Threat Background",
-    "Realization Recoil",
-    "Shock vs. Calm",
-    "Confronting",
-    "Arguing",
-    "Protecting"
+"Ignoring",
+"Analyzing",
+"Interviewing",
+"Instructing",
+"Collaborating",
+"Shadowing",
+"Canoodling",
+"Sprinting",
+"Vertical Separation",
+"Shared Space Tension",
+"Witness Foreground / Threat Background",
+"Realization Recoil",
+"Shock vs. Calm",
+"Confronting",
+"Arguing",
+"Protecting",
+"Secretly Filming",
+"High-Fiving",
+"Negotiating",
+"Pitching",
+"Persuading",
+"Debating",
+"Agreeing",
+"Reassuring",
+"Comforting",
+"Encouraging",
+"Apologizing",
+"Congratulating",
+"Celebrating",
+"Whispering",
+"Eavesdropping",
+"Warning",
+"Pleading",
+"Threatening",
+"Intimidating",
+"Taunting",
+"Chasing",
+"Escaping",
+"Blocking",
+"Guiding",
+"Helping Up",
+"Holding Back",
+"Handing Off",
+"Trading Places",
+"Checking On",
+"Tending To",
+"Leading vs. Following",
+"Dominating vs. Yielding",
+"Trusting vs. Doubting",
+"Supportive vs. Critical",
+"Protecting vs. Exposing",
+"Calm vs. Panicked",
+"Curious vs. Guarded",
+"Confident vs. Nervous"
   ]
 }
