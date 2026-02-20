@@ -21,7 +21,7 @@ export default function Header({ onOpenVault }) {
       </div>
       <nav style={{ display: 'flex', gap: '15px' }}>
         <button 
-          onClick={() => window.open('https://bobaiese8.gumroad.com/', '_blank')}
+          onClick={() => window.open('https://pompr.gumroad.com/', '_blank')}
           style={baseButtonStyle} 
           onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.1)'; }} 
           onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(0,0,0,0.4)'; }}
