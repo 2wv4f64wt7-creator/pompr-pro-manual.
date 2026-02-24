@@ -91,10 +91,10 @@
     {
       "id": "C_LIFE_08",
       "category": "LIFE",
-      "name": "The Chef",
-      "details": "Age: 35. Male. Fiery creative intensity. Hands are scarred from kitchen work.",
-      "outfit": "pristine white chef's coat with double-breasted buttons. Stiff heavy cotton."
-    },
+      "name": "The Studio Artist",
+      "details": "Female, 28. Quiet intensity under the mess—disciplined, observant, hard to impress. Dark chestnut hair tied back with loose flyaways. Focused eyes that stay on a subject a beat longer than comfortable. A graphite smear on her right cheek from wiping without thinking; hands permanently stained from daily work.",
+      "outfit": "Broken-in denim overalls with restrained paint history (more wear than splash) over a white ribbed tank. Bib pocket: folded rag, graphite pencil, one capped marker. Paint-scarred canvas slip-ons. Simple silver ring; elastic hair tie on wrist."
+      },
     {
       "id": "C_LIFE_09",
       "category": "LIFE",
@@ -226,23 +226,16 @@
     {
       "id": "S_LUXE_01",
       "category": "LUXE",
-      "name": "Urban Noir Loft",
-      "desc": "Brick walls, grimy windows",
-      "lighting": "Volumetric shafts"
-    },
-    {
-      "id": "S_LIFE_02",
-      "category": "LIFE",
-      "name": "Industrial Loft Studio",
-      "desc": "Exposed brick, factory windows",
-      "lighting": "Natural daylight"
+      "name": "The Penthouse Terrace",
+      "desc": "Outdoor luxury deck, glass railings, city skyline at dusk",
+      "lighting": "Blue hour ambient with warm city bokeh"
     },
     {
       "id": "S_LUXE_02",
       "category": "LUXE",
-      "name": "Urban Noir Hideaway",
-      "desc": "Converted warehouse loft",
-      "lighting": "Low-key hard side-light"
+      "name": "Underground Jazz Club",
+      "desc": "Modern speakeasy jazz cellar below street level—low ceilings, dark brick, matte-black steel, and a discreet host podium by a heavy door. Velvet booths run along the walls; small round tables with bentwood chairs fill the center. A narrow stage at the far end holds the band; brass instruments stay on the bandstand only. Air has a subtle haze for depth, not a smoke room.",
+      "lighting": "Warm spotlight on the stage with soft beams through light haze; candlelit tables as low amber fill; dim wall sconces and bar backlighting for a clean, modern glow."
     },
     {
       "id": "S_LIFE_03",
@@ -4376,6 +4369,7 @@
 "Escaping",
 "Blocking",
 "Guiding",
+"Trusting",
 "Helping Up",
 "Holding Back",
 "Handing Off",
