@@ -1,7 +1,7 @@
 // -------------------------------------------------------------------
 // FILE: App.jsx
-// VERSION: 11.1
-// ARCHITECT NOTE: Added support for Custom Action Import via Reel Loader.
+// VERSION: 11.8
+// ARCHITECT NOTE: Added Professional Environment Mobile Lockout Screen.
 // -------------------------------------------------------------------
 
 import React, { useState, useEffect } from 'react';
@@ -16,6 +16,9 @@ import ScriptConsole from './components/ScriptConsole';
 import TechVaultModal from './components/TechVaultModal';
 
 export default function App() {
+  // --- STATE: MOBILE DETECTION ---
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
   // --- STATE: CUSTOM DATA (LOCAL STORAGE) ---
   const [customCharacters, setCustomCharacters] = useState(() => {
     try { return JSON.parse(localStorage.getItem('PPRO_CUSTOM_CAST') || '[]'); } catch { return []; }
@@ -23,7 +26,6 @@ export default function App() {
   const [customScenes, setCustomScenes] = useState(() => {
     try { return JSON.parse(localStorage.getItem('PPRO_CUSTOM_SCENES') || '[]'); } catch { return []; }
   });
-  // NEW: Custom Actions State
   const [customActions, setCustomActions] = useState(() => {
     try { return JSON.parse(localStorage.getItem('PPRO_CUSTOM_ACTIONS') || '[]'); } catch { return []; }
   });
@@ -31,7 +33,6 @@ export default function App() {
   // --- STATE: MERGED DATA (DEFAULT + CUSTOM) ---
   const [characters, setCharacters] = useState([...customCharacters, ...reelData.characters].filter(Boolean));
   const [scenes, setScenes] = useState([...customScenes, ...reelData.scenes].filter(Boolean));
-  // NEW: Merged Actions
   const [actions, setActions] = useState([...customActions, ...reelData.actions].filter(Boolean));
   
   // --- STATE: SELECTIONS ---
@@ -55,6 +56,15 @@ export default function App() {
   const [showVault, setShowVault] = useState(false);
   const [isRandomizing, setIsRandomizing] = useState(false);
 
+  // --- VIEWPORT LISTENER EFFECT ---
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   // --- STORAGE EFFECTS ---
   useEffect(() => {
     localStorage.setItem('PPRO_CUSTOM_CAST', JSON.stringify(customCharacters));
@@ -66,7 +76,6 @@ export default function App() {
     setScenes([...customScenes, ...reelData.scenes].filter(Boolean));
   }, [customScenes]);
 
-  // NEW: Actions Storage Effect
   useEffect(() => {
     localStorage.setItem('PPRO_CUSTOM_ACTIONS', JSON.stringify(customActions));
     setActions([...customActions, ...reelData.actions].filter(Boolean));
@@ -89,7 +98,6 @@ export default function App() {
     });
   };
 
-  // NEW: Smart Setter for Actions
   const smartSetCustomActions = (newItems) => {
     setCustomActions(prev => {
       const existingIds = new Set(prev.map(a => a.id));
@@ -158,6 +166,31 @@ export default function App() {
   const HEADER_HEIGHT = '96px';
   const laneStyle = { position: 'absolute', top: HEADER_HEIGHT, bottom: 0, overflow: 'hidden', borderLeft: '1px solid rgba(255,255,255,0.05)' };
 
+  // --- MOBILE BLOCKER RENDER ---
+  if (isMobile) {
+    return (
+      <div style={{
+        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+        minHeight: '100vh', width: '100vw', backgroundColor: '#0a0a0a', padding: '2rem',
+        boxSizing: 'border-box', fontFamily: 'system-ui, -apple-system, sans-serif'
+      }}>
+        <div style={{
+          border: '1px solid #333', backgroundColor: '#111', borderRadius: '8px',
+          padding: '2.5rem 2rem', maxWidth: '400px', textAlign: 'center',
+          boxShadow: '0 10px 30px rgba(0,0,0,0.5)'
+        }}>
+          <h2 style={{ color: '#3b82f6', fontSize: '1.5rem', margin: '0 0 1rem 0', letterSpacing: '1px' }}>
+            POMPR-PRO
+          </h2>
+          <p style={{ color: '#a3a3a3', fontSize: '1rem', lineHeight: '1.6', margin: '0' }}>
+            The Director's Console is a professional production environment. Please open POMPR on a desktop or tablet for the full widescreen experience.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // --- MAIN DESKTOP RENDER ---
   return (
     <div style={{ height: '100vh', width: '100vw', overflow: 'hidden', position: 'relative' }}>
       <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: HEADER_HEIGHT, zIndex: 10 }}>
@@ -196,7 +229,7 @@ export default function App() {
         <ScriptConsole 
           isEditing={isEditing} setIsEditing={setIsEditing} isManual={isManual} setIsManual={setIsManual}
           manualText={manualText} setManualText={setManualText} dynamicPrompt={dp} fullDynamicString={fullDynamicString}
-          actions={actions} // UPDATED: Passing merged actions, not reelData.actions
+          actions={actions}
           action={action} setAction={(a) => { setAction(a); setIsManual(false); }}
           interactions={reelData.interactions} interaction={interaction} setInteraction={(i) => { setInteraction(i); setIsManual(false); }}
           actor1={actor1} actor2={actor2} actor2Active={!!actor2}
@@ -214,10 +247,10 @@ export default function App() {
             onClose={() => setShowVault(false)} 
             setCustomCharacters={smartSetCustomCharacters} 
             setCustomScenes={smartSetCustomScenes}
-            setCustomActions={smartSetCustomActions} // NEW PROP
+            setCustomActions={smartSetCustomActions}
             fullCharacters={characters} 
             fullScenes={scenes} 
-            fullActions={actions} // NEW PROP
+            fullActions={actions}
           />
         }
       </div>
