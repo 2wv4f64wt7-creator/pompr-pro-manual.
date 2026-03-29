@@ -1,6 +1,6 @@
 /* 
    POMPR-PRO COMPONENT: ACTION MATRIX
-   VERSION: V11.3 (INTENSITY UI)
+   VERSION: V11.8.2 (INTENSITY UI - DIV REFACTOR & SPACING)
    LOCATION: src/components/ActionMatrix.jsx
 */
 
@@ -80,38 +80,43 @@ const ActionMatrix = ({ actions = [], onSelectAction }) => {
     grid: {
       display: 'grid',
       gridTemplateColumns: 'repeat(auto-fill, minmax(130px, 1fr))',
-      gap: '0.5rem',
+      gridAutoRows: 'min-content', // Forces row height to fit the tallest text
+      gap: '1rem', // INCREASED: Adds distinct padding between actions
       overflowY: 'auto',
-      paddingRight: '5px'
+      paddingRight: '5px',
+      paddingBottom: '4rem' // Matches the bottom padding of Scene/Character columns
     },
     actionBtn: {
       backgroundColor: '#222',
       color: '#ddd',
       border: '1px solid #333',
-      padding: '0.5rem',
+      padding: '0.75rem 0.6rem',
       borderRadius: '4px',
       cursor: 'pointer',
       fontSize: '0.75rem',
       textAlign: 'left',
       display: 'flex',
       flexDirection: 'column',
+      justifyContent: 'flex-start', 
       borderLeft: `3px solid ${getColorByIntensity(intensity)}`,
       transition: 'all 0.2s',
-      minHeight: '45px'
+      minHeight: '60px',
+      height: '100%', // Reverted to 100% since div safely expands, aligning all cards in a row
+      boxSizing: 'border-box'
     },
     actionName: {
       fontWeight: 'bold',
-      marginBottom: '2px',
-      whiteSpace: 'nowrap',
-      overflow: 'hidden',
-      textOverflow: 'ellipsis'
+      marginBottom: '6px', 
+      whiteSpace: 'normal', 
+      wordWrap: 'break-word',
+      lineHeight: '1.2'
     },
     actionDesc: {
       fontSize: '0.65rem', 
-      opacity: 0.6,
-      whiteSpace: 'nowrap',
-      overflow: 'hidden',
-      textOverflow: 'ellipsis'
+      opacity: 0.8, 
+      whiteSpace: 'normal', 
+      wordWrap: 'break-word',
+      lineHeight: '1.4'
     }
   };
 
@@ -134,8 +139,10 @@ const ActionMatrix = ({ actions = [], onSelectAction }) => {
       <div style={styles.grid}>
         {filteredActions.length > 0 ? (
           filteredActions.map((action) => (
-            <button
+            <div
               key={action.id}
+              role="button"
+              tabIndex={0}
               style={styles.actionBtn}
               onClick={() => onSelectAction(action)}
               title={action.desc}
@@ -150,7 +157,7 @@ const ActionMatrix = ({ actions = [], onSelectAction }) => {
             >
               <span style={styles.actionName}>{action.name}</span>
               <span style={styles.actionDesc}>{action.desc}</span>
-            </button>
+            </div>
           ))
         ) : (
           <div style={{color:'#555', fontSize:'0.8rem', textAlign:'center', marginTop:'1rem'}}>
