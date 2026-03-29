@@ -1,0 +1,26 @@
+:root {
+  --blue-logic: #0070f3;
+  --orange-logic: #ff8a00;
+  --green-action: #00FF88;
+  --white-tech: #ffffff;
+  --dark-bg: #0A0A0A;
+}
+
+body { background: var(--dark-bg); color: white; margin: 0; overflow: hidden; }
+
+.global-nav { position: fixed; top: 0; width: 100%; height: 40px; background: #111; z-index: 1000; }
+
+.main-stage { display: flex; height: calc(100vh - 140px); margin-top: 80px; }
+
+.column { flex: 1; overflow-y: auto; border-right: 1px solid #222; padding: 20px; }
+
+.randomix-btn {
+  background: var(--green-action);
+  color: black;
+  border-radius: 50px; /* The Pill Shape */
+  box-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
+}
+
+.randomix-btn:disabled { background: #333; color: #666; cursor: not-allowed; }
+
+.red-bell { color: #ff4d4d; font-size: 10px; vertical-align: top; }
