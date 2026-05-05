@@ -1,6 +1,6 @@
 {
   "meta": {
-    "version": "POMPR Action Matrix v3.1 Core Image-First",
+    "version": "POMPR Action Matrix v3.2 Core Image-First",
     "type": "FACTORY_DEFAULT_EXPANDED",
     "date": "2026-02-12",
     "actionTypes": {
@@ -9,7 +9,7 @@
       "C": "Conflict / Fighting",
       "V": "Video / Movement"
     },
-    "actionMatrixVersion": "v3.1-core-image-first",
+    "actionMatrixVersion": "v3.2-core-image-first",
     "actionMatrixCount": 250,
     "actionMatrixDesign": "Core image-first action matrix with 25 actions per level, validated interaction fixes, clear motion cues, Rescue Pull / Rescue Guide separation, Calm Down body mechanics, and With as default relationship.",
     "interactionListing": [
@@ -75,16 +75,36 @@
       "RESLT"
     ],
     "levelCounts": {
-      "1": 25,
-      "2": 25,
-      "3": 25,
-      "4": 25,
+      "1": 24,
+      "2": 26,
+      "3": 24,
+      "4": 26,
       "5": 25,
       "6": 25,
       "7": 25,
       "8": 25,
-      "9": 25,
-      "10": 25
+      "9": 26,
+      "10": 24
+    },
+    "v32Validation": {
+      "sourceFile": "default_reel_v3_1.json",
+      "actions": 250,
+      "characters": 25,
+      "scenes": 24,
+      "issues": [],
+      "criticalActionsPresent": {
+        "FIGHT: Controlled Shove": true,
+        "GAZE: Side Glance": true,
+        "GEST: Calm Down": true,
+        "INTER: Crowd Resistance": true,
+        "INTER: Rescue Guide": true,
+        "INTER: Rescue Pull": true,
+        "MOVE: Side Dash": true,
+        "POSE: !! GENERATE REFERENCE SHEET !!": true,
+        "POSE: !! HEAD REFERENCE SHEET !!": true,
+        "RESLT: Recover Balance": true
+      },
+      "withIsDefault": true
     }
   },
   "characters": [
@@ -452,67 +472,11 @@
       "intensity": 1
     },
     {
-      "id": "A_CORE_L01_003",
-      "category": "ACTION",
-      "type": "S",
-      "name": "POSE: Neutral Stand",
-      "desc": "standing still with arms relaxed at sides, weight centered, shoulders natural, calm readable silhouette",
-      "intensity": 1
-    },
-    {
-      "id": "A_CORE_L01_004",
-      "category": "ACTION",
-      "type": "S",
-      "name": "POSE: Soft Stand",
-      "desc": "standing still with relaxed shoulders, hands loose, balanced posture, quiet natural presence",
-      "intensity": 1
-    },
-    {
-      "id": "A_CORE_L01_005",
-      "category": "ACTION",
-      "type": "S",
-      "name": "POSE: Hands Folded",
-      "desc": "standing with hands clasped lightly in front at waist level, elbows relaxed, composed attentive posture",
-      "intensity": 1
-    },
-    {
-      "id": "A_CORE_L01_006",
-      "category": "ACTION",
-      "type": "S",
-      "name": "POSE: Hands Behind Back",
-      "desc": "standing with hands clasped behind back, shoulders open, formal composed posture",
-      "intensity": 1
-    },
-    {
-      "id": "A_CORE_L01_007",
-      "category": "ACTION",
-      "type": "S",
-      "name": "POSE: Side Profile",
-      "desc": "standing in clean side profile, shoulders squared, arms relaxed, graphic silhouette",
-      "intensity": 1
-    },
-    {
-      "id": "A_CORE_L01_008",
-      "category": "ACTION",
-      "type": "S",
-      "name": "POSE: Contrapposto Soft",
-      "desc": "standing with weight on one leg, hip subtly shifted, relaxed balanced stance",
-      "intensity": 1
-    },
-    {
       "id": "A_CORE_L01_009",
       "category": "ACTION",
       "type": "S",
       "name": "POSE: Casual Lean",
       "desc": "standing with shoulder lightly against wall or surface, arms relaxed, calm editorial posture",
-      "intensity": 1
-    },
-    {
-      "id": "A_CORE_L01_010",
-      "category": "ACTION",
-      "type": "S",
-      "name": "POSE: Chair Upright",
-      "desc": "sitting upright, hands resting on thighs, feet grounded, attentive posture",
       "intensity": 1
     },
     {
@@ -524,6 +488,22 @@
       "intensity": 1
     },
     {
+      "id": "A_CORE_L01_010",
+      "category": "ACTION",
+      "type": "S",
+      "name": "POSE: Chair Upright",
+      "desc": "sitting upright, hands resting on thighs, feet grounded, attentive posture",
+      "intensity": 1
+    },
+    {
+      "id": "A_CORE_L01_008",
+      "category": "ACTION",
+      "type": "S",
+      "name": "POSE: Contrapposto Soft",
+      "desc": "standing with weight on one leg, hip subtly shifted, relaxed balanced stance",
+      "intensity": 1
+    },
+    {
       "id": "A_CORE_L01_012",
       "category": "ACTION",
       "type": "S",
@@ -532,19 +512,19 @@
       "intensity": 1
     },
     {
-      "id": "A_CORE_L01_013",
+      "id": "A_CORE_L01_006",
       "category": "ACTION",
       "type": "S",
-      "name": "POSE: Knee Cross",
-      "desc": "sitting with one knee crossed over the other, one hand resting on ankle, calm confident posture",
+      "name": "POSE: Hands Behind Back",
+      "desc": "standing with hands clasped behind back, shoulders open, formal composed posture",
       "intensity": 1
     },
     {
-      "id": "A_CORE_L01_014",
+      "id": "A_CORE_L01_005",
       "category": "ACTION",
       "type": "S",
-      "name": "POSE: Thinker",
-      "desc": "one hand touching chin, other arm supporting elbow, thoughtful still posture",
+      "name": "POSE: Hands Folded",
+      "desc": "standing with hands clasped lightly in front at waist level, elbows relaxed, composed attentive posture",
       "intensity": 1
     },
     {
@@ -556,6 +536,30 @@
       "intensity": 1
     },
     {
+      "id": "A_CORE_L01_013",
+      "category": "ACTION",
+      "type": "S",
+      "name": "POSE: Knee Cross",
+      "desc": "sitting with one knee crossed over the other, one hand resting on ankle, calm confident posture",
+      "intensity": 1
+    },
+    {
+      "id": "A_CORE_L01_003",
+      "category": "ACTION",
+      "type": "S",
+      "name": "POSE: Neutral Stand",
+      "desc": "standing still with arms relaxed at sides, weight centered, shoulders natural, calm readable silhouette",
+      "intensity": 1
+    },
+    {
+      "id": "A_CORE_L01_007",
+      "category": "ACTION",
+      "type": "S",
+      "name": "POSE: Side Profile",
+      "desc": "standing in clean side profile, shoulders squared, arms relaxed, graphic silhouette",
+      "intensity": 1
+    },
+    {
       "id": "A_CORE_L01_016",
       "category": "ACTION",
       "type": "S",
@@ -564,11 +568,19 @@
       "intensity": 1
     },
     {
-      "id": "A_CORE_L01_017",
+      "id": "A_CORE_L01_004",
       "category": "ACTION",
       "type": "S",
-      "name": "GAZE: Gentle Lock",
-      "desc": "eyes directly toward camera, eyelids relaxed, steady calm connection, minimal facial tension",
+      "name": "POSE: Soft Stand",
+      "desc": "standing still with relaxed shoulders, hands loose, balanced posture, quiet natural presence",
+      "intensity": 1
+    },
+    {
+      "id": "A_CORE_L01_014",
+      "category": "ACTION",
+      "type": "S",
+      "name": "POSE: Thinker",
+      "desc": "one hand touching chin, other arm supporting elbow, thoughtful still posture",
       "intensity": 1
     },
     {
@@ -588,19 +600,11 @@
       "intensity": 1
     },
     {
-      "id": "A_CORE_L01_020",
+      "id": "A_CORE_L01_017",
       "category": "ACTION",
       "type": "S",
-      "name": "GAZE: Side Glance",
-      "desc": "head turned slightly to the side, eyes sharply focused off-frame, jaw set or slightly tense, clear attention directed toward something unseen",
-      "intensity": 1
-    },
-    {
-      "id": "A_CORE_L01_021",
-      "category": "ACTION",
-      "type": "S",
-      "name": "GAZE: Warm Half Smile",
-      "desc": "soft closed-mouth smile, eyes relaxed, friendly warmth without large expression",
+      "name": "GAZE: Gentle Lock",
+      "desc": "eyes directly toward camera, eyelids relaxed, steady calm connection, minimal facial tension",
       "intensity": 1
     },
     {
@@ -612,19 +616,11 @@
       "intensity": 1
     },
     {
-      "id": "A_CORE_L01_023",
+      "id": "A_CORE_L01_021",
       "category": "ACTION",
-      "type": "U",
-      "name": "PROP: Coffee Hold",
-      "desc": "holding a coffee cup with both hands near chest, shoulders relaxed, cozy stillness",
-      "intensity": 1
-    },
-    {
-      "id": "A_CORE_L01_024",
-      "category": "ACTION",
-      "type": "U",
-      "name": "PROP: Book Rest",
-      "desc": "holding a book loosely at waist, thumb marking a page, gaze lowered toward cover",
+      "type": "S",
+      "name": "GAZE: Warm Half Smile",
+      "desc": "soft closed-mouth smile, eyes relaxed, friendly warmth without large expression",
       "intensity": 1
     },
     {
@@ -636,27 +632,27 @@
       "intensity": 1
     },
     {
-      "id": "A_CORE_L02_001",
+      "id": "A_CORE_L01_024",
       "category": "ACTION",
-      "type": "S",
-      "name": "POSE: Editorial Angle",
-      "desc": "standing angled forty-five degrees, one shoulder forward, chin slightly down, strong composed silhouette",
-      "intensity": 2
+      "type": "U",
+      "name": "PROP: Book Rest",
+      "desc": "holding a book loosely at waist, thumb marking a page, gaze lowered toward cover",
+      "intensity": 1
     },
     {
-      "id": "A_CORE_L02_002",
+      "id": "A_CORE_L01_023",
       "category": "ACTION",
-      "type": "S",
-      "name": "POSE: Doorway Lean",
-      "desc": "leaning lightly against a doorway, one foot braced, arms relaxed, gaze off-frame",
-      "intensity": 2
+      "type": "U",
+      "name": "PROP: Coffee Hold",
+      "desc": "holding a coffee cup with both hands near chest, shoulders relaxed, cozy stillness",
+      "intensity": 1
     },
     {
-      "id": "A_CORE_L02_003",
+      "id": "A_CORE_L02_008",
       "category": "ACTION",
       "type": "S",
-      "name": "POSE: Hands On Hips",
-      "desc": "standing with hands on hips, elbows wide, chest open, ready-to-speak authority",
+      "name": "POSE: Boss Cross Sit",
+      "desc": "seated with ankle over knee, elbow on chair arm, calm high-status posture",
       "intensity": 2
     },
     {
@@ -668,19 +664,35 @@
       "intensity": 2
     },
     {
+      "id": "A_CORE_L02_002",
+      "category": "ACTION",
+      "type": "S",
+      "name": "POSE: Doorway Lean",
+      "desc": "leaning lightly against a doorway, one foot braced, arms relaxed, gaze off-frame",
+      "intensity": 2
+    },
+    {
+      "id": "A_CORE_L02_001",
+      "category": "ACTION",
+      "type": "S",
+      "name": "POSE: Editorial Angle",
+      "desc": "standing angled forty-five degrees, one shoulder forward, chin slightly down, strong composed silhouette",
+      "intensity": 2
+    },
+    {
+      "id": "A_CORE_L02_003",
+      "category": "ACTION",
+      "type": "S",
+      "name": "POSE: Hands On Hips",
+      "desc": "standing with hands on hips, elbows wide, chest open, ready-to-speak authority",
+      "intensity": 2
+    },
+    {
       "id": "A_CORE_L02_005",
       "category": "ACTION",
       "type": "S",
       "name": "POSE: Heel Rest",
       "desc": "standing casually with one heel resting lightly behind the opposite ankle, both feet on the ground, weight on the front foot, relaxed posture",
-      "intensity": 2
-    },
-    {
-      "id": "A_CORE_L02_006",
-      "category": "ACTION",
-      "type": "S",
-      "name": "POSE: Over Shoulder",
-      "desc": "standing with torso angled away, head turned back over shoulder toward camera, sharp cinematic glance",
       "intensity": 2
     },
     {
@@ -692,27 +704,11 @@
       "intensity": 2
     },
     {
-      "id": "A_CORE_L02_008",
+      "id": "A_CORE_L02_006",
       "category": "ACTION",
       "type": "S",
-      "name": "POSE: Boss Cross Sit",
-      "desc": "seated with ankle over knee, elbow on chair arm, calm high-status posture",
-      "intensity": 2
-    },
-    {
-      "id": "A_CORE_L02_009",
-      "category": "ACTION",
-      "type": "S",
-      "name": "GAZE: Under Brow",
-      "desc": "chin slightly down, eyes looking up from under brows, intense quiet challenge",
-      "intensity": 2
-    },
-    {
-      "id": "A_CORE_L02_010",
-      "category": "ACTION",
-      "type": "S",
-      "name": "GAZE: Side Burn",
-      "desc": "eyes fixed off-frame with tightened brow, jaw set, restrained irritation",
+      "name": "POSE: Over Shoulder",
+      "desc": "standing with torso angled away, head turned back over shoulder toward camera, sharp cinematic glance",
       "intensity": 2
     },
     {
@@ -724,19 +720,43 @@
       "intensity": 2
     },
     {
+      "id": "A_CORE_L02_010",
+      "category": "ACTION",
+      "type": "S",
+      "name": "GAZE: Side Burn",
+      "desc": "eyes fixed off-frame with tightened brow, jaw set, restrained irritation",
+      "intensity": 2
+    },
+    {
+      "id": "A_CORE_L02_SG1",
+      "category": "ACTION",
+      "type": "S",
+      "name": "GAZE: Side Glance",
+      "desc": "head turned slightly to the side, eyes sharply focused off-frame, jaw set or slightly tense, clear attention directed toward something unseen",
+      "intensity": 2
+    },
+    {
+      "id": "A_CORE_L02_009",
+      "category": "ACTION",
+      "type": "S",
+      "name": "GAZE: Under Brow",
+      "desc": "chin slightly down, eyes looking up from under brows, intense quiet challenge",
+      "intensity": 2
+    },
+    {
+      "id": "A_CORE_L02_016",
+      "category": "ACTION",
+      "type": "S",
+      "name": "GEST: Shrug Open",
+      "desc": "both palms turned up, elbows bent, shoulders slightly raised, playful uncertainty",
+      "intensity": 2
+    },
+    {
       "id": "A_CORE_L02_012",
       "category": "ACTION",
       "type": "S",
       "name": "GEST: Small Wave",
       "desc": "hand raised for a short friendly wave, elbow close to body, warm approachable energy",
-      "intensity": 2
-    },
-    {
-      "id": "A_CORE_L02_013",
-      "category": "ACTION",
-      "type": "S",
-      "name": "GEST: Tiny Point",
-      "desc": "subtle point with index finger at waist level, body barely turned, quiet direction cue",
       "intensity": 2
     },
     {
@@ -756,43 +776,11 @@
       "intensity": 2
     },
     {
-      "id": "A_CORE_L02_016",
+      "id": "A_CORE_L02_013",
       "category": "ACTION",
       "type": "S",
-      "name": "GEST: Shrug Open",
-      "desc": "both palms turned up, elbows bent, shoulders slightly raised, playful uncertainty",
-      "intensity": 2
-    },
-    {
-      "id": "A_CORE_L02_017",
-      "category": "ACTION",
-      "type": "U",
-      "name": "TASK: Screen Check",
-      "desc": "holding phone in front, thumb hovering, eyes down, face softly lit by screen glow",
-      "intensity": 2
-    },
-    {
-      "id": "A_CORE_L02_018",
-      "category": "ACTION",
-      "type": "U",
-      "name": "TASK: Quick Text",
-      "desc": "phone held low, two-thumb typing, shoulders slightly hunched, focused expression",
-      "intensity": 2
-    },
-    {
-      "id": "A_CORE_L02_019",
-      "category": "ACTION",
-      "type": "U",
-      "name": "COMMS: Call Whisper",
-      "desc": "phone to ear, free hand shielding mouth slightly, head angled down, discreet private tone",
-      "intensity": 2
-    },
-    {
-      "id": "A_CORE_L02_020",
-      "category": "ACTION",
-      "type": "U",
-      "name": "TASK: Clipboard Hold",
-      "desc": "holding a clipboard to chest, pen tucked in fingers, stance steady, ready to note something",
+      "name": "GEST: Tiny Point",
+      "desc": "subtle point with index finger at waist level, body barely turned, quiet direction cue",
       "intensity": 2
     },
     {
@@ -804,11 +792,11 @@
       "intensity": 2
     },
     {
-      "id": "A_CORE_L02_022",
+      "id": "A_CORE_L02_020",
       "category": "ACTION",
       "type": "U",
-      "name": "PROP: Sip Pause",
-      "desc": "lifting a cup to lips, eyes forward over rim, calm controlled pause",
+      "name": "TASK: Clipboard Hold",
+      "desc": "holding a clipboard to chest, pen tucked in fingers, stance steady, ready to note something",
       "intensity": 2
     },
     {
@@ -817,6 +805,38 @@
       "type": "U",
       "name": "TASK: Hair Fix",
       "desc": "hand smoothing hair back from forehead, chin up, composed reset gesture",
+      "intensity": 2
+    },
+    {
+      "id": "A_CORE_L02_018",
+      "category": "ACTION",
+      "type": "U",
+      "name": "TASK: Quick Text",
+      "desc": "phone held low, two-thumb typing, shoulders slightly hunched, focused expression",
+      "intensity": 2
+    },
+    {
+      "id": "A_CORE_L02_017",
+      "category": "ACTION",
+      "type": "U",
+      "name": "TASK: Screen Check",
+      "desc": "holding phone in front, thumb hovering, eyes down, face softly lit by screen glow",
+      "intensity": 2
+    },
+    {
+      "id": "A_CORE_L02_022",
+      "category": "ACTION",
+      "type": "U",
+      "name": "PROP: Sip Pause",
+      "desc": "lifting a cup to lips, eyes forward over rim, calm controlled pause",
+      "intensity": 2
+    },
+    {
+      "id": "A_CORE_L02_019",
+      "category": "ACTION",
+      "type": "U",
+      "name": "COMMS: Call Whisper",
+      "desc": "phone to ear, free hand shielding mouth slightly, head angled down, discreet private tone",
       "intensity": 2
     },
     {
@@ -836,14 +856,6 @@
       "intensity": 2
     },
     {
-      "id": "A_CORE_L03_001",
-      "category": "ACTION",
-      "type": "S",
-      "name": "POSE: Calm Hero",
-      "desc": "standing tall, feet planted, shoulders open, chin level, quiet heroic silhouette",
-      "intensity": 3
-    },
-    {
       "id": "A_CORE_L03_002",
       "category": "ACTION",
       "type": "S",
@@ -852,19 +864,11 @@
       "intensity": 3
     },
     {
-      "id": "A_CORE_L03_003",
+      "id": "A_CORE_L03_001",
       "category": "ACTION",
       "type": "S",
-      "name": "POSE: Ready Lean",
-      "desc": "slight forward lean, knees soft, hands loose, poised before movement",
-      "intensity": 3
-    },
-    {
-      "id": "A_CORE_L03_004",
-      "category": "ACTION",
-      "type": "S",
-      "name": "POSE: Front Guard",
-      "desc": "forearms loosely crossed in front of torso, hands open, protective readiness without attack",
+      "name": "POSE: Calm Hero",
+      "desc": "standing tall, feet planted, shoulders open, chin level, quiet heroic silhouette",
       "intensity": 3
     },
     {
@@ -876,11 +880,11 @@
       "intensity": 3
     },
     {
-      "id": "A_CORE_L03_006",
+      "id": "A_CORE_L03_004",
       "category": "ACTION",
       "type": "S",
-      "name": "POSE: Step Plant",
-      "desc": "one foot forward and planted, weight shifting into it, shoulders aligned, purposeful stance",
+      "name": "POSE: Front Guard",
+      "desc": "forearms loosely crossed in front of torso, hands open, protective readiness without attack",
       "intensity": 3
     },
     {
@@ -892,19 +896,27 @@
       "intensity": 3
     },
     {
+      "id": "A_CORE_L03_003",
+      "category": "ACTION",
+      "type": "S",
+      "name": "POSE: Ready Lean",
+      "desc": "slight forward lean, knees soft, hands loose, poised before movement",
+      "intensity": 3
+    },
+    {
+      "id": "A_CORE_L03_006",
+      "category": "ACTION",
+      "type": "S",
+      "name": "POSE: Step Plant",
+      "desc": "one foot forward and planted, weight shifting into it, shoulders aligned, purposeful stance",
+      "intensity": 3
+    },
+    {
       "id": "A_CORE_L03_008",
       "category": "ACTION",
       "type": "S",
       "name": "POSE: Wall Brace",
       "desc": "one palm on wall, torso leaned in, head turned slightly, pausing to think or listen",
-      "intensity": 3
-    },
-    {
-      "id": "A_CORE_L03_009",
-      "category": "ACTION",
-      "type": "S",
-      "name": "GAZE: Pierce",
-      "desc": "eyes locked forward with narrowed focus, chin slightly down, still face, unmistakable intensity",
       "intensity": 3
     },
     {
@@ -916,11 +928,27 @@
       "intensity": 3
     },
     {
+      "id": "A_CORE_L03_009",
+      "category": "ACTION",
+      "type": "S",
+      "name": "GAZE: Pierce",
+      "desc": "eyes locked forward with narrowed focus, chin slightly down, still face, unmistakable intensity",
+      "intensity": 3
+    },
+    {
       "id": "A_CORE_L03_011",
       "category": "ACTION",
       "type": "S",
       "name": "GEST: Big Welcome",
       "desc": "arms opened wider than shoulder span, palms forward, torso lifted, charismatic greeting",
+      "intensity": 3
+    },
+    {
+      "id": "A_CORE_L03_014",
+      "category": "ACTION",
+      "type": "S",
+      "name": "GEST: Cut Off",
+      "desc": "hand slicing lightly across air at chest height, eyebrows raised, firm interruption gesture",
       "intensity": 3
     },
     {
@@ -940,11 +968,11 @@
       "intensity": 3
     },
     {
-      "id": "A_CORE_L03_014",
+      "id": "A_CORE_L03_016",
       "category": "ACTION",
       "type": "S",
-      "name": "GEST: Cut Off",
-      "desc": "hand slicing lightly across air at chest height, eyebrows raised, firm interruption gesture",
+      "name": "GEST: Hold Back",
+      "desc": "one hand extended sideways to stop someone beside them, stance firm, protective control",
       "intensity": 3
     },
     {
@@ -956,35 +984,11 @@
       "intensity": 3
     },
     {
-      "id": "A_CORE_L03_016",
-      "category": "ACTION",
-      "type": "S",
-      "name": "GEST: Hold Back",
-      "desc": "one hand extended sideways to stop someone beside them, stance firm, protective control",
-      "intensity": 3
-    },
-    {
-      "id": "A_CORE_L03_017",
+      "id": "A_CORE_L03_021",
       "category": "ACTION",
       "type": "U",
-      "name": "COMMS: Lean In",
-      "desc": "two characters close, one leaning in to speak quietly, the other listening with head tilted",
-      "intensity": 3
-    },
-    {
-      "id": "A_CORE_L03_018",
-      "category": "ACTION",
-      "type": "U",
-      "name": "COMMS: Handshake",
-      "desc": "two characters in a clean handshake, shoulders squared, eye contact held, professional agreement",
-      "intensity": 3
-    },
-    {
-      "id": "A_CORE_L03_019",
-      "category": "ACTION",
-      "type": "U",
-      "name": "COMMS: Mirror Nod",
-      "desc": "two characters facing, one nodding while the other speaks, calm agreement",
+      "name": "TASK: Laptop Type",
+      "desc": "hands on laptop keyboard, posture forward, eyes locked on screen, rapid focused typing",
       "intensity": 3
     },
     {
@@ -996,27 +1000,35 @@
       "intensity": 3
     },
     {
-      "id": "A_CORE_L03_021",
-      "category": "ACTION",
-      "type": "U",
-      "name": "TASK: Laptop Type",
-      "desc": "hands on laptop keyboard, posture forward, eyes locked on screen, rapid focused typing",
-      "intensity": 3
-    },
-    {
-      "id": "A_CORE_L03_022",
-      "category": "ACTION",
-      "type": "U",
-      "name": "TASK: Door Push Open",
-      "desc": "hand on door edge pushing it open, body angled through doorway, cautious entry posture without breaking the door",
-      "intensity": 3
-    },
-    {
       "id": "A_CORE_L03_023",
       "category": "ACTION",
       "type": "U",
       "name": "PROP: Drink Offer",
       "desc": "extending a cup outward, elbow slightly bent, friendly offering gesture, eyes on recipient",
+      "intensity": 3
+    },
+    {
+      "id": "A_CORE_L03_018",
+      "category": "ACTION",
+      "type": "U",
+      "name": "COMMS: Handshake",
+      "desc": "two characters in a clean handshake, shoulders squared, eye contact held, professional agreement",
+      "intensity": 3
+    },
+    {
+      "id": "A_CORE_L03_017",
+      "category": "ACTION",
+      "type": "U",
+      "name": "COMMS: Lean In",
+      "desc": "two characters close, one leaning in to speak quietly, the other listening with head tilted",
+      "intensity": 3
+    },
+    {
+      "id": "A_CORE_L03_019",
+      "category": "ACTION",
+      "type": "U",
+      "name": "COMMS: Mirror Nod",
+      "desc": "two characters facing, one nodding while the other speaks, calm agreement",
       "intensity": 3
     },
     {
@@ -1036,43 +1048,11 @@
       "intensity": 3
     },
     {
-      "id": "A_CORE_L04_001",
-      "category": "ACTION",
-      "type": "S",
-      "name": "POSE: Sharp Stare",
-      "desc": "standing still, shoulders squared, chin slightly down, eyes fixed forward with crisp intensity",
-      "intensity": 4
-    },
-    {
       "id": "A_CORE_L04_002",
       "category": "ACTION",
       "type": "S",
       "name": "POSE: Arms Wide",
       "desc": "arms opened wide, palms forward, chest lifted, confident welcoming silhouette",
-      "intensity": 4
-    },
-    {
-      "id": "A_CORE_L04_003",
-      "category": "ACTION",
-      "type": "S",
-      "name": "POSE: Ready Set",
-      "desc": "feet staggered, knees soft, torso slightly forward, hands loose, ready to move",
-      "intensity": 4
-    },
-    {
-      "id": "A_CORE_L04_004",
-      "category": "ACTION",
-      "type": "S",
-      "name": "POSE: Stair Pause",
-      "desc": "one foot on a step, body paused mid-climb, hand on rail, eyes scanning ahead",
-      "intensity": 4
-    },
-    {
-      "id": "A_CORE_L04_005",
-      "category": "ACTION",
-      "type": "S",
-      "name": "POSE: Door Guard",
-      "desc": "standing near a doorway, one shoulder angled to it, feet planted, protective position",
       "intensity": 4
     },
     {
@@ -1084,6 +1064,14 @@
       "intensity": 4
     },
     {
+      "id": "A_CORE_L04_005",
+      "category": "ACTION",
+      "type": "S",
+      "name": "POSE: Door Guard",
+      "desc": "standing near a doorway, one shoulder angled to it, feet planted, protective position",
+      "intensity": 4
+    },
+    {
       "id": "A_CORE_L04_007",
       "category": "ACTION",
       "type": "S",
@@ -1092,11 +1080,27 @@
       "intensity": 4
     },
     {
-      "id": "A_CORE_L04_008",
+      "id": "A_CORE_L04_003",
       "category": "ACTION",
       "type": "S",
-      "name": "GAZE: Unbroken",
-      "desc": "eyes locked forward with minimal blinking, facial muscles held still, intense focus",
+      "name": "POSE: Ready Set",
+      "desc": "feet staggered, knees soft, torso slightly forward, hands loose, ready to move",
+      "intensity": 4
+    },
+    {
+      "id": "A_CORE_L04_001",
+      "category": "ACTION",
+      "type": "S",
+      "name": "POSE: Sharp Stare",
+      "desc": "standing still, shoulders squared, chin slightly down, eyes fixed forward with crisp intensity",
+      "intensity": 4
+    },
+    {
+      "id": "A_CORE_L04_004",
+      "category": "ACTION",
+      "type": "S",
+      "name": "POSE: Stair Pause",
+      "desc": "one foot on a step, body paused mid-climb, hand on rail, eyes scanning ahead",
       "intensity": 4
     },
     {
@@ -1108,11 +1112,19 @@
       "intensity": 4
     },
     {
-      "id": "A_CORE_L04_010",
+      "id": "A_CORE_L04_008",
       "category": "ACTION",
       "type": "S",
-      "name": "GEST: Firm Stop",
-      "desc": "one palm raised directly forward, feet grounded, clear refusal without physical contact",
+      "name": "GAZE: Unbroken",
+      "desc": "eyes locked forward with minimal blinking, facial muscles held still, intense focus",
+      "intensity": 4
+    },
+    {
+      "id": "A_CORE_L04_CD1",
+      "category": "ACTION",
+      "type": "S",
+      "name": "GEST: Calm Down",
+      "desc": "subject leaning slightly forward with elbows tucked close to the body, both hands held low and forward with palms angled downward, wrists slightly flexed, movement steady and controlled, facial expression calm and reassuring",
       "intensity": 4
     },
     {
@@ -1124,11 +1136,59 @@
       "intensity": 4
     },
     {
+      "id": "A_CORE_L04_010",
+      "category": "ACTION",
+      "type": "S",
+      "name": "GEST: Firm Stop",
+      "desc": "one palm raised directly forward, feet grounded, clear refusal without physical contact",
+      "intensity": 4
+    },
+    {
       "id": "A_CORE_L04_012",
       "category": "ACTION",
       "type": "S",
       "name": "GEST: Hands Calm Down",
       "desc": "both hands lowered with palms down, calming a room, controlled steady posture",
+      "intensity": 4
+    },
+    {
+      "id": "A_CORE_L04_019",
+      "category": "ACTION",
+      "type": "U",
+      "name": "TASK: Equipment Adjust",
+      "desc": "adjusting a strap, headset, or tool on the body, fingers precise, posture focused",
+      "intensity": 4
+    },
+    {
+      "id": "A_CORE_L04_018",
+      "category": "ACTION",
+      "type": "U",
+      "name": "TASK: Flashlight Scan",
+      "desc": "holding a small flashlight low, beam aimed forward, shoulders tense, cautious scan posture",
+      "intensity": 4
+    },
+    {
+      "id": "A_CORE_L04_017",
+      "category": "ACTION",
+      "type": "U",
+      "name": "TASK: Map Check",
+      "desc": "holding a folded map or paper, eyes scanning it, finger tracing a route, mild urgency",
+      "intensity": 4
+    },
+    {
+      "id": "A_CORE_L04_024",
+      "category": "ACTION",
+      "type": "U",
+      "name": "TASK: Table Lean",
+      "desc": "leaning forward with both hands on table edge, shoulders engaged, eyes locked ahead",
+      "intensity": 4
+    },
+    {
+      "id": "A_CORE_L04_020",
+      "category": "ACTION",
+      "type": "U",
+      "name": "PROP: Case Hold",
+      "desc": "holding a small case with both hands, elbows close, cautious professional control",
       "intensity": 4
     },
     {
@@ -1148,6 +1208,30 @@
       "intensity": 4
     },
     {
+      "id": "A_CORE_L04_023",
+      "category": "ACTION",
+      "type": "V",
+      "name": "MOVE: Look Back Turn",
+      "desc": "turning to look over one shoulder while one foot steps back, controlled rotation",
+      "intensity": 4
+    },
+    {
+      "id": "A_CORE_L04_022",
+      "category": "ACTION",
+      "type": "V",
+      "name": "MOVE: Side Slip",
+      "desc": "quick sideways step, torso angled, arms out slightly, avoiding someone passing close",
+      "intensity": 4
+    },
+    {
+      "id": "A_CORE_L04_021",
+      "category": "ACTION",
+      "type": "V",
+      "name": "MOVE: Stop Short",
+      "desc": "body halting mid-motion, heels planted, shoulders bracing, hands slightly out for balance",
+      "intensity": 4
+    },
+    {
       "id": "A_CORE_L04_015",
       "category": "ACTION",
       "type": "U",
@@ -1161,70 +1245,6 @@
       "type": "U",
       "name": "INTER: Shoulder Tap",
       "desc": "one character taps the other on the shoulder, the second turns attention toward them, clean contact point",
-      "intensity": 4
-    },
-    {
-      "id": "A_CORE_L04_017",
-      "category": "ACTION",
-      "type": "U",
-      "name": "TASK: Map Check",
-      "desc": "holding a folded map or paper, eyes scanning it, finger tracing a route, mild urgency",
-      "intensity": 4
-    },
-    {
-      "id": "A_CORE_L04_018",
-      "category": "ACTION",
-      "type": "U",
-      "name": "TASK: Flashlight Scan",
-      "desc": "holding a small flashlight low, beam aimed forward, shoulders tense, cautious scan posture",
-      "intensity": 4
-    },
-    {
-      "id": "A_CORE_L04_019",
-      "category": "ACTION",
-      "type": "U",
-      "name": "TASK: Equipment Adjust",
-      "desc": "adjusting a strap, headset, or tool on the body, fingers precise, posture focused",
-      "intensity": 4
-    },
-    {
-      "id": "A_CORE_L04_020",
-      "category": "ACTION",
-      "type": "U",
-      "name": "PROP: Case Hold",
-      "desc": "holding a small case with both hands, elbows close, cautious professional control",
-      "intensity": 4
-    },
-    {
-      "id": "A_CORE_L04_021",
-      "category": "ACTION",
-      "type": "V",
-      "name": "MOVE: Stop Short",
-      "desc": "body halting mid-motion, heels planted, shoulders bracing, hands slightly out for balance",
-      "intensity": 4
-    },
-    {
-      "id": "A_CORE_L04_022",
-      "category": "ACTION",
-      "type": "V",
-      "name": "MOVE: Side Slip",
-      "desc": "quick sideways step, torso angled, arms out slightly, avoiding someone passing close",
-      "intensity": 4
-    },
-    {
-      "id": "A_CORE_L04_023",
-      "category": "ACTION",
-      "type": "V",
-      "name": "MOVE: Look Back Turn",
-      "desc": "turning to look over one shoulder while one foot steps back, controlled rotation",
-      "intensity": 4
-    },
-    {
-      "id": "A_CORE_L04_024",
-      "category": "ACTION",
-      "type": "U",
-      "name": "TASK: Table Lean",
-      "desc": "leaning forward with both hands on table edge, shoulders engaged, eyes locked ahead",
       "intensity": 4
     },
     {
@@ -1276,46 +1296,6 @@
       "intensity": 5
     },
     {
-      "id": "A_CORE_L05_006",
-      "category": "ACTION",
-      "type": "U",
-      "name": "COMMS: Active Conversation",
-      "desc": "two characters facing each other, one speaking with hand gesture, other listening attentively",
-      "intensity": 5
-    },
-    {
-      "id": "A_CORE_L05_007",
-      "category": "ACTION",
-      "type": "U",
-      "name": "COMMS: Presenter Stance",
-      "desc": "standing beside an object or screen, one hand gesturing toward it, clear explanatory posture",
-      "intensity": 5
-    },
-    {
-      "id": "A_CORE_L05_008",
-      "category": "ACTION",
-      "type": "U",
-      "name": "INTER: Object Handoff",
-      "desc": "one character hands a single object to another, both hands visible, object centered between them",
-      "intensity": 5
-    },
-    {
-      "id": "A_CORE_L05_009",
-      "category": "ACTION",
-      "type": "U",
-      "name": "INTER: Receiving Object",
-      "desc": "one character receives a single object from another, hands meet at center, bodies remain separated",
-      "intensity": 5
-    },
-    {
-      "id": "A_CORE_L05_010",
-      "category": "ACTION",
-      "type": "U",
-      "name": "INTER: Guided Walk",
-      "desc": "one character gestures forward while the other follows beside them, no physical force, clear path",
-      "intensity": 5
-    },
-    {
       "id": "A_CORE_L05_011",
       "category": "ACTION",
       "type": "U",
@@ -1324,11 +1304,11 @@
       "intensity": 5
     },
     {
-      "id": "A_CORE_L05_012",
+      "id": "A_CORE_L05_014",
       "category": "ACTION",
       "type": "U",
-      "name": "TASK: Operate Console",
-      "desc": "hands actively working controls or keyboard, eyes fixed on interface, posture focused",
+      "name": "TASK: Lift Moderate",
+      "desc": "lifting a moderate object from waist height with both hands, knees slightly bent, controlled effort",
       "intensity": 5
     },
     {
@@ -1340,11 +1320,11 @@
       "intensity": 5
     },
     {
-      "id": "A_CORE_L05_014",
+      "id": "A_CORE_L05_012",
       "category": "ACTION",
       "type": "U",
-      "name": "TASK: Lift Moderate",
-      "desc": "lifting a moderate object from waist height with both hands, knees slightly bent, controlled effort",
+      "name": "TASK: Operate Console",
+      "desc": "hands actively working controls or keyboard, eyes fixed on interface, posture focused",
       "intensity": 5
     },
     {
@@ -1364,27 +1344,19 @@
       "intensity": 5
     },
     {
-      "id": "A_CORE_L05_017",
+      "id": "A_CORE_L05_006",
       "category": "ACTION",
-      "type": "V",
-      "name": "MOVE: Mid Walk",
-      "desc": "walking forward mid-step, one foot lifted, arms swinging naturally, movement path clear",
+      "type": "U",
+      "name": "COMMS: Active Conversation",
+      "desc": "two characters facing each other, one speaking with hand gesture, other listening attentively",
       "intensity": 5
     },
     {
-      "id": "A_CORE_L05_018",
+      "id": "A_CORE_L05_007",
       "category": "ACTION",
-      "type": "V",
-      "name": "MOVE: Cross Frame Walk",
-      "desc": "walking across the frame from left to right, body oriented with the path, continuous stride",
-      "intensity": 5
-    },
-    {
-      "id": "A_CORE_L05_019",
-      "category": "ACTION",
-      "type": "V",
-      "name": "MOVE: Step Around",
-      "desc": "stepping around a small obstacle, eyes down briefly, motion path visible and controlled",
+      "type": "U",
+      "name": "COMMS: Presenter Stance",
+      "desc": "standing beside an object or screen, one hand gesturing toward it, clear explanatory posture",
       "intensity": 5
     },
     {
@@ -1396,11 +1368,27 @@
       "intensity": 5
     },
     {
+      "id": "A_CORE_L05_018",
+      "category": "ACTION",
+      "type": "V",
+      "name": "MOVE: Cross Frame Walk",
+      "desc": "walking across the frame from left to right, body oriented with the path, continuous stride",
+      "intensity": 5
+    },
+    {
       "id": "A_CORE_L05_021",
       "category": "ACTION",
       "type": "V",
       "name": "MOVE: Crouch Move",
       "desc": "moving forward in a low crouch, knees bent, hands balanced, clear direction of travel",
+      "intensity": 5
+    },
+    {
+      "id": "A_CORE_L05_017",
+      "category": "ACTION",
+      "type": "V",
+      "name": "MOVE: Mid Walk",
+      "desc": "walking forward mid-step, one foot lifted, arms swinging naturally, movement path clear",
       "intensity": 5
     },
     {
@@ -1412,11 +1400,43 @@
       "intensity": 5
     },
     {
-      "id": "A_CORE_L05_023",
+      "id": "A_CORE_L05_019",
       "category": "ACTION",
-      "type": "S",
-      "name": "RESLT: After Task Pause",
-      "desc": "standing after completing a task, shoulders relaxing, hands lowering, visible completion",
+      "type": "V",
+      "name": "MOVE: Step Around",
+      "desc": "stepping around a small obstacle, eyes down briefly, motion path visible and controlled",
+      "intensity": 5
+    },
+    {
+      "id": "A_CORE_L05_010",
+      "category": "ACTION",
+      "type": "U",
+      "name": "INTER: Guided Walk",
+      "desc": "one character gestures forward while the other follows beside them, no physical force, clear path",
+      "intensity": 5
+    },
+    {
+      "id": "A_CORE_L05_008",
+      "category": "ACTION",
+      "type": "U",
+      "name": "INTER: Object Handoff",
+      "desc": "one character hands a single object to another, both hands visible, object centered between them",
+      "intensity": 5
+    },
+    {
+      "id": "A_CORE_L05_009",
+      "category": "ACTION",
+      "type": "U",
+      "name": "INTER: Receiving Object",
+      "desc": "one character receives a single object from another, hands meet at center, bodies remain separated",
+      "intensity": 5
+    },
+    {
+      "id": "A_CORE_L05_025",
+      "category": "ACTION",
+      "type": "C",
+      "name": "FIGHT: Guarded Stance",
+      "desc": "one character stands guarded with hands up, feet apart, controlled defensive readiness",
       "intensity": 5
     },
     {
@@ -1428,11 +1448,11 @@
       "intensity": 5
     },
     {
-      "id": "A_CORE_L05_025",
+      "id": "A_CORE_L05_023",
       "category": "ACTION",
-      "type": "C",
-      "name": "FIGHT: Guarded Stance",
-      "desc": "one character stands guarded with hands up, feet apart, controlled defensive readiness",
+      "type": "S",
+      "name": "RESLT: After Task Pause",
+      "desc": "standing after completing a task, shoulders relaxing, hands lowering, visible completion",
       "intensity": 5
     },
     {
@@ -1460,35 +1480,11 @@
       "intensity": 6
     },
     {
-      "id": "A_CORE_L06_004",
+      "id": "A_CORE_L06_013",
       "category": "ACTION",
       "type": "U",
-      "name": "COMMS: Command Exchange",
-      "desc": "two characters facing each other, one gives a clear command gesture, the other reacts with attention",
-      "intensity": 6
-    },
-    {
-      "id": "A_CORE_L06_005",
-      "category": "ACTION",
-      "type": "U",
-      "name": "INTER: Firm Shoulder Stop",
-      "desc": "one character places a hand on the other\u2019s shoulder to stop them, both upright and separated, clear contact point",
-      "intensity": 6
-    },
-    {
-      "id": "A_CORE_L06_006",
-      "category": "ACTION",
-      "type": "U",
-      "name": "INTER: Protective Block",
-      "desc": "one character stands in front of another with arm extended sideways, protective barrier without collision",
-      "intensity": 6
-    },
-    {
-      "id": "A_CORE_L06_008",
-      "category": "ACTION",
-      "type": "U",
-      "name": "INTER: Close Wall Block",
-      "desc": "one character steps in close and places a hand on the wall near another, blocking their path without forceful impact",
+      "name": "TASK: Brace Door",
+      "desc": "holding a door partly open with one hand while stepping toward the opening, subject remains visible",
       "intensity": 6
     },
     {
@@ -1500,11 +1496,11 @@
       "intensity": 6
     },
     {
-      "id": "A_CORE_L06_010",
+      "id": "A_CORE_L06_012",
       "category": "ACTION",
       "type": "U",
-      "name": "TASK: Tool Work",
-      "desc": "using a handheld tool on a visible surface, contact point clear, body steady",
+      "name": "TASK: Pull Handle",
+      "desc": "pulling a sturdy handle with both hands, shoulders engaged, object remains intact",
       "intensity": 6
     },
     {
@@ -1516,19 +1512,11 @@
       "intensity": 6
     },
     {
-      "id": "A_CORE_L06_012",
+      "id": "A_CORE_L06_010",
       "category": "ACTION",
       "type": "U",
-      "name": "TASK: Pull Handle",
-      "desc": "pulling a sturdy handle with both hands, shoulders engaged, object remains intact",
-      "intensity": 6
-    },
-    {
-      "id": "A_CORE_L06_013",
-      "category": "ACTION",
-      "type": "U",
-      "name": "TASK: Brace Door",
-      "desc": "holding a door partly open with one hand while stepping toward the opening, subject remains visible",
+      "name": "TASK: Tool Work",
+      "desc": "using a handheld tool on a visible surface, contact point clear, body steady",
       "intensity": 6
     },
     {
@@ -1540,35 +1528,11 @@
       "intensity": 6
     },
     {
-      "id": "A_CORE_L06_015",
+      "id": "A_CORE_L06_004",
       "category": "ACTION",
-      "type": "V",
-      "name": "MOVE: Fast Walk",
-      "desc": "moving forward quickly with purposeful stride, arms controlled, direction clear",
-      "intensity": 6
-    },
-    {
-      "id": "A_CORE_L06_016",
-      "category": "ACTION",
-      "type": "V",
-      "name": "MOVE: Jog Forward",
-      "desc": "jogging forward with moderate speed, knees lifting, arms moving in rhythm",
-      "intensity": 6
-    },
-    {
-      "id": "A_CORE_L06_017",
-      "category": "ACTION",
-      "type": "V",
-      "name": "MOVE: Forward Lunge",
-      "desc": "front knee bent, back leg extended, weight driving forward, feet visible and grounded",
-      "intensity": 6
-    },
-    {
-      "id": "A_CORE_L06_018",
-      "category": "ACTION",
-      "type": "V",
-      "name": "MOVE: Side Dash",
-      "desc": "subject pushing off one foot into a fast lateral movement, body leaning in direction of motion, legs offset in stride, slight motion blur on legs and arms to indicate speed",
+      "type": "U",
+      "name": "COMMS: Command Exchange",
+      "desc": "two characters facing each other, one gives a clear command gesture, the other reacts with attention",
       "intensity": 6
     },
     {
@@ -1588,11 +1552,67 @@
       "intensity": 6
     },
     {
-      "id": "A_CORE_L06_021",
+      "id": "A_CORE_L06_015",
+      "category": "ACTION",
+      "type": "V",
+      "name": "MOVE: Fast Walk",
+      "desc": "moving forward quickly with purposeful stride, arms controlled, direction clear",
+      "intensity": 6
+    },
+    {
+      "id": "A_CORE_L06_017",
+      "category": "ACTION",
+      "type": "V",
+      "name": "MOVE: Forward Lunge",
+      "desc": "front knee bent, back leg extended, weight driving forward, feet visible and grounded",
+      "intensity": 6
+    },
+    {
+      "id": "A_CORE_L06_016",
+      "category": "ACTION",
+      "type": "V",
+      "name": "MOVE: Jog Forward",
+      "desc": "jogging forward with moderate speed, knees lifting, arms moving in rhythm",
+      "intensity": 6
+    },
+    {
+      "id": "A_CORE_L06_008",
+      "category": "ACTION",
+      "type": "U",
+      "name": "INTER: Close Wall Block",
+      "desc": "one character steps in close and places a hand on the wall near another, blocking their path without forceful impact",
+      "intensity": 6
+    },
+    {
+      "id": "A_CORE_L06_005",
+      "category": "ACTION",
+      "type": "U",
+      "name": "INTER: Firm Shoulder Stop",
+      "desc": "one character places a hand on the other\u2019s shoulder to stop them, both upright and separated, clear contact point",
+      "intensity": 6
+    },
+    {
+      "id": "A_CORE_L06_006",
+      "category": "ACTION",
+      "type": "U",
+      "name": "INTER: Protective Block",
+      "desc": "one character stands in front of another with arm extended sideways, protective barrier without collision",
+      "intensity": 6
+    },
+    {
+      "id": "A_CORE_L06_RG2",
+      "category": "ACTION",
+      "type": "U",
+      "name": "INTER: Rescue Guide",
+      "desc": "one character calmly guides another forward by the forearm or wrist, both moving in the same direction, bodies aligned and balanced, controlled movement, no force, no imbalance",
+      "intensity": 6
+    },
+    {
+      "id": "A_CORE_L06_023",
       "category": "ACTION",
       "type": "C",
-      "name": "FIGHT: Controlled Push",
-      "desc": "one character pushes another at the shoulders, both bodies upright and visible, contact point clear",
+      "name": "FIGHT: Back To Back",
+      "desc": "two characters stand back-to-back, knees slightly bent, arms ready, defensive teamwork",
       "intensity": 6
     },
     {
@@ -1604,11 +1624,19 @@
       "intensity": 6
     },
     {
-      "id": "A_CORE_L06_023",
+      "id": "A_CORE_L06_021",
       "category": "ACTION",
       "type": "C",
-      "name": "FIGHT: Back To Back",
-      "desc": "two characters stand back-to-back, knees slightly bent, arms ready, defensive teamwork",
+      "name": "FIGHT: Controlled Push",
+      "desc": "one character pushes another at the shoulders, both bodies upright and visible, contact point clear",
+      "intensity": 6
+    },
+    {
+      "id": "A_CORE_L06_CS1",
+      "category": "ACTION",
+      "type": "C",
+      "name": "FIGHT: Controlled Shove",
+      "desc": "one character forcefully pushes another at shoulder level, recipient steps backward with one foot clearly shifting, both bodies upright and fully visible, slight motion blur on arms to convey impact",
       "intensity": 6
     },
     {
@@ -1660,51 +1688,11 @@
       "intensity": 7
     },
     {
-      "id": "A_CORE_L07_005",
+      "id": "A_CORE_L07_012",
       "category": "ACTION",
-      "type": "V",
-      "name": "MOVE: Sprint Forward",
-      "desc": "running forward with strong lean, arms driving, legs separated in a clear sprint stride",
-      "intensity": 7
-    },
-    {
-      "id": "A_CORE_L07_006",
-      "category": "ACTION",
-      "type": "V",
-      "name": "MOVE: Leap Forward",
-      "desc": "jumping forward over open space, knees bent, arms balanced, clear landing direction, no barrier penetration",
-      "intensity": 7
-    },
-    {
-      "id": "A_CORE_L07_007",
-      "category": "ACTION",
-      "type": "V",
-      "name": "MOVE: Slide Stop",
-      "desc": "sliding to a stop on one foot, body leaning back, arms out for balance, motion path clear",
-      "intensity": 7
-    },
-    {
-      "id": "A_CORE_L07_008",
-      "category": "ACTION",
-      "type": "V",
-      "name": "MOVE: Hard Pivot",
-      "desc": "sharp change of direction on planted foot, torso turning, arms counterbalancing",
-      "intensity": 7
-    },
-    {
-      "id": "A_CORE_L07_009",
-      "category": "ACTION",
-      "type": "V",
-      "name": "MOVE: Run Past Camera",
-      "desc": "running past the camera path from one side to the other, body oriented with travel direction",
-      "intensity": 7
-    },
-    {
-      "id": "A_CORE_L07_010",
-      "category": "ACTION",
-      "type": "V",
-      "name": "MOVE: Climb Over Low Object",
-      "desc": "climbing over a low object with one hand braced and one leg crossing, body fully visible",
+      "type": "U",
+      "name": "TASK: Force Open Stuck Object",
+      "desc": "pulling a stuck drawer, hatch, or case open with both hands, object remains visible and intact",
       "intensity": 7
     },
     {
@@ -1716,27 +1704,75 @@
       "intensity": 7
     },
     {
-      "id": "A_CORE_L07_012",
+      "id": "A_CORE_L07_025",
       "category": "ACTION",
-      "type": "U",
-      "name": "TASK: Force Open Stuck Object",
-      "desc": "pulling a stuck drawer, hatch, or case open with both hands, object remains visible and intact",
+      "type": "C",
+      "name": "PROP: Weapon Low Ready",
+      "desc": "holding a prop weapon or tool low and controlled, no firing, eyes locked forward",
       "intensity": 7
     },
     {
-      "id": "A_CORE_L07_013",
+      "id": "A_CORE_L07_010",
       "category": "ACTION",
-      "type": "U",
-      "name": "INTER: Stop Collision",
-      "desc": "one character braces hands against another\u2019s shoulders to stop forward motion, both upright and visible",
+      "type": "V",
+      "name": "MOVE: Climb Over Low Object",
+      "desc": "climbing over a low object with one hand braced and one leg crossing, body fully visible",
       "intensity": 7
     },
     {
-      "id": "A_CORE_L07_014",
+      "id": "A_CORE_L07_008",
+      "category": "ACTION",
+      "type": "V",
+      "name": "MOVE: Hard Pivot",
+      "desc": "sharp change of direction on planted foot, torso turning, arms counterbalancing",
+      "intensity": 7
+    },
+    {
+      "id": "A_CORE_L07_006",
+      "category": "ACTION",
+      "type": "V",
+      "name": "MOVE: Leap Forward",
+      "desc": "jumping forward over open space, knees bent, arms balanced, clear landing direction, no barrier penetration",
+      "intensity": 7
+    },
+    {
+      "id": "A_CORE_L07_009",
+      "category": "ACTION",
+      "type": "V",
+      "name": "MOVE: Run Past Camera",
+      "desc": "running past the camera path from one side to the other, body oriented with travel direction",
+      "intensity": 7
+    },
+    {
+      "id": "A_CORE_L07_007",
+      "category": "ACTION",
+      "type": "V",
+      "name": "MOVE: Slide Stop",
+      "desc": "sliding to a stop on one foot, body leaning back, arms out for balance, motion path clear",
+      "intensity": 7
+    },
+    {
+      "id": "A_CORE_L07_005",
+      "category": "ACTION",
+      "type": "V",
+      "name": "MOVE: Sprint Forward",
+      "desc": "running forward with strong lean, arms driving, legs separated in a clear sprint stride",
+      "intensity": 7
+    },
+    {
+      "id": "A_CORE_L07_CR1",
       "category": "ACTION",
       "type": "U",
-      "name": "INTER: Drag Away",
-      "desc": "one character pulls another by the forearm away from danger, bodies visible, direction clear",
+      "name": "INTER: Crowd Resistance",
+      "desc": "subject attempting to move forward but restrained by multiple people, arms and shoulders engaged, nearby individuals blocking and reacting, bodies remain visible, slight motion blur on arms to convey struggle",
+      "intensity": 7
+    },
+    {
+      "id": "A_CORE_L07_RP1",
+      "category": "ACTION",
+      "type": "U",
+      "name": "INTER: Rescue Pull",
+      "desc": "one character grips another by the forearm and pulls them forward, pulling character positioned slightly behind or beside, recipient reacting with resistance or imbalance, both bodies fully visible, pulling arm bent not fully extended, slight motion blur on arms",
       "intensity": 7
     },
     {
@@ -1748,19 +1784,11 @@
       "intensity": 7
     },
     {
-      "id": "A_CORE_L07_016",
+      "id": "A_CORE_L07_013",
       "category": "ACTION",
-      "type": "C",
-      "name": "FIGHT: Face-Off Advance",
-      "desc": "one character steps forward with guard raised while the other holds defensive ground",
-      "intensity": 7
-    },
-    {
-      "id": "A_CORE_L07_017",
-      "category": "ACTION",
-      "type": "C",
-      "name": "FIGHT: Shoulder Check",
-      "desc": "one character bumps another with shoulder-to-shoulder contact, both bodies upright, impact point clear",
+      "type": "U",
+      "name": "INTER: Stop Collision",
+      "desc": "one character braces hands against another\u2019s shoulders to stop forward motion, both upright and visible",
       "intensity": 7
     },
     {
@@ -1772,19 +1800,19 @@
       "intensity": 7
     },
     {
+      "id": "A_CORE_L07_016",
+      "category": "ACTION",
+      "type": "C",
+      "name": "FIGHT: Face-Off Advance",
+      "desc": "one character steps forward with guard raised while the other holds defensive ground",
+      "intensity": 7
+    },
+    {
       "id": "A_CORE_L07_019",
       "category": "ACTION",
       "type": "C",
       "name": "FIGHT: Grapple Start",
       "desc": "two characters grip each other at shoulders or sleeves, bodies separated enough to read, controlled tension",
-      "intensity": 7
-    },
-    {
-      "id": "A_CORE_L07_020",
-      "category": "ACTION",
-      "type": "C",
-      "name": "FIGHT: Slam Wall Controlled",
-      "desc": "two characters, one drives the other backward into a wall, shoulders contact the surface, both bodies upright and fully visible, controlled impact",
       "intensity": 7
     },
     {
@@ -1796,19 +1824,19 @@
       "intensity": 7
     },
     {
-      "id": "A_CORE_L07_022",
+      "id": "A_CORE_L07_017",
       "category": "ACTION",
-      "type": "S",
-      "name": "RESLT: After Impact Stance",
-      "desc": "standing immediately after impact, chest forward, shoulders tense, feet planted",
+      "type": "C",
+      "name": "FIGHT: Shoulder Check",
+      "desc": "one character bumps another with shoulder-to-shoulder contact, both bodies upright, impact point clear",
       "intensity": 7
     },
     {
-      "id": "A_CORE_L07_023",
+      "id": "A_CORE_L07_020",
       "category": "ACTION",
-      "type": "S",
-      "name": "RESLT: Recover Balance",
-      "desc": "subject regaining balance after a forward stumble, one foot planted ahead, upper body tilted forward, arms extended outward for stability, slight motion blur on hands and leading foot",
+      "type": "C",
+      "name": "FIGHT: Slam Wall Controlled",
+      "desc": "two characters, one drives the other backward into a wall, shoulders contact the surface, both bodies upright and fully visible, controlled impact",
       "intensity": 7
     },
     {
@@ -1820,11 +1848,11 @@
       "intensity": 7
     },
     {
-      "id": "A_CORE_L07_025",
+      "id": "A_CORE_L07_022",
       "category": "ACTION",
-      "type": "C",
-      "name": "PROP: Weapon Low Ready",
-      "desc": "holding a prop weapon or tool low and controlled, no firing, eyes locked forward",
+      "type": "S",
+      "name": "RESLT: After Impact Stance",
+      "desc": "standing immediately after impact, chest forward, shoulders tense, feet planted",
       "intensity": 7
     },
     {
@@ -1852,43 +1880,11 @@
       "intensity": 8
     },
     {
-      "id": "A_CORE_L08_004",
+      "id": "A_CORE_L08_011",
       "category": "ACTION",
-      "type": "V",
-      "name": "MOVE: Full Sprint",
-      "desc": "running at full speed across open space, strong forward lean, arms driving, clear travel path",
-      "intensity": 8
-    },
-    {
-      "id": "A_CORE_L08_005",
-      "category": "ACTION",
-      "type": "V",
-      "name": "MOVE: Dive To Ground",
-      "desc": "diving downward toward open floor, arms extended forward, landing area visible and unobstructed",
-      "intensity": 8
-    },
-    {
-      "id": "A_CORE_L08_006",
-      "category": "ACTION",
-      "type": "V",
-      "name": "MOVE: Vault Low Rail",
-      "desc": "vaulting over a low railing or table, one hand braced, legs clearing the object, body fully visible",
-      "intensity": 8
-    },
-    {
-      "id": "A_CORE_L08_007",
-      "category": "ACTION",
-      "type": "V",
-      "name": "MOVE: Jump Down",
-      "desc": "jumping down from a low platform, knees bent for landing, ground visible beneath subject",
-      "intensity": 8
-    },
-    {
-      "id": "A_CORE_L08_008",
-      "category": "ACTION",
-      "type": "V",
-      "name": "MOVE: Hard Dodge",
-      "desc": "body snapping sideways away from danger, one foot pushing off, arms counterbalancing",
+      "type": "U",
+      "name": "TASK: Case Snatch",
+      "desc": "snatching a small case from a surface, hand gripping handle, body turning away with clear direction",
       "intensity": 8
     },
     {
@@ -1908,11 +1904,75 @@
       "intensity": 8
     },
     {
-      "id": "A_CORE_L08_011",
+      "id": "A_CORE_L08_024",
+      "category": "ACTION",
+      "type": "C",
+      "name": "PROP: Shield Raise",
+      "desc": "raising a shield-like object or bag to block, object clearly between subject and threat",
+      "intensity": 8
+    },
+    {
+      "id": "A_CORE_L08_025",
+      "category": "ACTION",
+      "type": "C",
+      "name": "PROP: Tool At Ready",
+      "desc": "holding a heavy tool with both hands in ready position, no swing, strong silhouette",
+      "intensity": 8
+    },
+    {
+      "id": "A_CORE_L08_005",
+      "category": "ACTION",
+      "type": "V",
+      "name": "MOVE: Dive To Ground",
+      "desc": "diving downward toward open floor, arms extended forward, landing area visible and unobstructed",
+      "intensity": 8
+    },
+    {
+      "id": "A_CORE_L08_004",
+      "category": "ACTION",
+      "type": "V",
+      "name": "MOVE: Full Sprint",
+      "desc": "running at full speed across open space, strong forward lean, arms driving, clear travel path",
+      "intensity": 8
+    },
+    {
+      "id": "A_CORE_L08_008",
+      "category": "ACTION",
+      "type": "V",
+      "name": "MOVE: Hard Dodge",
+      "desc": "body snapping sideways away from danger, one foot pushing off, arms counterbalancing",
+      "intensity": 8
+    },
+    {
+      "id": "A_CORE_L08_007",
+      "category": "ACTION",
+      "type": "V",
+      "name": "MOVE: Jump Down",
+      "desc": "jumping down from a low platform, knees bent for landing, ground visible beneath subject",
+      "intensity": 8
+    },
+    {
+      "id": "A_CORE_L08_SD1",
+      "category": "ACTION",
+      "type": "V",
+      "name": "MOVE: Side Dash",
+      "desc": "subject pushing off one foot into a fast lateral movement, body leaning in direction of motion, legs offset in stride, slight motion blur on legs and arms to indicate speed",
+      "intensity": 8
+    },
+    {
+      "id": "A_CORE_L08_006",
+      "category": "ACTION",
+      "type": "V",
+      "name": "MOVE: Vault Low Rail",
+      "desc": "vaulting over a low railing or table, one hand braced, legs clearing the object, body fully visible",
+      "intensity": 8
+    },
+    {
+      "id": "A_CORE_L08_014",
       "category": "ACTION",
       "type": "U",
-      "name": "TASK: Case Snatch",
-      "desc": "snatching a small case from a surface, hand gripping handle, body turning away with clear direction",
+      "name": "INTER: Block And Guide",
+      "desc": "one character blocks danger with one arm while guiding another behind them with the other hand",
       "intensity": 8
     },
     {
@@ -1924,27 +1984,11 @@
       "intensity": 8
     },
     {
-      "id": "A_CORE_L08_013",
+      "id": "A_CORE_L08_020",
       "category": "ACTION",
-      "type": "U",
-      "name": "INTER: Rescue Pull",
-      "desc": "one character grips another by the forearm and pulls them forward, pulling character positioned slightly behind or beside, recipient reacting with resistance or imbalance, both bodies fully visible, pulling arm bent not fully extended, slight motion blur on arms",
-      "intensity": 8
-    },
-    {
-      "id": "A_CORE_L06_RG2",
-      "category": "ACTION",
-      "type": "U",
-      "name": "INTER: Rescue Guide",
-      "desc": "one character calmly guides another forward by the forearm or wrist, both moving in the same direction, bodies aligned and balanced, controlled movement, no force, no imbalance",
-      "intensity": 6
-    },
-    {
-      "id": "A_CORE_L08_014",
-      "category": "ACTION",
-      "type": "U",
-      "name": "INTER: Block And Guide",
-      "desc": "one character blocks danger with one arm while guiding another behind them with the other hand",
+      "type": "C",
+      "name": "FIGHT: Back Step Guard",
+      "desc": "one character retreats one step while guarding, opponent remains visible, spacing clear",
       "intensity": 8
     },
     {
@@ -1964,14 +2008,6 @@
       "intensity": 8
     },
     {
-      "id": "A_CORE_L08_017",
-      "category": "ACTION",
-      "type": "C",
-      "name": "FIGHT: Wall Pin Controlled",
-      "desc": "one character pins another lightly against a wall by the shoulders, both upright, faces visible, no clipping",
-      "intensity": 8
-    },
-    {
       "id": "A_CORE_L08_018",
       "category": "ACTION",
       "type": "C",
@@ -1988,27 +2024,11 @@
       "intensity": 8
     },
     {
-      "id": "A_CORE_L08_020",
+      "id": "A_CORE_L08_017",
       "category": "ACTION",
       "type": "C",
-      "name": "FIGHT: Back Step Guard",
-      "desc": "one character retreats one step while guarding, opponent remains visible, spacing clear",
-      "intensity": 8
-    },
-    {
-      "id": "A_CORE_L08_021",
-      "category": "ACTION",
-      "type": "S",
-      "name": "RESLT: Stagger Back",
-      "desc": "body staggering backward from force, arms out for balance, feet still visible and grounded",
-      "intensity": 8
-    },
-    {
-      "id": "A_CORE_L08_022",
-      "category": "ACTION",
-      "type": "S",
-      "name": "RESLT: Kneeling Recovery",
-      "desc": "one knee on ground after effort, one hand braced on thigh, head lifting with determination",
+      "name": "FIGHT: Wall Pin Controlled",
+      "desc": "one character pins another lightly against a wall by the shoulders, both upright, faces visible, no clipping",
       "intensity": 8
     },
     {
@@ -2020,19 +2040,19 @@
       "intensity": 8
     },
     {
-      "id": "A_CORE_L08_024",
+      "id": "A_CORE_L08_022",
       "category": "ACTION",
-      "type": "C",
-      "name": "PROP: Shield Raise",
-      "desc": "raising a shield-like object or bag to block, object clearly between subject and threat",
+      "type": "S",
+      "name": "RESLT: Kneeling Recovery",
+      "desc": "one knee on ground after effort, one hand braced on thigh, head lifting with determination",
       "intensity": 8
     },
     {
-      "id": "A_CORE_L08_025",
+      "id": "A_CORE_L08_021",
       "category": "ACTION",
-      "type": "C",
-      "name": "PROP: Tool At Ready",
-      "desc": "holding a heavy tool with both hands in ready position, no swing, strong silhouette",
+      "type": "S",
+      "name": "RESLT: Stagger Back",
+      "desc": "body staggering backward from force, arms out for balance, feet still visible and grounded",
       "intensity": 8
     },
     {
@@ -2052,35 +2072,19 @@
       "intensity": 9
     },
     {
-      "id": "A_CORE_L09_003",
+      "id": "A_CORE_L09_025",
       "category": "ACTION",
-      "type": "V",
-      "name": "MOVE: Explosive Sprint",
-      "desc": "sprinting across open ground, body low, arms driving, clear forward path, no obstacle contact",
+      "type": "S",
+      "name": "GEST: Final Warning",
+      "desc": "one hand raised in a stern warning, body squared, intense dramatic stillness",
       "intensity": 9
     },
     {
-      "id": "A_CORE_L09_004",
+      "id": "A_CORE_L09_009",
       "category": "ACTION",
-      "type": "V",
-      "name": "MOVE: Forward Dive Clear",
-      "desc": "diving through open air toward visible ground, arms extended, landing zone clear, no barrier",
-      "intensity": 9
-    },
-    {
-      "id": "A_CORE_L09_005",
-      "category": "ACTION",
-      "type": "V",
-      "name": "MOVE: Low Slide",
-      "desc": "sliding low across open floor, one leg extended, one knee bent, arms balanced, clear path",
-      "intensity": 9
-    },
-    {
-      "id": "A_CORE_L09_006",
-      "category": "ACTION",
-      "type": "V",
-      "name": "MOVE: Leap Over Gap",
-      "desc": "leaping over a visible open gap or low obstacle, takeoff and landing areas visible, no collision",
+      "type": "U",
+      "name": "TASK: Critical Control",
+      "desc": "hands gripping controls during crisis, face tense, body braced against force",
       "intensity": 9
     },
     {
@@ -2100,19 +2104,59 @@
       "intensity": 9
     },
     {
-      "id": "A_CORE_L09_009",
+      "id": "A_CORE_L09_024",
       "category": "ACTION",
       "type": "U",
-      "name": "TASK: Critical Control",
-      "desc": "hands gripping controls during crisis, face tense, body braced against force",
+      "name": "PROP: Case Protect",
+      "desc": "clutching a valuable case tightly while turning away from danger, body visible, no crowd chaos",
       "intensity": 9
     },
     {
-      "id": "A_CORE_L09_010",
+      "id": "A_CORE_L09_023",
+      "category": "ACTION",
+      "type": "C",
+      "name": "PROP: Shield Impact",
+      "desc": "shield-like object absorbing force, subject braced behind it, contact point clear",
+      "intensity": 9
+    },
+    {
+      "id": "A_CORE_L09_003",
+      "category": "ACTION",
+      "type": "V",
+      "name": "MOVE: Explosive Sprint",
+      "desc": "sprinting across open ground, body low, arms driving, clear forward path, no obstacle contact",
+      "intensity": 9
+    },
+    {
+      "id": "A_CORE_L09_004",
+      "category": "ACTION",
+      "type": "V",
+      "name": "MOVE: Forward Dive Clear",
+      "desc": "diving through open air toward visible ground, arms extended, landing zone clear, no barrier",
+      "intensity": 9
+    },
+    {
+      "id": "A_CORE_L09_006",
+      "category": "ACTION",
+      "type": "V",
+      "name": "MOVE: Leap Over Gap",
+      "desc": "leaping over a visible open gap or low obstacle, takeoff and landing areas visible, no collision",
+      "intensity": 9
+    },
+    {
+      "id": "A_CORE_L09_005",
+      "category": "ACTION",
+      "type": "V",
+      "name": "MOVE: Low Slide",
+      "desc": "sliding low across open floor, one leg extended, one knee bent, arms balanced, clear path",
+      "intensity": 9
+    },
+    {
+      "id": "A_CORE_L09_012",
       "category": "ACTION",
       "type": "U",
-      "name": "INTER: Protective Drag",
-      "desc": "one character drags another away from danger by the forearm or shoulder strap, both visible, path clear",
+      "name": "INTER: Catch Fall",
+      "desc": "one character catches another at upper arms or shoulders, clear contact, both faces visible",
       "intensity": 9
     },
     {
@@ -2124,11 +2168,27 @@
       "intensity": 9
     },
     {
-      "id": "A_CORE_L09_012",
+      "id": "A_CORE_L09_010",
       "category": "ACTION",
       "type": "U",
-      "name": "INTER: Catch Fall",
-      "desc": "one character catches another at upper arms or shoulders, clear contact, both faces visible",
+      "name": "INTER: Protective Drag",
+      "desc": "one character drags another away from danger by the forearm or shoulder strap, both visible, path clear",
+      "intensity": 9
+    },
+    {
+      "id": "A_CORE_L09_018",
+      "category": "ACTION",
+      "type": "C",
+      "name": "FIGHT: Disarm Control",
+      "desc": "one character controls another\u2019s wrist and redirects a held object away, contact point clear",
+      "intensity": 9
+    },
+    {
+      "id": "A_CORE_L09_016",
+      "category": "ACTION",
+      "type": "C",
+      "name": "FIGHT: Grounded Takedown Pose",
+      "desc": "two characters in a controlled takedown position, bodies separated enough to read, no tangled limbs",
       "intensity": 9
     },
     {
@@ -2156,27 +2216,11 @@
       "intensity": 9
     },
     {
-      "id": "A_CORE_L09_016",
-      "category": "ACTION",
-      "type": "C",
-      "name": "FIGHT: Grounded Takedown Pose",
-      "desc": "two characters in a controlled takedown position, bodies separated enough to read, no tangled limbs",
-      "intensity": 9
-    },
-    {
       "id": "A_CORE_L09_017",
       "category": "ACTION",
       "type": "C",
       "name": "FIGHT: Weapon Aim Still",
       "desc": "prop weapon raised in a controlled aiming stance, one eye focused, no firing effects, no muzzle flash",
-      "intensity": 9
-    },
-    {
-      "id": "A_CORE_L09_018",
-      "category": "ACTION",
-      "type": "C",
-      "name": "FIGHT: Disarm Control",
-      "desc": "one character controls another\u2019s wrist and redirects a held object away, contact point clear",
       "intensity": 9
     },
     {
@@ -2204,35 +2248,19 @@
       "intensity": 9
     },
     {
+      "id": "A_CORE_L09_RB1",
+      "category": "ACTION",
+      "type": "S",
+      "name": "RESLT: Recover Balance",
+      "desc": "subject regaining balance after a forward stumble, one foot planted ahead, upper body tilted forward, arms extended outward for stability, slight motion blur on hands and leading foot",
+      "intensity": 9
+    },
+    {
       "id": "A_CORE_L09_022",
       "category": "ACTION",
       "type": "S",
       "name": "RESLT: Shattered Object Aftermath",
       "desc": "standing near a broken small prop on floor, subject intact and visible, debris secondary, no explosion",
-      "intensity": 9
-    },
-    {
-      "id": "A_CORE_L09_023",
-      "category": "ACTION",
-      "type": "C",
-      "name": "PROP: Shield Impact",
-      "desc": "shield-like object absorbing force, subject braced behind it, contact point clear",
-      "intensity": 9
-    },
-    {
-      "id": "A_CORE_L09_024",
-      "category": "ACTION",
-      "type": "U",
-      "name": "PROP: Case Protect",
-      "desc": "clutching a valuable case tightly while turning away from danger, body visible, no crowd chaos",
-      "intensity": 9
-    },
-    {
-      "id": "A_CORE_L09_025",
-      "category": "ACTION",
-      "type": "S",
-      "name": "GEST: Final Warning",
-      "desc": "one hand raised in a stern warning, body squared, intense dramatic stillness",
       "intensity": 9
     },
     {
@@ -2260,27 +2288,11 @@
       "intensity": 10
     },
     {
-      "id": "A_CORE_L10_004",
+      "id": "A_CORE_L10_025",
       "category": "ACTION",
-      "type": "V",
-      "name": "MOVE: Charge Across Open Space",
-      "desc": "charging forward across open ground, body low and powerful, travel path clear, no barrier",
-      "intensity": 10
-    },
-    {
-      "id": "A_CORE_L10_005",
-      "category": "ACTION",
-      "type": "V",
-      "name": "MOVE: Leap To Landing",
-      "desc": "leaping through open air toward a visible landing zone, knees bent, arms balanced, no wall or window contact",
-      "intensity": 10
-    },
-    {
-      "id": "A_CORE_L10_006",
-      "category": "ACTION",
-      "type": "V",
-      "name": "MOVE: Dive Behind Cover",
-      "desc": "diving toward visible cover, body fully visible, landing path clear, cover does not occlude subject completely",
+      "type": "S",
+      "name": "GEST: Do Not Move",
+      "desc": "hand raised in a severe stop command, body squared, peak tension, cinematic stillness",
       "intensity": 10
     },
     {
@@ -2297,6 +2309,46 @@
       "type": "U",
       "name": "TASK: Emergency Override",
       "desc": "both hands forcefully operating a visible control panel, body braced, face tense, no sparks or magical light",
+      "intensity": 10
+    },
+    {
+      "id": "A_CORE_L10_024",
+      "category": "ACTION",
+      "type": "U",
+      "name": "PROP: Case Under Fire",
+      "desc": "subject protects a case against torso while crouched or turning away, clear body silhouette, no crowd chaos",
+      "intensity": 10
+    },
+    {
+      "id": "A_CORE_L10_023",
+      "category": "ACTION",
+      "type": "C",
+      "name": "PROP: Shielded Impact",
+      "desc": "subject braces behind a shield-like object under force, object visible, stance grounded, no magical effects",
+      "intensity": 10
+    },
+    {
+      "id": "A_CORE_L10_004",
+      "category": "ACTION",
+      "type": "V",
+      "name": "MOVE: Charge Across Open Space",
+      "desc": "charging forward across open ground, body low and powerful, travel path clear, no barrier",
+      "intensity": 10
+    },
+    {
+      "id": "A_CORE_L10_006",
+      "category": "ACTION",
+      "type": "V",
+      "name": "MOVE: Dive Behind Cover",
+      "desc": "diving toward visible cover, body fully visible, landing path clear, cover does not occlude subject completely",
+      "intensity": 10
+    },
+    {
+      "id": "A_CORE_L10_005",
+      "category": "ACTION",
+      "type": "V",
+      "name": "MOVE: Leap To Landing",
+      "desc": "leaping through open air toward a visible landing zone, knees bent, arms balanced, no wall or window contact",
       "intensity": 10
     },
     {
@@ -2324,35 +2376,11 @@
       "intensity": 10
     },
     {
-      "id": "A_CORE_L10_012",
-      "category": "ACTION",
-      "type": "C",
-      "name": "FIGHT: Slam Wall Peak",
-      "desc": "one character drives another into a wall with shoulder contact, both bodies upright, impact readable, no body clipping",
-      "intensity": 10
-    },
-    {
-      "id": "A_CORE_L10_013",
-      "category": "ACTION",
-      "type": "C",
-      "name": "FIGHT: Hard Shove",
-      "desc": "one character forcefully shoves another at shoulder level, recipient steps back visibly, no fall-through or clipping",
-      "intensity": 10
-    },
-    {
       "id": "A_CORE_L10_014",
       "category": "ACTION",
       "type": "C",
       "name": "FIGHT: Controlled Grapple",
       "desc": "two characters grip each other at shoulders or sleeves, faces visible, limbs readable, no tangled pile",
-      "intensity": 10
-    },
-    {
-      "id": "A_CORE_L10_015",
-      "category": "ACTION",
-      "type": "C",
-      "name": "FIGHT: Weapon Threat Still",
-      "desc": "prop weapon held in a tense standoff, no firing, no sparks, no gore, strong readable silhouettes",
       "intensity": 10
     },
     {
@@ -2364,11 +2392,35 @@
       "intensity": 10
     },
     {
+      "id": "A_CORE_L10_013",
+      "category": "ACTION",
+      "type": "C",
+      "name": "FIGHT: Hard Shove",
+      "desc": "one character forcefully shoves another at shoulder level, recipient steps back visibly, no fall-through or clipping",
+      "intensity": 10
+    },
+    {
       "id": "A_CORE_L10_017",
       "category": "ACTION",
       "type": "C",
       "name": "FIGHT: Impact Recoil",
       "desc": "one character recoils from a visible hit or block, arms raised, feet grounded, body readable",
+      "intensity": 10
+    },
+    {
+      "id": "A_CORE_L10_012",
+      "category": "ACTION",
+      "type": "C",
+      "name": "FIGHT: Slam Wall Peak",
+      "desc": "one character drives another into a wall with shoulder contact, both bodies upright, impact readable, no body clipping",
+      "intensity": 10
+    },
+    {
+      "id": "A_CORE_L10_015",
+      "category": "ACTION",
+      "type": "C",
+      "name": "FIGHT: Weapon Threat Still",
+      "desc": "prop weapon held in a tense standoff, no firing, no sparks, no gore, strong readable silhouettes",
       "intensity": 10
     },
     {
@@ -2380,27 +2432,11 @@
       "intensity": 10
     },
     {
-      "id": "A_CORE_L10_019",
-      "category": "ACTION",
-      "type": "C",
-      "name": "RESLT: Defeated Kneel",
-      "desc": "one character kneels with hands lowered, the other stands nearby, clear power relationship, no gore",
-      "intensity": 10
-    },
-    {
       "id": "A_CORE_L10_020",
       "category": "ACTION",
       "type": "S",
       "name": "RESLT: Breached Room Aftermath",
       "desc": "subject stands inside an already-open doorway with broken door behind them, no pass-through motion, clear completed entry",
-      "intensity": 10
-    },
-    {
-      "id": "A_CORE_L10_021",
-      "category": "ACTION",
-      "type": "S",
-      "name": "RESLT: Broken Window Aftermath",
-      "desc": "subject stands beyond an already-broken window opening, glass on floor, no active passage through glass",
       "intensity": 10
     },
     {
@@ -2412,27 +2448,11 @@
       "intensity": 10
     },
     {
-      "id": "A_CORE_L10_023",
+      "id": "A_CORE_L10_019",
       "category": "ACTION",
       "type": "C",
-      "name": "PROP: Shielded Impact",
-      "desc": "subject braces behind a shield-like object under force, object visible, stance grounded, no magical effects",
-      "intensity": 10
-    },
-    {
-      "id": "A_CORE_L10_024",
-      "category": "ACTION",
-      "type": "U",
-      "name": "PROP: Case Under Fire",
-      "desc": "subject protects a case against torso while crouched or turning away, clear body silhouette, no crowd chaos",
-      "intensity": 10
-    },
-    {
-      "id": "A_CORE_L10_025",
-      "category": "ACTION",
-      "type": "S",
-      "name": "GEST: Do Not Move",
-      "desc": "hand raised in a severe stop command, body squared, peak tension, cinematic stillness",
+      "name": "RESLT: Defeated Kneel",
+      "desc": "one character kneels with hands lowered, the other stands nearby, clear power relationship, no gore",
       "intensity": 10
     }
   ],
