@@ -1,7 +1,7 @@
 // -------------------------------------------------------------------
 // FILE: App.jsx
-// VERSION: 11.8
-// ARCHITECT NOTE: Added Professional Environment Mobile Lockout Screen.
+// VERSION: 11.9
+// ARCHITECT NOTE: Meta Injection Patch (Global Style & Negative Routing)
 // -------------------------------------------------------------------
 
 import React, { useState, useEffect } from 'react';
@@ -110,21 +110,40 @@ export default function App() {
     const sceneText = scene ? `SCENE: ${scene.name} (${scene.desc}).` : "";
     const cineText = scene ? `CINEMATOGRAPHY: ${scene.lighting}, Cinematic Lens.` : "";
 
+    // --- META INJECTION LOGIC ---
+    const globalStyleText = reelData?.meta?.global_style ? `STYLE: ${reelData.meta.global_style}.` : "";
+    const globalNegativeText = reelData?.meta?.global_negative || "";
+    const isMjOrNiji = ['mj61', 'mj7', 'niji6'].includes(renderParams.id);
+
     if (!actor1) {
+      let emptyTailFlags = "";
+      if (globalNegativeText) {
+        emptyTailFlags += isMjOrNiji ? ` --no ${globalNegativeText}` : `\nNEGATIVE: ${globalNegativeText}`;
+      }
       return {
         subject: null, ensemble: null, action: null,
         scene: sceneText,
         cine: cineText,
-        commercialTail: `${renderParams.suffix}`
+        style: globalStyleText,
+        commercialTail: `${emptyTailFlags} ${renderParams.suffix}`.trim()
       };
     }
 
     const ensembleText = actor2 ? `\nENSEMBLE: ${interaction} ${actor2.name} (${actor2.details}), wearing ${actor2.outfit}.` : "";
     let commercialFlags = "";
-    const isMjOrNiji = ['mj61', 'mj7', 'niji6'].includes(renderParams.id);
+    
     if (actor1.refUrl && isMjOrNiji) commercialFlags += ` --cref ${actor1.refUrl}`; 
     if (sref && sref.trim() !== "" && isMjOrNiji) commercialFlags += ` --sref ${sref}`;
     if (seed && seed.trim() !== "") commercialFlags += ` --seed ${seed}`;
+    
+    // --- META NEGATIVE INJECTION LOGIC ---
+    if (globalNegativeText) {
+      if (isMjOrNiji) {
+        commercialFlags += ` --no ${globalNegativeText}`;
+      } else {
+        commercialFlags += `\nNEGATIVE: ${globalNegativeText}`;
+      }
+    }
 
     return {
       subject: `SUBJECT: ${actor1.name} (${actor1.details}), wearing ${actor1.outfit}.`,
@@ -132,7 +151,8 @@ export default function App() {
       action: `\nACTION: ${action.name} (${action.desc}).`,
       scene: scene ? `\n${sceneText}` : "",
       cine: scene ? `\n${cineText}` : "",
-      commercialTail: `${commercialFlags}${renderParams.suffix}`
+      style: globalStyleText ? `\n${globalStyleText}` : "",
+      commercialTail: `${commercialFlags} ${renderParams.suffix}`.trim()
     };
   };
 
@@ -141,7 +161,9 @@ export default function App() {
   const subjectPart = dp.subject ? `${dp.subject}` : "";
   const ensemblePart = dp.ensemble ? `${dp.ensemble}` : "";
   const actionPart = dp.action ? `${dp.action}` : "";
-  const fullDynamicString = `${prefixStr}${subjectPart}${ensemblePart}${actionPart}${dp.scene}\n${dp.cine}${dp.commercialTail}`;
+  const stylePart = dp.style ? `${dp.style}` : "";
+  
+  const fullDynamicString = `${prefixStr}${subjectPart}${ensemblePart}${actionPart}${dp.scene}\n${dp.cine}${stylePart}\n${dp.commercialTail}`;
 
   const triggerRandomix = () => {
     setIsRandomizing(true); setIsManual(false);
