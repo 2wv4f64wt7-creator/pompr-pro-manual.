@@ -1,273 +1,243 @@
-/* 
-   POMPR-PRO COMPONENT: SCRIPT CONSOLE
-   VERSION: V11.8 (MODEL-SPECIFIC UI LOGIC)
-   DEPENDENCIES: ActionMatrix.jsx
-   
-   CHANGELOG:
-   - Implemented conditional rendering for SREF/SEED fields.
-   - Added Google Imagen 3 support.
-   - Added visual feedback for disabled parameters.
+/* POMPR-PRO COMPONENT: SCRIPT CONSOLE
+   VERSION: V12.7 (FATAL CRASH FIX + UX LABELS)
+   ARCHITECT NOTE: Removed fatal 'renderParams' reference. Added FLIP STAGE / SWAP POV buttons.
 */
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import ActionMatrix from './ActionMatrix'; 
 
-// --- EXPANDED AI MODEL LIST ---
-const AI_MODELS = [
-  { id: 'generic', label: 'Generic (SDXL/Flux)', suffix: '', hasParams: false },
-  { id: 'mj7', label: 'Midjourney v7 (Alpha)', suffix: '--v 7 --style raw', hasParams: true },
-  { id: 'mj61', label: 'Midjourney v6.1', suffix: '--v 6.1 --style raw', hasParams: true },
-  { id: 'niji6', label: 'Niji Journey v6', suffix: '--niji 6', hasParams: true },
-  { id: 'dalle3', label: 'DALL-E 3 / ChatGPT', suffix: '', hasParams: false },
-  { id: 'google', label: 'Google Imagen 3', suffix: '', hasParams: false },
-  { id: 'flux', label: 'Flux.1 (Replicate)', suffix: '', hasParams: false } 
-];
-
 const ScriptConsole = (props) => {
-  // --- DATA UNPACKING ---
   const {
     isManual, setIsManual, manualText, setManualText,
-    fullDynamicString,
-    seed, setSeed,
-    sref, setSref,
-    renderParams, setRenderParams,
-    interaction, setInteraction, interactions = [],
+    fullDynamicString, dynamicPrompt, 
+    actor1, actor2, 
+    interaction, interactions = [], setInteraction, 
+    seed, setSeed, globalParams, setGlobalParams,
     onRandomix, setAction, actions = []
   } = props;
 
-  // --- STATE ---
+  const [promptTier, setPromptTier] = useState('FULL'); 
   const [copyFeedback, setCopyFeedback] = useState("COPY");
+  
+  // TOGGLES
+  const [isSymmetry, setIsSymmetry] = useState(false); 
+  const [povMode, setPovMode] = useState(0); 
 
-  // Determine if current model supports parameters
-  const selectedModel = AI_MODELS.find(m => m.id === (renderParams.id || 'generic')) || AI_MODELS[0];
-  const showAdvanced = selectedModel.hasParams;
+  // --- DYNAMIC PRUNING, SYMMETRY, & CAMERA ENGINE ---
+  const displayString = useMemo(() => {
+    if (!dynamicPrompt || (!actor1 && !actor2 && !dynamicPrompt.subject)) return fullDynamicString;
 
-  // --- HANDLERS ---
-  const toggleEditMode = () => {
-    if (!isManual) {
-      setManualText(fullDynamicString);
+    const cine = dynamicPrompt.cine || "";
+    const tail = dynamicPrompt.commercialTail ? `\n${dynamicPrompt.commercialTail}` : "";
+
+    let activeSubjText = dynamicPrompt.subject || "";
+    let activeEnsText = dynamicPrompt.ensemble || "";
+    let shortSubj = actor1 ? `SUBJECT: ${actor1.name} (Ref #1).` : "";
+    let shortEns = actor2 ? `\nENSEMBLE: ${interaction} ${actor2.name} (Ref #2).` : "";
+
+    let currentSubjectName = actor1 ? actor1.name : "Subject";
+    let currentEnsembleName = actor2 ? actor2.name : "Ensemble";
+
+    if (isSymmetry && actor1 && actor2) {
+      activeSubjText = `SUBJECT: ${actor2.name} (${actor2.details}), wearing ${actor2.outfit}.`;
+      activeEnsText = `\nENSEMBLE: ${interaction} ${actor1.name} (${actor1.details}), wearing ${actor1.outfit}.`;
+      shortSubj = `SUBJECT: ${actor2.name} (Ref #1).`;
+      shortEns = `\nENSEMBLE: ${interaction} ${actor1.name} (Ref #2).`;
+      currentSubjectName = actor2.name;
+      currentEnsembleName = actor1.name;
+    }
+
+    let povText = "";
+    if (povMode !== 0) {
+      if (actor1 && actor2) {
+        if (povMode === 1) povText = `\nCAMERA: Over-the-shoulder shot from behind ${currentEnsembleName}, focusing on ${currentSubjectName}.`;
+        else if (povMode === 2) povText = `\nCAMERA: Over-the-shoulder shot from behind ${currentSubjectName}, focusing on ${currentEnsembleName}.`;
+      } else if (actor1) {
+        if (povMode === 1) povText = `\nCAMERA: Over-the-shoulder shot from behind ${currentSubjectName}, looking forward at the environment.`;
+        else if (povMode === 2) povText = `\nCAMERA: First-person POV from the exact perspective of ${currentSubjectName}.`;
+      }
+    }
+
+    const core = `${activeSubjText}${activeEnsText}${dynamicPrompt.action || ""}${povText}${dynamicPrompt.scene || ""}`;
+
+    if (promptTier === 'SHORT') {
+      const shortAct = dynamicPrompt.action || "";
+      let shortScene = "";
+      if (dynamicPrompt.scene) {
+        const rawSceneName = dynamicPrompt.scene.replace('\nSCENE: ', '').split(' (')[0].trim();
+        shortScene = `\nSCENE: ${rawSceneName}.`;
+      }
+      return `${shortSubj}${shortEns}${shortAct}${povText}${shortScene}`.trim();
+    } 
+    
+    if (promptTier === 'MEDIUM') {
+      let prunedStyle = "";
+      if (dynamicPrompt.style) {
+        const rawTokens = dynamicPrompt.style.replace(/\n?STYLE:\s*/, "").split(',');
+        prunedStyle = `\nSTYLE: ${rawTokens.slice(0, 5).join(',').trim()}.`;
+      }
+      let prunedTail = tail;
+      const noMatch = tail.match(/--no\s+(.*?)(?=\s--|$)/);
+      if (noMatch) prunedTail = tail.replace(noMatch[0], `--no ${noMatch[1].split(',').slice(0, 3).join(',').trim()}`);
+      return `${core}${cine}${prunedStyle}${prunedTail}`.trim();
+    }
+    
+    return `${core}${cine}${dynamicPrompt.style ? `\n${dynamicPrompt.style}` : ""}${tail}`.trim();
+
+  }, [dynamicPrompt, fullDynamicString, promptTier, actor1, actor2, interaction, isSymmetry, povMode]);
+
+  const handleActionSelect = (act) => {
+    if (act.category === 'UTILITY') {
+      const currentText = isManual ? manualText : displayString;
       setIsManual(true);
+      const isEmpty = !currentText || currentText.trim() === "" || currentText.includes('Awaiting director input');
+      if (isEmpty) setManualText(act.desc);
+      else setManualText(currentText.trim() + `\n\nUTILITY: ${act.desc}`);
     } else {
+      setAction(act);
       setIsManual(false);
     }
   };
 
-  const handleModelChange = (e) => {
-    const selectedId = e.target.value;
-    const modelData = AI_MODELS.find(m => m.id === selectedId) || AI_MODELS[0];
-    
-    setRenderParams({
-      ...renderParams,
-      id: selectedId,
-      suffix: modelData.suffix
-    });
-
-    // Clear params if switching to non-supported model
-    if (!modelData.hasParams) {
-      setSref("");
-      setSeed("");
-    }
+  const compileFinalOutput = () => {
+    const baseText = isManual ? manualText : displayString;
+    if (!baseText) return "";
+    const seedInjection = seed ? ` --seed ${seed}` : "";
+    const paramsInjection = globalParams ? ` ${globalParams}` : "";
+    return `${baseText}${seedInjection}${paramsInjection}`.trim();
   };
 
   const handleCopy = () => {
-    const textToCopy = isManual ? manualText : fullDynamicString;
-    if (!textToCopy) return;
-    navigator.clipboard.writeText(textToCopy).then(() => {
+    const finalString = compileFinalOutput();
+    if (!finalString) return;
+    navigator.clipboard.writeText(finalString).then(() => {
       setCopyFeedback("COPIED!");
       setTimeout(() => setCopyFeedback("COPY"), 2000);
     });
   };
 
   const handleSave = () => {
-    const textToSave = isManual ? manualText : fullDynamicString;
-    if (!textToSave) return;
+    const finalString = compileFinalOutput();
+    if (!finalString) return;
     const element = document.createElement("a");
-    const file = new Blob([textToSave], {type: 'text/plain'});
+    const file = new Blob([finalString], {type: 'text/plain'});
     element.href = URL.createObjectURL(file);
-    element.download = `POMPR_SCRIPT_${Date.now()}.txt`;
+    element.download = `POMPR_${promptTier}_${Date.now()}.txt`;
     document.body.appendChild(element);
     element.click();
     document.body.removeChild(element);
   };
 
   const renderColoredText = () => {
-    if (!fullDynamicString) return <span style={{color:'#666', fontStyle:'italic'}}>Ready for input...</span>;
-
-    return fullDynamicString.split('\n').map((line, idx) => {
+    if (!displayString) return <span style={{color:'#444', fontStyle:'italic'}}>Awaiting director input...</span>;
+    return displayString.split('\n').map((line, idx) => {
       let color = '#ccc';
-      if (line.startsWith('SCENE:') || line.startsWith('CINEMATOGRAPHY:')) color = '#3b82f6'; 
+      if (line.startsWith('SCENE:')) color = '#3b82f6'; 
       else if (line.startsWith('SUBJECT:') || line.startsWith('ENSEMBLE:')) color = '#f59e0b'; 
       else if (line.startsWith('ACTION:')) color = '#10b981'; 
-      else if (line.includes('--')) color = '#888'; 
-
-      return (
-        <div key={idx} style={{ color, marginBottom: '4px', lineHeight: '1.4' }}>
-          {line}
-        </div>
-      );
+      else if (line.startsWith('STYLE:')) color = '#8b5cf6'; 
+      else if (line.startsWith('NEGATIVE:') || line.startsWith('--no')) color = '#ef4444'; 
+      else if (line.startsWith('CAMERA:')) color = '#a855f7'; 
+      return (<div key={idx} style={{ color, marginBottom: '2px', lineHeight: '1.5' }}>{line}</div>);
     });
   };
 
-  // --- STYLES ---
+  const hasMeta = dynamicPrompt && dynamicPrompt.style && dynamicPrompt.style.trim() !== "";
+
+  // --- UI STYLES ---
   const styles = {
-    container: {
-      display: 'flex', flexDirection: 'column', height: '100%',
-      backgroundColor: '#0a0a0a', color: '#fff', borderLeft: '1px solid #333'
-    },
-    deckA: {
-      flex: '4', display: 'flex', flexDirection: 'column', padding: '1rem',
-      gap: '0.5rem', borderBottom: '1px solid #333', overflow: 'hidden'
-    },
-    header: {
-      display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-      fontSize: '0.8rem', color: '#888', letterSpacing: '1px', fontWeight: 'bold'
-    },
-    editBtn: {
-      background: isManual ? '#b91c1c' : '#333',
-      color: '#fff', border: 'none', padding: '4px 8px', borderRadius: '4px',
-      fontSize: '0.7rem', cursor: 'pointer', fontWeight: 'bold', transition: 'all 0.2s'
-    },
-    displayBox: {
-      flex: '1', backgroundColor: '#111', border: '1px solid #333', borderRadius: '4px',
-      padding: '1rem', fontFamily: 'monospace', fontSize: '0.9rem', overflowY: 'auto',
-      whiteSpace: 'pre-wrap'
-    },
-    manualArea: {
-      flex: '1', backgroundColor: '#1a1a1a', border: '1px solid #b91c1c', borderRadius: '4px',
-      padding: '1rem', fontFamily: 'monospace', fontSize: '0.9rem', color: '#fff',
-      resize: 'none', outline: 'none'
-    },
-    deckB: {
-      flex: '0 0 auto', padding: '0.75rem', backgroundColor: '#111',
-      borderBottom: '1px solid #333', display: 'flex', gap: '1rem'
-    },
-    colLeft: { flex: 1, display: 'flex', flexDirection: 'column', gap: '0.5rem' },
-    colRight: { flex: 1, display: 'flex', flexDirection: 'column', gap: '0.5rem' },
-    
-    inputGroup: { display: 'flex', flexDirection: 'column' },
-    label: { fontSize: '0.65rem', color: '#666', marginBottom: '3px', textTransform:'uppercase' },
-    select: {
-      background: '#222', border: '1px solid #444', color: '#fff', padding: '6px',
-      borderRadius: '4px', fontSize: '0.75rem', outline: 'none'
-    },
-    input: {
-      background: '#222', border: '1px solid #444', color: '#fff', padding: '6px',
-      borderRadius: '4px', fontSize: '0.75rem', outline: 'none', width: '100%'
-    },
-    disabledBox: {
-      padding: '1rem', border: '1px dashed #333', borderRadius: '4px',
-      color: '#444', fontSize: '0.7rem', textAlign: 'center',
-      display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%'
-    },
-    deckC: {
-      flex: '3', minHeight: '0', display: 'flex', flexDirection: 'column'
-    },
-    btnGroup: { display: 'flex', gap: '0.5rem', marginTop: '0.5rem' },
-    btn: {
-      flex: 1, padding: '8px', border: '1px solid #444', borderRadius: '4px',
-      background: '#222', color: '#fff', cursor: 'pointer', fontSize: '0.75rem',
-      fontWeight: 'bold', textTransform: 'uppercase', transition: 'background 0.2s'
-    }
+    container: { display: 'flex', flexDirection: 'column', height: '100%', backgroundColor: '#080808', color: '#fff', borderLeft: '1px solid #1a1a1a' },
+    deckA: { flex: '5', display: 'flex', flexDirection: 'column', padding: '1.25rem', gap: '0.75rem', borderBottom: '1px solid #1a1a1a', overflow: 'hidden', position: 'relative' },
+    headerRow: { display: 'flex', justifyContent: 'space-between', alignItems: 'center' },
+    tierToggle: { display: 'flex', gap: '4px', background: '#111', padding: '3px', borderRadius: '6px', alignItems: 'center' },
+    tierBtn: (active, isM) => ({ padding: '5px 12px', fontSize: '0.6rem', fontWeight: '900', border: 'none', borderRadius: '4px', cursor: 'pointer', background: active ? (isM ? '#f59e0b' : '#3b82f6') : (isM ? '#222' : 'transparent'), color: active ? '#fff' : (isM ? '#888' : '#444'), transition: '0.2s ease', letterSpacing: '1px' }),
+    povBtn: (mode) => ({ padding: '5px 12px', fontSize: '0.6rem', fontWeight: '900', border: '1px solid #333', borderRadius: '4px', cursor: 'pointer', background: mode === 1 ? '#3b82f6' : mode === 2 ? '#f59e0b' : '#222', color: mode > 0 ? '#fff' : '#888', transition: '0.2s ease', letterSpacing: '1px' }),
+    displayBox: { flex: '1', backgroundColor: '#030303', border: '1px solid #111', borderRadius: '4px', padding: '1.25rem', fontFamily: 'monospace', fontSize: '0.85rem', overflowY: 'auto', whiteSpace: 'pre-wrap', boxShadow: 'inset 0 2px 10px rgba(0,0,0,0.5)' },
+    statusBar: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#111', padding: '6px 12px', borderRadius: '4px', fontSize: '0.65rem', border: '1px solid #222', color: '#888', fontWeight: 'bold', letterSpacing: '1px' },
+    clearBtn: { background: 'transparent', border: '1px solid #444', color: '#ef4444', fontSize: '0.55rem', padding: '2px 8px', borderRadius: '2px', cursor: 'pointer' },
+    deckB: { flex: '0 0 auto', padding: '1rem', backgroundColor: '#0a0a0a', borderBottom: '1px solid #1a1a1a', display: 'flex', gap: '1.5rem' },
+    inputGroup: { display: 'flex', flexDirection: 'column', flex: 1 },
+    label: { fontSize: '0.55rem', color: '#333', textTransform:'uppercase', letterSpacing:'1.5px', marginBottom:'4px' },
+    select: { background: '#111', border: '1px solid #222', color: '#aaa', padding: '8px', borderRadius: '4px', fontSize: '0.75rem' },
+    input: { background: '#111', border: '1px solid #222', color: '#aaa', padding: '8px', borderRadius: '4px', fontSize: '0.75rem', width: '100%', boxSizing: 'border-box' },
+    deckC: { flex: '4', minHeight: '0', display: 'flex', flexDirection: 'column' },
+    btnGroup: { display: 'flex', gap: '0.5rem' },
+    btnPrimary: { flex: 1, padding: '12px', border: 'none', borderRadius: '4px', background: '#3b82f6', color: '#fff', cursor: 'pointer', fontSize: '0.7rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing:'1px' },
+    btnSecondary: { flex: 1, padding: '12px', border: '1px solid #222', borderRadius: '4px', background: '#0a0a0a', color: '#666', cursor: 'pointer', fontSize: '0.7rem', fontWeight: 'bold', textTransform: 'uppercase' }
   };
 
   return (
     <div style={styles.container}>
-      
-      {/* === DECK A: OUTPUT === */}
       <div style={styles.deckA}>
-        <div style={styles.header}>
-          <span>DIRECTOR'S LOG</span>
-          <button style={styles.editBtn} onClick={toggleEditMode}>
-            {isManual ? "UNLOCK: MANUAL" : "LOCKED: AUTO"}
+        <div style={styles.headerRow}>
+          
+          <div style={styles.tierToggle}>
+            <button style={styles.tierBtn(promptTier==='SHORT')} onClick={()=>setPromptTier('SHORT')}>SHORT</button>
+            <button style={styles.tierBtn(promptTier==='MEDIUM')} onClick={()=>setPromptTier('MEDIUM')}>MEDIUM</button>
+            <button style={styles.tierBtn(promptTier==='FULL')} onClick={()=>setPromptTier('FULL')}>FULL</button>
+            
+            <div style={{width: '1px', height: '20px', background: '#333', margin: '0 6px'}}></div>
+
+            {actor2 && (
+              <button style={{...styles.tierBtn(isSymmetry, true), border: '1px solid #333'}} onClick={()=>setIsSymmetry(!isSymmetry)} title="Swaps Actor 1 & 2 Roles">
+                {isSymmetry ? "STAGE FLIPPED" : "FLIP STAGE"}
+              </button>
+            )}
+            
+            {actor1 && (
+              <button style={styles.povBtn(povMode)} onClick={()=>setPovMode(povMode === 0 ? 1 : povMode === 1 ? 2 : 0)} title="Toggle Camera Perspective">
+                {povMode === 0 ? 'SWAP POV' : povMode === 1 ? 'POV: SHOT 1' : 'POV: SHOT 2'}
+              </button>
+            )}
+          </div>
+          
+          <div style={{fontSize: '0.65rem', fontWeight: 'bold', letterSpacing: '1px', color: hasMeta ? '#8b5cf6' : '#444'}}>
+            {hasMeta ? "🟢 META ACTIVE" : "⭕ NO META"}
+          </div>
+
+          <button style={{...styles.tierBtn(isManual), background: isManual?'#b91c1c':'#111', color:'#fff'}} onClick={() => { if (!isManual) setManualText(displayString); setIsManual(!isManual); }}>
+            {isManual ? "MANUAL" : "AUTO-LOCK"}
           </button>
+
         </div>
 
         {isManual ? (
-          <textarea
-            value={manualText}
-            onChange={(e) => setManualText(e.target.value)}
-            style={styles.manualArea}
-            placeholder="Type custom prompt..."
-          />
+          <textarea value={manualText} onChange={(e) => setManualText(e.target.value)} style={{...styles.displayBox, backgroundColor: '#030303', color: '#ccc', border: '1px solid #333', resize: 'none', lineHeight: '1.5', outline: 'none'}} />
         ) : (
-          <div style={styles.displayBox}>
-            {renderColoredText()}
+          <div style={styles.displayBox}>{renderColoredText()}</div>
+        )}
+
+        {seed && (
+          <div style={styles.statusBar}>
+            <span>ACTIVE SEED: <span style={{color: '#fff'}}>{seed}</span></span>
+            <button style={styles.clearBtn} onClick={() => setSeed("")}>CLEAR SEED</button>
           </div>
         )}
 
         <div style={styles.btnGroup}>
-          <button style={styles.btn} onClick={handleCopy}>{copyFeedback}</button>
-          <button style={{...styles.btn, background:'#064e3b', borderColor:'#047857'}} onClick={handleSave}>SAVE .TXT</button>
-          <button style={{...styles.btn, background:'#312e81', borderColor:'#3730a3'}} onClick={onRandomix}>RANDOMIX</button>
+          <button style={styles.btnPrimary} onClick={handleCopy}>{copyFeedback}</button>
+          <button style={styles.btnSecondary} onClick={handleSave}>EXPORT .TXT</button>
+          <button style={{...styles.btnSecondary, background:'#2e1065', color:'#ddd', border:'none'}} onClick={onRandomix}>RANDOMIX</button>
         </div>
       </div>
 
-      {/* === DECK B: CONTROLS === */}
       <div style={styles.deckB}>
+        <div style={styles.inputGroup} style={{flex: 0.4}}>
+          <span style={styles.label}>ENSEMBLE</span>
+          <select style={styles.select} value={interaction || "With"} onChange={(e)=>{ setInteraction(e.target.value); setIsManual(false); }}>
+            {interactions.map((i, idx) => <option key={idx} value={i}>{i}</option>)}
+          </select>
+        </div>
         
-        {/* LEFT COLUMN: LOGIC (Model / Interaction) */}
-        <div style={styles.colLeft}>
-          <div style={styles.inputGroup}>
-            <span style={styles.label}>AI Model Base</span>
-            <select 
-              style={styles.select} 
-              value={renderParams.id || 'generic'} 
-              onChange={handleModelChange}
-            >
-              {AI_MODELS.map(m => <option key={m.id} value={m.id}>{m.label}</option>)}
-            </select>
-          </div>
-          <div style={styles.inputGroup}>
-            <span style={styles.label}>Ensemble Action</span>
-            <select 
-              style={styles.select} 
-              value={interaction || ""} 
-              onChange={(e) => setInteraction(e.target.value)}
-            >
-              {interactions.map(i => <option key={i} value={i}>{i}</option>)}
-            </select>
-          </div>
-        </div>
-
-        {/* RIGHT COLUMN: TECH (Sref / Seed) - CONDITIONALLY RENDERED */}
-        <div style={styles.colRight}>
-          {showAdvanced ? (
-            <>
-              <div style={styles.inputGroup}>
-                <span style={styles.label}>Style Ref (--sref)</span>
-                <input 
-                  style={styles.input} 
-                  placeholder="URL or Code" 
-                  value={sref} 
-                  onChange={(e) => setSref(e.target.value)}
-                />
-              </div>
-              <div style={styles.inputGroup}>
-                <span style={styles.label}>Seed ID (--seed)</span>
-                <input 
-                  style={styles.input} 
-                  placeholder="Randomize..." 
-                  value={seed} 
-                  onChange={(e) => setSeed(e.target.value)}
-                />
-              </div>
-            </>
-          ) : (
-            <div style={styles.disabledBox}>
-              Adv. Params Disabled<br/>for {selectedModel.label}
-            </div>
-          )}
+        <div style={styles.inputGroup} style={{flex: 0.6}}>
+          <span style={styles.label}>GLOBAL SREF / TECH PARAMS</span>
+          <input style={styles.input} placeholder="e.g., --v 6.1 --sref URL --ar 16:9" value={globalParams} onChange={(e) => setGlobalParams(e.target.value)} />
         </div>
       </div>
 
-      {/* === DECK C: INTENSITY MATRIX === */}
       <div style={styles.deckC}>
-        <ActionMatrix 
-          actions={actions} 
-          onSelectAction={setAction} 
-        />
+        <ActionMatrix actions={actions} onSelectAction={handleActionSelect} />
       </div>
-
     </div>
   );
 };

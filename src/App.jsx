@@ -1,13 +1,12 @@
 // -------------------------------------------------------------------
 // FILE: App.jsx
-// VERSION: 11.9
-// ARCHITECT NOTE: Meta Injection Patch (Global Style & Negative Routing)
+// VERSION: 11.14
+// ARCHITECT NOTE: Added "Fighting" to the Master Fallback Interactions array.
 // -------------------------------------------------------------------
 
 import React, { useState, useEffect } from 'react';
 import reelData from './reels/default_reel.json';
 
-// --- MODULAR IMPORTS (ALL COMPONENTS) ---
 import CastingModal from './components/CastingModal'; 
 import SceneBuilderModal from './components/SceneBuilderModal';
 import ReelColumn from './components/ReelColumn'; 
@@ -15,38 +14,33 @@ import Header from './components/Header';
 import ScriptConsole from './components/ScriptConsole';
 import TechVaultModal from './components/TechVaultModal';
 
+// ARCHITECT FIX: Added "Fighting" to the Master Fallback Array
+const SAFE_INTERACTIONS = ["With", "Facing", "Ignoring", "Talking to", "Confronting", "Arguing with", "Fighting"];
+const baseInteractions = reelData?.interactions?.length > 0 ? reelData.interactions : SAFE_INTERACTIONS;
+
 export default function App() {
-  // --- STATE: MOBILE DETECTION ---
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
-  // --- STATE: CUSTOM DATA (LOCAL STORAGE) ---
-  const [customCharacters, setCustomCharacters] = useState(() => {
-    try { return JSON.parse(localStorage.getItem('PPRO_CUSTOM_CAST') || '[]'); } catch { return []; }
-  });
-  const [customScenes, setCustomScenes] = useState(() => {
-    try { return JSON.parse(localStorage.getItem('PPRO_CUSTOM_SCENES') || '[]'); } catch { return []; }
-  });
-  const [customActions, setCustomActions] = useState(() => {
-    try { return JSON.parse(localStorage.getItem('PPRO_CUSTOM_ACTIONS') || '[]'); } catch { return []; }
-  });
+  const [customCharacters, setCustomCharacters] = useState(() => { try { return JSON.parse(localStorage.getItem('PPRO_CUSTOM_CAST') || '[]'); } catch { return []; } });
+  const [customScenes, setCustomScenes] = useState(() => { try { return JSON.parse(localStorage.getItem('PPRO_CUSTOM_SCENES') || '[]'); } catch { return []; } });
+  const [customActions, setCustomActions] = useState(() => { try { return JSON.parse(localStorage.getItem('PPRO_CUSTOM_ACTIONS') || '[]'); } catch { return []; } });
+  const [customMeta, setCustomMeta] = useState(() => { try { return JSON.parse(localStorage.getItem('PPRO_CUSTOM_META')) || null; } catch { return null; } });
 
-  // --- STATE: MERGED DATA (DEFAULT + CUSTOM) ---
   const [characters, setCharacters] = useState([...customCharacters, ...reelData.characters].filter(Boolean));
   const [scenes, setScenes] = useState([...customScenes, ...reelData.scenes].filter(Boolean));
   const [actions, setActions] = useState([...customActions, ...reelData.actions].filter(Boolean));
   
-  // --- STATE: SELECTIONS ---
   const [scene, setScene] = useState(null);
   const [actor1, setActor1] = useState(null); 
   const [actor2, setActor2] = useState(null);
   
   const [activeSlot, setActiveSlot] = useState(1);
   const [action, setAction] = useState(reelData.actions[0]);
-  const [interaction, setInteraction] = useState(reelData.interactions[0]);
+  
+  const [interaction, setInteraction] = useState(baseInteractions[0]);
   
   const [seed, setSeed] = useState("");
-  const [sref, setSref] = useState("");
-  const [renderParams, setRenderParams] = useState({ id: 'generic', prefix: '', suffix: '' });
+  const [globalParams, setGlobalParams] = useState(""); 
 
   const [isEditing, setIsEditing] = useState(false);
   const [isManual, setIsManual] = useState(false);
@@ -56,16 +50,12 @@ export default function App() {
   const [showVault, setShowVault] = useState(false);
   const [isRandomizing, setIsRandomizing] = useState(false);
 
-  // --- VIEWPORT LISTENER EFFECT ---
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // --- STORAGE EFFECTS ---
   useEffect(() => {
     localStorage.setItem('PPRO_CUSTOM_CAST', JSON.stringify(customCharacters));
     setCharacters([...customCharacters, ...reelData.characters].filter(Boolean));
@@ -81,7 +71,11 @@ export default function App() {
     setActions([...customActions, ...reelData.actions].filter(Boolean));
   }, [customActions]);
 
-  // --- SMART SETTERS (DEDUPLICATION) ---
+  useEffect(() => {
+    if (customMeta) localStorage.setItem('PPRO_CUSTOM_META', JSON.stringify(customMeta));
+    else localStorage.removeItem('PPRO_CUSTOM_META');
+  }, [customMeta]);
+
   const smartSetCustomCharacters = (newItems) => {
     setCustomCharacters(prev => {
       const existingIds = new Set(prev.map(c => c.id));
@@ -110,40 +104,25 @@ export default function App() {
     const sceneText = scene ? `SCENE: ${scene.name} (${scene.desc}).` : "";
     const cineText = scene ? `CINEMATOGRAPHY: ${scene.lighting}, Cinematic Lens.` : "";
 
-    // --- META INJECTION LOGIC ---
-    const globalStyleText = reelData?.meta?.global_style ? `STYLE: ${reelData.meta.global_style}.` : "";
-    const globalNegativeText = reelData?.meta?.global_negative || "";
-    const isMjOrNiji = ['mj61', 'mj7', 'niji6'].includes(renderParams.id);
+    const activeMeta = customMeta || reelData?.meta || {};
+    const globalStyleText = activeMeta.global_style ? `STYLE: ${activeMeta.global_style}.` : "";
+    const globalNegativeText = activeMeta.global_negative || "";
 
     if (!actor1) {
       let emptyTailFlags = "";
-      if (globalNegativeText) {
-        emptyTailFlags += isMjOrNiji ? ` --no ${globalNegativeText}` : `\nNEGATIVE: ${globalNegativeText}`;
-      }
+      if (globalNegativeText) emptyTailFlags += ` --no ${globalNegativeText}`;
       return {
         subject: null, ensemble: null, action: null,
-        scene: sceneText,
-        cine: cineText,
-        style: globalStyleText,
-        commercialTail: `${emptyTailFlags} ${renderParams.suffix}`.trim()
+        scene: sceneText, cine: cineText, style: globalStyleText,
+        commercialTail: emptyTailFlags.trim()
       };
     }
 
     const ensembleText = actor2 ? `\nENSEMBLE: ${interaction} ${actor2.name} (${actor2.details}), wearing ${actor2.outfit}.` : "";
+    
     let commercialFlags = "";
-    
-    if (actor1.refUrl && isMjOrNiji) commercialFlags += ` --cref ${actor1.refUrl}`; 
-    if (sref && sref.trim() !== "" && isMjOrNiji) commercialFlags += ` --sref ${sref}`;
-    if (seed && seed.trim() !== "") commercialFlags += ` --seed ${seed}`;
-    
-    // --- META NEGATIVE INJECTION LOGIC ---
-    if (globalNegativeText) {
-      if (isMjOrNiji) {
-        commercialFlags += ` --no ${globalNegativeText}`;
-      } else {
-        commercialFlags += `\nNEGATIVE: ${globalNegativeText}`;
-      }
-    }
+    if (actor1.refUrl) commercialFlags += ` --cref ${actor1.refUrl}`; 
+    if (globalNegativeText) commercialFlags += ` --no ${globalNegativeText}`;
 
     return {
       subject: `SUBJECT: ${actor1.name} (${actor1.details}), wearing ${actor1.outfit}.`,
@@ -152,18 +131,17 @@ export default function App() {
       scene: scene ? `\n${sceneText}` : "",
       cine: scene ? `\n${cineText}` : "",
       style: globalStyleText ? `\n${globalStyleText}` : "",
-      commercialTail: `${commercialFlags} ${renderParams.suffix}`.trim()
+      commercialTail: commercialFlags.trim()
     };
   };
 
   const dp = getDynamicPrompt();
-  const prefixStr = renderParams.prefix ? `${renderParams.prefix} ` : "";
   const subjectPart = dp.subject ? `${dp.subject}` : "";
   const ensemblePart = dp.ensemble ? `${dp.ensemble}` : "";
   const actionPart = dp.action ? `${dp.action}` : "";
   const stylePart = dp.style ? `${dp.style}` : "";
   
-  const fullDynamicString = `${prefixStr}${subjectPart}${ensemblePart}${actionPart}${dp.scene}\n${dp.cine}${stylePart}\n${dp.commercialTail}`;
+  const fullDynamicString = `${subjectPart}${ensemblePart}${actionPart}${dp.scene}\n${dp.cine}${stylePart}\n${dp.commercialTail}`;
 
   const triggerRandomix = () => {
     setIsRandomizing(true); setIsManual(false);
@@ -188,31 +166,17 @@ export default function App() {
   const HEADER_HEIGHT = '96px';
   const laneStyle = { position: 'absolute', top: HEADER_HEIGHT, bottom: 0, overflow: 'hidden', borderLeft: '1px solid rgba(255,255,255,0.05)' };
 
-  // --- MOBILE BLOCKER RENDER ---
   if (isMobile) {
     return (
-      <div style={{
-        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-        minHeight: '100vh', width: '100vw', backgroundColor: '#0a0a0a', padding: '2rem',
-        boxSizing: 'border-box', fontFamily: 'system-ui, -apple-system, sans-serif'
-      }}>
-        <div style={{
-          border: '1px solid #333', backgroundColor: '#111', borderRadius: '8px',
-          padding: '2.5rem 2rem', maxWidth: '400px', textAlign: 'center',
-          boxShadow: '0 10px 30px rgba(0,0,0,0.5)'
-        }}>
-          <h2 style={{ color: '#3b82f6', fontSize: '1.5rem', margin: '0 0 1rem 0', letterSpacing: '1px' }}>
-            POMPR-PRO
-          </h2>
-          <p style={{ color: '#a3a3a3', fontSize: '1rem', lineHeight: '1.6', margin: '0' }}>
-            The Director's Console is a professional production environment. Please open POMPR on a desktop or tablet for the full widescreen experience.
-          </p>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', width: '100vw', backgroundColor: '#0a0a0a', padding: '2rem', boxSizing: 'border-box', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+        <div style={{ border: '1px solid #333', backgroundColor: '#111', borderRadius: '8px', padding: '2.5rem 2rem', maxWidth: '400px', textAlign: 'center', boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}>
+          <h2 style={{ color: '#3b82f6', fontSize: '1.5rem', margin: '0 0 1rem 0', letterSpacing: '1px' }}>POMPR-PRO</h2>
+          <p style={{ color: '#a3a3a3', fontSize: '1rem', lineHeight: '1.6', margin: '0' }}>The Director's Console is a professional production environment. Please open POMPR on a desktop or tablet for the full widescreen experience.</p>
         </div>
       </div>
     );
   }
 
-  // --- MAIN DESKTOP RENDER ---
   return (
     <div style={{ height: '100vh', width: '100vw', overflow: 'hidden', position: 'relative' }}>
       <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: HEADER_HEIGHT, zIndex: 10 }}>
@@ -220,19 +184,11 @@ export default function App() {
       </div>
 
       <div style={{ ...laneStyle, left: '0%', width: '30%' }}>
-        <ReelColumn 
-          title="SCENE RIG" items={scenes} 
-          activeIds={scene ? [scene.id] : []} 
-          colorTheme="blue"
-          showCreateButton={true} onCreateClick={() => setShowSceneModal(true)} onExport={exportAsset}
-          onSelect={(s) => { setIsManual(false); setScene(s.id === scene?.id ? null : s); }} 
-        />
+        <ReelColumn title="SCENE RIG" items={scenes} activeIds={scene ? [scene.id] : []} colorTheme="blue" showCreateButton={true} onCreateClick={() => setShowSceneModal(true)} onExport={exportAsset} onSelect={(s) => { setIsManual(false); setScene(s.id === scene?.id ? null : s); }} />
       </div>
 
       <div style={{ ...laneStyle, left: '30%', width: '30%' }}>
-        <ReelColumn 
-          title="CHARACTER" items={characters} activeIds={[actor1?.id, actor2?.id].filter(Boolean)} colorTheme="orange"
-          showCreateButton={true} onCreateClick={() => setShowCastModal(true)} onExport={exportAsset}
+        <ReelColumn title="CHARACTER" items={characters} activeIds={[actor1?.id, actor2?.id].filter(Boolean)} colorTheme="orange" showCreateButton={true} onCreateClick={() => setShowCastModal(true)} onExport={exportAsset}
           onSelect={(char) => {
             setIsManual(false);
             if (activeSlot === 1) { if (actor1 && actor1.id === char.id) setActor1(null); else setActor1(char); } 
@@ -251,30 +207,18 @@ export default function App() {
         <ScriptConsole 
           isEditing={isEditing} setIsEditing={setIsEditing} isManual={isManual} setIsManual={setIsManual}
           manualText={manualText} setManualText={setManualText} dynamicPrompt={dp} fullDynamicString={fullDynamicString}
-          actions={actions}
-          action={action} setAction={(a) => { setAction(a); setIsManual(false); }}
-          interactions={reelData.interactions} interaction={interaction} setInteraction={(i) => { setInteraction(i); setIsManual(false); }}
+          actions={actions} action={action} setAction={(a) => { setAction(a); setIsManual(false); }}
+          interactions={baseInteractions} interaction={interaction} setInteraction={setInteraction}
           actor1={actor1} actor2={actor2} actor2Active={!!actor2}
-          onRemoveActor2={() => { setActor2(null); setActiveSlot(1); }} 
-          onRandomix={triggerRandomix} isRandomizing={isRandomizing} seed={seed} setSeed={setSeed} sref={sref} setSref={setSref}
-          renderParams={renderParams} setRenderParams={setRenderParams}
+          onRandomix={triggerRandomix} isRandomizing={isRandomizing} 
+          seed={seed} setSeed={setSeed} globalParams={globalParams} setGlobalParams={setGlobalParams}
         />
       </div>
 
       <div style={{ position: 'absolute', zIndex: 100 }}>
         {showCastModal && <CastingModal onClose={() => setShowCastModal(false)} onSave={(c) => smartSetCustomCharacters([c])} />} 
         {showSceneModal && <SceneBuilderModal onClose={() => setShowSceneModal(false)} onSave={(s) => smartSetCustomScenes([s])} />}
-        {showVault && 
-          <TechVaultModal 
-            onClose={() => setShowVault(false)} 
-            setCustomCharacters={smartSetCustomCharacters} 
-            setCustomScenes={smartSetCustomScenes}
-            setCustomActions={smartSetCustomActions}
-            fullCharacters={characters} 
-            fullScenes={scenes} 
-            fullActions={actions}
-          />
-        }
+        {showVault && <TechVaultModal onClose={() => setShowVault(false)} setCustomCharacters={smartSetCustomCharacters} setCustomScenes={smartSetCustomScenes} setCustomActions={smartSetCustomActions} setCustomMeta={setCustomMeta} fullCharacters={characters} fullScenes={scenes} fullActions={actions} />}
       </div>
     </div>
   );

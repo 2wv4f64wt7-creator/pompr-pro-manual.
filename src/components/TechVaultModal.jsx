@@ -1,6 +1,6 @@
 // -------------------------------------------------------------------
 // FILE: src/components/TechVaultModal.jsx
-// VERSION: 11.1 (Reel Loader Action Support)
+// VERSION: 11.2 (Meta Injection Support)
 // -------------------------------------------------------------------
 
 import React, { useRef } from 'react';
@@ -9,10 +9,11 @@ export default function TechVaultModal({
   onClose, 
   setCustomCharacters, 
   setCustomScenes,
-  setCustomActions, // NEW
+  setCustomActions,
+  setCustomMeta, // NEW: Meta receiver
   fullCharacters,
   fullScenes,
-  fullActions // NEW
+  fullActions
 }) {
   const fileInputRef = useRef(null);
 
@@ -27,11 +28,13 @@ export default function TechVaultModal({
         let charCount = 0;
         let sceneCount = 0;
         let actionCount = 0;
+        let metaStatus = "None";
 
         // 1. DATA DETECTION
         const rawChars = data.characters || (data.details ? [data] : []);
         const rawScenes = data.scenes || (data.desc ? [data] : []);
-        const rawActions = data.actions || []; // NEW: Check for actions array
+        const rawActions = data.actions || [];
+        const rawMeta = data.meta || null; // NEW: Detect Meta
 
         // 2. PROCESS CHARACTERS
         if (rawChars.length > 0) {
@@ -55,20 +58,26 @@ export default function TechVaultModal({
           sceneCount = processedScenes.length;
         }
 
-        // 4. PROCESS ACTIONS (NEW)
+        // 4. PROCESS ACTIONS
         if (rawActions.length > 0) {
           const processedActions = rawActions.map(a => ({
             ...a,
             id: a.id || `A_USER_IMP_${Math.random().toString(36).substr(2, 9)}`,
-            type: a.type || 'USER', // Default type if missing
+            type: a.type || 'USER',
             isCustom: true
           }));
           if (setCustomActions) setCustomActions(processedActions);
           actionCount = processedActions.length;
         }
 
-        if (charCount > 0 || sceneCount > 0 || actionCount > 0) {
-          alert(`VAULT IMPORT REPORT:\n- ${charCount} Characters\n- ${sceneCount} Scenes\n- ${actionCount} Actions`);
+        // 5. PROCESS META (NEW)
+        if (rawMeta) {
+          if (setCustomMeta) setCustomMeta(rawMeta);
+          if (rawMeta.global_style) metaStatus = "Injected";
+        }
+
+        if (charCount > 0 || sceneCount > 0 || actionCount > 0 || rawMeta) {
+          alert(`VAULT IMPORT REPORT:\n- ${charCount} Characters\n- ${sceneCount} Scenes\n- ${actionCount} Actions\n- Global Styles: ${metaStatus}`);
           onClose();
         } else {
           alert("IMPORT WARNING: No valid items found in file.");
@@ -85,10 +94,9 @@ export default function TechVaultModal({
   const handleExport = () => {
     const bundle = {
       export_date: new Date().toISOString(),
-      app_version: "11.1",
+      app_version: "11.2",
       characters: fullCharacters.filter(c => c.isCustom || c.id.includes('USER') || c.id.includes('IMP')),
       scenes: fullScenes.filter(s => s.isCustom || s.id.includes('USER') || s.id.includes('IMP')),
-      // NEW: Include custom actions in export
       actions: fullActions ? fullActions.filter(a => a.isCustom || (a.id && a.id.includes('USER')) || (a.id && a.id.includes('IMP'))) : []
     };
     
