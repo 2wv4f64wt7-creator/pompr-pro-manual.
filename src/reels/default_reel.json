@@ -450,8 +450,20 @@
   { "id": "A_CORE_L01_010", "category": "ACTION", "type": "S", "name": "SOCIAL: Presenting Stance", "desc": "The subject squares the torso toward the other party and settles into stillness, signaling readiness to be heard.", "intensity": 1 },
   { "id": "A_CORE_L01_011", "category": "ACTION", "type": "S", "name": "SOCIAL: Quiet Reassurance", "desc": "The subject softens the brow and lowers the shoulders, reassurance conveyed through calm stillness rather than touch.", "intensity": 1 },
   { "id": "A_CORE_L01_012", "category": "ACTION", "type": "S", "name": "SOCIAL: Small Shrug", "desc": "The subject gives a modest shrug with palms briefly open, signaling uncertainty without dismissing the exchange.", "intensity": 1 },
-  { "id": "A_CORE_L01_013", "category": "ACTION", "type": "S", "name": "SOCIAL: Hands Behind Back", "desc": "The subject clasps hands behind the back and stands tall, composed authority held in a clean silhouette.", "intensity": 1 },
-  { "id": "A_CORE_L01_014", "category": "ACTION", "type": "S", "name": "SOCIAL: Neutral Presence", "desc": "The subject holds a neutral standing posture with arms relaxed and weight centered, readable and unthreatening.", "intensity": 1 },
+  { "id": "A_CORE_L01_013",
+    "category": "ACTION",
+    "type": "S",
+    "name": "DUAL-FRIENDLY: Warm Greeting Mirror",
+    "desc": "One character offers a genuine smile with relaxed shoulders and open hands, while the other character mirrors the smile and returns steady eye contact, both bodies at an easy conversational distance that reads safe and welcoming.",
+    "intensity": 1
+  },
+  {
+    "id": "A_CORE_L01_014",
+    "category": "ACTION",
+    "type": "S",
+    "name": "DUAL-FRIENDLY: Shared Laugh Spark",
+    "desc": "One character laughs with shoulders loosening and hands open, while the other character laughs back with bright eyes and a small lean-in, the moment landing as mutual trust rather than performance.",
+    "intensity": 1},
 
   { "id": "A_CORE_L01_015", "category": "ACTION", "type": "U", "name": "TECH: Pick Up Object", "desc": "The subject bends at knees and hips to pick up an item with controlled grip, keeping the load close to the torso.", "intensity": 1 },
   { "id": "A_CORE_L01_016", "category": "ACTION", "type": "U", "name": "TECH: Place Object Down", "desc": "The subject lowers an item onto a surface with careful wrist control, releasing only after it is stable and aligned.", "intensity": 1 },
@@ -482,8 +494,20 @@
   { "id": "A_CORE_L02_008", "category": "ACTION", "type": "S", "name": "SOCIAL: Listening Hold", "desc": "The subject holds still with focused eyes and relaxed shoulders, listening without interrupting.", "intensity": 2 },
   { "id": "A_CORE_L02_009", "category": "ACTION", "type": "S", "name": "SOCIAL: Indicate Direction", "desc": "The subject indicates a general direction with a restrained arm sweep, guiding attention without sharp pointing.", "intensity": 2 },
   { "id": "A_CORE_L02_010", "category": "ACTION", "type": "S", "name": "SOCIAL: Closing Statement", "desc": "The subject ends a point with anchored stillness and steady gaze, letting silence carry weight.", "intensity": 2 },
-  { "id": "A_CORE_L02_011", "category": "ACTION", "type": "S", "name": "SOCIAL: Hands Behind Back", "desc": "The subject clasps hands behind the back and stands tall, calm authority held without aggression.", "intensity": 2 },
-  { "id": "A_CORE_L02_012", "category": "ACTION", "type": "S", "name": "SOCIAL: Subtle Finger Tap", "desc": "The subject taps fingertips softly on a surface, patience implied beneath a controlled exterior.", "intensity": 2 },
+  { "id": "A_CORE_L02_011",
+    "category": "ACTION",
+    "type": "S",
+    "name": "DUAL-FRIENDLY: Reassurance and Relief",
+    "desc": "One character speaks softly with an open-palm reassurance held steady, while the other character exhales and nods with visible relief, posture unclenching as the comfort takes hold.",
+    "intensity": 2
+  },
+  {
+    "id": "A_CORE_L02_012",
+    "category": "ACTION",
+    "type": "S",
+    "name": "DUAL-FRIENDLY: Friendly Close Conversation",
+    "desc": "One character leans in slightly with an easy smile and calm eyes, while the other character matches the lean with relaxed shoulders and attentive gaze, both faces warm and engaged.",
+    "intensity": 2 },
 
   { "id": "A_CORE_L02_013", "category": "ACTION", "type": "U", "name": "TECH: Two-Handed Carry", "desc": "The subject carries a medium object with elbows tucked and grip secure, keeping weight stable and close.", "intensity": 2 },
   { "id": "A_CORE_L02_014", "category": "ACTION", "type": "U", "name": "TECH: Quick Note Entry", "desc": "The subject enters a short note with brisk, accurate taps, eyes flicking up to recheck surroundings.", "intensity": 2 },
@@ -514,8 +538,20 @@
   { "id": "A_CORE_L03_006", "category": "ACTION", "type": "S", "name": "SOCIAL: Assertive Point", "desc": "The subject punctuates a point with compact forward motion and anchored stance, certainty under pressure.", "intensity": 3 },
   { "id": "A_CORE_L03_007", "category": "ACTION", "type": "S", "name": "SOCIAL: Measured Apology", "desc": "The subject inclines the head with controlled breath and softened brow, apologizing without collapsing confidence.", "intensity": 3 },
   { "id": "A_CORE_L03_008", "category": "ACTION", "type": "S", "name": "SOCIAL: Challenge Stare", "desc": "The subject holds a challenge stare with jaw set and shoulders squared, inviting escalation without moving first.", "intensity": 3 },
-  { "id": "A_CORE_L03_009", "category": "ACTION", "type": "S", "name": "SOCIAL: Heated Rebuttal", "desc": "The subject answers with clipped gestures and tightened face, frustration contained but unmistakable.", "intensity": 3 },
-  { "id": "A_CORE_L03_010", "category": "ACTION", "type": "S", "name": "SOCIAL: Quiet Plea", "desc": "The subject’s shoulders draw inward a fraction as the eyes search the other party, asking for understanding without touching.", "intensity": 3 },
+  {"id": "A_CORE_L03_009",
+    "category": "ACTION",
+    "type": "S",
+    "name": "DUAL-FRIENDLY: Supportive Handoff Moment",
+    "desc": "One character offers a supportive nod and presents an item or note with careful hands, while the other character receives it with a grateful smile and steady eye contact, the exchange reading cooperative and kind.",
+    "intensity": 3
+  },
+  {
+    "id": "A_CORE_L03_010",
+    "category": "ACTION",
+    "type": "S",
+    "name": "DUAL-FRIENDLY: Encouraging Pause",
+    "desc": "One character holds a calm, encouraging smile with open posture, while the other character returns a small smile and steadies breathing, confidence building in the shared stillness.",
+    "intensity": 3 },
 
   { "id": "A_CORE_L03_011", "category": "ACTION", "type": "U", "name": "TECH: Type Short Message", "desc": "The subject types a short message rapidly with precise taps, pausing once to confirm before sending.", "intensity": 3 },
   { "id": "A_CORE_L03_012", "category": "ACTION", "type": "U", "name": "TECH: Operate Lever", "desc": "The subject grips a lever and pulls through a smooth arc, bracing legs to manage resistance and stop cleanly.", "intensity": 3 },
@@ -547,8 +583,20 @@
   { "id": "A_CORE_L04_005", "category": "ACTION", "type": "S", "name": "SOCIAL: Finger Steeple", "desc": "The subject steeples fingers at chest height and watches silently, calculation visible in stillness.", "intensity": 4 },
   { "id": "A_CORE_L04_006", "category": "ACTION", "type": "S", "name": "SOCIAL: Hard Stop Gesture", "desc": "The subject raises a firm stop gesture and plants feet, setting a boundary without stepping back.", "intensity": 4 },
   { "id": "A_CORE_L04_007", "category": "ACTION", "type": "S", "name": "SOCIAL: Cool Appraisal", "desc": "The subject performs a slow appraisal scan with neutral face, posture unbroken as if weighing risk.", "intensity": 4 },
-  { "id": "A_CORE_L04_008", "category": "ACTION", "type": "S", "name": "SOCIAL: Controlled Anger", "desc": "The subject shows controlled anger through clipped gestures and tightened shoulders, refusing to lose composure.", "intensity": 4 },
-  { "id": "A_CORE_L04_009", "category": "ACTION", "type": "S", "name": "SOCIAL: Challenge Stare", "desc": "The subject holds a challenge stare with jaw set and chin slightly forward, daring the other to move first.", "intensity": 4 },
+  {  "id": "A_CORE_L04_008",
+    "category": "ACTION",
+    "type": "S",
+    "name": "DUAL-FRIENDLY: Confident Collaboration",
+    "desc": "One character speaks with upbeat clarity and compact friendly gestures, while the other character nods along with relaxed shoulders and bright focus, both bodies aligned as if solving something together.",
+    "intensity": 4
+  },
+  {
+    "id": "A_CORE_L04_009",
+    "category": "ACTION",
+    "type": "S",
+    "name": "DUAL-FRIENDLY: Playful Challenge Smile",
+    "desc": "One character gives a playful, confident grin with steady eye contact, while the other character answers with a matching grin and an open stance, friendly competition without hostility.",
+    "intensity": 4},
 
   { "id": "A_CORE_L04_010", "category": "ACTION", "type": "U", "name": "TECH: Operate Console", "desc": "The subject operates a console with both hands, alternating inputs while eyes track feedback for confirmation.", "intensity": 4 },
   { "id": "A_CORE_L04_011", "category": "ACTION", "type": "U", "name": "TECH: Load Equipment", "desc": "The subject loads equipment into a container with efficient stacking and weight checks to prevent shifting.", "intensity": 4 },
@@ -642,8 +690,22 @@
   { "id": "A_CORE_L06_027", "category": "ACTION", "type": "C", "name": "FIGHT: Corner Pressure", "desc": "The subject applies corner pressure with forward stance and tight guard, limiting escape routes through body placement.", "intensity": 6 },
 
   { "id": "A_CORE_L06_028", "category": "ACTION", "type": "A", "name": "AMBIENT: Heavy Breathing", "desc": "The subject breathes heavier through the mouth, shoulders rising and falling as exertion starts to show.", "intensity": 6 },
-  { "id": "A_CORE_L06_029", "category": "ACTION", "type": "A", "name": "AMBIENT: Brace on Wall", "desc": "The subject braces a hand against a surface and steadies breathing, recovering balance after a sudden burst.", "intensity": 6 },
-  { "id": "A_CORE_L06_030", "category": "ACTION", "type": "A", "name": "AMBIENT: Tighten Core", "desc": "The subject tightens the core visibly and steadies stance, preparing to take impact or move explosively.", "intensity": 6 },
+  {
+    "id": "A_CORE_L06_029",
+    "category": "ACTION",
+    "type": "A",
+    "name": "DUAL-HOSTILE: Brace on Wall",
+    "desc": "One character braces a hand against a surface and drags in hard breaths, eyes locked forward, while the other character closes the distance with a rigid, unblinking stare and clenched jaw, the air between them tight with threat even in recovery.",
+    "intensity": 6
+  },
+  {
+    "id": "A_CORE_L06_030",
+    "category": "ACTION",
+    "type": "A",
+    "name": "DUAL-HOSTILE: Tighten Core",
+    "desc": "One character tightens the core and widens stance as if bracing for impact, while the other character mirrors the brace with shoulders set and hands flexing at the sides, both faces hard and heated as the next collision feels inevitable.",
+    "intensity": 6
+  },
 
   { "id": "A_CORE_L07_001", "category": "ACTION", "type": "S", "name": "SOCIAL: Furious Shout", "desc": "The subject shouts with torso forward and fists tight, face heated while the body stays ready to react.", "intensity": 7 },
 
@@ -677,9 +739,28 @@
   { "id": "A_CORE_L07_027", "category": "ACTION", "type": "C", "name": "FIGHT: Grip Fight", "desc": "The subject fights for grips with rapid hand control and hip pressure, advantage contested in close range.", "intensity": 7 },
 
   { "id": "A_CORE_L07_028", "category": "ACTION", "type": "A", "name": "AMBIENT: Ragged Breath", "desc": "The subject’s breathing turns ragged and audible, chest rising faster as fatigue begins to creep in.", "intensity": 7 },
-  { "id": "A_CORE_L07_029", "category": "ACTION", "type": "A", "name": "AMBIENT: Brace After Impact", "desc": "The subject braces after impact with a quick core tighten and recovery step, balance regained immediately.", "intensity": 7 },
-  { "id": "A_CORE_L07_030", "category": "ACTION", "type": "A", "name": "AMBIENT: Shake Off Hit", "desc": "The subject shakes off a hit with a tense neck roll and sharp breath, eyes sharpening as focus returns.", "intensity": 7 },
-  { "id": "A_CORE_L08_001", "category": "ACTION", "type": "S", "name": "SOCIAL: Rage Glare", "desc": "The subject holds a rage glare with tightened face and squared shoulders, presence burning hot without a single step forward.", "intensity": 8 },
+  {
+    "id": "A_CORE_L07_029",
+    "category": "ACTION",
+    "type": "A",
+    "name": "DUAL-HOSTILE: Brace After Impact",
+    "desc": "One character braces after impact with a sharp recovery step and a furious inhale, while the other character steadies with a hard stance and narrowed eyes, both bodies shaking off the same hit as tension spikes instead of fading.",
+    "intensity": 7
+  },
+  {
+    "id": "A_CORE_L07_030",
+    "category": "ACTION",
+    "type": "A",
+    "name": "DUAL-HOSTILE: Shake Off Hit",
+    "desc": "One character shakes off a hit with a tense neck roll and a raw exhale, while the other character shakes out their arms with a hostile stare and clenched jaw, both locked in a shared aftershock that reads like a warning.",
+    "intensity": 7
+  },
+  { "id": "A_CORE_L08_001",
+    "category": "ACTION",
+    "type": "S",
+    "name": "SOCIAL: Red-Hot Snarl",
+    "desc": "The subject pitches forward with shoulders rigid and lips peeled back in a snarling half-scream, eyes wide and wet-bright as the jaw trembles under barely contained rage.",
+    "intensity": 8},
 
   { "id": "A_CORE_L08_002", "category": "ACTION", "type": "U", "name": "TECH: Slam Shut Case", "desc": "The subject slams a hard case shut and immediately checks the latch with a firm tug, urgency visible in braced posture.", "intensity": 8 },
 
@@ -714,7 +795,12 @@
   { "id": "A_CORE_L08_029", "category": "ACTION", "type": "A", "name": "AMBIENT: Recenter Footing", "desc": "The subject widens stance and re-centers weight through the hips, preventing a fall under strain.", "intensity": 8 },
   { "id": "A_CORE_L08_030", "category": "ACTION", "type": "A", "name": "AMBIENT: Tremor Check", "desc": "The subject notices a slight hand tremor and clamps control back into the fingers, breathing hard but steady.", "intensity": 8 },
 
-  { "id": "A_CORE_L09_001", "category": "ACTION", "type": "S", "name": "SOCIAL: Desperate Plea", "desc": "The subject pleads with a tight face and rigid posture, emotion spilling through despite an attempt to stay controlled.", "intensity": 9 },
+  {"id": "A_CORE_L09_001",
+    "category": "ACTION",
+    "type": "S",
+    "name": "SOCIAL: Full-Throat Scream",
+    "desc": "The subject screams full-throat with jaw stretched wide and neck tendons roped tight, fists shaking at the sides as the eyes burn open with unfiltered fury.",
+    "intensity": 9 },
 
   { "id": "A_CORE_L09_002", "category": "ACTION", "type": "U", "name": "TECH: Emergency Seal", "desc": "The subject seals a container with forceful press and immediate tug-check, hands fast but precise under stress.", "intensity": 9 },
 
@@ -734,8 +820,20 @@
   { "id": "A_CORE_L09_015", "category": "ACTION", "type": "C", "name": "FIGHT: Break Free Burst", "desc": "The subject breaks free with an explosive twist and step-through, immediately re-establishing a ready guard.", "intensity": 9 },
   { "id": "A_CORE_L09_016", "category": "ACTION", "type": "C", "name": "FIGHT: Cornered Stand", "desc": "The subject holds a cornered stand with guard high and knees bent, refusing to fold despite limited escape.", "intensity": 9 },
   { "id": "A_CORE_L09_017", "category": "ACTION", "type": "C", "name": "FIGHT: Grapple Reversal", "desc": "The subject executes a grapple reversal by shifting hips and controlling upper body, flipping advantage in one surge.", "intensity": 9 },
-  { "id": "A_CORE_L09_018", "category": "ACTION", "type": "C", "name": "FIGHT: Choke-Point Clash", "desc": "The subject clashes in a choke point with shoulders braced and guard tight, trading shoves and holds for position.", "intensity": 9 },
-  { "id": "A_CORE_L09_019", "category": "ACTION", "type": "C", "name": "FIGHT: Shoulder Drive", "desc": "The subject shoulder-drives forward with core locked, forcing the opponent backward and disrupting balance.", "intensity": 9 },
+  { "id": "A_CORE_L09_018",
+    "category": "ACTION",
+    "type": "C",
+    "name": "DUAL-HOSTILE: Choke-Point Clash",
+    "desc": "One character drives forward with a tight guard and furious momentum, while the other character braces at the choke point with forearms locked and core clenched, both faces heated and unblinking as pressure collides without either giving ground.",
+    "intensity": 9
+  },
+  {
+    "id": "A_CORE_L09_019",
+    "category": "ACTION",
+    "type": "C",
+    "name": "DUAL-HOSTILE: Shoulder Drive",
+    "desc": "One character shoulder-drives with hips low and breath tearing, while the other character absorbs the impact with a planted stance and a hard brace through the torso, jaw clenched and eyes wild as both bodies fight for balance in the same instant.",
+    "intensity": 9 },
 
   { "id": "A_CORE_L09_020", "category": "ACTION", "type": "A", "name": "AMBIENT: Near Collapse", "desc": "The subject nearly collapses with a deep bend and hard breath, then forces upright through sheer effort.", "intensity": 9 },
   { "id": "A_CORE_L09_021", "category": "ACTION", "type": "A", "name": "AMBIENT: Trembling Recovery", "desc": "The subject recovers while trembling, breathing fast and shallow as adrenaline fights fatigue.", "intensity": 9 },
@@ -748,9 +846,18 @@
   { "id": "A_CORE_L09_028", "category": "ACTION", "type": "A", "name": "AMBIENT: Vision Narrow", "desc": "The subject’s vision seems to narrow into a hard stare, breathing sharp as the body flirts with shutdown.", "intensity": 9 },
   { "id": "A_CORE_L09_029", "category": "ACTION", "type": "A", "name": "AMBIENT: Brace and Breathe", "desc": "The subject braces the torso and takes two brutal breaths, stabilizing posture for one more exchange.", "intensity": 9 },
   { "id": "A_CORE_L09_030", "category": "ACTION", "type": "A", "name": "AMBIENT: Aftershock Stillness", "desc": "The subject holds aftershock stillness with chest heaving and shoulders tight, refusing to collapse.", "intensity": 9 },
-
-  { "id": "A_CORE_L10_001", "category": "ACTION", "type": "S", "name": "SOCIAL: Silent Breakdown", "desc": "The subject holds a silent breakdown posture with trembling breath and tight facial control, emotion peaking without words.", "intensity": 10 },
-  { "id": "A_CORE_L10_002", "category": "ACTION", "type": "S", "name": "SOCIAL: Final Stare", "desc": "The subject fixes a final stare with eyes wide and jaw locked, presence vibrating with consequences in absolute stillness.", "intensity": 10 },
+  {"id": "A_CORE_L10_001",
+    "category": "ACTION",
+    "type": "S",
+    "name": "SOCIAL: Unhinged Rage Spiral",
+    "desc": "The subject erupts into an unhinged scream with saliva stringing at the mouth and eyes blown wide in frantic intensity, face flushed as the whole body quakes with violent emotion.",
+    "intensity": 10 },
+  { "id": "A_CORE_L10_002",
+    "category": "ACTION",
+    "type": "S",
+    "name": "SOCIAL: Veins-Out Final Howl",
+    "desc": "The subject holds a veins-out final howl with jaw fully open and throat strained raw, hands clawed and trembling as the stare goes wild and relentless.",
+    "intensity": 10 },
 
   { "id": "A_CORE_L10_003", "category": "ACTION", "type": "V", "name": "MOVE: All-Out Escape Sprint", "desc": "The subject performs an all-out escape sprint with full stride extension and relentless arm drive, pushing past safe comfort.", "intensity": 10 },
   { "id": "A_CORE_L10_004", "category": "ACTION", "type": "V", "name": "MOVE: Parkour Descent", "desc": "The subject executes a high-stakes parkour descent with controlled drops and fast foot placement, never stopping to reset.", "intensity": 10 },
@@ -767,8 +874,20 @@
   { "id": "A_CORE_L10_014", "category": "ACTION", "type": "C", "name": "FIGHT: Clinch Dominance", "desc": "The subject establishes clinch dominance with head tight and weight control, preventing any clean counter.", "intensity": 10 },
   { "id": "A_CORE_L10_015", "category": "ACTION", "type": "C", "name": "FIGHT: Cornered Grapple", "desc": "The subject grapples while cornered with guard tight and knees bent, using leverage to survive and reverse position.", "intensity": 10 },
   { "id": "A_CORE_L10_016", "category": "ACTION", "type": "C", "name": "FIGHT: Block Under Collapse", "desc": "The subject blocks under near-collapse fatigue with a trembling guard, structure barely holding but refusing to break.", "intensity": 10 },
-  { "id": "A_CORE_L10_017", "category": "ACTION", "type": "C", "name": "FIGHT: Shove to Escape", "desc": "The subject shoves with full-body force and immediately re-centers, carving a survival lane through brute leverage.", "intensity": 10 },
-  { "id": "A_CORE_L10_018", "category": "ACTION", "type": "C", "name": "FIGHT: Grip Fight Frenzy", "desc": "The subject fights for grips with rapid hand control and hip pressure, struggling for a decisive advantage.", "intensity": 10 },
+  { "id": "A_CORE_L10_017",
+    "category": "ACTION",
+    "type": "C",
+    "name": "DUAL-HOSTILE: Shove to Escape",
+    "desc": "One character explodes into a full-body shove with a raw, open-mouthed scream, while the other character snarls back and resists with a braced stance and locked shoulders, the contact line taut as the shove becomes a brutal contest for space.",
+    "intensity": 10
+  },
+  {
+    "id": "A_CORE_L10_018",
+    "category": "ACTION",
+    "type": "C",
+    "name": "DUAL-HOSTILE: Grip Fight Frenzy",
+    "desc": "One character fights for wrist and forearm control with frantic speed and shaking hands, while the other character counters with equally violent grip changes and hip pressure, both faces feral and eyes blown wide as leverage snaps back and forth in a single frozen surge.",
+    "intensity": 10 },
 
   { "id": "A_CORE_L10_019", "category": "ACTION", "type": "A", "name": "AMBIENT: Aftermath Breath", "desc": "The subject stands in aftermath with chest heaving and shoulders tense, refusing to collapse even as the body shakes.", "intensity": 10 },
   { "id": "A_CORE_L10_020", "category": "ACTION", "type": "A", "name": "AMBIENT: Collapse Prevention", "desc": "The subject catches balance at the last moment with braced core and widened stance, staying upright by force of will.", "intensity": 10 },

@@ -1,10 +1,20 @@
 /* POMPR-PRO COMPONENT: SCRIPT CONSOLE
-   VERSION: V12.7 (FATAL CRASH FIX + UX LABELS)
-   ARCHITECT NOTE: Removed fatal 'renderParams' reference. Added FLIP STAGE / SWAP POV buttons.
+   VERSION: V12.8 (UX LABEL UPDATE: AUTO MODE / MANUAL MODE)
+   ARCHITECT NOTE: Renamed mode toggle. Added tooltips for onboarding context.
 */
 
 import React, { useState, useMemo } from 'react';
 import ActionMatrix from './ActionMatrix'; 
+
+const AI_MODELS = [
+  { id: 'generic', label: 'Generic (SDXL/Flux)', suffix: '', hasParams: false },
+  { id: 'mj7', label: 'Midjourney v7 (Alpha)', suffix: '--v 7 --style raw', hasParams: true },
+  { id: 'mj61', label: 'Midjourney v6.1', suffix: '--v 6.1 --style raw', hasParams: true },
+  { id: 'niji6', label: 'Niji Journey v6', suffix: '--niji 6', hasParams: true },
+  { id: 'dalle3', label: 'DALL-E 3 / ChatGPT', suffix: '', hasParams: false },
+  { id: 'google', label: 'Google Imagen 3', suffix: '', hasParams: false },
+  { id: 'flux', label: 'Flux.1 (Replicate)', suffix: '', hasParams: false } 
+];
 
 const ScriptConsole = (props) => {
   const {
@@ -151,7 +161,7 @@ const ScriptConsole = (props) => {
     headerRow: { display: 'flex', justifyContent: 'space-between', alignItems: 'center' },
     tierToggle: { display: 'flex', gap: '4px', background: '#111', padding: '3px', borderRadius: '6px', alignItems: 'center' },
     tierBtn: (active, isM) => ({ padding: '5px 12px', fontSize: '0.6rem', fontWeight: '900', border: 'none', borderRadius: '4px', cursor: 'pointer', background: active ? (isM ? '#f59e0b' : '#3b82f6') : (isM ? '#222' : 'transparent'), color: active ? '#fff' : (isM ? '#888' : '#444'), transition: '0.2s ease', letterSpacing: '1px' }),
-    povBtn: (mode) => ({ padding: '5px 12px', fontSize: '0.6rem', fontWeight: '900', border: '1px solid #333', borderRadius: '4px', cursor: 'pointer', background: mode === 1 ? '#3b82f6' : mode === 2 ? '#f59e0b' : '#222', color: mode > 0 ? '#fff' : '#888', transition: '0.2s ease', letterSpacing: '1px' }),
+    povBtn: (mode) => ({ padding: '5px 12px', fontSize: '0.6rem', fontWeight: '900', border: '1px solid #333', borderRadius: '4px', cursor: 'pointer', background: mode === 1 ? '#3b82f6' : mode === 2 ? '#f59e0b' : '#222', color: mode > 0 ? '#fff' : '#888', transition: '0.2s ease', letterSpacing: '1px', marginLeft: '4px' }),
     displayBox: { flex: '1', backgroundColor: '#030303', border: '1px solid #111', borderRadius: '4px', padding: '1.25rem', fontFamily: 'monospace', fontSize: '0.85rem', overflowY: 'auto', whiteSpace: 'pre-wrap', boxShadow: 'inset 0 2px 10px rgba(0,0,0,0.5)' },
     statusBar: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#111', padding: '6px 12px', borderRadius: '4px', fontSize: '0.65rem', border: '1px solid #222', color: '#888', fontWeight: 'bold', letterSpacing: '1px' },
     clearBtn: { background: 'transparent', border: '1px solid #444', color: '#ef4444', fontSize: '0.55rem', padding: '2px 8px', borderRadius: '2px', cursor: 'pointer' },
@@ -195,8 +205,13 @@ const ScriptConsole = (props) => {
             {hasMeta ? "🟢 META ACTIVE" : "⭕ NO META"}
           </div>
 
-          <button style={{...styles.tierBtn(isManual), background: isManual?'#b91c1c':'#111', color:'#fff'}} onClick={() => { if (!isManual) setManualText(displayString); setIsManual(!isManual); }}>
-            {isManual ? "MANUAL" : "AUTO-LOCK"}
+          {/* ARCHITECT FIX: Updated labels and added UX tooltips */}
+          <button 
+            style={{...styles.tierBtn(isManual), background: isManual ? '#b91c1c' : '#111', color: '#fff'}} 
+            onClick={() => { if (!isManual) setManualText(displayString); setIsManual(!isManual); }}
+            title={isManual ? "Switch to Auto Mode to use color-blocks" : "Switch to Manual Mode to edit text"}
+          >
+            {isManual ? "MANUAL MODE" : "AUTO MODE"}
           </button>
 
         </div>
