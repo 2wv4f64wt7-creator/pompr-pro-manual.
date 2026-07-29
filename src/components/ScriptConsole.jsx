@@ -1,5 +1,6 @@
 // -------------------------------------------------------------------
-// FILE: ScriptConsole.jsx | VERSION: 2.1 (IPAD CLEAN-COPY & LAYOUT)
+// FILE: ScriptConsole.jsx | VERSION: 2.3 (ENSEMBLE & RESIZE FIXED)
+// July 29, 2026 Baseline
 // -------------------------------------------------------------------
 import React, { useState, useMemo } from 'react';
 import ActionMatrixV2 from './ActionMatrixV2';
@@ -9,7 +10,7 @@ const ScriptConsole = (props) => {
     isManual, setIsManual, manualText, setManualText,
     dynamicPrompt, actor1, actor2, interaction, interactions = [], 
     setInteraction, seed, setSeed, globalParams, setGlobalParams,
-    setAction, actions = [], engine1, isMatrixSilenced, onRandomix, activeReelMeta, scene
+    setAction, actions = [], engine1, isMatrixSilenced, onRandomix, onClearStage, activeReelMeta, scene
   } = props;
 
   const [promptTier, setPromptTier] = useState('FULL');
@@ -19,190 +20,99 @@ const ScriptConsole = (props) => {
 
   const autoDisplayString = useMemo(() => {
     if (!dynamicPrompt || (!actor1 && !actor2)) return "AWAITING DIRECTOR INPUT...";
-    
     const wear1 = engine1 ? engine1.wearText : "wearing";
     const currentSubject = (isSymmetry && actor2) ? actor2 : actor1;
     const currentEnsemble = (isSymmetry && actor2) ? actor1 : actor2;
-    const currentWearS = (isSymmetry && actor2) ? "wearing" : wear1;
-    const currentWearE = (isSymmetry && actor2) ? wear1 : "wearing";
 
-    let sT = currentSubject ? `SUBJECT: ${currentSubject.name} (${currentSubject.details}), ${currentWearS} ${currentSubject.outfit}.` : '';
-    let eT = currentEnsemble ? `\nENSEMBLE: ${interaction} ${currentEnsemble.name} (${currentEnsemble.details}), ${currentWearE} ${currentEnsemble.outfit}.` : '';
+    let sT = currentSubject ? `SUBJECT: ${currentSubject.name} (${currentSubject.details}), ${wear1} ${currentSubject.outfit}.` : '';
+    let eT = currentEnsemble ? `\nENSEMBLE: ${interaction} ${currentEnsemble.name} (${currentEnsemble.details}), wearing ${currentEnsemble.outfit}.` : '';
 
     let pT = '';
     if (povMode === 1 && actor1 && actor2) pT = `\nCAMERA: Over-the-shoulder shot from behind ${currentEnsemble.name}, focusing on ${currentSubject.name}.`;
     if (povMode === 2 && actor1 && actor2) pT = `\nCAMERA: Over-the-shoulder shot from behind ${currentSubject.name}, focusing on ${currentEnsemble.name}.`;
 
     if (promptTier === 'SHORT') {
-      const shortST = currentSubject ? `SUBJECT: ${currentSubject.name} (Ref #1).` : '';
-      const shortET = currentEnsemble ? `\nENSEMBLE: ${interaction} ${currentEnsemble.name} (Ref #2).` : '';
-      const shortScene = scene ? `\nSCENE: ${scene.name}.` : '';
-      return `${shortST}${shortET}${dynamicPrompt.action || ''}${pT}${shortScene}`.trim();
+      const sS = currentSubject ? `SUBJECT: ${currentSubject.name}.` : '';
+      const eS = currentEnsemble ? `\nENSEMBLE: ${interaction} ${currentEnsemble.name}.` : '';
+      return `${sS}${eS}${dynamicPrompt.action || ''}`.trim();
     }
 
-    const basePrompt = `${sT}${eT}${dynamicPrompt.action || ''}${pT}${dynamicPrompt.scene || ''}${dynamicPrompt.cine || ''}`;
-    
-    if (promptTier === 'MEDIUM') return basePrompt.trim();
-    return `${basePrompt}${dynamicPrompt.style || ''}${dynamicPrompt.negative || ''}${dynamicPrompt.commercialTail || ''}`.trim();
-  }, [dynamicPrompt, isSymmetry, povMode, actor1, actor2, interaction, engine1, promptTier, scene]);
+    const base = `${sT}${eT}${dynamicPrompt.action || ''}${pT}${dynamicPrompt.scene || ''}${dynamicPrompt.cine || ''}`;
+    return (promptTier === 'MEDIUM') ? base.trim() : `${base}${dynamicPrompt.style || ''}${dynamicPrompt.commercialTail || ''}`.trim();
+  }, [dynamicPrompt, isSymmetry, povMode, actor1, actor2, interaction, engine1, promptTier]);
 
-  // --- REFINED CLEAN-COPY HANDLER (V2.1) ---
   const handleCleanCopy = async () => {
-    const rawText = isManual ? manualText : autoDisplayString;
-    const fullPrompt = `${rawText}${seed ? ` --seed ${seed}` : ''}${globalParams ? ` ${globalParams}` : ''}`;
-    
-    // FORCE DECODE: Prevents Safari from injecting %20 into the clipboard
-    const cleanPrompt = decodeURIComponent(fullPrompt).replace(/\+/g, ' ');
-
+    const raw = isManual ? manualText : `${autoDisplayString}${seed ? ` --seed ${seed}` : ''}${globalParams ? ` ${globalParams}` : ''}`;
+    const clean = decodeURIComponent(raw).replace(/\+/g, ' ');
     try {
-      await navigator.clipboard.writeText(cleanPrompt);
+      await navigator.clipboard.writeText(clean);
       setCopyFeedback('COPIED!');
       setTimeout(() => setCopyFeedback('COPY'), 2000);
-    } catch (err) {
-      // Emergency Fallback
-      const textArea = document.createElement("textarea");
-      textArea.value = cleanPrompt;
-      document.body.appendChild(textArea);
-      textArea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textArea);
-      setCopyFeedback('COPIED!');
-      setTimeout(() => setCopyFeedback('COPY'), 2000);
-    }
+    } catch (e) { setCopyFeedback('FAILED'); }
   };
 
-  const handleActionSelect = (act) => {
-    if (act.category === 'UTIL' || act.category === 'UTILITY') {
-      const current = isManual ? manualText : autoDisplayString;
-      setManualText(current.trim() + `\nUTILITY: ${act.desc || act.text}`);
-      setIsManual(true);
-    } 
-    else {
-      setAction(act);
-      if (isManual) {
-        const newActionLine = `ACTION: ${act.name} (${act.desc})`;
-        setManualText(prevText => {
-          const actionRegex = /^ACTION:.*$/m;
-          if (actionRegex.test(prevText)) return prevText.replace(actionRegex, newActionLine);
-          const lines = prevText.split('\n');
-          lines.splice(2, 0, newActionLine);
-          return lines.join('\n');
-        });
-      }
-    }
-  };
-
-  const renderColoredText = (text, isPlain = false) => {
-    return text.split('\n').map((line, idx) => {
-      let color = isPlain ? '#fff' : '#ccc'; 
-      if (!isPlain) {
-        if (line.startsWith('SCENE:')) color = '#3b82f6';
-        else if (line.startsWith('SUBJECT:') || line.startsWith('ENSEMBLE:')) color = '#f59e0b';
-        else if (line.startsWith('ACTION:')) color = '#10b981';
-        else if (line.startsWith('UTILITY:')) color = '#fff';
-        else if (line.startsWith('CAMERA:')) color = '#a855f7';
-        else if (line.startsWith('STYLE:')) color = '#8b5cf6';
-        else if (line.startsWith('--no')) color = '#ef4444';
-      }
+  const renderColoredText = (text) => {
+    if (!text) return null;
+    const lines = text.split('\n').map((line, idx) => {
+      let color = '#ccc'; 
+      if (line.startsWith('SCENE:')) color = '#3b82f6';
+      else if (line.startsWith('SUBJECT:') || line.startsWith('ENSEMBLE:')) color = '#f59e0b';
+      else if (line.startsWith('ACTION:')) color = '#10b981';
+      else if (line.startsWith('UTILITY:')) color = '#fff';
+      else if (line.startsWith('CAMERA:')) color = '#a855f7';
+      else if (line.startsWith('STYLE:')) color = '#8b5cf6';
+      else if (line.startsWith('--no')) color = '#ef4444';
       return <div key={idx} style={{ color, marginBottom: '2px' }}>{line}</div>;
     });
+    if (seed) lines.push(<div key="seed" style={{ color: '#555', marginTop: '10px', fontSize: '0.75rem' }}>--seed {seed}</div>);
+    return lines;
   };
 
-  const getNavBtnStyle = (isToggled, isAvailable, activeColor) => ({
+  const getNavBtnStyle = (active, color, disabled = false) => ({
     padding: '8px 15px', fontSize: '0.65rem', fontWeight: '900',
-    border: isAvailable ? `1px solid ${isToggled ? activeColor : '#666'}` : '1px solid #1a1a1a',
-    background: isToggled ? activeColor : '#111',
-    color: isAvailable ? '#fff' : '#444', borderRadius: '4px',
-    cursor: isAvailable ? 'pointer' : 'not-allowed', transition: 'all 0.2s', opacity: isAvailable ? 1 : 0.5
+    border: `1px solid ${active ? color : '#333'}`,
+    background: active ? color : '#111', color: disabled ? '#444' : '#fff', 
+    borderRadius: '4px', cursor: disabled ? 'not-allowed' : 'pointer', opacity: disabled ? 0.5 : 1
   });
-
-  const hasMeta = activeReelMeta && (activeReelMeta.global_style || activeReelMeta.global_negative);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%', backgroundColor: '#080808', color: '#fff', overflow: 'hidden' }}>
-      
-      {/* 1. TOP HEADER & PROMPT VIEWPORT */}
       <div style={{ padding: '1.25rem', borderBottom: '1px solid #1a1a1a', display: 'flex', flexDirection: 'column', gap: '10px', flex: '0 0 auto' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div style={{ display: 'flex', gap: '4px', background: '#111', padding: '3px', borderRadius: '6px' }}>
-            {['SHORT', 'MEDIUM', 'FULL'].map(t => (
-              <button key={t} onClick={() => setPromptTier(t)} style={getNavBtnStyle(promptTier === t, true, '#3b82f6')}>{t}</button>
-            ))}
-            <div style={{ width: '1px', height: '15px', background: '#333', margin: '0 5px' }} />
-            <button disabled={!actor2} onClick={() => setIsSymmetry(!isSymmetry)} style={getNavBtnStyle(isSymmetry, !!actor2, '#ff8a00')}>STAGE FLIPPED</button>
-            <button disabled={!actor2} onClick={() => setPovMode(povMode === 2 ? 0 : povMode + 1)} style={getNavBtnStyle(povMode > 0, !!actor2, povMode === 2 ? '#ff8a00' : '#3b82f6')}>POV: SHOT {povMode}</button>
+            {['SHORT', 'MEDIUM', 'FULL'].map(t => (<button key={t} onClick={() => setPromptTier(t)} style={getNavBtnStyle(promptTier === t, '#3b82f6')}>{t}</button>))}
+            <div style={{ width: '1px', background: '#333', margin: '0 5px' }} />
+            <button disabled={!actor2} onClick={() => setIsSymmetry(!isSymmetry)} style={getNavBtnStyle(isSymmetry, '#ff8a00', !actor2)}>STAGE FLIPPED</button>
+            <button disabled={!actor2} onClick={() => setPovMode(povMode === 2 ? 0 : povMode + 1)} style={getNavBtnStyle(povMode > 0, '#3b82f6', !actor2)}>POV: SHOT {povMode}</button>
           </div>
-
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.6rem', fontWeight: '900', color: hasMeta ? '#10b981' : '#444' }}>
-            <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: hasMeta ? '#10b981' : '#ef4444', border: '1px solid #000' }} />
-            {hasMeta ? 'META ACTIVE' : 'NO META'}
-          </div>
-
-          <button 
-            onClick={() => { if(!isManual) setManualText(autoDisplayString); setIsManual(!isManual); }} 
-            style={{ 
-              padding: '8px 15px', fontSize: '0.65rem', fontWeight: '900', borderRadius: '4px', cursor: 'pointer',
-              background: isManual ? '#ef4444' : '#000', color: '#fff', border: isManual ? 'none' : '1px solid #fff' 
-            }}>
-            {isManual ? 'MANUAL MODE' : 'AUTO MODE'}
-          </button>
+          <button onClick={() => { if(!isManual) setManualText(`${autoDisplayString}${seed ? `\n--seed ${seed}` : ''}`); setIsManual(!isManual); }} style={{ padding: '8px 15px', fontSize: '0.65rem', fontWeight: '900', borderRadius: '4px', cursor: 'pointer', background: isManual ? '#ef4444' : '#000', color: '#fff', border: '1px solid #fff' }}>{isManual ? 'MANUAL MODE' : 'AUTO MODE'}</button>
         </div>
-
-        {/* ELASTIC VIEWPORT: Uses flex-grow to take available space but shrinks on small screens */}
-        <div style={{ minHeight: '120px', maxHeight: '350px', backgroundColor: '#030303', border: '1px solid #111', borderRadius: '4px', padding: '1.25rem', fontFamily: 'monospace', fontSize: '0.85rem', overflowY: 'auto', lineHeight: '2.0' }}>
-          {isManual ? (
-            <textarea 
-              value={manualText} 
-              onChange={(e) => setManualText(e.target.value)} 
-              style={{ width: '100%', height: '100%', background: 'transparent', color: '#fff', border: 'none', outline: 'none', resize: 'none', lineHeight: '2.0' }} 
-            />
-          ) : renderColoredText(autoDisplayString)}
+        <div style={{ minHeight: '120px', maxHeight: '500px', backgroundColor: '#030303', border: '1px solid #111', borderRadius: '4px', padding: '1.25rem', fontFamily: 'monospace', fontSize: '0.85rem', overflowY: 'auto', resize: 'vertical', lineHeight: '2.0' }}>
+          {isManual ? (<textarea value={manualText} onChange={(e) => setManualText(e.target.value)} style={{ width: '100%', height: '100%', background: 'transparent', color: '#fff', border: 'none', outline: 'none', resize: 'none', lineHeight: '2.0' }} />) : renderColoredText(autoDisplayString)}
         </div>
-
         <div style={{ display: 'flex', gap: '8px' }}>
           <button style={{ flex: 1, padding: '12px', background: '#3b82f6', color: '#fff', border: 'none', borderRadius: '4px', fontWeight: 'bold', cursor: 'pointer' }} onClick={handleCleanCopy}>{copyFeedback}</button>
           <button style={{ flex: 1, background: '#1a1a1a', border: '1px solid #333', color: '#fff', borderRadius: '4px', fontWeight: 'bold', cursor: 'pointer' }} onClick={() => {
-            const rawText = isManual ? manualText : autoDisplayString;
-            const final = `${rawText}${seed ? ` --seed ${seed}` : ''}${globalParams ? ` ${globalParams}` : ''}`;
-            const blob = new Blob([final], { type: 'text/plain' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = `POMPR_EXPORT.txt`;
-            link.click();
+            const raw = isManual ? manualText : `${autoDisplayString}${seed ? ` --seed ${seed}` : ''}${globalParams ? ` ${globalParams}` : ''}`;
+            const blob = new Blob([raw], { type: 'text/plain' });
+            const link = document.createElement('a'); link.href = URL.createObjectURL(blob); link.download = `POMPR_PROMPT.txt`; link.click();
           }}>EXPORT .TXT</button>
           <button onClick={onRandomix} style={{ flex: 1, background: '#2e1065', color: '#fff', border: 'none', borderRadius: '4px', fontWeight: 'bold', cursor: 'pointer' }}>RANDOMIX</button>
+          <button style={{ flex: 1, padding: '12px', background: 'transparent', color: '#ef4444', border: '1px solid #ef4444', borderRadius: '4px', fontWeight: 'bold', cursor: 'pointer' }} onClick={onClearStage}>CLEAR STAGE</button>
         </div>
       </div>
-
-      {/* 2. PARAMETERS BAR */}
       <div style={{ padding: '0.75rem 1.25rem', background: '#0a0a0a', display: 'flex', gap: '1rem', borderBottom: '1px solid #1a1a1a', flex: '0 0 auto' }}>
-        <div style={{ flex: 0.35 }}>
-           <span style={{ fontSize: '0.55rem', color: '#444', display: 'block', marginBottom: '4px' }}>ENSEMBLE INTERACTION</span>
-           <select style={{ width: '100%', background: '#111', color: '#ff8a00', border: '1px solid #222', padding: '8px', fontSize: '0.75rem' }} value={interaction} onChange={(e) => setInteraction(e.target.value)}>
-              {interactions.map((i, idx) => <option key={idx} value={i}>{i}</option>)}
-           </select>
+        <div style={{ flex: 0.35 }}><span style={{ fontSize: '0.55rem', color: '#444', display: 'block', marginBottom: '4px' }}>ENSEMBLE INTERACTION</span>
+          <select style={{ width: '100%', background: '#111', color: '#ff8a00', border: '1px solid #222', padding: '8px', fontSize: '0.75rem' }} value={interaction} onChange={(e) => setInteraction(e.target.value)}>{interactions.map((i, idx) => <option key={idx} value={i}>{i}</option>)}</select>
         </div>
-        <div style={{ flex: 0.65 }}>
-           <span style={{ fontSize: '0.55rem', color: '#666', display: 'block', marginBottom: '4px', fontWeight: 'bold' }}>
-             GLOBAL SREF / TECH PARAMS <span style={{ color: '#3b82f6' }}>(OPTIONAL)</span>
-           </span>
-           <input style={{ width: '100%', background: '#111', color: '#aaa', border: '1px solid #222', padding: '8px', fontSize: '0.75rem' }} placeholder="--cref URL --v 6.1" value={globalParams} onChange={(e) => setGlobalParams(e.target.value)} />
+        <div style={{ flex: 0.65 }}><span style={{ fontSize: '0.55rem', color: '#666', display: 'block', marginBottom: '4px', fontWeight: 'bold' }}>GLOBAL SREF / TECH PARAMS <span style={{ color: '#3b82f6' }}>(OPTIONAL)</span></span>
+          <input style={{ width: '100%', background: '#111', color: '#aaa', border: '1px solid #222', padding: '8px', fontSize: '0.75rem' }} placeholder="--cref URL --v 6.1" value={globalParams} onChange={(e) => setGlobalParams(e.target.value)} />
         </div>
       </div>
-
-      {/* 3. ACTION MATRIX: Pinned to bottom, flex-grow 1 */}
       <div style={{ flex: '1', position: 'relative', overflowY: 'auto', opacity: isMatrixSilenced ? 0.2 : 1, pointerEvents: isMatrixSilenced ? 'none' : 'auto' }}>
-        {isMatrixSilenced && (
-          <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.4)', zIndex: 10 }}>
-             <span style={{ color: '#ef4444', fontWeight: '900', fontSize: '12px', background: '#000', padding: '10px', border: '1px solid #ef4444' }}>
-                ACTION MATRIX: BYPASSED
-             </span>
-          </div>
-        )}
-        <ActionMatrixV2 actions={actions} onSelectAction={handleActionSelect} isHuman={engine1.isHuman} />
+        <ActionMatrixV2 actions={actions} onSelectAction={(a) => { props.setAction(a); setIsManual(false); }} isHuman={engine1.isHuman} activeAction={props.action} />
       </div>
     </div>
   );
 };
-
 export default ScriptConsole;
