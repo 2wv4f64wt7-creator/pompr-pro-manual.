@@ -247,6 +247,7 @@
     {
       "id": "C_VOID_01",
       "category": "VOID",
+      "subject_mode": "NONHUMAN", 
       "name": "Minimalist Coder (3D)",
       "details": "Age: N/A. Stylized 3D Claymorphism, friendly exaggerated proportions. Matte toy-like aesthetic.",
       "outfit": "oversized 'Digital Teal' hoodie. Soft matte clay texture."
@@ -254,6 +255,7 @@
     {
       "id": "C_VOID_02",
       "category": "VOID",
+      "subject_mode": "NONHUMAN", 
       "name": "Isometric Manager (Vector)",
       "details": "Age: N/A. 2D Flat Vector Illustration. Corporate Memphis style, long limbs, small head.",
       "outfit": "Bright, flat solids (Blue, Yellow). No shading, clean lines."
@@ -261,6 +263,7 @@
     {
       "id": "C_VOID_03",
       "category": "VOID",
+      "subject_mode": "NONHUMAN", 
       "name": "The Plush-Core Influencer",
       "details": "Age: N/A. Living Plush Toy. Eyes are black plastic buttons. Yarn and felt texture.",
       "outfit": "pastel blue knit scarf. Texture includes loose yarn fibers."

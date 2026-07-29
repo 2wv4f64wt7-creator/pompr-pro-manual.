@@ -24,3 +24,6 @@ body { background: var(--dark-bg); color: white; margin: 0; overflow: hidden; }
 .randomix-btn:disabled { background: #333; color: #666; cursor: not-allowed; }
 
 .red-bell { color: #ff4d4d; font-size: 10px; vertical-align: top; }
+* {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+}

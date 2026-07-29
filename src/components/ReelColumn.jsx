@@ -1,98 +1,90 @@
 // -------------------------------------------------------------------
-// FILE: src/components/ReelColumn.jsx
-// VERSION: 12.2 (READABILITY UPGRADE)
-// ARCHITECT NOTE: Description text forced to solid white for maximum contrast.
+// FILE: ReelColumn.jsx | VERSION: 3.5 (LONG-PRESS ENABLED)
 // -------------------------------------------------------------------
-
 import React, { useState } from 'react';
 
-const DEFAULT_CATEGORIES = ['ALL', 'CORP', 'LIFE', 'TECH', 'LUXE', 'UTIL', 'VOID', 'GENERIC'];
-const EXPANSION_COLOR = '#a855f7'; // Vibrant Purple for imported reels
+export default function ReelColumn({ title, items, activeIds, colorTheme, onSelect, headerSlot, onAddNew, onExport }) {
+  const [activeCategory, setActiveCategory] = useState('ALL');
+  const themeColor = colorTheme === 'blue' ? '#3b82f6' : '#ff8a00';
 
-export default function ReelColumn({ 
-  title, items = [], activeIds = [], onSelect, onExport, 
-  colorTheme = 'blue', showCreateButton, onCreateClick, headerSlot 
-}) {
-  const [filter, setFilter] = useState('ALL');
+  const categories = ['ALL', ...new Set(items.map(i => i.category).filter(Boolean))];
+  const filteredItems = activeCategory === 'ALL' ? items : items.filter(i => i.category === activeCategory);
 
-  const themeColors = {
-    blue: { border: '#3b82f6', text: '#60a5fa', bg: 'rgba(59, 130, 246, 0.05)', hoverBg: 'rgba(59, 130, 246, 0.15)' },
-    orange: { border: '#f59e0b', text: '#fbbf24', bg: 'rgba(245, 158, 11, 0.05)', hoverBg: 'rgba(245, 158, 11, 0.15)' }
+  // Tablet Handler: Shows full text on long-press without selecting the card
+  const handleLongPress = (e, item) => {
+    e.preventDefault(); // Prevents native context menu
+    alert(`[ ${item.name.toUpperCase()} ]\n\n${item.details || item.desc}`);
   };
-  const theme = themeColors[colorTheme];
-
-  const categories = ['ALL', ...new Set(items.map(i => i.category || 'GENERIC'))];
-  const filteredItems = filter === 'ALL' ? items : items.filter(i => i.category === filter);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', backgroundColor: '#0a0a0a', padding: '1.25rem', boxSizing: 'border-box' }}>
-      
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-        <h2 style={{ margin: 0, fontSize: '0.85rem', letterSpacing: '2px', color: theme.text, textTransform: 'uppercase' }}>{title}</h2>
-        {showCreateButton && (
-          <button onClick={onCreateClick} style={{ background: '#222', color: '#fff', border: '1px solid #444', padding: '4px 10px', fontSize: '0.65rem', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}>+ NEW</button>
-        )}
-      </div>
-
-      {headerSlot}
-
-      <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem', overflowX: 'auto', paddingBottom: '4px', scrollbarWidth: 'none' }}>
-        {categories.map(c => {
-          const isExpansion = !DEFAULT_CATEGORIES.includes(c);
-          const activeColor = isExpansion ? EXPANSION_COLOR : theme.text;
-          
-          return (
-            <button 
-              key={c} onClick={() => setFilter(c)}
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', background: '#0a0a0a' }}>
+      <div style={{ padding: '20px 20px 10px 20px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px' }}>
+            <h3 style={{ color: themeColor, fontSize: '0.7rem', fontWeight: '900', letterSpacing: '2px', margin: 0 }}>{title}</h3>
+            <button onClick={onAddNew} style={{ background: '#1a1a1a', border: '1px solid #333', color: '#fff', fontSize: '9px', padding: '4px 8px', borderRadius: '4px', cursor: 'pointer' }}>+ NEW</button>
+        </div>
+        {headerSlot}
+        <div style={{ display: 'flex', gap: '5px', overflowX: 'auto', paddingBottom: '10px' }}>
+          {categories.map(cat => (
+            <button key={cat} onClick={() => setActiveCategory(cat)}
               style={{
-                padding: '4px 10px', fontSize: '0.6rem', fontWeight: 'bold', borderRadius: '4px', cursor: 'pointer', whiteSpace: 'nowrap', transition: '0.2s',
-                background: filter === c ? activeColor : '#111', 
-                color: filter === c ? '#fff' : (isExpansion ? activeColor : '#888'), 
-                border: `1px solid ${filter === c ? activeColor : (isExpansion ? '#4c1d95' : '#333')}`
+                padding: '6px 12px', fontSize: '9px', fontWeight: '900', borderRadius: '4px', cursor: 'pointer',
+                background: activeCategory === cat ? (cat === 'ALL' ? themeColor : '#2e1065') : '#1a1a1a',
+                color: '#fff', whiteSpace: 'nowrap', border: activeCategory === cat && cat !== 'ALL' ? '1px solid #8b5cf6' : '1px solid transparent'
               }}
-            >
-              {c}
-            </button>
-          );
-        })}
+            >{cat}</button>
+          ))}
+        </div>
       </div>
 
-      <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '0.75rem', paddingRight: '5px', paddingBottom: '3rem' }}>
-        {filteredItems.map(item => {
+      <div style={{ flex: 1, overflowY: 'auto', padding: '0 10px 20px 10px' }}>
+        {filteredItems.map((item) => {
           const isActive = activeIds.includes(item.id);
-          const isExpansion = item.isCustom && !DEFAULT_CATEGORIES.includes(item.category);
-          const tagName = item.category || 'CUSTOM';
+          const displayDetails = item.details || item.desc || "";
 
           return (
             <div 
-              key={item.id}
+              key={item.id} 
               onClick={() => onSelect(item)}
-              style={{
-                background: isActive ? theme.hoverBg : theme.bg, 
-                border: `1px solid ${isActive ? theme.border : '#222'}`, 
-                borderRadius: '6px', padding: '1rem', cursor: 'pointer', transition: 'all 0.2s', position: 'relative'
+              onContextMenu={(e) => handleLongPress(e, item)} // Trigger for Long Press
+              title={displayDetails} // Trigger for Desktop Hover
+              style={{ 
+                padding: '20px', 
+                marginBottom: '10px', 
+                cursor: 'pointer', 
+                borderRadius: '8px', 
+                background: isActive ? `${themeColor}11` : '#111', 
+                border: isActive ? `1px solid ${themeColor}` : '1px solid #222', 
+                transition: 'all 0.2s ease',
+                position: 'relative'
               }}
             >
-              <div style={{ fontSize: '0.65rem', color: theme.text, fontWeight: 'bold', marginBottom: '4px' }}>
-                {item.name} 
-                {item.isCustom && (
-                  <span style={{color: isExpansion ? EXPANSION_COLOR : '#888', fontSize: '0.55rem', marginLeft: '6px', letterSpacing: '0.5px'}}>
-                    ({tagName})
-                  </span>
-                )}
-              </div>
-              {/* ARCHITECT FIX: Description text is now pure white (#fff) */}
-              <div style={{ fontSize: '0.7rem', color: '#fff', lineHeight: '1.4' }}>{item.desc || item.details}</div>
-              
-              {onExport && (
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                <span style={{ color: isActive ? '#fff' : themeColor, fontSize: '0.85rem', fontWeight: 'bold' }}>{item.name}</span>
                 <button 
-                  onClick={(e) => { e.stopPropagation(); onExport(item); }}
-                  style={{ position: 'absolute', top: '10px', right: '10px', background: 'transparent', border: 'none', color: '#666', cursor: 'pointer', fontSize: '0.8rem' }}
-                  title="Export to File"
+                   onClick={(e) => { e.stopPropagation(); onExport(item); }}
+                   style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#444', fontSize: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '4px', transition: '0.2s' }}
+                   onMouseOver={(e) => e.target.style.color = themeColor}
+                   onMouseOut={(e) => e.target.style.color = '#444'}
                 >
-                  ↓
+                   ↓
                 </button>
-              )}
+              </div>
+
+              <p style={{ 
+                margin: 0, 
+                fontSize: '0.75rem', 
+                color: '#fff', 
+                lineHeight: '1.5', 
+                opacity: 0.8,
+                display: '-webkit-box',
+                WebkitLineClamp: 2,
+                WebkitBoxOrient: 'vertical',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis'
+              }}>
+                {displayDetails}
+              </p>
             </div>
           );
         })}

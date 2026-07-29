@@ -1,110 +1,78 @@
 // -------------------------------------------------------------------
-// FILE: src/components/Header.jsx
-// VERSION: 12 (Modularized)
+// FILE: Header.jsx | VERSION: 3.5 (TABLET SMART-NAV)
 // -------------------------------------------------------------------
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import logo from '../assets/POMPR_LOGO_WHT_HOR.svg';
 
-export default function Header({ onOpenVault }) {
-  const baseButtonStyle = {
-    background: 'rgba(0, 0, 0, 0.4)',
-    border: '1px solid rgba(255, 255, 255, 0.15)',
-    color: '#ffffff',
-    padding: '8px 24px',
-    fontSize: '11px',
-    fontWeight: '800',
-    letterSpacing: '1.5px',
-    textTransform: 'uppercase',
-    borderRadius: '4px',
-    cursor: 'pointer',
-    transition: 'all 0.2s ease',
-    display: 'flex',
-    alignItems: 'center',
-    height: '36px',
-  };
+export default function Header({ onOpenVault, layoutMode, setLayoutMode }) {
+  const [isNarrow, setIsNarrow] = useState(window.innerWidth < 1024);
+
+  useEffect(() => {
+    const handleResize = () => setIsNarrow(window.innerWidth < 1024);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const getBtnStyle = (mode) => ({
+    padding: '8px 14px', 
+    fontSize: '10px', 
+    fontWeight: '900', 
+    letterSpacing: '1px',
+    cursor: 'pointer', 
+    border: 'none', 
+    background: 'transparent',
+    color: layoutMode === mode ? '#3b82f6' : '#444', 
+    transition: '0.3s',
+    textTransform: 'uppercase'
+  });
 
   return (
-    <header
-      style={{
-        height: '96px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: '0 40px',
-        background: 'transparent',
-        backdropFilter: 'none',
-        borderBottom: '1px solid rgba(255,255,255,0.1)',
-        zIndex: 50,
-        flexShrink: 0,
-      }}
-    >
-      <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-        <img
-          src="/logo.svg"
-          alt="POMPR-PRO"
-          style={{ height: '24px', width: 'auto', display: 'block' }}
-          onError={(e) => {
-            e.target.style.display = 'none';
-            e.target.nextSibling.style.display = 'block';
-          }}
-        />
-        <h1
-          style={{
-            display: 'none',
-            fontSize: '24px',
-            fontWeight: '900',
-            letterSpacing: '-1px',
-            margin: 0,
-            color: 'white',
-          }}
-        >
-          POMPR-PRO
-        </h1>
-        <span
-          style={{
-            background: '#10b981',
-            color: 'black',
-            fontSize: '10px',
-            fontWeight: '900',
-            padding: '2px 6px',
-            borderRadius: '4px',
-          }}
-        >
-          V2.0 CINEMATIC
-        </span>
+    <div style={{ 
+      height: '96px', 
+      background: '#000', 
+      display: 'flex', 
+      alignItems: 'center', 
+      padding: '0 24px', 
+      justifyContent: 'space-between', 
+      borderBottom: '1px solid #1a1a1a' 
+    }}>
+      
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <img src={logo} alt="POMPR" style={{ height: '48px', width: 'auto', userSelect: 'none' }} />
+        <div style={{ background: '#3b82f6', color: '#fff', fontSize: '9px', fontWeight: '900', padding: '2px 6px', borderRadius: '3px', marginTop: '12px' }}>V2.1</div>
       </div>
-      <nav style={{ display: 'flex', gap: '15px' }}>
-        <button
-          onClick={() => window.open('https://pompr.gumroad.com/', '_blank')}
-          style={baseButtonStyle}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = 'rgba(255,255,255,0.1)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = 'rgba(0,0,0,0.4)';
+      
+      <div style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
+        <button onClick={() => setLayoutMode('CASTING')} style={getBtnStyle('CASTING')}>CASTING</button>
+        
+        {/* WORKSTATION MODE: Hidden on iPad Mini / Portrait Tablets */}
+        {!isNarrow && (
+          <button onClick={() => setLayoutMode('WORKSTATION')} style={getBtnStyle('WORKSTATION')}>WORKSTATION</button>
+        )}
+        
+        <button onClick={() => setLayoutMode('DIRECTING')} style={getBtnStyle('DIRECTING')}>DIRECTING</button>
+        <span style={{color:'#222'}}>|</span>
+        
+        <button 
+          onClick={onOpenVault} 
+          style={{ 
+            padding: '8px 14px', fontSize: '10px', fontWeight: '900', letterSpacing: '1px', 
+            cursor: 'pointer', border: '1px solid #10b981', background: 'transparent', 
+            color: '#10b981', borderRadius: '4px', transition: '0.3s' 
           }}
         >
-          Shop
+          [ LOAD REEL ]
         </button>
-      </nav>
-      <button
-        onClick={onOpenVault}
-        style={{
-          ...baseButtonStyle,
-          color: '#00C6FF',
-          borderColor: 'rgba(0, 198, 255, 0.4)',
-          boxShadow: '0 0 15px rgba(0, 198, 255, 0.1)',
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.background = 'rgba(0, 198, 255, 0.1)';
-          e.currentTarget.style.boxShadow = '0 0 20px rgba(0, 198, 255, 0.2)';
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.background = 'rgba(0,0,0,0.4)';
-          e.currentTarget.style.boxShadow = '0 0 15px rgba(0, 198, 255, 0.1)';
-        }}
+      </div>
+
+      <a 
+        href="https://pompr.gumroad.com/" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        style={{ color: '#3b82f6', fontWeight: '900', fontSize: '10px', textDecoration: 'none', letterSpacing: '1px' }}
       >
-        Reel Loader
-      </button>
-    </header>
+        [SHOP]
+      </a>
+    </div>
   );
 }

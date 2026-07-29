@@ -1,8 +1,6 @@
-/* POMPR-PRO COMPONENT: ACTION MATRIX V2.0 
-   VERSION: V2.12 (INFINITE LOOP ERADICATED)
-   ARCHITECT NOTE: Removed useEffect loop. Explicit user-click updates only.
-*/
-
+// -------------------------------------------------------------------
+// FILE: ActionMatrixV2.jsx | VERSION: 2.13 (SPACE-SAVING FOOTER)
+// -------------------------------------------------------------------
 import React, { useState, useMemo } from 'react';
 
 const ACTION_TYPES = ['POSE', 'MOVE', 'EMOTE', 'BUSY', 'SOCIAL', 'POWR', 'CUSTOM', 'UTILITY'];
@@ -34,7 +32,6 @@ const doesActionMatchTab = (action, activeTab) => {
   const t = action.type || "";
   const n = action.name || "";
   const c = action.category || "";
-
   if (activeTab === 'CUSTOM') return action.isCustom || (c !== '' && c !== 'ACTION' && c !== 'UTILITY');
   if (activeTab === 'POSE') return t === 'POSE' || t === 'S' || n.includes('POSE');
   if (activeTab === 'MOVE') return t === 'MOVE' || t === 'V' || n.includes('MOVE') || n.includes('RUN');
@@ -45,31 +42,25 @@ const doesActionMatchTab = (action, activeTab) => {
   return false;
 };
 
-export default function ActionMatrixV2({ actions = [], onSelectAction }) {
+export default function ActionMatrixV2({ actions = [], onSelectAction, isHuman }) {
   const [activeTab, setActiveTab] = useState('POSE');
   const [isCustomInput, setIsCustomInput] = useState(false);
   const [customText, setCustomText] = useState("");
   const [activeMood, setActiveMood] = useState('HAPPY');
   const [intensity, setIntensity] = useState(5);
   const [mediaType, setMediaType] = useState('still'); 
+  const [activeBase, setActiveBase] = useState(null);
 
   const isUtilityMode = activeTab === 'UTILITY';
 
   const filteredActions = useMemo(() => {
     if (isUtilityMode) return UTILITY_ACTIONS;
     const uniqueActions = Array.from(new Map(actions.map(item => [item.id, item])).values());
-    return uniqueActions.filter(a => {
-      if (!a.text && !a.desc) return false; 
-      return doesActionMatchTab(a, activeTab);
-    });
+    return uniqueActions.filter(a => (a.text || a.desc) && doesActionMatchTab(a, activeTab));
   }, [actions, activeTab, isUtilityMode]);
 
-  const [activeBase, setActiveBase] = useState(null);
-
-  // --- MANUAL DISPATCH FUNCTION (NO LOOPS) ---
   const triggerUpdate = (baseObj, mood, ei, media, customVal, isCustomMode, isUtilMode) => {
     if (!onSelectAction) return;
-
     let compiledText = "";
     if (isUtilMode && baseObj) {
       compiledText = baseObj.text || baseObj.desc;
@@ -77,19 +68,20 @@ export default function ActionMatrixV2({ actions = [], onSelectAction }) {
       let rawBaseText = isCustomMode && customVal.trim() !== "" ? `[SUBJECT] ${customVal}` : (baseObj ? (baseObj.text || baseObj.desc || "") : "");
       let baseText = rawBaseText.replace(/\[SUBJECT\]\s*/g, '');
       if (baseText) baseText = baseText.charAt(0).toUpperCase() + baseText.slice(1);
-      
-      let eiBand = 'med';
-      if (ei <= 3) eiBand = 'low';
-      if (ei >= 8) eiBand = 'high';
-
-      const moodText = MOOD_MODIFIERS[mood][eiBand];
       const guardrailText = GUARDRAILS[media];
-      compiledText = `${baseText}, ${moodText} ${guardrailText}`;
+      if (isHuman) {
+        let eiBand = 'med';
+        if (ei <= 3) eiBand = 'low';
+        if (ei >= 8) eiBand = 'high';
+        const moodText = MOOD_MODIFIERS[mood][eiBand];
+        compiledText = `${baseText}, ${moodText} ${guardrailText}`;
+      } else {
+        compiledText = `${baseText}. ${guardrailText}`;
+      }
     }
-
     onSelectAction({
       id: isCustomMode ? 'USER_CUSTOM_ACT' : (baseObj ? baseObj.id : 'NO_ID'),
-      name: isUtilMode ? (baseObj ? baseObj.name : "") : `${mood} Action`,
+      name: isUtilMode ? (baseObj ? baseObj.name : "") : (isHuman ? `${mood} Action` : "Neutral Action"),
       desc: compiledText,
       category: isUtilMode ? 'UTILITY' : 'ACTION',
       intensity: ei
@@ -99,8 +91,6 @@ export default function ActionMatrixV2({ actions = [], onSelectAction }) {
   const handleTabClick = (tab) => {
     setActiveTab(tab);
     setIsCustomInput(false);
-    
-    // Auto-select first item in new tab and fire it
     const newFiltered = tab === 'UTILITY' ? UTILITY_ACTIONS : actions.filter(a => doesActionMatchTab(a, tab) && (a.text || a.desc));
     if (newFiltered.length > 0) {
       setActiveBase(newFiltered[0]);
@@ -129,22 +119,18 @@ export default function ActionMatrixV2({ actions = [], onSelectAction }) {
     triggerUpdate(activeBase, activeMood, intensity, media, customText, isCustomInput, isUtilityMode);
   };
 
-  const handleCustomSubmit = () => {
-    triggerUpdate(activeBase, activeMood, intensity, mediaType, customText, true, false);
-  };
-
   const styles = {
     wrapper: { backgroundColor: '#161616', color: '#fff', padding: '15px', borderTop: '1px solid #10b981', display: 'flex', flexDirection: 'column', gap: '15px', height: '100%', boxSizing: 'border-box', overflow: 'hidden' },
     headerBar: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 15px', backgroundColor: '#0d0d0d', borderBottom: '1px solid #222', flexShrink: 0 },
     headerTitle: { color: '#10b981', margin: 0, fontSize: '0.85rem', letterSpacing: '1px', textTransform: 'uppercase', fontWeight: 'bold' },
     scrollZone: { flex: 1, overflowY: 'auto', padding: '15px', display: 'flex', flexDirection: 'column', gap: '15px' },
-    fixedFooter: { flexShrink: 0, backgroundColor: '#0d0d0d', borderTop: '1px solid #222', padding: '15px 15px 35px 15px', display: 'flex', flexDirection: 'column', gap: '15px', opacity: isUtilityMode ? 0.3 : 1, pointerEvents: isUtilityMode ? 'none' : 'auto', transition: '0.3s' },
+    fixedFooter: { flexShrink: 0, backgroundColor: '#0d0d0d', borderTop: '1px solid #222', padding: '15px 15px 35px 15px', display: 'flex', gap: '30px', transition: '0.3s' },
     label: { fontSize: '0.65rem', color: '#888', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '8px', display: 'block', fontWeight: 'bold' },
     flexRow: { display: 'flex', gap: '6px', flexWrap: 'wrap' },
     scrollRow: { display: 'flex', gap: '6px', overflowX: 'auto', paddingBottom: '4px', scrollbarWidth: 'none', whiteSpace: 'nowrap' },
     btn: (active, color) => ({ padding: '6px 12px', fontSize: '0.7rem', fontWeight: 'bold', border: 'none', borderRadius: '4px', cursor: 'pointer', backgroundColor: active ? color : '#222', color: active ? '#fff' : '#aaa', transition: '0.2s', whiteSpace: 'nowrap' }),
     inputBox: { width: '100%', padding: '10px', backgroundColor: '#111', color: '#fff', border: '1px solid #3b82f6', borderRadius: '4px', fontSize: '0.8rem', outline: 'none' },
-    slider: { width: '100%', accentColor: '#f59e0b', cursor: 'pointer', marginTop: '5px' }
+    slider: { width: '100%', accentColor: '#f59e0b', cursor: 'pointer' }
   };
 
   return (
@@ -168,7 +154,6 @@ export default function ActionMatrixV2({ actions = [], onSelectAction }) {
             ))}
           </div>
         </div>
-
         <div>
           <span style={styles.label}>2. WHAT IS THE SUBJECT PHYSICALLY DOING?</span>
           {!isUtilityMode && (
@@ -180,37 +165,46 @@ export default function ActionMatrixV2({ actions = [], onSelectAction }) {
           )}
           {isCustomInput ? (
             <input 
-              style={styles.inputBox} placeholder="e.g. riding a motorcycle... (Press Enter)" value={customText} 
-              onChange={(e) => setCustomText(e.target.value)} onBlur={handleCustomSubmit} onKeyDown={(e) => { if (e.key === 'Enter') handleCustomSubmit(); }} autoFocus 
+              style={styles.inputBox} placeholder="e.g. splashing into red wine... (Press Enter)" value={customText} 
+              onChange={(e) => setCustomText(e.target.value)} onBlur={() => triggerUpdate(activeBase, activeMood, intensity, mediaType, customText, true, false)} onKeyDown={(e) => { if (e.key === 'Enter') triggerUpdate(activeBase, activeMood, intensity, mediaType, customText, true, false); }} autoFocus 
             />
           ) : (
             <div style={styles.flexRow}>
               {filteredActions.length > 0 ? filteredActions.map(act => (
                 <button key={act.id} style={styles.btn(activeBase?.id === act.id, '#10b981')} onClick={() => handleBaseClick(act)}>{act.name}</button>
-              )) : <span style={{color: '#555', fontSize: '0.7rem'}}>No actions found for this tab.</span>}
+              )) : <span style={{color: '#555', fontSize: '0.7rem'}}>No actions found.</span>}
             </div>
           )}
         </div>
       </div>
 
-      <div style={styles.fixedFooter}>
-        <div>
-          <span style={styles.label}>3. MOOD</span>
-          <div style={styles.scrollRow}>
-            {MOODS.map(mood => (
-              <button key={mood} style={styles.btn(activeMood === mood, '#f59e0b')} onClick={() => handleMoodClick(mood)}>{mood}</button>
-            ))}
+      {isHuman && !isUtilityMode && (
+        <div style={{ ...styles.fixedFooter, display: 'flex', flexDirection: 'row', alignItems: 'flex-start' }}>
+          <div style={{ flex: 0.5 }}>
+            <span style={styles.label}>3. MOOD</span>
+            <div style={styles.scrollRow}>
+              {MOODS.map(mood => (
+                <button key={mood} style={styles.btn(activeMood === mood, '#f59e0b')} onClick={() => handleMoodClick(mood)}>{mood}</button>
+              ))}
+            </div>
+          </div>
+          <div style={{ flex: 0.5 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+              <span style={{ ...styles.label, marginBottom: 0 }}>4. INTENSITY (EI: {intensity})</span>
+              <div style={{ display: 'flex', gap: '10px', fontSize: '0.55rem', color: '#444', fontWeight: 'bold' }}>
+                <span>LOW</span><span>MED</span><span>HIGH</span>
+              </div>
+            </div>
+            <input type="range" min="1" max="10" value={intensity} onChange={(e) => setIntensity(Number(e.target.value))} onMouseUp={handleSliderRelease} onTouchEnd={handleSliderRelease} style={{ ...styles.slider, marginTop: '8px' }} />
           </div>
         </div>
-        <div>
-          <span style={styles.label}>4. EMOTIONAL INTENSITY (EI: {intensity})</span>
-          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.6rem', color: '#666', fontWeight: 'bold' }}>
-            <span>LOW (1-3)</span><span>MEDIUM (4-7)</span><span>HIGH (8-10)</span>
-          </div>
-          {/* ARCHITECT FIX: Added onMouseUp and onTouchEnd to trigger update only when sliding stops */}
-          <input type="range" min="1" max="10" value={intensity} onChange={(e) => setIntensity(Number(e.target.value))} onMouseUp={handleSliderRelease} onTouchEnd={handleSliderRelease} style={styles.slider} />
+      )}
+
+      {!isHuman && !isUtilityMode && (
+        <div style={{ padding: '10px', backgroundColor: '#0d0d0d', borderTop: '1px solid #222', textAlign: 'center' }}>
+          <span style={{ color: '#8b5cf6', fontSize: '0.55rem', fontWeight: '900', letterSpacing: '1.5px' }}>NON-HUMAN MODE: EMOTIVE PARAMETERS SILENCED</span>
         </div>
-      </div>
+      )}
     </div>
   );
 }

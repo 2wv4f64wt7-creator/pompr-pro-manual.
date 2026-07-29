@@ -1,138 +1,94 @@
 // -------------------------------------------------------------------
-// FILE: src/components/TechVaultModal.jsx
-// VERSION: 11.2 (Meta Injection Support)
+// FILE: TechVaultModal.jsx | VERSION: 2.9 (OMNI-DATA RECOVERY)
 // -------------------------------------------------------------------
-
 import React, { useRef } from 'react';
 
 export default function TechVaultModal({ 
-  onClose, 
-  setCustomCharacters, 
-  setCustomScenes,
-  setCustomActions,
-  setCustomMeta, // NEW: Meta receiver
-  fullCharacters,
-  fullScenes,
-  fullActions
+  onClose, isMatrixSilenced, setIsMatrixSilenced, exportData,
+  onImportCharacters, onImportScenes, onImportActions, onImportMeta
 }) {
   const fileInputRef = useRef(null);
 
-  const handleImport = (e) => {
-    const file = e.target.files[0];
+  const handleFileUpload = (event) => {
+    const file = event.target.files[0];
     if (!file) return;
 
     const reader = new FileReader();
-    reader.onload = (event) => {
+    reader.onload = (e) => {
       try {
-        const data = JSON.parse(event.target.result);
-        let charCount = 0;
-        let sceneCount = 0;
-        let actionCount = 0;
-        let metaStatus = "None";
+        const json = JSON.parse(e.target.result);
+        
+        // 1. DATA SNIFFER (GARY & SUBMERGED BATHROOM COMPATIBILITY)
+        let cItems = json.characters || json.character_and_group_subjects || [];
+        let sItems = json.scenes || json.historical_scenes || [];
+        let aItems = json.actions || json.procedural_base_actions || [];
+        const meta = json.meta || {};
 
-        // 1. DATA DETECTION
-        const rawChars = data.characters || (data.details ? [data] : []);
-        const rawScenes = data.scenes || (data.desc ? [data] : []);
-        const rawActions = data.actions || [];
-        const rawMeta = data.meta || null; // NEW: Detect Meta
-
-        // 2. PROCESS CHARACTERS
-        if (rawChars.length > 0) {
-          const processedChars = rawChars.map(c => ({
-            ...c,
-            id: c.id || `C_USER_IMP_${Math.random().toString(36).substr(2, 9)}`,
-            isCustom: true
-          }));
-          setCustomCharacters(processedChars); 
-          charCount = processedChars.length;
+        // 2. SINGLE CARD DETECTION (If the above are empty, check if root is a card)
+        if (cItems.length === 0 && sItems.length === 0) {
+           // Gary Check
+           if (json.name && (json.outfit || json.details)) {
+             cItems = [json];
+           } 
+           // Bathroom Check (maps description -> details)
+           else if (json.name && (json.description || json.lighting)) {
+             sItems = [{
+               ...json,
+               details: json.description // Map legacy key
+             }];
+           }
         }
 
-        // 3. PROCESS SCENES
-        if (rawScenes.length > 0) {
-          const processedScenes = rawScenes.map(s => ({
-            ...s,
-            id: s.id || `S_USER_IMP_${Math.random().toString(36).substr(2, 9)}`,
-            isCustom: true
-          }));
-          setCustomScenes(processedScenes); 
-          sceneCount = processedScenes.length;
-        }
+        // 3. DISPATCH TO APP ENGINE
+        if (cItems.length > 0) onImportCharacters(cItems);
+        if (sItems.length > 0) onImportScenes(sItems);
+        if (aItems.length > 0) onImportActions(aItems);
+        if (meta) onImportMeta(meta);
 
-        // 4. PROCESS ACTIONS
-        if (rawActions.length > 0) {
-          const processedActions = rawActions.map(a => ({
-            ...a,
-            id: a.id || `A_USER_IMP_${Math.random().toString(36).substr(2, 9)}`,
-            type: a.type || 'USER',
-            isCustom: true
-          }));
-          if (setCustomActions) setCustomActions(processedActions);
-          actionCount = processedActions.length;
-        }
-
-        // 5. PROCESS META (NEW)
-        if (rawMeta) {
-          if (setCustomMeta) setCustomMeta(rawMeta);
-          if (rawMeta.global_style) metaStatus = "Injected";
-        }
-
-        if (charCount > 0 || sceneCount > 0 || actionCount > 0 || rawMeta) {
-          alert(`VAULT IMPORT REPORT:\n- ${charCount} Characters\n- ${sceneCount} Scenes\n- ${actionCount} Actions\n- Global Styles: ${metaStatus}`);
-          onClose();
-        } else {
-          alert("IMPORT WARNING: No valid items found in file.");
-        }
-
+        alert(
+          `VAULT IMPORT REPORT:\n` +
+          `- ${cItems.length} Characters Detected\n` +
+          `- ${sItems.length} Scenes Detected\n` +
+          `- ${aItems.length} Actions Detected\n` +
+          `- Global Styles: ${meta.global_style ? 'Injected' : 'None'}`
+        );
       } catch (err) {
-        console.error("Vault Error:", err);
-        alert("CRITICAL ERROR: Invalid JSON file structure.");
+        console.error("Reel Load Error:", err);
+        alert('ERROR: Could not parse file. Ensure it is a valid .json card or reel.');
       }
     };
     reader.readAsText(file);
   };
 
   const handleExport = () => {
-    const bundle = {
-      export_date: new Date().toISOString(),
-      app_version: "11.2",
-      characters: fullCharacters.filter(c => c.isCustom || c.id.includes('USER') || c.id.includes('IMP')),
-      scenes: fullScenes.filter(s => s.isCustom || s.id.includes('USER') || s.id.includes('IMP')),
-      actions: fullActions ? fullActions.filter(a => a.isCustom || (a.id && a.id.includes('USER')) || (a.id && a.id.includes('IMP'))) : []
-    };
-    
-    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(bundle, null, 2));
-    const downloadAnchorNode = document.createElement('a');
-    downloadAnchorNode.setAttribute("href", dataStr);
-    downloadAnchorNode.setAttribute("download", `PPRO_BACKUP_${new Date().toISOString().split('T')[0]}.json`);
-    document.body.appendChild(downloadAnchorNode);
-    downloadAnchorNode.click();
-    downloadAnchorNode.remove();
+    const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `POMPR_MASTER_BACKUP.json`;
+    link.click();
+    URL.revokeObjectURL(url);
   };
 
-  const handleReset = () => {
-    if (window.confirm("FACTORY RESET: This will delete ALL custom data. Proceed?")) {
-      localStorage.clear();
-      window.location.reload();
-    }
-  };
+  const vaultBtnStyle = { width: '100%', padding: '12px', background: '#1a1a1a', border: '1px solid #333', color: '#aaa', borderRadius: '4px', cursor: 'pointer', fontSize: '11px', fontWeight: 'bold', marginTop: '10px' };
 
   return (
-    <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', background: 'rgba(0,0,0,0.92)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 3000, backdropFilter: 'blur(4px)' }}>
-      <div style={{ background: '#0D0D0D', border: '1px solid #00D4FF', width: '420px', borderRadius: '12px', padding: '40px', boxShadow: '0 0 30px rgba(0, 212, 255, 0.2)' }}>
-        <h2 style={{ color: '#00D4FF', fontSize: '14px', letterSpacing: '3px', marginBottom: '30px', textAlign: 'center', fontWeight: '900' }}>TECH VAULT SYSTEM</h2>
+    <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.9)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
+      <div style={{ width: '500px', background: '#0f0f0f', border: '1px solid #3b82f6', borderRadius: '12px', padding: '40px', position: 'relative', boxShadow: '0 0 20px rgba(59, 130, 246, 0.3)', textAlign: 'center' }}>
+        {/* SILENCE MATRIX TOGGLE (HIDDEN IN CORNER) */}
+        <div onClick={() => setIsMatrixSilenced(!isMatrixSilenced)} style={{ position: 'absolute', top: 0, right: 0, width: '40px', height: '40px', cursor: 'crosshair', zIndex: 1001 }} />
         
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-          
-          <div style={{ padding: '20px', background: '#111', border: '1px solid #222', borderRadius: '8px', textAlign: 'center' }}>
-            <label style={{ color: '#00FF88', fontSize: '10px', fontWeight: 'bold', display: 'block', marginBottom: '15px', letterSpacing: '1px' }}>IMPORT PRODUCTION REEL</label>
-            <input type="file" accept=".json" ref={fileInputRef} onChange={handleImport} style={{ display: 'none' }} />
-            <button onClick={() => fileInputRef.current.click()} style={{ background: '#00FF88', color: 'black', border: 'none', padding: '12px 20px', borderRadius: '4px', fontSize: '11px', fontWeight: '900', cursor: 'pointer', width: '100%' }}>BROWSE JSON FILES</button>
-          </div>
-
-          <button onClick={handleExport} style={{ width: '100%', padding: '15px', background: '#1A1A1A', color: 'white', border: '1px solid #333', cursor: 'pointer', fontSize: '10px', fontWeight: 'bold', borderRadius: '4px' }}>EXPORT MASTER BACKUP</button>
-          <button onClick={handleReset} style={{ width: '100%', padding: '15px', background: 'transparent', color: '#f44', border: '1px solid #400', cursor: 'pointer', fontSize: '10px', fontWeight: 'bold', borderRadius: '4px' }}>FACTORY SYSTEM RESET</button>
-          <button onClick={onClose} style={{ width: '100%', marginTop: '10px', padding: '12px', background: '#333', color: 'white', border: 'none', cursor: 'pointer', fontSize: '11px', borderRadius: '4px' }}>CLOSE VAULT</button>
+        <h2 style={{ color: '#00d4ff', fontSize: '18px', letterSpacing: '4px', marginBottom: '30px', fontWeight: '900' }}>TECH VAULT SYSTEM</h2>
+        
+        <div style={{ background: '#151515', border: '1px solid #222', borderRadius: '8px', padding: '20px', marginBottom: '15px' }}>
+          <p style={{ color: '#90ee90', fontSize: '11px', fontWeight: 'bold', marginBottom: '15px' }}>IMPORT PRODUCTION REEL / CARD</p>
+          <input type="file" ref={fileInputRef} style={{ display: 'none' }} accept=".json" onChange={handleFileUpload} />
+          <button onClick={() => fileInputRef.current.click()} style={{ width: '100%', padding: '15px', background: '#00ff88', color: '#000', border: 'none', borderRadius: '6px', fontWeight: '900', fontSize: '12px', cursor: 'pointer' }}>BROWSE JSON FILES</button>
         </div>
+
+        <button style={vaultBtnStyle} onClick={handleExport}>EXPORT MASTER BACKUP</button>
+        <button style={{ ...vaultBtnStyle, color: '#ef4444', border: '1px solid #441111' }} onClick={() => { if(window.confirm('WIPE ALL CUSTOM DATA?')) { localStorage.clear(); window.location.reload(); } }}>FACTORY SYSTEM RESET</button>
+        <button onClick={onClose} style={{ width: '100%', padding: '15px', background: '#222', color: '#fff', border: 'none', borderRadius: '6px', marginTop: '25px', fontWeight: 'bold', cursor: 'pointer' }}>CLOSE VAULT</button>
       </div>
     </div>
   );
