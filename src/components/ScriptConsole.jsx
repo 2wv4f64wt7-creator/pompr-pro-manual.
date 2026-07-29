@@ -1,5 +1,5 @@
 // -------------------------------------------------------------------
-// FILE: ScriptConsole.jsx | VERSION: 3.3 (LABEL CLARIFICATION)
+// FILE: ScriptConsole.jsx | VERSION: 2.1 (IPAD CLEAN-COPY & LAYOUT)
 // -------------------------------------------------------------------
 import React, { useState, useMemo } from 'react';
 import ActionMatrixV2 from './ActionMatrixV2';
@@ -45,6 +45,31 @@ const ScriptConsole = (props) => {
     if (promptTier === 'MEDIUM') return basePrompt.trim();
     return `${basePrompt}${dynamicPrompt.style || ''}${dynamicPrompt.negative || ''}${dynamicPrompt.commercialTail || ''}`.trim();
   }, [dynamicPrompt, isSymmetry, povMode, actor1, actor2, interaction, engine1, promptTier, scene]);
+
+  // --- REFINED CLEAN-COPY HANDLER (V2.1) ---
+  const handleCleanCopy = async () => {
+    const rawText = isManual ? manualText : autoDisplayString;
+    const fullPrompt = `${rawText}${seed ? ` --seed ${seed}` : ''}${globalParams ? ` ${globalParams}` : ''}`;
+    
+    // FORCE DECODE: Prevents Safari from injecting %20 into the clipboard
+    const cleanPrompt = decodeURIComponent(fullPrompt).replace(/\+/g, ' ');
+
+    try {
+      await navigator.clipboard.writeText(cleanPrompt);
+      setCopyFeedback('COPIED!');
+      setTimeout(() => setCopyFeedback('COPY'), 2000);
+    } catch (err) {
+      // Emergency Fallback
+      const textArea = document.createElement("textarea");
+      textArea.value = cleanPrompt;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      setCopyFeedback('COPIED!');
+      setTimeout(() => setCopyFeedback('COPY'), 2000);
+    }
+  };
 
   const handleActionSelect = (act) => {
     if (act.category === 'UTIL' || act.category === 'UTILITY') {
@@ -94,9 +119,10 @@ const ScriptConsole = (props) => {
   const hasMeta = activeReelMeta && (activeReelMeta.global_style || activeReelMeta.global_negative);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', backgroundColor: '#080808', color: '#fff' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', backgroundColor: '#080808', color: '#fff', overflow: 'hidden' }}>
       
-      <div style={{ padding: '1.25rem', borderBottom: '1px solid #1a1a1a', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+      {/* 1. TOP HEADER & PROMPT VIEWPORT */}
+      <div style={{ padding: '1.25rem', borderBottom: '1px solid #1a1a1a', display: 'flex', flexDirection: 'column', gap: '10px', flex: '0 0 auto' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div style={{ display: 'flex', gap: '4px', background: '#111', padding: '3px', borderRadius: '6px' }}>
             {['SHORT', 'MEDIUM', 'FULL'].map(t => (
@@ -122,7 +148,8 @@ const ScriptConsole = (props) => {
           </button>
         </div>
 
-        <div style={{ minHeight: '220px', backgroundColor: '#030303', border: '1px solid #111', borderRadius: '4px', padding: '1.25rem', fontFamily: 'monospace', fontSize: '0.85rem', overflowY: 'auto', resize: 'vertical', lineHeight: '2.0' }}>
+        {/* ELASTIC VIEWPORT: Uses flex-grow to take available space but shrinks on small screens */}
+        <div style={{ minHeight: '120px', maxHeight: '350px', backgroundColor: '#030303', border: '1px solid #111', borderRadius: '4px', padding: '1.25rem', fontFamily: 'monospace', fontSize: '0.85rem', overflowY: 'auto', lineHeight: '2.0' }}>
           {isManual ? (
             <textarea 
               value={manualText} 
@@ -133,9 +160,10 @@ const ScriptConsole = (props) => {
         </div>
 
         <div style={{ display: 'flex', gap: '8px' }}>
-          <button style={{ flex: 1, padding: '12px', background: '#3b82f6', color: '#fff', border: 'none', borderRadius: '4px', fontWeight: 'bold', cursor: 'pointer' }} onClick={() => { navigator.clipboard.writeText(isManual ? manualText : autoDisplayString); setCopyFeedback('COPIED!'); setTimeout(()=>setCopyFeedback('COPY'), 2000); }}>{copyFeedback}</button>
+          <button style={{ flex: 1, padding: '12px', background: '#3b82f6', color: '#fff', border: 'none', borderRadius: '4px', fontWeight: 'bold', cursor: 'pointer' }} onClick={handleCleanCopy}>{copyFeedback}</button>
           <button style={{ flex: 1, background: '#1a1a1a', border: '1px solid #333', color: '#fff', borderRadius: '4px', fontWeight: 'bold', cursor: 'pointer' }} onClick={() => {
-            const final = `${isManual ? manualText : autoDisplayString}${seed ? ` --seed ${seed}` : ''}${globalParams ? ` ${globalParams}` : ''}`;
+            const rawText = isManual ? manualText : autoDisplayString;
+            const final = `${rawText}${seed ? ` --seed ${seed}` : ''}${globalParams ? ` ${globalParams}` : ''}`;
             const blob = new Blob([final], { type: 'text/plain' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
@@ -146,15 +174,14 @@ const ScriptConsole = (props) => {
         </div>
       </div>
 
-      <div style={{ padding: '0.75rem 1.25rem', background: '#0a0a0a', display: 'flex', gap: '1rem', borderBottom: '1px solid #1a1a1a' }}>
+      {/* 2. PARAMETERS BAR */}
+      <div style={{ padding: '0.75rem 1.25rem', background: '#0a0a0a', display: 'flex', gap: '1rem', borderBottom: '1px solid #1a1a1a', flex: '0 0 auto' }}>
         <div style={{ flex: 0.35 }}>
            <span style={{ fontSize: '0.55rem', color: '#444', display: 'block', marginBottom: '4px' }}>ENSEMBLE INTERACTION</span>
            <select style={{ width: '100%', background: '#111', color: '#ff8a00', border: '1px solid #222', padding: '8px', fontSize: '0.75rem' }} value={interaction} onChange={(e) => setInteraction(e.target.value)}>
               {interactions.map((i, idx) => <option key={idx} value={i}>{i}</option>)}
            </select>
         </div>
-        
-        {/* UPDATED LABEL HERE */}
         <div style={{ flex: 0.65 }}>
            <span style={{ fontSize: '0.55rem', color: '#666', display: 'block', marginBottom: '4px', fontWeight: 'bold' }}>
              GLOBAL SREF / TECH PARAMS <span style={{ color: '#3b82f6' }}>(OPTIONAL)</span>
@@ -163,7 +190,8 @@ const ScriptConsole = (props) => {
         </div>
       </div>
 
-      <div style={{ flex: '1', position: 'relative', opacity: isMatrixSilenced ? 0.2 : 1, pointerEvents: isMatrixSilenced ? 'none' : 'auto' }}>
+      {/* 3. ACTION MATRIX: Pinned to bottom, flex-grow 1 */}
+      <div style={{ flex: '1', position: 'relative', overflowY: 'auto', opacity: isMatrixSilenced ? 0.2 : 1, pointerEvents: isMatrixSilenced ? 'none' : 'auto' }}>
         {isMatrixSilenced && (
           <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.4)', zIndex: 10 }}>
              <span style={{ color: '#ef4444', fontWeight: '900', fontSize: '12px', background: '#000', padding: '10px', border: '1px solid #ef4444' }}>
