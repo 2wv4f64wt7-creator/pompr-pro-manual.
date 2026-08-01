@@ -1,8 +1,7 @@
 // -------------------------------------------------------------------
-// FILE: App.jsx | VERSION: 3.9 (INTEGRITY ORCHESTRATOR)
-// July 29, 2026 Baseline
+// FILE: App.jsx | VERSION: 4.8 (RESTORED STILL/VIDEO + STATE)
 // -------------------------------------------------------------------
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import reelData from './reels/default_reel.json';
 import { useSubjectEngine } from './hooks/useSubjectEngine';
 
@@ -14,7 +13,7 @@ import ScriptConsole from './components/ScriptConsole';
 import TechVaultModal from './components/TechVaultModal';
 
 const SAFE_INTERACTIONS = ["With", "Facing", "Ignoring", "Talking to", "Confronting", "Arguing with", "Fighting"];
-const baseInteractions = reelData?.interactions?.length > 0 ? reelData.interactions : SAFE_INTERACTIONS;
+const MOODS = ['CALM', 'HAPPY', 'FOCUSED', 'FEARFUL', 'ANGRY', 'POWERFUL'];
 
 export default function App() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -50,11 +49,18 @@ export default function App() {
   const [actor2, setActor2] = useState(null);
   const [activeSlot, setActiveSlot] = useState(1);
   const [action, setAction] = useState(reelData.actions[0]);
-  const [interaction, setInteraction] = useState(baseInteractions[0]);
+  const [utilityText, setUtilityText] = useState(""); 
+  const [interaction, setInteraction] = useState(reelData?.interactions?.[0] || SAFE_INTERACTIONS[0]);
   const [seed, setSeed] = useState("");
-  const [globalParams, setGlobalParams] = useState(""); 
   const [isManual, setIsManual] = useState(false);
   const [manualText, setManualText] = useState("");
+
+  const [viewMode, setViewMode] = useState('FULL'); 
+  const [isStageFlipped, setIsStageFlipped] = useState(false);
+  const [povMode, setPovMode] = useState(0); 
+  
+  // NEW: Track STILL / VIDEO mode
+  const [motionMode, setMotionMode] = useState('STILL');
 
   const engine1 = useSubjectEngine(actor1);
 
@@ -89,112 +95,133 @@ export default function App() {
   const smartSetCharacters = (newItems) => setCustomCharacters(prev => [...(Array.isArray(newItems) ? newItems : [newItems]), ...prev]);
   const smartSetScenes = (newItems) => setCustomScenes(prev => [...(Array.isArray(newItems) ? newItems : [newItems]), ...prev]);
 
+  const getDynamicPrompt = useCallback(() => {
+    let povText = "";
+    if (povMode === 1 && actor1 && actor2) povText = ` CINEMATOGRAPHY: Over-the-shoulder shot, ${actor1.name} in foreground blurred, focus on ${actor2.name}.`;
+    else if (povMode === 2 && actor1 && actor2) povText = ` CINEMATOGRAPHY: Over-the-shoulder shot, ${actor2.name} in foreground blurred, focus on ${actor1.name}.`;
+
+    const sDetails = (scene && scene.details) ? ` (${scene.details})` : "";
+    const sText = scene ? `SCENE: ${scene.name}${viewMode === 'FULL' ? sDetails : ""}.` : "";
+    const cText = scene ? `CINEMATOGRAPHY: ${scene.lighting}, Cinematic Lens.` : "";
+    const stT = (customMeta || reelData?.meta)?.global_style ? `STYLE: ${(customMeta || reelData?.meta).global_style}.` : "";
+    
+    const primary = isStageFlipped ? actor2 : actor1;
+    const secondary = isStageFlipped ? actor1 : actor2;
+
+    if (!primary) return { subject: null, scene: sText, cine: cText, style: stT, commercialTail: "" };
+
+    let subT = `SUBJECT: ${primary.name} (${viewMode === 'FULL' ? primary.details : primary.category}), wearing ${primary.outfit}.`;
+    let ensT = secondary ? ` ENSEMBLE: ${interaction} ${secondary.name} (${viewMode === 'FULL' ? secondary.details : secondary.category}), wearing ${secondary.outfit}.` : "";
+    let actT = ` ACTION: ${action?.desc || 'Standing still.'}`;
+    const utilT = (isManual && utilityText) ? `\n\nUTILITY: ${utilityText}` : "";
+
+    if (viewMode === 'SHORT') {
+      subT = `SUBJECT: ${primary.name} Ref #1, ${primary.outfit}.`;
+      ensT = secondary ? ` ENSEMBLE: ${interaction} ${secondary.name} Ref #2, ${secondary.outfit}.` : "";
+    }
+
+    const cref = (primary.refUrl ? ` --cref ${primary.refUrl}` : "") + (secondary?.refUrl ? ` --cref ${secondary.refUrl}` : "");
+
+    return { subject: subT, ensemble: ensT, action: actT, scene: sText ? `\n${sText}` : "", cine: povText || (cText ? `\n${cText}` : ""), style: stT ? `\n${stT}` : "", utility: utilT, commercialTail: cref.trim() };
+  }, [actor1, actor2, scene, action, interaction, utilityText, povMode, isStageFlipped, viewMode, isManual, customMeta]);
+
+  useEffect(() => {
+    if (isManual) {
+      const p = getDynamicPrompt();
+      const compiled = Object.values(p).filter(Boolean).join('').trim();
+      setManualText(compiled);
+    }
+  }, [getDynamicPrompt, isManual]);
+
   const handleClearStage = () => {
     setActor1(null); setActor2(null); setScene(null);
-    setAction(reelData.actions[0]); setSeed("");
-    setIsManual(false); setManualText("");
+    setAction(reelData.actions[0]); setUtilityText(""); setSeed("");
+    setIsManual(false); setManualText(""); 
+    setIsStageFlipped(false); setPovMode(0);
   };
 
   const triggerRandomix = () => {
     setIsManual(false);
     if (scenes.length > 0) setScene(scenes[Math.floor(Math.random() * scenes.length)]);
+    let a1 = null;
     if (characters.length > 0) {
-      const char1 = characters[Math.floor(Math.random() * characters.length)];
-      setActor1(char1);
+      a1 = characters[Math.floor(Math.random() * characters.length)];
+      setActor1(a1);
       if (Math.random() > 0.7 && characters.length > 1) {
-        const remaining = characters.filter(c => c.id !== char1.id);
-        setActor2(remaining[Math.floor(Math.random() * remaining.length)]);
+        setActor2(characters.filter(c => c.id !== a1.id)[Math.floor(Math.random() * (characters.length - 1))]);
       } else { setActor2(null); }
     }
-    if (actions.length > 0) setAction(actions[Math.floor(Math.random() * actions.length)]);
+    if (actions.length > 0) {
+      const baseAct = actions[Math.floor(Math.random() * actions.length)];
+      const randMood = MOODS[Math.floor(Math.random() * MOODS.length)];
+      const randInt = Math.floor(Math.random() * 10) + 1;
+      const isHuman = a1?.subject_mode !== "NONHUMAN";
+      const cleanDesc = (baseAct.text || baseAct.desc || "").replace(/\[SUBJECT\]\s*/gi, '');
+      const suffix = motionMode === 'VIDEO' ? 'Cinematic motion sequence.' : 'Cinematic frozen still-frame.';
+      const compiled = isHuman 
+        ? `${randMood} ${baseAct.name} (${cleanDesc}, intensity level ${randInt}. ${suffix})`
+        : `${baseAct.name} (${cleanDesc}. ${suffix})`;
+      setAction({ ...baseAct, desc: compiled });
+    }
     setSeed(Math.floor(Math.random() * 10000000).toString());
-  };
-
-  const exportAsset = (item) => {
-    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(item, null, 2));
-    const a = document.createElement('a');
-    a.setAttribute("href", dataStr); a.setAttribute("download", `${item.name}_Card.json`);
-    document.body.appendChild(a); a.click(); a.remove();
-  };
-
-  const getDynamicPrompt = () => {
-    const sDetails = (scene && scene.details) ? ` (${scene.details})` : "";
-    const sText = scene ? `SCENE: ${scene.name}${sDetails}.` : "";
-    const cText = scene ? `CINEMATOGRAPHY: ${scene.lighting}, Cinematic Lens.` : "";
-    const meta = customMeta || reelData?.meta || {};
-    const stT = meta.global_style ? `STYLE: ${meta.global_style}.` : "";
-    const neg = meta.global_negative ? ` --no ${meta.global_negative}` : "";
-
-    if (!actor1) return { subject: null, scene: sText, cine: cText, style: stT, commercialTail: neg };
-    const moodT = isMatrixSilenced ? "" : (action?.mood ? ` [Mood: ${action.mood}]` : "");
-    const ensT = actor2 ? `\nENSEMBLE: ${interaction} ${actor2.name} (${actor2.details}), wearing ${actor2.outfit}.` : "";
-    const cref = (actor1.refUrl ? ` --cref ${actor1.refUrl}` : "") + neg;
-
-    return {
-      subject: `SUBJECT: ${actor1.name} (${actor1.details}), ${engine1.wearText} ${actor1.outfit}.`,
-      ensemble: ensT,
-      action: `\nACTION: ${action?.name || 'Standing'} (${action?.desc || 'Standing still.'}).${moodT}`,
-      scene: sText ? `\n${sText}` : "",
-      cine: cText ? `\n${cText}` : "",
-      style: stT ? `\n${stT}` : "",
-      commercialTail: cref.trim()
-    };
   };
 
   const config = (layoutMode === 'CASTING') ? { s: '50%', c: '50%', p: '0%', hud: true, op: 0 } : 
                  (layoutMode === 'DIRECTING') ? { s: '40px', c: '40px', p: 'calc(100% - 80px)', hud: false, op: 1 } :
                  { s: '30%', c: '30%', p: '40%', hud: false, op: 1 };
 
-  const laneBase = { transition: 'all 0.5s ease-in-out', overflow: 'hidden', height: '100%', position: 'relative', borderRight: '1px solid #111' };
-  const handleStyle = { position:'absolute', inset:0, zIndex:100, cursor:'pointer', display:'flex', alignItems:'center', justifyContent:'center', writingMode:'vertical-rl', fontSize:'10px', fontWeight:'900', background:'#000' };
-
-  if (isMobile) {
-    return (
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', width: '100vw', backgroundColor: '#0a0a0a', padding: '2rem', boxSizing: 'border-box', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
-        <div style={{ border: '1px solid #333', backgroundColor: '#111', borderRadius: '8px', padding: '2.5rem 2rem', maxWidth: '400px', textAlign: 'center', boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}>
-          <h2 style={{ color: '#3b82f6', fontSize: '1.5rem', margin: '0 0 1rem 0', letterSpacing: '1px', fontWeight: '900' }}>POMPR | V2.1</h2>
-          <p style={{ color: '#a3a3a3', fontSize: '1rem', lineHeight: '1.6', margin: '0' }}>The Director's Console is a professional production environment. Please open POMPR on a desktop or tablet for the full widescreen experience.</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div style={{ height: '100vh', width: '100vw', display: 'flex', flexDirection: 'column', background: '#0a0a0a', overflow: 'hidden', fontFamily: 'sans-serif' }}>
+    <div style={{ height: '100vh', width: '100vw', display: 'flex', flexDirection: 'column', background: '#0a0a0a', overflow: 'hidden', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
       <Header layoutMode={layoutMode} setLayoutMode={setLayoutMode} onOpenVault={() => setShowVault(true)} />
       <div style={{ flex: 1, display: 'flex', width: '100%', overflow: 'hidden' }}>
-        <div style={{ ...laneBase, width: config.s, borderLeft: 'none' }}>
-          {layoutMode === 'DIRECTING' && <div onClick={()=>setLayoutMode('CASTING')} style={{...handleStyle, color:'#3b82f6'}}>S C E N E</div>}
-          <ReelColumn title="SCENE RIG" items={scenes} activeIds={scene ? [scene.id] : []} colorTheme="blue" onAddNew={() => setShowSceneModal(true)} onExport={exportAsset} onSelect={(s) => { setIsManual(false); setScene(s.id === scene?.id ? null : s); }} />
+        <div style={{ transition: 'all 0.5s ease-in-out', width: config.s, borderRight: '1px solid #111', position: 'relative' }}>
+          {layoutMode !== 'DIRECTING' ? (
+             <ReelColumn 
+               title="SCENE RIG" 
+               items={scenes} 
+               activeIds={scene ? [scene.id] : []} 
+               colorTheme="blue" 
+               onAddNew={() => setShowSceneModal(true)} 
+               onSelect={(s) => setScene(s.id === scene?.id ? null : s)} 
+               onExport={(item) => {}} 
+             />
+          ) : (
+            <div onClick={()=>setLayoutMode('CASTING')} style={{ width: '100%', height: '100%', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', writingMode: 'vertical-rl', fontSize: '10px', fontWeight: '900', color:'#3b82f6', background: '#000' }}>S C E N E</div>
+          )}
         </div>
-        <div style={{ ...laneBase, width: config.c }}>
-          {layoutMode === 'DIRECTING' && <div onClick={()=>setLayoutMode('CASTING')} style={{...handleStyle, color:'#f59e0b'}}>C H A R A C T E R</div>}
-          <ReelColumn title="CHARACTER" items={characters} activeIds={[actor1?.id, actor2?.id].filter(Boolean)} colorTheme="orange" onAddNew={() => setShowCastModal(true)} onExport={exportAsset}
-            onSelect={(char) => { if (activeSlot === 1) setActor1(actor1?.id === char.id ? null : char); else setActor2(actor2?.id === char.id ? null : char); }}
-            headerSlot={
-              <div style={{ background: 'rgba(0,0,0,0.3)', padding: '6px', borderRadius: '4px', display: 'flex', gap: '5px', marginBottom: '15px' }}>
-                <button onClick={() => setActiveSlot(1)} style={{ flex: 1, fontSize: '10px', padding: '8px', background: activeSlot === 1 ? '#ff8a00' : 'transparent', color: 'white', border: 'none', cursor: 'pointer', fontWeight: '900', borderRadius: '4px' }}>ACTOR 1</button>
-                <button onClick={() => setActiveSlot(2)} style={{ flex: 1, fontSize: '10px', padding: '8px', background: activeSlot === 2 ? '#ff8a00' : 'transparent', color: 'white', border: 'none', cursor: 'pointer', fontWeight: '900', borderRadius: '4px' }}>ACTOR 2</button>
-              </div>
-            }
-          />
+        <div style={{ transition: 'all 0.5s ease-in-out', width: config.c, borderRight: '1px solid #111', position: 'relative' }}>
+          {layoutMode !== 'DIRECTING' ? (
+            <ReelColumn 
+              title="CHARACTER" 
+              items={characters} 
+              activeIds={[actor1?.id, actor2?.id].filter(Boolean)} 
+              colorTheme="orange" 
+              onAddNew={() => setShowCastModal(true)} 
+              onSelect={(char) => { if (activeSlot === 1) setActor1(actor1?.id === char.id ? null : char); else setActor2(actor2?.id === char.id ? null : char); }} 
+              onExport={(item) => {}}
+              headerSlot={
+                <div style={{ background: 'rgba(0,0,0,0.3)', padding: '6px', borderRadius: '4px', display: 'flex', gap: '5px', marginBottom: '15px' }}>
+                  <button onClick={() => setActiveSlot(1)} style={{ flex: 1, fontSize: '10px', padding: '8px', background: activeSlot === 1 ? '#ff8a00' : 'transparent', color: 'white', border: 'none', cursor: 'pointer', fontWeight: '900', borderRadius: '4px' }}>ACTOR 1</button>
+                  <button onClick={() => setActiveSlot(2)} style={{ flex: 1, fontSize: '10px', padding: '8px', background: activeSlot === 2 ? '#ff8a00' : 'transparent', color: 'white', border: 'none', cursor: 'pointer', fontWeight: '900', borderRadius: '4px' }}>ACTOR 2</button>
+                </div>
+              }
+            />
+          ) : (
+            <div onClick={()=>setLayoutMode('CASTING')} style={{ width: '100%', height: '100%', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', writingMode: 'vertical-rl', fontSize: '10px', fontWeight: '900', color:'#f59e0b', background: '#000' }}>C H A R A C T E R</div>
+          )}
         </div>
-        <div style={{ ...laneBase, width: config.p, opacity: config.op, pointerEvents: config.op === 0 ? 'none' : 'auto', borderRight: 'none' }}>
+        <div style={{ transition: 'all 0.5s ease-in-out', width: config.p, opacity: config.op, pointerEvents: config.op === 0 ? 'none' : 'auto' }}>
           <ScriptConsole
-            isManual={isManual} setIsManual={setIsManual} manualText={manualText} setManualText={setManualText}
+            isManual={isManual} setIsManual={(val) => { if(!val) setUtilityText(""); setIsManual(val); }} manualText={manualText} setManualText={setManualText}
             dynamicPrompt={getDynamicPrompt()} actions={actions} action={action} setAction={setAction}
-            interactions={baseInteractions} interaction={interaction} setInteraction={setInteraction}
-            seed={seed} setSeed={setSeed} actor1={actor1} actor2={actor2} engine1={engine1} isMatrixSilenced={isMatrixSilenced}
-            onRandomix={triggerRandomix} onClearStage={handleClearStage} activeReelMeta={customMeta || reelData.meta} scene={scene}
+            interactions={reelData.interactions || SAFE_INTERACTIONS} interaction={interaction} setInteraction={setInteraction}
+            seed={seed} setSeed={setSeed} actor1={actor1} actor2={actor2} engine1={engine1}
+            onRandomix={triggerRandomix} onClearStage={handleClearStage} viewMode={viewMode} setViewMode={setViewMode}
+            isStageFlipped={isStageFlipped} setIsStageFlipped={setIsStageFlipped} povMode={povMode} setPovMode={setPovMode} onSelectUtility={setUtilityText}
+            motionMode={motionMode} setMotionMode={setMotionMode}
           />
         </div>
       </div>
-      {config.hud && (
-        <div style={{ height: '80px', background:'#000', borderTop:'1px solid #222', display: 'flex', alignItems:'center', padding:'0 30px', justifyContent:'space-between' }}>
-          <div style={{ color:'#666', fontSize:'11px', fontWeight:'900' }}>[ HUD: <span style={{color:'#fff'}}>LIVE PROMPT PREVIEW</span> ] <span style={{marginLeft:'20px', color:'#3b82f6'}}>{actor1?.name || '...'}</span> | <span style={{color:'#f59e0b'}}>{scene?.name || '...'}</span></div>
-          <button onClick={()=>setLayoutMode('WORKSTATION')} style={{ background:'#3b82f6', color:'#fff', border:'none', padding:'12px 24px', borderRadius:'4px', fontWeight:'900', fontSize:'10px', cursor:'pointer' }}>ENTER WORKSTATION</button>
-        </div>
-      )}
       {showCastModal && <CastingModal onClose={() => setShowCastModal(false)} onSave={smartSetCharacters} />} 
       {showSceneModal && <SceneBuilderModal onClose={() => setShowSceneModal(false)} onSave={smartSetScenes} />}
       {showVault && <TechVaultModal onClose={() => setShowVault(false)} isMatrixSilenced={isMatrixSilenced} setIsMatrixSilenced={setIsMatrixSilenced} exportData={{ customCharacters, customScenes, customActions, activeReelMeta: customMeta }} onImportCharacters={smartSetCharacters} onImportScenes={smartSetScenes} onImportActions={setCustomActions} onImportMeta={setCustomMeta} />}
