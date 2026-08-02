@@ -1,5 +1,5 @@
 // -------------------------------------------------------------------
-// FILE: ActionMatrixV2.jsx | VERSION: 2.22 (CUSTOM INPUT VISIBILITY FIX)
+// FILE: ActionMatrixV2.jsx | VERSION: 2.30 (STABLE MATRIX)
 // -------------------------------------------------------------------
 import React, { useState, useMemo, useEffect } from 'react';
 
@@ -28,6 +28,8 @@ export default function ActionMatrixV2({ actions = [], onSelectAction, onSelectU
   const [activeMood, setActiveMood] = useState('HAPPY');
   const [intensity, setIntensity] = useState(5);
   const [activeBase, setActiveBase] = useState(null);
+  
+  const [isAddingCustom, setIsAddingCustom] = useState(false);
   const [customInputValue, setCustomInputValue] = useState("");
 
   useEffect(() => { if (activeAction) setActiveBase(activeAction); }, [activeAction]);
@@ -53,6 +55,15 @@ export default function ActionMatrixV2({ actions = [], onSelectAction, onSelectU
 
   const filteredActions = useMemo(() => {
     if (activeTab === 'UTILITY') return UTILITY_ACTIONS;
+    const coreList = ['POSE', 'MOVE', 'EMOTE', 'BUSY', 'SOCIAL', 'POWR', 'CORE', 'DEFAULT', 'BASIC'];
+    
+    if (activeTab === 'CUSTOM') {
+      return actions.filter(a => 
+        a.type === 'CUSTOM' || 
+        (!coreList.includes((a.category || "").toUpperCase().trim()) && a.type !== 'UTILITY')
+      );
+    }
+    
     return actions.filter(a => a.type === activeTab);
   }, [actions, activeTab]);
 
@@ -63,56 +74,73 @@ export default function ActionMatrixV2({ actions = [], onSelectAction, onSelectU
 
   return (
     <div style={{ backgroundColor: '#161616', color: '#fff', padding: '15px', display: 'flex', flexDirection: 'column', gap: '15px', height: '100%', overflow: 'hidden' }}>
-      <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '15px', paddingBottom: '40px' }}>
+      <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '15px', paddingBottom: '20px', minHeight: 0 }}>
         <div>
           <span style={{ fontSize: '0.65rem', color: '#888', textTransform: 'uppercase', marginBottom: '8px', display: 'block' }}>1. CATEGORY</span>
           <div style={{ display: 'flex', gap: '6px', overflowX: 'auto', paddingBottom: '5px' }}>
             {ACTION_TYPES.map(tab => (<button key={tab} style={btnStyle(activeTab === tab, '#3b82f6')} onClick={() => setActiveTab(tab)}>{tab}</button>))}
           </div>
         </div>
+        
         <div>
-          <span style={{ fontSize: '0.65rem', color: '#888', textTransform: 'uppercase', marginBottom: '8px', display: 'block' }}>2. ACTION</span>
-          <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', alignItems: 'center' }}>
-            {filteredActions.map(act => (<button key={act.id} style={btnStyle(activeBase?.id === act.id, '#10b981')} onClick={() => { setActiveBase(act); triggerUpdate(act, activeMood, intensity, activeTab === 'UTILITY'); }}>{act.name}</button>))}
-            
-            {/* FIX: Styled Custom Input to stand out and prevent squishing */}
-            {activeTab === 'CUSTOM' && (
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+            <span style={{ fontSize: '0.65rem', color: '#888', textTransform: 'uppercase' }}>2. ACTION</span>
+            <button 
+              onClick={() => setIsAddingCustom(!isAddingCustom)} 
+              style={{ background: isAddingCustom ? '#10b981' : '#333', border: 'none', color: '#fff', fontSize: '9px', fontWeight: '900', padding: '4px 8px', borderRadius: '3px', cursor: 'pointer' }}
+            >
+              + CUSTOM
+            </button>
+          </div>
+
+          {isAddingCustom && (
+            <div style={{ marginBottom: '12px' }}>
               <input 
                 type="text" 
                 value={customInputValue}
+                autoFocus
                 onChange={(e) => setCustomInputValue(e.target.value)}
-                placeholder="+ Type Custom Action (Press Enter)" 
+                placeholder="TYPE ACTION AND PRESS ENTER..." 
                 onKeyDown={(e) => { 
                   if (e.key === 'Enter' && customInputValue.trim()) { 
-                    const customObj = { id: `custom_${Date.now()}`, name: 'Custom', desc: customInputValue, text: customInputValue };
-                    setActiveBase(customObj);
-                    triggerUpdate(customObj, activeMood, intensity, false);
+                    const manualObj = { id: `manual_${Date.now()}`, name: customInputValue, text: customInputValue };
+                    triggerUpdate(manualObj, activeMood, intensity, false);
                     setCustomInputValue("");
+                    setIsAddingCustom(false);
                   }
                 }}
                 style={{ 
-                  background: '#000', border: '1px solid #10b981', color: '#fff', padding: '8px 12px', 
-                  borderRadius: '4px', fontSize: '0.75rem', outline: 'none', minWidth: '200px', flex: 1 
+                  background: '#000', border: '1px solid #10b981', color: '#fff', padding: '10px 12px', 
+                  borderRadius: '4px', fontSize: '0.75rem', outline: 'none', width: '100%', boxSizing: 'border-box'
                 }}
               />
-            )}
+            </div>
+          )}
+
+          <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+            {filteredActions.map(act => (
+              <button key={act.id} style={btnStyle(activeBase?.id === act.id, '#10b981')} onClick={() => { setActiveBase(act); triggerUpdate(act, activeMood, intensity, activeTab === 'UTILITY'); }}>
+                {act.name}
+              </button>
+            ))}
           </div>
         </div>
-        {isHuman && (
-          <div style={{ display: 'flex', gap: '20px', background: '#0d0d0d', padding: '15px', borderRadius: '4px', border: '1px solid #222' }}>
-            <div style={{ flex: 1 }}>
-              <span style={{ fontSize: '0.65rem', color: '#888', textTransform: 'uppercase', marginBottom: '8px', display: 'block' }}>3. MOOD</span>
-              <div style={{ display: 'flex', gap: '6px', overflowX: 'auto' }}>
-                {MOODS.map(mood => (<button key={mood} style={btnStyle(activeMood === mood, '#f59e0b')} onClick={() => { setActiveMood(mood); triggerUpdate(activeBase, mood, intensity, activeTab === 'UTILITY'); }}>{mood}</button>))}
-              </div>
-            </div>
-            <div style={{ flex: 1 }}>
-              <span style={{ fontSize: '0.65rem', color: '#888', textTransform: 'uppercase', marginBottom: '8px', display: 'block' }}>4. INTENSITY ({intensity})</span>
-              <input type="range" min="1" max="10" value={intensity} onChange={(e) => { setIntensity(e.target.value); triggerUpdate(activeBase, activeMood, e.target.value, activeTab === 'UTILITY'); }} style={{ width: '100%', accentColor: '#f59e0b' }} />
+      </div>
+
+      {isHuman && (
+        <div style={{ flex: "0 0 auto", display: 'flex', gap: '20px', background: '#0d0d0d', padding: '15px', paddingBottom: '40px', borderRadius: '4px', border: '1px solid #222' }}>
+          <div style={{ flex: 1 }}>
+            <span style={{ fontSize: '0.65rem', color: '#888', textTransform: 'uppercase', marginBottom: '8px', display: 'block' }}>3. MOOD</span>
+            <div style={{ display: 'flex', gap: '6px', overflowX: 'auto' }}>
+              {MOODS.map(mood => (<button key={mood} style={btnStyle(activeMood === mood, '#f59e0b')} onClick={() => { setActiveMood(mood); triggerUpdate(activeBase, mood, intensity, activeTab === 'UTILITY'); }}>{mood}</button>))}
             </div>
           </div>
-        )}
-      </div>
+          <div style={{ flex: 1 }}>
+            <span style={{ fontSize: '0.65rem', color: '#888', textTransform: 'uppercase', marginBottom: '8px', display: 'block' }}>4. INTENSITY ({intensity})</span>
+            <input type="range" min="1" max="10" value={intensity} onChange={(e) => { setIntensity(e.target.value); triggerUpdate(activeBase, activeMood, e.target.value, activeTab === 'UTILITY'); }} style={{ width: '100%', accentColor: '#f59e0b' }} />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

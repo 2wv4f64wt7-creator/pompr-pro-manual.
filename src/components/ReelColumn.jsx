@@ -1,12 +1,13 @@
 // -------------------------------------------------------------------
-// FILE: ReelColumn.jsx | VERSION: 4.3 (PURPLE TAG WHITESPACE FIX)
+// FILE: ReelColumn.jsx | VERSION: 4.13 (STABLE REEL VIEW)
 // -------------------------------------------------------------------
 import React, { useState } from 'react';
 
 export default function ReelColumn({ title, items, activeIds, colorTheme, onSelect, headerSlot, onAddNew }) {
   const [activeCategory, setActiveCategory] = useState('ALL');
   const themeColor = colorTheme === 'blue' ? '#3b82f6' : '#ff8a00';
-  const expansionCategories = ['VOID', 'USER', 'CUSTOM', 'EXPANSION'];
+  
+  const coreCategories = ['ALL', 'PEOPLE', 'CORE', 'SCENE', 'USER', 'CUSTOM', 'VOID', 'CRAFT', 'DEFAULT', 'BASIC', 'CORP', 'LIFE', 'TECH', 'UTIL', 'LUXE'];
 
   const categories = ['ALL', ...new Set(items.map(i => i.category).filter(Boolean))];
   const filteredItems = activeCategory === 'ALL' ? items : items.filter(i => i.category === activeCategory);
@@ -21,8 +22,7 @@ export default function ReelColumn({ title, items, activeIds, colorTheme, onSele
         {headerSlot}
         <div style={{ display: 'flex', gap: '5px', overflowX: 'auto', paddingBottom: '10px' }}>
           {categories.map(cat => {
-            // FIX: Added .trim() to catch hidden spaces
-            const isExp = expansionCategories.some(ex => ex.toUpperCase() === (cat || "").trim().toUpperCase());
+            const isExp = !coreCategories.includes((cat || "").toUpperCase().trim());
             return (
               <button 
                 key={cat} 
@@ -41,8 +41,7 @@ export default function ReelColumn({ title, items, activeIds, colorTheme, onSele
       <div style={{ flex: 1, overflowY: 'auto', padding: '0 10px 20px 10px' }}>
         {filteredItems.map((item) => {
           const isActive = activeIds.includes(item.id);
-          // FIX: Added .trim() here as well for the individual item tags
-          const isExp = expansionCategories.some(ex => ex.toUpperCase() === (item.category || "").trim().toUpperCase());
+          const isExp = !coreCategories.includes((item.category || "").toUpperCase().trim());
           const details = item.details || item.desc || "";
 
           return (

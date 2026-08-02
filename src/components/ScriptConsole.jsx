@@ -1,7 +1,7 @@
 // -------------------------------------------------------------------
-// FILE: ScriptConsole.jsx | VERSION: 10.23 (RESIZE HANDLE FIX)
+// FILE: ScriptConsole.jsx | VERSION: 10.31 (STILL/VIDEO BUTTONS RESTORED)
 // -------------------------------------------------------------------
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import ActionMatrixV2 from './ActionMatrixV2';
 
 export default function ScriptConsole({
@@ -13,6 +13,31 @@ export default function ScriptConsole({
   motionMode, setMotionMode
 }) {
   const [copyStatus, setCopyStatus] = useState('COPY');
+  const [consoleHeight, setConsoleHeight] = useState(300);
+  const isResizing = useRef(false);
+
+  const startResizing = (e) => {
+    isResizing.current = true;
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', stopResizing);
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isResizing.current) return;
+    const container = document.getElementById('script-console-container');
+    if (container) {
+      const newHeight = e.clientY - container.getBoundingClientRect().top;
+      if (newHeight > 150 && newHeight < 800) {
+        setConsoleHeight(newHeight);
+      }
+    }
+  };
+
+  const stopResizing = () => {
+    isResizing.current = false;
+    document.removeEventListener('mousemove', handleMouseMove);
+    document.removeEventListener('mouseup', stopResizing);
+  };
 
   const handleCopy = async () => {
     const text = isManual ? manualText : Object.values(dynamicPrompt).filter(Boolean).join('').trim();
@@ -32,22 +57,50 @@ export default function ScriptConsole({
     URL.revokeObjectURL(url);
   };
 
-  const btnStyle = (active, color = '#3b82f6') => ({
-    background: active ? color : '#1a1a1a',
+  const btnStyle = (active, activeColor = '#3b82f6') => ({
+    background: active ? activeColor : '#1a1a1a',
     color: active ? '#fff' : '#666',
-    border: 'none', padding: '6px 12px', fontSize: '9px', fontWeight: '900', borderRadius: '3px', cursor: 'pointer', fontFamily: 'system-ui, sans-serif'
+    border: 'none', 
+    padding: '6px 12px', 
+    fontSize: '9px', 
+    fontWeight: '900', 
+    borderRadius: '3px', 
+    cursor: 'pointer', 
+    fontFamily: 'system-ui, sans-serif',
+    pointerEvents: 'auto',
+    opacity: 1
   });
 
   return (
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#080808', fontFamily: 'system-ui, sans-serif' }}>
+    <div id="script-console-container" style={{ height: '100%', display: 'flex', flexDirection: 'column', background: '#080808', fontFamily: 'system-ui, sans-serif' }}>
+      <style>{`
+        .handle-manual {
+          position: absolute; bottom: 0; right: 0; width: 20px; height: 20px;
+          background-image: linear-gradient(135deg, transparent 50%, #ffffff 50%, #ffffff 60%, transparent 60%, transparent 70%, #ffffff 70%);
+          background-size: 14px 14px; background-repeat: no-repeat; background-position: bottom right;
+          cursor: nwse-resize; z-index: 10;
+        }
+      `}</style>
+
       <div style={{ padding: '20px 30px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#000', borderBottom: '1px solid #111' }}>
         <div style={{ display: 'flex', gap: '8px' }}>
           {['SHORT', 'MEDIUM', 'FULL'].map(m => (<button key={m} onClick={() => setViewMode(m)} style={btnStyle(viewMode === m)}>{m}</button>))}
         </div>
         
-        <div style={{ display: 'flex', gap: '8px' }}>
-          <button onClick={() => setMotionMode('STILL')} style={btnStyle(motionMode === 'STILL', '#10b981')}>STILL</button>
-          <button onClick={() => setMotionMode('VIDEO')} style={btnStyle(motionMode === 'VIDEO', '#10b981')}>VIDEO</button>
+        {/* STILL / VIDEO TOGGLE SECTION - RESTORED CLARITY & FUNCTION */}
+        <div style={{ display: 'flex', gap: '8px', zIndex: 10 }}>
+          <button 
+            onClick={() => setMotionMode('STILL')} 
+            style={btnStyle(motionMode === 'STILL', '#10b981')}
+          >
+            STILL
+          </button>
+          <button 
+            onClick={() => setMotionMode('VIDEO')} 
+            style={btnStyle(motionMode === 'VIDEO', '#10b981')}
+          >
+            VIDEO
+          </button>
         </div>
 
         <div style={{ display: 'flex', gap: '8px' }}>
@@ -62,17 +115,17 @@ export default function ScriptConsole({
       <div style={{ flex: 1, padding: '30px', display: 'flex', flexDirection: 'column', minHeight: 0 }}>
         <div style={{ 
           background: '#0c0c0c', border: '1px solid #1a1a1a', borderRadius: '8px', padding: '30px', 
-          flex: 1, position: 'relative', boxShadow: 'inset 0 0 40px rgba(0,0,0,0.5)', overflow: 'visible',
-          display: 'flex', flexDirection: 'column' // FIX: Allows the textarea to utilize flex properties properly
+          height: `${consoleHeight}px`, flex: 'none', position: 'relative', boxShadow: 'inset 0 0 40px rgba(0,0,0,0.5)', 
+          overflow: 'hidden', display: 'flex', flexDirection: 'column'
         }}>
           {isManual ? (
             <textarea 
               value={manualText} 
               onChange={(e) => setManualText(e.target.value)} 
               style={{ 
-                width: '100%', flex: 1, minHeight: '180px', background: 'transparent', border: 'none', // FIX: Replaced height: 100% with flex: 1
+                width: '100%', flex: 1, background: 'transparent', border: 'none', 
                 color: '#fff', outline: 'none', fontSize: '16px', fontFamily: 'monospace', 
-                resize: 'vertical', overflow: 'auto' 
+                resize: 'none', overflow: 'auto', display: 'block'
               }} 
             />
           ) : (
@@ -80,6 +133,7 @@ export default function ScriptConsole({
               <span style={{ color: '#f59e0b' }}>{dynamicPrompt.subject}</span><span style={{ color: '#f59e0b' }}>{dynamicPrompt.ensemble}</span><span style={{ color: '#10b981' }}>{dynamicPrompt.action}</span><span style={{ color: '#3b82f6' }}>{dynamicPrompt.scene}</span><span style={{ color: '#666' }}>{dynamicPrompt.cine}</span><span style={{ color: '#8b5cf6' }}>{dynamicPrompt.style}</span>
             </div>
           )}
+          <div className="handle-manual" onMouseDown={startResizing} />
         </div>
 
         <div style={{ display: 'flex', gap: '10px', marginTop: '20px' }}>

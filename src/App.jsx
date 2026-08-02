@@ -1,5 +1,5 @@
 // -------------------------------------------------------------------
-// FILE: App.jsx | VERSION: 4.8 (RESTORED STILL/VIDEO + STATE)
+// FILE: App.jsx | VERSION: 4.12 (STILL/VIDEO STATE STABILITY)
 // -------------------------------------------------------------------
 import React, { useState, useEffect, useCallback } from 'react';
 import reelData from './reels/default_reel.json';
@@ -58,8 +58,6 @@ export default function App() {
   const [viewMode, setViewMode] = useState('FULL'); 
   const [isStageFlipped, setIsStageFlipped] = useState(false);
   const [povMode, setPovMode] = useState(0); 
-  
-  // NEW: Track STILL / VIDEO mode
   const [motionMode, setMotionMode] = useState('STILL');
 
   const engine1 = useSubjectEngine(actor1);
@@ -105,13 +103,18 @@ export default function App() {
     const cText = scene ? `CINEMATOGRAPHY: ${scene.lighting}, Cinematic Lens.` : "";
     const stT = (customMeta || reelData?.meta)?.global_style ? `STYLE: ${(customMeta || reelData?.meta).global_style}.` : "";
     
-    const primary = isStageFlipped ? actor2 : actor1;
-    const secondary = isStageFlipped ? actor1 : actor2;
+    let primary = isStageFlipped ? actor2 : actor1;
+    let secondary = isStageFlipped ? actor1 : actor2;
 
-    if (!primary) return { subject: null, scene: sText, cine: cText, style: stT, commercialTail: "" };
+    if (!primary && !secondary) return { subject: null, scene: sText, cine: cText, style: stT, commercialTail: "" };
+    
+    if (!primary && secondary) {
+      primary = secondary;
+      secondary = null;
+    }
 
-    let subT = `SUBJECT: ${primary.name} (${viewMode === 'FULL' ? primary.details : primary.category}), wearing ${primary.outfit}.`;
-    let ensT = secondary ? ` ENSEMBLE: ${interaction} ${secondary.name} (${viewMode === 'FULL' ? secondary.details : secondary.category}), wearing ${secondary.outfit}.` : "";
+    let subT = `SUBJECT: ${primary.name} (${viewMode === 'FULL' ? (primary.details || primary.desc) : primary.category}), wearing ${primary.outfit}.`;
+    let ensT = secondary ? ` ENSEMBLE: ${interaction} ${secondary.name} (${viewMode === 'FULL' ? (secondary.details || secondary.desc) : secondary.category}), wearing ${secondary.outfit}.` : "";
     let actT = ` ACTION: ${action?.desc || 'Standing still.'}`;
     const utilT = (isManual && utilityText) ? `\n\nUTILITY: ${utilityText}` : "";
 
@@ -172,6 +175,13 @@ export default function App() {
 
   return (
     <div style={{ height: '100vh', width: '100vw', display: 'flex', flexDirection: 'column', background: '#0a0a0a', overflow: 'hidden', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+      {isMobile && (
+        <div style={{ position: 'fixed', inset: 0, background: '#000', zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '40px', textAlign: 'center' }}>
+          <h2 style={{ color: '#ff8a00', fontSize: '14px', letterSpacing: '2px', fontWeight: '900', marginBottom: '20px' }}>UNSUPPORTED VIEWPORT</h2>
+          <p style={{ color: '#fff', fontSize: '11px', lineHeight: '1.6', opacity: 0.8 }}>POMPR V2.1 requires a larger display. Please switch to a Laptop, Tablet (Landscape), or Desktop computer to access the workstation.</p>
+        </div>
+      )}
+
       <Header layoutMode={layoutMode} setLayoutMode={setLayoutMode} onOpenVault={() => setShowVault(true)} />
       <div style={{ flex: 1, display: 'flex', width: '100%', overflow: 'hidden' }}>
         <div style={{ transition: 'all 0.5s ease-in-out', width: config.s, borderRight: '1px solid #111', position: 'relative' }}>
@@ -212,12 +222,13 @@ export default function App() {
         </div>
         <div style={{ transition: 'all 0.5s ease-in-out', width: config.p, opacity: config.op, pointerEvents: config.op === 0 ? 'none' : 'auto' }}>
           <ScriptConsole
-            isManual={isManual} setIsManual={(val) => { if(!val) setUtilityText(""); setIsManual(val); }} manualText={manualText} setManualText={setManualText}
+            isManual={isManual} setIsManual={setIsManual} manualText={manualText} setManualText={setManualText}
             dynamicPrompt={getDynamicPrompt()} actions={actions} action={action} setAction={setAction}
             interactions={reelData.interactions || SAFE_INTERACTIONS} interaction={interaction} setInteraction={setInteraction}
             seed={seed} setSeed={setSeed} actor1={actor1} actor2={actor2} engine1={engine1}
             onRandomix={triggerRandomix} onClearStage={handleClearStage} viewMode={viewMode} setViewMode={setViewMode}
-            isStageFlipped={isStageFlipped} setIsStageFlipped={setIsStageFlipped} povMode={povMode} setPovMode={setPovMode} onSelectUtility={setUtilityText}
+            isStageFlipped={isStageFlipped} setIsStageFlipped={setIsStageFlipped} povMode={povMode} setPovMode={setPovMode} 
+            onSelectUtility={(txt) => { setUtilityText(txt); setIsManual(true); }} 
             motionMode={motionMode} setMotionMode={setMotionMode}
           />
         </div>
