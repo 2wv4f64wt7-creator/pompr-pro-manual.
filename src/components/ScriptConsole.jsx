@@ -1,8 +1,19 @@
 // -------------------------------------------------------------------
-// FILE: ScriptConsole.jsx | VERSION: 10.35 (STRICT BLOB CLIPBOARD FIX)
+// FILE: ScriptConsole.jsx | VERSION: 10.36 (IPAD BROWSER HELPER)
 // -------------------------------------------------------------------
 import React, { useState, useRef } from 'react';
 import ActionMatrixV2 from './ActionMatrixV2';
+
+// STEP 1: Detection Logic for iPad non-Safari browsers
+const isIpadNonSafari = () => {
+  if (typeof window === 'undefined' || !navigator) return false;
+  const ua = navigator.userAgent;
+  // Detect iPad (including iPadOS 13+ desktop class browsing)
+  const isIPad = /iPad/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  // Detect non-Safari WebKit browsers (Chrome, Firefox, Edge on iOS)
+  const isNonSafari = /CriOS|FxiOS|EdgiOS/i.test(ua);
+  return isIPad && isNonSafari;
+};
 
 export default function ScriptConsole({
   isManual, setIsManual, manualText, setManualText,
@@ -45,24 +56,20 @@ export default function ScriptConsole({
     document.removeEventListener('touchend', stopResizing);
   };
 
-  // FIX: Use robust ClipboardItem API with text/plain Blob to bypass iOS URL-encoding issues
   const handleCopy = async () => {
     const text = isManual ? manualText : Object.values(dynamicPrompt).filter(Boolean).join('').trim();
     
     try {
-      // Force strict text/plain MIME type using Blob and ClipboardItem to bypass iOS URL-encoding
       if (navigator.clipboard && window.ClipboardItem) {
         const blob = new Blob([text], { type: 'text/plain' });
         const item = new ClipboardItem({ 'text/plain': blob });
         await navigator.clipboard.write([item]);
       } else {
-        // Standard fallback for older desktop browsers
         await navigator.clipboard.writeText(text);
       }
       setCopyStatus('COPIED!');
     } catch (err) {
       console.error("Strict clipboard write failed, falling back", err);
-      // Ultimate fallback if ClipboardItem fails
       await navigator.clipboard.writeText(text).catch(e => console.error("Clipboard ultimate fallback failed", e));
       setCopyStatus('COPIED!');
     }
@@ -134,6 +141,13 @@ export default function ScriptConsole({
           )}
           <div className="handle-manual" onMouseDown={startResizing} onTouchStart={startResizing} />
         </div>
+
+        {/* STEP 2: UI Tooltip Integration */}
+        {isIpadNonSafari() && (
+          <div style={{ marginTop: '10px', padding: '10px', background: '#2a1a00', border: '1px solid #f59e0b', borderRadius: '4px', fontSize: '11px', color: '#fff', textAlign: 'center' }}>
+            <span style={{ color: '#f59e0b', fontWeight: 'bold' }}>Pro Tip:</span> To avoid formatting issues when pasting your prompt into external AI tools, we recommend using Apple Safari on iPad.
+          </div>
+        )}
 
         <div style={{ display: 'flex', gap: '10px', marginTop: '15px', flexShrink: 0 }}>
           <button onClick={handleCopy} style={{ flex: 1, padding: '12px', borderRadius: '4px', border: 'none', fontWeight: '900', background: '#3b82f6', color: '#fff', cursor: 'pointer', fontSize:'10px' }}>{copyStatus}</button>
