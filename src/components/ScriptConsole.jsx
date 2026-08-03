@@ -1,5 +1,5 @@
 // -------------------------------------------------------------------
-// FILE: ScriptConsole.jsx | VERSION: 10.33 (IPAD TOUCH & OVERLAP FIX)
+// FILE: ScriptConsole.jsx | VERSION: 10.34 (iOS COPY HANDLER FIX)
 // -------------------------------------------------------------------
 import React, { useState, useRef } from 'react';
 import ActionMatrixV2 from './ActionMatrixV2';
@@ -13,11 +13,9 @@ export default function ScriptConsole({
   motionMode, setMotionMode
 }) {
   const [copyStatus, setCopyStatus] = useState('COPY');
-  // FIX: Lowered default height to 160px to prevent pushing buttons off-screen on iPad
   const [consoleHeight, setConsoleHeight] = useState(160); 
   const isResizing = useRef(false);
 
-  // FIX: Support both Mouse and Touch events for iPad Pro
   const startResizing = (e) => {
     isResizing.current = true;
     document.addEventListener('mousemove', handleResizeAction);
@@ -28,19 +26,14 @@ export default function ScriptConsole({
 
   const handleResizeAction = (e) => {
     if (!isResizing.current) return;
-    
-    // Support touch and mouse coordinates
     const clientY = e.touches ? e.touches[0].clientY : e.clientY;
     const container = document.getElementById('script-console-container');
-    
     if (container) {
       const newHeight = clientY - container.getBoundingClientRect().top;
-      // Constraints to keep UI usable
       if (newHeight > 120 && newHeight < 600) {
         setConsoleHeight(newHeight);
       }
     }
-    // Prevent scrolling while resizing on touch devices
     if (e.touches) e.preventDefault();
   };
 
@@ -52,10 +45,25 @@ export default function ScriptConsole({
     document.removeEventListener('touchend', stopResizing);
   };
 
+  // FIX: Restored iOS/Mobile specific Copy Handler to prevent URL encoding issues
   const handleCopy = async () => {
     const text = isManual ? manualText : Object.values(dynamicPrompt).filter(Boolean).join('').trim();
-    await navigator.clipboard.writeText(text);
-    setCopyStatus('COPIED!');
+    
+    try {
+      // Check for Web Share API support and if the user is likely on a mobile/tablet device
+      if (navigator.share && (window.innerWidth < 1024 || /iPad|iPhone|iPod/.test(navigator.userAgent))) {
+        await navigator.share({ text: text });
+        setCopyStatus('SHARED!');
+      } else {
+        await navigator.clipboard.writeText(text);
+        setCopyStatus('COPIED!');
+      }
+    } catch (err) {
+      // Fallback for when Web Share API is dismissed or fails
+      await navigator.clipboard.writeText(text).catch(e => console.error("Clipboard fallback failed", e));
+      setCopyStatus('COPIED!');
+    }
+    
     setTimeout(() => setCopyStatus('COPY'), 2000);
   };
 
@@ -121,7 +129,6 @@ export default function ScriptConsole({
               <span style={{ color: '#f59e0b' }}>{dynamicPrompt.subject}</span><span style={{ color: '#f59e0b' }}>{dynamicPrompt.ensemble}</span><span style={{ color: '#10b981' }}>{dynamicPrompt.action}</span><span style={{ color: '#3b82f6' }}>{dynamicPrompt.scene}</span><span style={{ color: '#666' }}>{dynamicPrompt.cine}</span><span style={{ color: '#8b5cf6' }}>{dynamicPrompt.style}</span>
             </div>
           )}
-          {/* Handle supports Mouse and Touch */}
           <div className="handle-manual" onMouseDown={startResizing} onTouchStart={startResizing} />
         </div>
 
