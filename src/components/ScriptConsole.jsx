@@ -1,5 +1,5 @@
 // -------------------------------------------------------------------
-// FILE: ScriptConsole.jsx | VERSION: 10.34 (iOS COPY HANDLER FIX)
+// FILE: ScriptConsole.jsx | VERSION: 10.35 (STRICT BLOB CLIPBOARD FIX)
 // -------------------------------------------------------------------
 import React, { useState, useRef } from 'react';
 import ActionMatrixV2 from './ActionMatrixV2';
@@ -45,22 +45,25 @@ export default function ScriptConsole({
     document.removeEventListener('touchend', stopResizing);
   };
 
-  // FIX: Restored iOS/Mobile specific Copy Handler to prevent URL encoding issues
+  // FIX: Use robust ClipboardItem API with text/plain Blob to bypass iOS URL-encoding issues
   const handleCopy = async () => {
     const text = isManual ? manualText : Object.values(dynamicPrompt).filter(Boolean).join('').trim();
     
     try {
-      // Check for Web Share API support and if the user is likely on a mobile/tablet device
-      if (navigator.share && (window.innerWidth < 1024 || /iPad|iPhone|iPod/.test(navigator.userAgent))) {
-        await navigator.share({ text: text });
-        setCopyStatus('SHARED!');
+      // Force strict text/plain MIME type using Blob and ClipboardItem to bypass iOS URL-encoding
+      if (navigator.clipboard && window.ClipboardItem) {
+        const blob = new Blob([text], { type: 'text/plain' });
+        const item = new ClipboardItem({ 'text/plain': blob });
+        await navigator.clipboard.write([item]);
       } else {
+        // Standard fallback for older desktop browsers
         await navigator.clipboard.writeText(text);
-        setCopyStatus('COPIED!');
       }
+      setCopyStatus('COPIED!');
     } catch (err) {
-      // Fallback for when Web Share API is dismissed or fails
-      await navigator.clipboard.writeText(text).catch(e => console.error("Clipboard fallback failed", e));
+      console.error("Strict clipboard write failed, falling back", err);
+      // Ultimate fallback if ClipboardItem fails
+      await navigator.clipboard.writeText(text).catch(e => console.error("Clipboard ultimate fallback failed", e));
       setCopyStatus('COPIED!');
     }
     
