@@ -1,5 +1,5 @@
 // -------------------------------------------------------------------
-// FILE: App.jsx | VERSION: 4.12 (STILL/VIDEO STATE STABILITY)
+// FILE: App.jsx | VERSION: 4.13 (STABILITY RESTORATION)
 // -------------------------------------------------------------------
 import React, { useState, useEffect, useCallback } from 'react';
 import reelData from './reels/default_reel.json';

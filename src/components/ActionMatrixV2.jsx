@@ -1,5 +1,5 @@
 // -------------------------------------------------------------------
-// FILE: ActionMatrixV2.jsx | VERSION: 2.30 (STABLE MATRIX)
+// FILE: ActionMatrixV2.jsx | VERSION: 2.33 (CUSTOM FILTER REPAIR)
 // -------------------------------------------------------------------
 import React, { useState, useMemo, useEffect } from 'react';
 
@@ -55,15 +55,25 @@ export default function ActionMatrixV2({ actions = [], onSelectAction, onSelectU
 
   const filteredActions = useMemo(() => {
     if (activeTab === 'UTILITY') return UTILITY_ACTIONS;
-    const coreList = ['POSE', 'MOVE', 'EMOTE', 'BUSY', 'SOCIAL', 'POWR', 'CORE', 'DEFAULT', 'BASIC'];
-    
+
     if (activeTab === 'CUSTOM') {
-      return actions.filter(a => 
-        a.type === 'CUSTOM' || 
-        (!coreList.includes((a.category || "").toUpperCase().trim()) && a.type !== 'UTILITY')
-      );
+      const coreTypes = ['POSE', 'MOVE', 'EMOTE', 'BUSY', 'SOCIAL', 'POWR', 'UTILITY'];
+      const coreCategories = ['CORE', 'DEFAULT', 'BASIC', 'ALL', 'USER', undefined, null, ''];
+
+      return actions.filter(a => {
+        // 1. Explicitly typed or categorized as CUSTOM
+        if (a.type === 'CUSTOM' || a.category === 'CUSTOM') return true;
+        
+        // 2. Exclude default actions (standard type + missing/core category)
+        const hasCoreType = coreTypes.includes(a.type);
+        const isCoreCategory = !a.category || coreCategories.includes(a.category.toUpperCase().trim());
+        if (hasCoreType && isCoreCategory) return false;
+
+        // 3. Keep expansion reel actions (non-core category like ESSENTIAL_WORKERS)
+        return true;
+      });
     }
-    
+
     return actions.filter(a => a.type === activeTab);
   }, [actions, activeTab]);
 
