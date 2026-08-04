@@ -1,16 +1,14 @@
 // -------------------------------------------------------------------
-// FILE: ScriptConsole.jsx | VERSION: 10.36 (IPAD BROWSER HELPER)
+// FILE: ScriptConsole.jsx | VERSION: 10.38 (SELECTION DEAD-ZONE FIX)
 // -------------------------------------------------------------------
 import React, { useState, useRef } from 'react';
 import ActionMatrixV2 from './ActionMatrixV2';
 
-// STEP 1: Detection Logic for iPad non-Safari browsers
+// Detection Logic for iPad non-Safari browsers
 const isIpadNonSafari = () => {
   if (typeof window === 'undefined' || !navigator) return false;
   const ua = navigator.userAgent;
-  // Detect iPad (including iPadOS 13+ desktop class browsing)
   const isIPad = /iPad/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-  // Detect non-Safari WebKit browsers (Chrome, Firefox, Edge on iOS)
   const isNonSafari = /CriOS|FxiOS|EdgiOS/i.test(ua);
   return isIPad && isNonSafari;
 };
@@ -126,23 +124,23 @@ export default function ScriptConsole({
         <div style={{ 
           background: '#0c0c0c', border: '1px solid #1a1a1a', borderRadius: '8px', padding: '25px', 
           height: `${consoleHeight}px`, flexShrink: 0, position: 'relative', boxShadow: 'inset 0 0 40px rgba(0,0,0,0.5)', 
-          overflow: 'hidden', display: 'flex', flexDirection: 'column'
+          overflow: 'hidden', display: 'flex', flexDirection: 'column',
+          userSelect: 'none' // FIX: Prevents selection in the "dead zone" padding/empty space
         }}>
           {isManual ? (
             <textarea 
               value={manualText} 
               onChange={(e) => setManualText(e.target.value)} 
-              style={{ width: '100%', flex: 1, background: 'transparent', border: 'none', color: '#fff', outline: 'none', fontSize: '16px', fontFamily: 'monospace', resize: 'none' }} 
+              style={{ width: '100%', flex: 1, background: 'transparent', border: 'none', color: '#fff', outline: 'none', fontSize: '16px', fontFamily: 'monospace', resize: 'none', userSelect: 'text' }} 
             />
           ) : (
-            <div style={{ fontSize: '15px', lineHeight: '1.5', color: '#d4d4d4', fontFamily: 'monospace', overflowY: 'auto' }}>
+            <div style={{ fontSize: '15px', lineHeight: '1.5', color: '#d4d4d4', fontFamily: 'monospace', overflowY: 'auto', userSelect: 'text' }}>
               <span style={{ color: '#f59e0b' }}>{dynamicPrompt.subject}</span><span style={{ color: '#f59e0b' }}>{dynamicPrompt.ensemble}</span><span style={{ color: '#10b981' }}>{dynamicPrompt.action}</span><span style={{ color: '#3b82f6' }}>{dynamicPrompt.scene}</span><span style={{ color: '#666' }}>{dynamicPrompt.cine}</span><span style={{ color: '#8b5cf6' }}>{dynamicPrompt.style}</span>
             </div>
           )}
           <div className="handle-manual" onMouseDown={startResizing} onTouchStart={startResizing} />
         </div>
 
-        {/* STEP 2: UI Tooltip Integration */}
         {isIpadNonSafari() && (
           <div style={{ marginTop: '10px', padding: '10px', background: '#2a1a00', border: '1px solid #f59e0b', borderRadius: '4px', fontSize: '11px', color: '#fff', textAlign: 'center' }}>
             <span style={{ color: '#f59e0b', fontWeight: 'bold' }}>Pro Tip:</span> To avoid formatting issues when pasting your prompt into external AI tools, we recommend using Apple Safari on iPad.
@@ -164,7 +162,9 @@ export default function ScriptConsole({
             </select>
           </div>
           <div style={{ flex: 1 }}>
-            <label style={{ fontSize: '9px', color: '#3b82f6', fontWeight: '900', display: 'block', marginBottom: '6px', letterSpacing: '1px' }}>SREF / TECH PARAMS</label>
+            <label style={{ fontSize: '9px', color: '#3b82f6', fontWeight: '900', display: 'block', marginBottom: '6px', letterSpacing: '1px' }}>
+              SREF / TECH PARAMS <span style={{ color: '#10b981' }}>OPTIONAL</span>
+            </label>
             <input value={seed} onChange={(e) => setSeed(e.target.value)} placeholder="--cref URL" style={{ width: '100%', background: '#111', color: '#fff', border: '1px solid #222', padding: '8px', borderRadius: '4px', fontSize: '10px' }} />
           </div>
         </div>

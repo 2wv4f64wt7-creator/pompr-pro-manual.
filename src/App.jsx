@@ -1,5 +1,5 @@
 // -------------------------------------------------------------------
-// FILE: App.jsx | VERSION: 4.13 (STABILITY RESTORATION)
+// FILE: App.jsx | VERSION: 4.14 (WARDROBE DUPLICATION FIX)
 // -------------------------------------------------------------------
 import React, { useState, useEffect, useCallback } from 'react';
 import reelData from './reels/default_reel.json';
@@ -113,8 +113,18 @@ export default function App() {
       secondary = null;
     }
 
-    let subT = `SUBJECT: ${primary.name} (${viewMode === 'FULL' ? (primary.details || primary.desc) : primary.category}), wearing ${primary.outfit}.`;
-    let ensT = secondary ? ` ENSEMBLE: ${interaction} ${secondary.name} (${viewMode === 'FULL' ? (secondary.details || secondary.desc) : secondary.category}), wearing ${secondary.outfit}.` : "";
+    // FIX: Check if description already contains wardrobe info to prevent duplication
+    const subDetails = viewMode === 'FULL' ? (primary.details || primary.desc) : primary.category;
+    const skipSubWardrobe = subDetails.toLowerCase().includes("wardrobe");
+    let subT = `SUBJECT: ${primary.name} (${subDetails})${skipSubWardrobe ? "" : `, wearing ${primary.outfit}`}.`;
+
+    let ensT = "";
+    if (secondary) {
+      const ensDetails = viewMode === 'FULL' ? (secondary.details || secondary.desc) : secondary.category;
+      const skipEnsWardrobe = ensDetails.toLowerCase().includes("wardrobe");
+      ensT = ` ENSEMBLE: ${interaction} ${secondary.name} (${ensDetails})${skipEnsWardrobe ? "" : `, wearing ${secondary.outfit}`}.`;
+    }
+
     let actT = ` ACTION: ${action?.desc || 'Standing still.'}`;
     const utilT = (isManual && utilityText) ? `\n\nUTILITY: ${utilityText}` : "";
 
