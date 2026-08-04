@@ -1,5 +1,5 @@
 // -------------------------------------------------------------------
-// FILE: ActionMatrixV2.jsx | VERSION: 2.33 (CUSTOM FILTER REPAIR)
+// FILE: ActionMatrixV2.jsx | VERSION: 2.34 (UI LABEL RESTORATION)
 // -------------------------------------------------------------------
 import React, { useState, useMemo, useEffect } from 'react';
 
@@ -61,15 +61,10 @@ export default function ActionMatrixV2({ actions = [], onSelectAction, onSelectU
       const coreCategories = ['CORE', 'DEFAULT', 'BASIC', 'ALL', 'USER', undefined, null, ''];
 
       return actions.filter(a => {
-        // 1. Explicitly typed or categorized as CUSTOM
         if (a.type === 'CUSTOM' || a.category === 'CUSTOM') return true;
-        
-        // 2. Exclude default actions (standard type + missing/core category)
         const hasCoreType = coreTypes.includes(a.type);
         const isCoreCategory = !a.category || coreCategories.includes(a.category.toUpperCase().trim());
         if (hasCoreType && isCoreCategory) return false;
-
-        // 3. Keep expansion reel actions (non-core category like ESSENTIAL_WORKERS)
         return true;
       });
     }
@@ -85,6 +80,12 @@ export default function ActionMatrixV2({ actions = [], onSelectAction, onSelectU
   return (
     <div style={{ backgroundColor: '#161616', color: '#fff', padding: '15px', display: 'flex', flexDirection: 'column', gap: '15px', height: '100%', overflow: 'hidden' }}>
       <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '15px', paddingBottom: '20px', minHeight: 0 }}>
+        
+        {/* RESTORED: ACTION MATRIX 2.0 GREEN LABEL */}
+        <div style={{ marginBottom: '5px' }}>
+          <span style={{ fontSize: '0.65rem', color: '#10b981', fontWeight: '900', letterSpacing: '2px' }}>ACTION MATRIX 2.0</span>
+        </div>
+
         <div>
           <span style={{ fontSize: '0.65rem', color: '#888', textTransform: 'uppercase', marginBottom: '8px', display: 'block' }}>1. CATEGORY</span>
           <div style={{ display: 'flex', gap: '6px', overflowX: 'auto', paddingBottom: '5px' }}>
