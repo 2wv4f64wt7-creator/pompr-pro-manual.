@@ -1,14 +1,14 @@
 // -------------------------------------------------------------------
-// FILE: App.jsx | VERSION: 4.14 (WARDROBE DUPLICATION FIX)
+// FILE: App.jsx | VERSION: 4.16 (ALIAS FALLBACK & POV SYNC)
 // -------------------------------------------------------------------
 import React, { useState, useEffect, useCallback } from 'react';
 import reelData from './reels/default_reel.json';
 import { useSubjectEngine } from './hooks/useSubjectEngine';
 
-import CastingModal from './components/CastingModal'; 
+import CastingModal from './components/CastingModal';
 import SceneBuilderModal from './components/SceneBuilderModal';
-import ReelColumn from './components/ReelColumn'; 
-import Header from './components/Header'; 
+import ReelColumn from './components/ReelColumn';
+import Header from './components/Header';
 import ScriptConsole from './components/ScriptConsole';
 import TechVaultModal from './components/TechVaultModal';
 
@@ -17,7 +17,7 @@ const MOODS = ['CALM', 'HAPPY', 'FOCUSED', 'FEARFUL', 'ANGRY', 'POWERFUL'];
 
 export default function App() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-  const [layoutMode, setLayoutMode] = useState('WORKSTATION'); 
+  const [layoutMode, setLayoutMode] = useState('WORKSTATION');
 
   useEffect(() => {
     document.title = "POMPR | V2.1";
@@ -45,19 +45,19 @@ export default function App() {
   const [actions, setActions] = useState([]);
 
   const [scene, setScene] = useState(null);
-  const [actor1, setActor1] = useState(null); 
+  const [actor1, setActor1] = useState(null);
   const [actor2, setActor2] = useState(null);
   const [activeSlot, setActiveSlot] = useState(1);
   const [action, setAction] = useState(reelData.actions[0]);
-  const [utilityText, setUtilityText] = useState(""); 
+  const [utilityText, setUtilityText] = useState("");
   const [interaction, setInteraction] = useState(reelData?.interactions?.[0] || SAFE_INTERACTIONS[0]);
   const [seed, setSeed] = useState("");
   const [isManual, setIsManual] = useState(false);
   const [manualText, setManualText] = useState("");
 
-  const [viewMode, setViewMode] = useState('FULL'); 
+  const [viewMode, setViewMode] = useState('FULL');
   const [isStageFlipped, setIsStageFlipped] = useState(false);
-  const [povMode, setPovMode] = useState(0); 
+  const [povMode, setPovMode] = useState(0);
   const [motionMode, setMotionMode] = useState('STILL');
 
   const engine1 = useSubjectEngine(actor1);
@@ -65,11 +65,11 @@ export default function App() {
   const normalize = (item, type) => {
     if (!item) return null;
     return {
-      ...item,
-      id: item.id || `AUTO_${type}_${Date.now()}_${Math.random()}`,
-      name: item.name || "Untitled",
-      details: item.details || item.description || item.desc || "",
-      category: item.category || "USER"
+      ...item, 
+      id: item.id || `AUTO_${type}_${Date.now()}_${Math.random()}`, 
+      name: item.name || "Untitled", 
+      details: item.details || item.description || item.desc || "", 
+      category: item.category || "USER" 
     };
   };
 
@@ -94,48 +94,63 @@ export default function App() {
   const smartSetScenes = (newItems) => setCustomScenes(prev => [...(Array.isArray(newItems) ? newItems : [newItems]), ...prev]);
 
   const getDynamicPrompt = useCallback(() => {
+    // Fully Hardened Alias Resolution Helper
+    const resolveAlias = (char) => {
+      if (!char) return null;
+      const alias = typeof char.subject === "string" ? char.subject.trim() : "";
+      const name = typeof char.name === "string" ? char.name.trim() : "";
+      return alias || name || "Untitled";
+    };
+
+    let primary = isStageFlipped ? actor2 : actor1;
+    let secondary = isStageFlipped ? actor1 : actor2;
+
+    if (!primary && !secondary) return { subject: null, scene: "", cine: "", style: "", commercialTail: "" };
+
+    if (!primary && secondary) {
+      primary = secondary;
+      secondary = null;
+    }
+
+    // Resolve aliases for primary and secondary based on current stage flip
+    const pAlias = resolveAlias(primary);
+    const sAlias = resolveAlias(secondary);
+
+    // POV Logic now strictly follows the Flipped Stage roles (Primary/Secondary)
     let povText = "";
-    if (povMode === 1 && actor1 && actor2) povText = ` CINEMATOGRAPHY: Over-the-shoulder shot, ${actor1.name} in foreground blurred, focus on ${actor2.name}.`;
-    else if (povMode === 2 && actor1 && actor2) povText = ` CINEMATOGRAPHY: Over-the-shoulder shot, ${actor2.name} in foreground blurred, focus on ${actor1.name}.`;
+    if (povMode === 1 && primary && secondary) {
+      povText = `CINEMATOGRAPHY: Over-the-shoulder shot, ${pAlias} in foreground blurred, focus on ${sAlias}.`;
+    } else if (povMode === 2 && primary && secondary) {
+      povText = `CINEMATOGRAPHY: Over-the-shoulder shot, ${sAlias} in foreground blurred, focus on ${pAlias}.`;
+    }
 
     const sDetails = (scene && scene.details) ? ` (${scene.details})` : "";
     const sText = scene ? `SCENE: ${scene.name}${viewMode === 'FULL' ? sDetails : ""}.` : "";
     const cText = scene ? `CINEMATOGRAPHY: ${scene.lighting}, Cinematic Lens.` : "";
     const stT = (customMeta || reelData?.meta)?.global_style ? `STYLE: ${(customMeta || reelData?.meta).global_style}.` : "";
     
-    let primary = isStageFlipped ? actor2 : actor1;
-    let secondary = isStageFlipped ? actor1 : actor2;
-
-    if (!primary && !secondary) return { subject: null, scene: sText, cine: cText, style: stT, commercialTail: "" };
-    
-    if (!primary && secondary) {
-      primary = secondary;
-      secondary = null;
-    }
-
-    // FIX: Check if description already contains wardrobe info to prevent duplication
-    const subDetails = viewMode === 'FULL' ? (primary.details || primary.desc) : primary.category;
-    const skipSubWardrobe = subDetails.toLowerCase().includes("wardrobe");
-    let subT = `SUBJECT: ${primary.name} (${subDetails})${skipSubWardrobe ? "" : `, wearing ${primary.outfit}`}.`;
-
-    let ensT = "";
-    if (secondary) {
-      const ensDetails = viewMode === 'FULL' ? (secondary.details || secondary.desc) : secondary.category;
-      const skipEnsWardrobe = ensDetails.toLowerCase().includes("wardrobe");
-      ensT = ` ENSEMBLE: ${interaction} ${secondary.name} (${ensDetails})${skipEnsWardrobe ? "" : `, wearing ${secondary.outfit}`}.`;
-    }
-
+    let subT = `SUBJECT: ${pAlias} (${viewMode === 'FULL' ? (primary.details || primary.desc) : primary.category}), wearing ${primary.outfit}.`;
+    let ensT = secondary ? ` ENSEMBLE: ${interaction} ${sAlias} (${viewMode === 'FULL' ? (secondary.details || secondary.desc) : secondary.category}), wearing ${secondary.outfit}.` : "";
     let actT = ` ACTION: ${action?.desc || 'Standing still.'}`;
     const utilT = (isManual && utilityText) ? `\n\nUTILITY: ${utilityText}` : "";
 
     if (viewMode === 'SHORT') {
-      subT = `SUBJECT: ${primary.name} Ref #1, ${primary.outfit}.`;
-      ensT = secondary ? ` ENSEMBLE: ${interaction} ${secondary.name} Ref #2, ${secondary.outfit}.` : "";
+      subT = `SUBJECT: ${pAlias} Ref #1, ${primary.outfit}.`;
+      ensT = secondary ? ` ENSEMBLE: ${interaction} ${sAlias} Ref #2, ${secondary.outfit}.` : "";
     }
 
     const cref = (primary.refUrl ? ` --cref ${primary.refUrl}` : "") + (secondary?.refUrl ? ` --cref ${secondary.refUrl}` : "");
 
-    return { subject: subT, ensemble: ensT, action: actT, scene: sText ? `\n${sText}` : "", cine: povText || (cText ? `\n${cText}` : ""), style: stT ? `\n${stT}` : "", utility: utilT, commercialTail: cref.trim() };
+    return {
+      subject: subT,
+      ensemble: ensT,
+      action: actT,
+      scene: sText ? `\n${sText}` : "",
+      cine: povText || (cText ? `\n${cText}` : ""),
+      style: stT ? `\n${stT}` : "",
+      utility: utilT,
+      commercialTail: cref.trim()
+    };
   }, [actor1, actor2, scene, action, interaction, utilityText, povMode, isStageFlipped, viewMode, isManual, customMeta]);
 
   useEffect(() => {
@@ -172,7 +187,7 @@ export default function App() {
       const cleanDesc = (baseAct.text || baseAct.desc || "").replace(/\[SUBJECT\]\s*/gi, '');
       const suffix = motionMode === 'VIDEO' ? 'Cinematic motion sequence.' : 'Cinematic frozen still-frame.';
       const compiled = isHuman 
-        ? `${randMood} ${baseAct.name} (${cleanDesc}, intensity level ${randInt}. ${suffix})`
+        ? `${randMood} ${baseAct.name} (${cleanDesc}, intensity level ${randInt}. ${suffix})` 
         : `${baseAct.name} (${cleanDesc}. ${suffix})`;
       setAction({ ...baseAct, desc: compiled });
     }
@@ -193,6 +208,7 @@ export default function App() {
       )}
 
       <Header layoutMode={layoutMode} setLayoutMode={setLayoutMode} onOpenVault={() => setShowVault(true)} />
+      
       <div style={{ flex: 1, display: 'flex', width: '100%', overflow: 'hidden' }}>
         <div style={{ transition: 'all 0.5s ease-in-out', width: config.s, borderRight: '1px solid #111', position: 'relative' }}>
           {layoutMode !== 'DIRECTING' ? (
@@ -209,6 +225,7 @@ export default function App() {
             <div onClick={()=>setLayoutMode('CASTING')} style={{ width: '100%', height: '100%', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', writingMode: 'vertical-rl', fontSize: '10px', fontWeight: '900', color:'#3b82f6', background: '#000' }}>S C E N E</div>
           )}
         </div>
+        
         <div style={{ transition: 'all 0.5s ease-in-out', width: config.c, borderRight: '1px solid #111', position: 'relative' }}>
           {layoutMode !== 'DIRECTING' ? (
             <ReelColumn 
@@ -230,6 +247,7 @@ export default function App() {
             <div onClick={()=>setLayoutMode('CASTING')} style={{ width: '100%', height: '100%', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', writingMode: 'vertical-rl', fontSize: '10px', fontWeight: '900', color:'#f59e0b', background: '#000' }}>C H A R A C T E R</div>
           )}
         </div>
+        
         <div style={{ transition: 'all 0.5s ease-in-out', width: config.p, opacity: config.op, pointerEvents: config.op === 0 ? 'none' : 'auto' }}>
           <ScriptConsole
             isManual={isManual} setIsManual={setIsManual} manualText={manualText} setManualText={setManualText}
@@ -243,6 +261,7 @@ export default function App() {
           />
         </div>
       </div>
+      
       {showCastModal && <CastingModal onClose={() => setShowCastModal(false)} onSave={smartSetCharacters} />} 
       {showSceneModal && <SceneBuilderModal onClose={() => setShowSceneModal(false)} onSave={smartSetScenes} />}
       {showVault && <TechVaultModal onClose={() => setShowVault(false)} isMatrixSilenced={isMatrixSilenced} setIsMatrixSilenced={setIsMatrixSilenced} exportData={{ customCharacters, customScenes, customActions, activeReelMeta: customMeta }} onImportCharacters={smartSetCharacters} onImportScenes={smartSetScenes} onImportActions={setCustomActions} onImportMeta={setCustomMeta} />}

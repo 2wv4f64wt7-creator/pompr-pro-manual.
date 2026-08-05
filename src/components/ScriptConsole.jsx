@@ -1,5 +1,5 @@
 // -------------------------------------------------------------------
-// FILE: ScriptConsole.jsx | VERSION: 10.38 (SELECTION DEAD-ZONE FIX)
+// FILE: ScriptConsole.jsx | VERSION: 10.37 (UI LABEL UPDATE)
 // -------------------------------------------------------------------
 import React, { useState, useRef } from 'react';
 import ActionMatrixV2 from './ActionMatrixV2';
@@ -124,17 +124,16 @@ export default function ScriptConsole({
         <div style={{ 
           background: '#0c0c0c', border: '1px solid #1a1a1a', borderRadius: '8px', padding: '25px', 
           height: `${consoleHeight}px`, flexShrink: 0, position: 'relative', boxShadow: 'inset 0 0 40px rgba(0,0,0,0.5)', 
-          overflow: 'hidden', display: 'flex', flexDirection: 'column',
-          userSelect: 'none' // FIX: Prevents selection in the "dead zone" padding/empty space
+          overflow: 'hidden', display: 'flex', flexDirection: 'column'
         }}>
           {isManual ? (
             <textarea 
               value={manualText} 
               onChange={(e) => setManualText(e.target.value)} 
-              style={{ width: '100%', flex: 1, background: 'transparent', border: 'none', color: '#fff', outline: 'none', fontSize: '16px', fontFamily: 'monospace', resize: 'none', userSelect: 'text' }} 
+              style={{ width: '100%', flex: 1, background: 'transparent', border: 'none', color: '#fff', outline: 'none', fontSize: '16px', fontFamily: 'monospace', resize: 'none' }} 
             />
           ) : (
-            <div style={{ fontSize: '15px', lineHeight: '1.5', color: '#d4d4d4', fontFamily: 'monospace', overflowY: 'auto', userSelect: 'text' }}>
+            <div style={{ fontSize: '15px', lineHeight: '1.5', color: '#d4d4d4', fontFamily: 'monospace', overflowY: 'auto' }}>
               <span style={{ color: '#f59e0b' }}>{dynamicPrompt.subject}</span><span style={{ color: '#f59e0b' }}>{dynamicPrompt.ensemble}</span><span style={{ color: '#10b981' }}>{dynamicPrompt.action}</span><span style={{ color: '#3b82f6' }}>{dynamicPrompt.scene}</span><span style={{ color: '#666' }}>{dynamicPrompt.cine}</span><span style={{ color: '#8b5cf6' }}>{dynamicPrompt.style}</span>
             </div>
           )}
@@ -162,6 +161,7 @@ export default function ScriptConsole({
             </select>
           </div>
           <div style={{ flex: 1 }}>
+            {/* UPDATED LABEL: Appended OPTIONAL in green color */}
             <label style={{ fontSize: '9px', color: '#3b82f6', fontWeight: '900', display: 'block', marginBottom: '6px', letterSpacing: '1px' }}>
               SREF / TECH PARAMS <span style={{ color: '#10b981' }}>OPTIONAL</span>
             </label>
