@@ -1,5 +1,5 @@
 // -------------------------------------------------------------------
-// FILE: ActionMatrixV2.jsx | VERSION: 2.35 (INTENSITY UX UPGRADE)
+// FILE: ActionMatrixV2.jsx | VERSION: 2.36 (CUSTOM ACTION EDIT FIX)
 // -------------------------------------------------------------------
 import React, { useState, useMemo, useEffect } from 'react';
 
@@ -38,11 +38,14 @@ export default function ActionMatrixV2({ actions = [], onSelectAction, onSelectU
     if (isUtil && baseObj) {
       onSelectUtility(baseObj.text);
     } else if (baseObj) {
+      // Fix Duplication: If name and text are identical (custom actions), use fallback title
+      const displayName = baseObj.name === baseObj.text ? "CUSTOM ACTION" : baseObj.name;
+
       let cleanDesc = (baseObj.text || baseObj.desc || "").replace(/\[SUBJECT\]\s*/gi, '');
       let suffix = motionMode === 'VIDEO' ? 'Cinematic motion sequence.' : 'Cinematic frozen still-frame.';
       let compiled = isHuman 
-        ? `${mood} ${baseObj.name} (${cleanDesc}, ${MOOD_MODS[mood][ei <= 3 ? 'low' : ei >= 8 ? 'high' : 'med']}. ${suffix})`
-        : `${baseObj.name} (${cleanDesc}. ${suffix})`;
+        ? `${mood} ${displayName} (${cleanDesc}, ${MOOD_MODS[mood][ei <= 3 ? 'low' : ei >= 8 ? 'high' : 'med']}. ${suffix})`
+        : `${displayName} (${cleanDesc}. ${suffix})`;
       onSelectAction({ ...baseObj, desc: compiled });
     }
   };
@@ -77,7 +80,6 @@ export default function ActionMatrixV2({ actions = [], onSelectAction, onSelectU
     cursor: 'pointer', backgroundColor: active ? color : '#222', color: '#fff', whiteSpace: 'nowrap'
   });
 
-  // Helper for semantic intensity labels
   const getIntensityLabel = (val) => {
     if (val <= 3) return 'LOW';
     if (val <= 7) return 'MEDIUM';
@@ -103,7 +105,18 @@ export default function ActionMatrixV2({ actions = [], onSelectAction, onSelectU
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
             <span style={{ fontSize: '0.65rem', color: '#888', textTransform: 'uppercase' }}>2. ACTION</span>
             <button 
-              onClick={() => setIsAddingCustom(!isAddingCustom)} 
+              onClick={() => {
+                const nextState = !isAddingCustom;
+                setIsAddingCustom(nextState);
+                // Restore on Re-Open: Pre-fill if current action is manual
+                if (nextState) {
+                  if (activeBase?.id?.startsWith('manual_')) {
+                    setCustomInputValue(activeBase.text);
+                  } else {
+                    setCustomInputValue("");
+                  }
+                }
+              }} 
               style={{ background: isAddingCustom ? '#10b981' : '#333', border: 'none', color: '#fff', fontSize: '9px', fontWeight: '900', padding: '4px 8px', borderRadius: '3px', cursor: 'pointer' }}
             >
               + CUSTOM
@@ -120,10 +133,11 @@ export default function ActionMatrixV2({ actions = [], onSelectAction, onSelectU
                 placeholder="TYPE ACTION AND PRESS ENTER..." 
                 onKeyDown={(e) => { 
                   if (e.key === 'Enter' && customInputValue.trim()) { 
-                    const manualObj = { id: `manual_${Date.now()}`, name: customInputValue, text: customInputValue };
+                    // Consistent ID: Reuse existing manual ID if editing
+                    const existingId = activeBase?.id?.startsWith('manual_') ? activeBase.id : `manual_${Date.now()}`;
+                    const manualObj = { id: existingId, name: customInputValue, text: customInputValue };
                     triggerUpdate(manualObj, activeMood, intensity, false);
-                    setCustomInputValue("");
-                    setIsAddingCustom(false);
+                    // Keep Input Open: Removed clear and close logic to allow tweaking
                   }
                 }}
                 style={{ 
