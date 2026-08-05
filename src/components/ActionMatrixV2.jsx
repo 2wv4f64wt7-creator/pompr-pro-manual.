@@ -1,5 +1,5 @@
 // -------------------------------------------------------------------
-// FILE: ActionMatrixV2.jsx | VERSION: 2.34 (UI LABEL RESTORATION)
+// FILE: ActionMatrixV2.jsx | VERSION: 2.35 (INTENSITY UX UPGRADE)
 // -------------------------------------------------------------------
 import React, { useState, useMemo, useEffect } from 'react';
 
@@ -77,11 +77,17 @@ export default function ActionMatrixV2({ actions = [], onSelectAction, onSelectU
     cursor: 'pointer', backgroundColor: active ? color : '#222', color: '#fff', whiteSpace: 'nowrap'
   });
 
+  // Helper for semantic intensity labels
+  const getIntensityLabel = (val) => {
+    if (val <= 3) return 'LOW';
+    if (val <= 7) return 'MEDIUM';
+    return 'HIGH';
+  };
+
   return (
     <div style={{ backgroundColor: '#161616', color: '#fff', padding: '15px', display: 'flex', flexDirection: 'column', gap: '15px', height: '100%', overflow: 'hidden' }}>
       <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '15px', paddingBottom: '20px', minHeight: 0 }}>
         
-        {/* RESTORED: ACTION MATRIX 2.0 GREEN LABEL */}
         <div style={{ marginBottom: '5px' }}>
           <span style={{ fontSize: '0.65rem', color: '#10b981', fontWeight: '900', letterSpacing: '2px' }}>ACTION MATRIX 2.0</span>
         </div>
@@ -147,8 +153,23 @@ export default function ActionMatrixV2({ actions = [], onSelectAction, onSelectU
             </div>
           </div>
           <div style={{ flex: 1 }}>
-            <span style={{ fontSize: '0.65rem', color: '#888', textTransform: 'uppercase', marginBottom: '8px', display: 'block' }}>4. INTENSITY ({intensity})</span>
-            <input type="range" min="1" max="10" value={intensity} onChange={(e) => { setIntensity(e.target.value); triggerUpdate(activeBase, activeMood, e.target.value, activeTab === 'UTILITY'); }} style={{ width: '100%', accentColor: '#f59e0b' }} />
+            <span style={{ fontSize: '0.65rem', color: '#888', textTransform: 'uppercase', marginBottom: '8px', display: 'block' }}>
+              4. INTENSITY ({getIntensityLabel(intensity)})
+            </span>
+            <input 
+              type="range" 
+              min="1" 
+              max="10" 
+              list="intensity-markers"
+              value={intensity} 
+              onChange={(e) => { setIntensity(e.target.value); triggerUpdate(activeBase, activeMood, e.target.value, activeTab === 'UTILITY'); }} 
+              style={{ width: '100%', accentColor: '#f59e0b' }} 
+            />
+            <datalist id="intensity-markers">
+              <option value="1"></option>
+              <option value="5"></option>
+              <option value="10"></option>
+            </datalist>
           </div>
         </div>
       )}
