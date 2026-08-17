@@ -1,5 +1,5 @@
 // -------------------------------------------------------------------
-// FILE: App.jsx | VERSION: 4.16 (ALIAS FALLBACK & POV SYNC)
+// FILE: App.jsx | VERSION: 4.18 (SCENE-ONLY VOID DIRECTIVE)
 // -------------------------------------------------------------------
 import React, { useState, useEffect, useCallback } from 'react';
 import reelData from './reels/default_reel.json';
@@ -105,8 +105,7 @@ export default function App() {
     let primary = isStageFlipped ? actor2 : actor1;
     let secondary = isStageFlipped ? actor1 : actor2;
 
-    if (!primary && !secondary) return { subject: null, scene: "", cine: "", style: "", commercialTail: "" };
-
+    // If only secondary is selected, promote it to primary
     if (!primary && secondary) {
       primary = secondary;
       secondary = null;
@@ -116,7 +115,7 @@ export default function App() {
     const pAlias = resolveAlias(primary);
     const sAlias = resolveAlias(secondary);
 
-    // POV Logic now strictly follows the Flipped Stage roles (Primary/Secondary)
+    // POV Logic strictly follows the Flipped Stage roles (Primary/Secondary)
     let povText = "";
     if (povMode === 1 && primary && secondary) {
       povText = `CINEMATOGRAPHY: Over-the-shoulder shot, ${pAlias} in foreground blurred, focus on ${sAlias}.`;
@@ -125,27 +124,32 @@ export default function App() {
     }
 
     const sDetails = (scene && scene.details) ? ` (${scene.details})` : "";
-    const sText = scene ? `SCENE: ${scene.name}${viewMode === 'FULL' ? sDetails : ""}.` : "";
+    
+    // VOID DIRECTIVE: If no character is selected, explicitly tell the AI the scene is empty to prevent hallucinated people.
+    const voidDirective = !primary ? " Empty environment, no people, uninhabited." : "";
+    const sText = scene ? `SCENE: ${scene.name}${viewMode === 'FULL' ? sDetails : ""}.${voidDirective}` : "";
+    
     const cText = scene ? `CINEMATOGRAPHY: ${scene.lighting}, Cinematic Lens.` : "";
     const stT = (customMeta || reelData?.meta)?.global_style ? `STYLE: ${(customMeta || reelData?.meta).global_style}.` : "";
     
-    let subT = `SUBJECT: ${pAlias} (${viewMode === 'FULL' ? (primary.details || primary.desc) : primary.category}), wearing ${primary.outfit}.`;
-    let ensT = secondary ? ` ENSEMBLE: ${interaction} ${sAlias} (${viewMode === 'FULL' ? (secondary.details || secondary.desc) : secondary.category}), wearing ${secondary.outfit}.` : "";
-    let actT = ` ACTION: ${action?.desc || 'Standing still.'}`;
+    // Character strings are now conditional to allow Scene-Only rendering
+    let subT = primary ? `SUBJECT: ${pAlias} (${viewMode === 'FULL' ? (primary.details || primary.desc) : primary.category}), wearing ${primary.outfit}.` : "";
+    let ensT = (primary && secondary) ? ` ENSEMBLE: ${interaction} ${sAlias} (${viewMode === 'FULL' ? (secondary.details || secondary.desc) : secondary.category}), wearing ${secondary.outfit}.` : "";
+    let actT = primary ? ` ACTION: ${action?.desc || 'Standing still.'}` : "";
     const utilT = (isManual && utilityText) ? `\n\nUTILITY: ${utilityText}` : "";
 
-    if (viewMode === 'SHORT') {
+    if (viewMode === 'SHORT' && primary) {
       subT = `SUBJECT: ${pAlias} Ref #1, ${primary.outfit}.`;
       ensT = secondary ? ` ENSEMBLE: ${interaction} ${sAlias} Ref #2, ${secondary.outfit}.` : "";
     }
 
-    const cref = (primary.refUrl ? ` --cref ${primary.refUrl}` : "") + (secondary?.refUrl ? ` --cref ${secondary.refUrl}` : "");
+    const cref = (primary?.refUrl ? ` --cref ${primary.refUrl}` : "") + (secondary?.refUrl ? ` --cref ${secondary.refUrl}` : "");
 
     return {
       subject: subT,
       ensemble: ensT,
       action: actT,
-      scene: sText ? `\n${sText}` : "",
+      scene: sText ? (primary ? `\n${sText}` : sText) : "", // Adjust newline if scene is the only element
       cine: povText || (cText ? `\n${cText}` : ""),
       style: stT ? `\n${stT}` : "",
       utility: utilT,
