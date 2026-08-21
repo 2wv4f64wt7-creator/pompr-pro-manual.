@@ -1,5 +1,5 @@
 // -------------------------------------------------------------------
-// FILE: TechVaultModal.jsx | VERSION: 2.9 (OMNI-DATA RECOVERY)
+// FILE: TechVaultModal.jsx | VERSION: 2.10 (DEFENSIVE UPLOAD HANDLER)
 // -------------------------------------------------------------------
 import React, { useRef } from 'react';
 
@@ -13,33 +13,44 @@ export default function TechVaultModal({
     const file = event.target.files[0];
     if (!file) return;
 
+    // --- START OF FIX: DEFENSIVE VALIDATION ---
+    // Check if the selection is actually a .json file
+    const isJson = file.name.toLowerCase().endsWith('.json');
+    if (!isJson) {
+      alert(`UPLOAD ERROR: The selected item is not a .json file.\n\nIf you unzipped a reel, please open the folder and select the .json file inside.`);
+      return;
+    }
+
+    // Check if the selection is a folder (folders report as size 0 in browsers)
+    if (file.size === 0) {
+      alert(`UPLOAD ERROR: The file appears to be empty or is a folder.\n\nPro-Tip: Ensure the Expansion Reel is fully unzipped and select the file directly, not the folder.`);
+      return;
+    }
+    // --- END OF FIX ---
+
     const reader = new FileReader();
     reader.onload = (e) => {
       try {
         const json = JSON.parse(e.target.result);
         
-        // 1. DATA SNIFFER (GARY & SUBMERGED BATHROOM COMPATIBILITY)
+        // BLACK BOX: DATA SNIFFER LOGIC (DO NOT ALTER)
         let cItems = json.characters || json.character_and_group_subjects || [];
         let sItems = json.scenes || json.historical_scenes || [];
         let aItems = json.actions || json.procedural_base_actions || [];
         const meta = json.meta || {};
 
-        // 2. SINGLE CARD DETECTION (If the above are empty, check if root is a card)
         if (cItems.length === 0 && sItems.length === 0) {
-           // Gary Check
            if (json.name && (json.outfit || json.details)) {
              cItems = [json];
            } 
-           // Bathroom Check (maps description -> details)
            else if (json.name && (json.description || json.lighting)) {
              sItems = [{
                ...json,
-               details: json.description // Map legacy key
+               details: json.description 
              }];
            }
         }
 
-        // 3. DISPATCH TO APP ENGINE
         if (cItems.length > 0) onImportCharacters(cItems);
         if (sItems.length > 0) onImportScenes(sItems);
         if (aItems.length > 0) onImportActions(aItems);
@@ -54,7 +65,7 @@ export default function TechVaultModal({
         );
       } catch (err) {
         console.error("Reel Load Error:", err);
-        alert('ERROR: Could not parse file. Ensure it is a valid .json card or reel.');
+        alert('ERROR: Could not read the file content. If this is a valid .json file, try moving it to your Desktop before uploading.');
       }
     };
     reader.readAsText(file);
@@ -75,7 +86,6 @@ export default function TechVaultModal({
   return (
     <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.9)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
       <div style={{ width: '500px', background: '#0f0f0f', border: '1px solid #3b82f6', borderRadius: '12px', padding: '40px', position: 'relative', boxShadow: '0 0 20px rgba(59, 130, 246, 0.3)', textAlign: 'center' }}>
-        {/* SILENCE MATRIX TOGGLE (HIDDEN IN CORNER) */}
         <div onClick={() => setIsMatrixSilenced(!isMatrixSilenced)} style={{ position: 'absolute', top: 0, right: 0, width: '40px', height: '40px', cursor: 'crosshair', zIndex: 1001 }} />
         
         <h2 style={{ color: '#00d4ff', fontSize: '18px', letterSpacing: '4px', marginBottom: '30px', fontWeight: '900' }}>TECH VAULT SYSTEM</h2>
