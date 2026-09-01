@@ -1,6 +1,6 @@
 {
   "meta": {
-    "version": "POMPR Action Matrix v3.3 Core Five-Tab 300",
+    "version": "POMPR Action Matrix v3.5 High-Fidelity",
     "type": "FACTORY_DEFAULT_EXPANDED",
     "date": "2026-05-16",
     "actionTypes": {
@@ -11,432 +11,395 @@
       "A": "Ambient / Aftermath"
     },
     "actionMatrixVersion": "v3.3-core-5tabs-300",
-    "actionMatrixCount": 300,
-    "actionMatrixDesign": "Five-tab factory action matrix with 300 actions (60 per bucket), 30 actions per intensity level, balanced routing for SOCIAL/TECH/MOVE/FIGHT/AMBIENT, image-first clarity with one-sentence physical descriptions and consistent ID formatting.",
-    "interactionListing": [
-      "With",
-      "Analyzing",
-      "Interviewing",
-      "Instructing",
-      "Advising",
-      "Listening to",
-      "Speaking with",
-      "Presenting to",
-      "Demonstrating to",
-      "Guiding",
-      "Assisting",
-      "Helping",
-      "Persuading",
-      "Questioning",
-      "Arguing with",
-      "Confronting",
-      "Blocking",
-      "Protecting",
-      "Following",
-      "Observing",
-      "Ignoring",
-      "Fighting"
-    ],
-    "interactionDefault": "With",
-    "relationshipDefault": "With",
-    "interactions": [
-      "With",
-      "Analyzing",
-      "Interviewing",
-      "Instructing",
-      "Advising",
-      "Listening to",
-      "Speaking with",
-      "Presenting to",
-      "Demonstrating to",
-      "Guiding",
-      "Assisting",
-      "Helping",
-      "Persuading",
-      "Questioning",
-      "Arguing with",
-      "Confronting",
-      "Blocking",
-      "Protecting",
-      "Following",
-      "Observing",
-      "Ignoring",
-      "Fighting"
-    ],
-    "actionCategories": [
-      "SOCIAL",
-      "TECH",
-      "MOVE",
-      "FIGHT",
-      "AMBIENT"
-    ],
-    "levelCounts": {
-      "1": 30,
-      "2": 30,
-      "3": 30,
-      "4": 30,
-      "5": 30,
-      "6": 30,
-      "7": 30,
-      "8": 30,
-      "9": 30,
-      "10": 30
-    },
-    "v33Validation": {
-      "sourceFile": "default_reel_v3_2.json",
-      "actions": 300,
-      "issues": [],
-      "withIsDefault": true
-    }
+    "actionCategories": ["SOCIAL", "TECH", "MOVE", "FIGHT", "AMBIENT"],
+    "global_style": "Cinematic photorealism, shot on 35mm lens, f/2.8, deep color grading, hyper-detailed textures"
   },
   "characters": [
     {
       "id": "C_CORP_01",
-      "category": "CORP",
       "name": "The Tech CEO",
-      "details": "Age: 38. Female. A commanding presence with volumized sleek dark hair and sharp, intelligent eyes.",
-      "outfit": "luxury textured Chanel tweed blazer in deep navy over a crisp white silk blouse. Hyper-realistic skin texture."
+      "subject": "A female technology CEO in her late thirties",
+      "details": "Tall and narrow-framed with a long neck, squared shoulders, sharply defined cheekbones, and a tapered jaw. Her warm olive complexion carries fine natural texture across the nose and inner cheeks, faint horizontal forehead lines, and slight under-eye creasing. Deep-set dark brown eyes sit beneath straight, carefully maintained brows. A narrow high-bridged nose and defined Cupid's bow give the face a controlled geometric quality. Near-black hair is cut into a precise collarbone-length blunt shape with a centered part, smooth root structure, and minimal flyaways. Slender hands have long fingers and short, neatly shaped natural nails.",
+      "outfit": "Deep navy bouclé tweed blazer with structured shoulders, a lightly shaped waist, matte black-and-brass buttons, and visible navy, charcoal, and cobalt fibers. Ivory silk-crepe shell with a clean jewel neckline. Straight charcoal wool trousers with a sharp pressed crease, black calfskin loafers, slim brushed-gold wristwatch, and small geometric gold stud earrings.",
+      "category": "CORP",
+      "subject_mode": "HUMAN"
     },
     {
       "id": "C_CORP_02",
+      "name": "The Futurist Strategist",
+      "subject": "A male technology strategist in his mid-forties",
+      "details": "His most distinctive feature is a dense salt-and-pepper beard that shifts irregularly from charcoal at the cheeks to silver and white through the chin. A long rectangular face carries prominent cheekbones, a broad forehead, slightly hollow temples, and a strong chin. Hazel eyes sit behind fine crow's-feet and lower-lid creasing; two vertical lines remain visible between straight dark brows threaded with grey. His light neutral skin has mild sun spotting at the temples and coarser texture beside the nose. Dark brown hair is short, heavily silvered at both temples, and receding slightly at the corners. Tall and lean with long fingers, prominent knuckles, and narrow wrists.",
+      "outfit": "Fine-gauge heather-grey cashmere turtleneck with compact ribbed cuffs and slight natural pilling at the forearms. Relaxed graphite pleated wool trousers, black pebble-grain leather belt, matte black Chelsea boots, ultrathin rimless titanium spectacles, and a brushed titanium watch on a charcoal leather strap.",
       "category": "CORP",
-      "name": "The Thought Leader",
-      "details": "Age: 46. Male. Salt-and-pepper beard, laugh lines, wearing rimless titanium spectacles.",
-      "outfit": "high-end grey cashmere turtleneck, relaxed but expensive. Skin shows realistic aging details."
+      "subject_mode": "HUMAN"
     },
     {
       "id": "C_CORP_03",
-      "category": "CORP",
       "name": "The Marketing Director",
-      "details": "Age: 29. Female. Dynamic and energetic. Shoulder-length auburn hair with loose waves.",
-      "outfit": "lavender satin blouse that catches highlights, paired with a statement gold necklace."
+      "subject": "A female marketing director in her late twenties",
+      "details": "Compact and quick-looking rather than statuesque, with a softly heart-shaped face, rounded cheek structure, narrow jaw, and slightly pointed chin. Grey-green eyes contrast with copper-auburn hair cut into a textured shoulder-length shape with an off-center part, darker natural roots, irregular loose bends, and shorter curls around the temples. Her fair neutral skin shows a few muted freckles near the bridge of the nose, mild natural redness beside the nostrils, and fine texture beneath the eyes. The nose is short and straight with a subtly lifted tip. Long fingers, narrow wrists, and defined forearms reinforce her smaller athletic build.",
+      "outfit": "Muted lavender silk-satin blouse with a fluid drape, covered buttons, gathered cuffs, and visible highlight shifts across the weave. High-waisted deep-plum wool trousers with a tapered ankle, slim oxblood leather belt, dark-brown pointed flats, sculptural short gold necklace, two small mismatched earrings, and a narrow burgundy leather watch strap.",
+      "category": "CORP",
+      "subject_mode": "HUMAN"
     },
     {
-      "id": "C_CORP_04",
+      "id": "C_CORP_05",
+      "name": "The Independent Shop Owner",
+      "subject": "A friendly male independent retail owner in his early thirties",
+      "details": "32-year-old man with a broad oval face, warm dark brown eyes, thick straight brows, a rounded jaw, and a medium-width nose with a subtle natural asymmetry. Medium tan skin has healthy natural texture, faint character lines near the eyes, and a small pale scar beneath the right eyebrow. Dark brown hair is clipped neatly at the sides with a textured top and a natural cowlick near the crown. Short well-kept stubble follows the jaw and chin. Average-height with a sturdy build, broad forearms, strong hands, and short clean natural nails.",
+      "outfit": "Washed slate-blue cotton pique polo with a softened collar, matte horn buttons, and subtle fabric texture. Dark indigo selvedge jeans with light natural fading, medium-brown vegetable-tanned leather belt, clean white leather low-top sneakers with gentle wear, stainless-steel field watch on a brown leather strap, and a simple brushed-silver wedding band.",
       "category": "CORP",
-      "name": "The Satisfied Customer",
-      "details": "Age: 32. Male. Approachable 'Everyman', warm open smile, neat casual grooming.",
-      "outfit": "solid slate blue polo shirt. Cotton fabric texture is visible."
+      "subject_mode": "HUMAN"
     },
     {
       "id": "C_LIFE_01",
-      "category": "LIFE",
       "name": "The Cheerful Best Friend",
-      "details": "Age: 22. Female. Wild curly brunette hair, freckles scattered across the nose. Genuine open laugh.",
-      "outfit": "oversized oatmeal cable-knit sweater, sleeves pulled over hands. Wool texture is prominent."
+      "subject": "A young woman with dense brunette curls and an easy everyday appearance",
+      "details": "Dense dark-brown curls are the defining feature, falling to the shoulders in mixed-size coils with tighter texture around the hairline, irregular flyaways, and a loose off-center part. Her oval face has a soft jawline, compact nose, full lips, and large dark hazel eyes. Light warm skin retains natural cheek and nose texture with only a light scattering of small, pale freckles across the bridge of the nose and upper cheeks; the freckles are subtle enough to disappear at a distance. Her build is compact and medium-height with strong shoulders, strong calves, well-proportioned hands, and natural nails with slightly uneven edges.",
+      "outfit": "Oversized oatmeal cable-knit cardigan open unbuttoned sweater with medium braided front cables, long ribbed cuffs, visible fiber fuzz, and a lightly stretched hem over a form-fitting white tank top. Faded medium-wash straight-leg jeans, worn tan suede clogs with compressed shearling lining, thin sterling-silver chain necklace, and two small enamel hair clips near one temple.",
+      "category": "LIFE",
+      "subject_mode": "HUMAN"
     },
     {
       "id": "C_LIFE_02",
-      "category": "LIFE",
       "name": "The Lifestyle Creator",
-      "details": "Age: 24. Female. Polished Gen-Z influencer, perfect highlighted hair, high-light reflections in eyes.",
-      "outfit": "trendy athleisure crop top with layered gold jewelry. Skin is glowing and high-definition."
+      "subject": "A female lifestyle creator in her mid-twenties",
+      "details": "Long highlighted hair and meticulous grooming define her more than facial severity. Medium-brown hair reaches the lower shoulder blades with dimensional honey and beige ribbons over darker natural roots, a precise center part, and polished bends through the lengths. Her narrow oval face has high cheekbones, a straight proportional nose, tapered jaw, and medium-full lips. Golden medium-light skin shows fine peach fuzz, subtle tonal variation around the mouth, light under-eye texture, and two small beauty marks near the jawline. Brown eyes are slightly upturned beneath dense groomed brows. Tall and slender with long limbs, narrow shoulders, defined collarbones, and almond-shaped natural nails.",
+      "outfit": "Stone-beige ribbed performance-knit crop top with wide straps and matte four-way-stretch texture, paired with cocoa-brown high-waisted compression leggings with flatlock seams. Fine gold curb chain layered with a shorter paperclip chain, small hoop earrings, two thin stacking rings, clean white leather trainers with light toe-box creasing, and a compact taupe nylon crossbody bag with matte champagne hardware.",
+      "category": "LIFE",
+      "subject_mode": "HUMAN"
     },
     {
       "id": "C_LIFE_03",
-      "category": "LIFE",
       "name": "The Tech Streamer",
-      "details": "Age: 23. Male. Focused gamer, large over-ear headphones. Skin reflects cool monitor glow.",
-      "outfit": "graphic streetwear hoodie. Expression is intense focus with a slight smirk."
+      "subject": "A male gaming streamer in his early twenties",
+      "details": "Lean and slightly narrow-shouldered with long forearms and slender hands. Thick black hair forms a textured medium-length crop with an irregular fringe falling toward the brows and closely tapered sides. His light-medium complexion shows mild post-acne marks at the temples, faint beard shadow above the lip and along the jaw, and slight dryness near the nostrils. A tapered oval face carries pronounced cheekbones, hooded dark brown eyes, a narrow chin, and a medium-width nose. Short natural nails and small healed piercing holes in both earlobes add minor close-range detail.",
+      "outfit": "Heavyweight washed-black cotton hoodie with dropped shoulders, oversized sleeves, tonal embroidered geometric graphics, and faded seam edges. Loose charcoal nylon cargo trousers with articulated knees, black-and-grey mesh sneakers, small titanium_stud earrings, and large matte-black over-ear headphones with padded fabric cushions.",
+      "category": "LIFE",
+      "subject_mode": "HUMAN"
     },
     {
       "id": "C_LIFE_04",
+      "name": "The Working Parent",
+      "subject": "A warm, capable mother in her mid-thirties",
+      "details": "34-year-old woman with a softly heart-shaped face, gently rounded jaw, straight medium-width nose, full lower lip, and clear grey-blue eyes. Fair skin has healthy natural texture with very fine smile lines at the outer eyes and subtle tonal variation across the cheeks. Medium-brown hair is gathered into a relaxed high bun with a few soft face-framing strands and subtle natural highlights. Medium-height with a healthy, strong build, softly defined shoulders and arms, practical hands, and short neatly maintained natural nails.",
+      "outfit": "Soft heather-grey ring-spun cotton T-shirt with a relaxed crew neck and lightly rolled sleeves. Dark indigo stretch-denim jeans with natural knee creasing, red-and-navy brushed-cotton flannel shirt tied around the waist, clean white canvas sneakers, small sterling-silver hoop earrings, a simple silicone watch band, and a narrow canvas tote strap.",
       "category": "LIFE",
-      "name": "The Busy Parent",
-      "details": "Age: 34. Female. Tired but warm, messy hair bun, alert eyes.",
-      "outfit": "clean but wrinkled soft cotton t-shirt and a flannel shirt tied around the waist."
+      "subject_mode": "HUMAN"
     },
     {
       "id": "C_LIFE_05",
-      "category": "LIFE",
       "name": "Grandma Baker",
-      "details": "Age: 72. Female. Short grey hair, rosy cheeks, soft wrinkling around eyes.",
-      "outfit": "floral print blouse protected by a flour-dusted apron."
+      "subject": "A youthful grandmother in her early fifties with short silver-grey hair",
+      "details": "52-year-old woman with a soft square face, gently rounded cheeks, a smooth jawline, a short straight nose, and pale blue eyes. Fair skin has mild natural age texture with fine crow's-feet, very slight nasolabial creasing, soft under-eye lines, and a few subtle sun spots across the cheeks and hands. Her complexion remains healthy and even with natural warmth through the cheekbones. Short silver-grey hair is cut into a softly layered style with light volume at the crown, gentle waves around the temples, and slightly darker grey depth underneath. Medium-height with a sturdy, healthy build and broad capable hands showing light flour dryness, faint age spots, and naturally defined finger joints. Nails are short, clean, and unpolished.",
+      "outfit": "Muted lavender cotton blouse with a small cream and sage floral print, softly gathered cuffs, and pearlized buttons. Heavy natural-canvas baking apron with a wide front pocket, softened fold lines, and a light dusting of flour across the lower front. Charcoal stretch-cotton trousers, a simple narrow gold wedding band, and small pearl stud earrings.",
+      "category": "LIFE",
+      "subject_mode": "HUMAN"
     },
     {
       "id": "C_LIFE_06",
-      "category": "LIFE",
       "name": "Teen Skater Boy",
-      "details": "Age: 17. Male. Mop of curly hair, small light scar on forehead. Youthful rebel vibe.",
-      "outfit": "baggy graphic tee that says \"POMPR\" and worn denim. Skin texture is young and unpolished."
+      "subject": "A teenage male skateboarder with dense curls and relaxed streetwear",
+      "details": "17-year-old boy with a slim lanky build, long limbs, narrow shoulders, and youthful proportions. Dense dark-brown curls form an irregular mop reaching the brows and tops of the ears, with tighter curls around the temples and natural volume through the crown. Light olive skin has smooth youthful texture, faint natural color through the cheeks, and a small pale scar near the upper right hairline. His narrow face has a softly defined jaw, straight nose, thick brows, dark brown eyes, and slightly prominent ears. Hands are slender with short clean natural nails.",
+      "outfit": "Oversized heavyweight black cotton T-shirt with a slightly distressed white \"POMPR\" graphic, softened ribbed collar, and subtle wash fading. Loose faded-blue denim jeans with light knee wear and stacked hems, black canvas skate shoes with gently worn suede toe panels, thin black woven belt, faded olive canvas wristband, and a stainless-steel ball-chain necklace.",
+      "category": "LIFE",
+      "subject_mode": "HUMAN"
     },
     {
       "id": "C_LIFE_07",
-      "category": "LIFE",
       "name": "The Weekend Traveler",
-      "details": "Age: 28. Male. Rugged, sun-kissed skin, windblown hair. Adventurous vibe.",
-      "outfit": "khaki utility vest over a linen shirt. Fabric textures are rough and natural."
+      "subject": "A male leisure traveler in his late twenties",
+      "details": "Uneven sun exposure and wind-roughened grooming distinguish him from a polished lifestyle model. Medium skin has visible tan boundaries at the neck and upper arms, scattered small freckles across the nose and shoulders, mild surface dryness, and a healed nick on the chin. Dark-blond hair is medium length with naturally lighter ends, pushed irregularly away from the forehead and flattened behind the ears. Green-brown eyes sit beneath brows lightened slightly by sun. A long face, defined jaw, prominent straight nose, and short beard growth complete the facial structure. Lean athletic build with broad shoulders, strong calves, visible hand veins, and callused fingertips.",
+      "outfit": "Sand-colored ripstop cotton utility vest with reinforced pockets and matte snaps over an off-white slub-linen shirt with rolled sleeves. Olive cotton-twill travel trousers with articulated knees, weathered brown leather hiking shoes, woven nylon belt, faded canvas watch strap, and compact dark-green crossbody field pouch with metal zipper pulls.",
+      "category": "LIFE",
+      "subject_mode": "HUMAN"
     },
     {
       "id": "C_LIFE_08",
-      "category": "LIFE",
       "name": "The Studio Artist",
-      "details": "Female, 28. Quiet intensity under the mess\u2014disciplined, observant, hard to impress. Dark chestnut hair tied back with loose flyaways. Focused eyes that stay on a subject a beat longer than comfortable. A graphite smear on her right cheek from wiping without thinking; hands permanently stained from daily work.",
-      "outfit": "Broken-in denim overalls with restrained paint history (more wear than splash) over a white ribbed tank. Bib pocket: folded rag, graphite pencil, one capped marker. Paint-scarred canvas slip-ons. Simple silver ring; elastic hair tie on wrist."
+      "subject": "A female studio artist in her late twenties",
+      "details": "Graphite-darkened fingertips and a grey smear along the right cheekbone immediately identify her work environment. Long fingers carry pigment at the cuticles, fine graphite staining along the index fingers, dry knuckles, and short unpolished nails. Her narrow oval face has pronounced cheekbones, a straight medium-width nose, softly squared chin, and deep-set dark brown eyes beneath dense natural brows. Light neutral skin retains mild redness beside the nostrils and faint under-eye creasing. Dark chestnut hair is tied low at the back with loose strands escaping around the temples and nape. Lean, medium-height build with narrow shoulders and long forearms.",
+      "outfit": "Broken-in medium-blue denim overalls with softened seams, faded knees, small repaired abrasions, restrained paint residue, and a darkened bib pocket. White ribbed cotton tank underneath. Bib pocket holds a folded cotton rag, graphite pencil, and capped black marker. Paint-scarred canvas slip-ons, plain silver ring, and black elastic hair tie around one wrist.",
+      "category": "LIFE",
+      "subject_mode": "HUMAN"
     },
     {
       "id": "C_LIFE_09",
-      "category": "LIFE",
       "name": "Senior Sal",
-      "details": "Subject is a thin, slightly stooped, 60 year old male, Caucasian. Features include a thin lower lip and short upper lip with a thin line mustache, sparse grey beard on a weak chin, oval face, large fleshy nose, sharp brown alert eyes, and dark grey thinning hair with a receding hairline. Skin texture is weathered.",
-      "outfit": "green cashmere turtleneck sweater, charcoal gray gaberdine slacks, dark brown leather shoes, beige trench overcoat, black leather full-size messenger bag. Expression is creative, energetic, friendly."
+      "subject": "A thin 60-year-old man with weathered features and sparse grey facial hair",
+      "details": "A thin, slightly stooped frame supports an oval face with a weak chin, unusually short upper lip, thin lower lip, and large fleshy nose with broad nostrils and coarse sebaceous texture. Sharp brown eyes sit beneath sparse straight brows and pronounced lower-lid creasing. A narrow mustache traces the upper lip while sparse grey beard growth collects beneath the chin and along the jaw. Dark-grey hair is fine and thinning with a high receding hairline, exposed temples, and reduced crown density. Fair skin is weathered with surface dryness, forehead lines, crow's-feet, nasolabial creasing, sun spots, and slight redness around the nose.",
+      "outfit": "Forest-green fine-gauge cashmere turtleneck with ribbed collar and cuffs, charcoal-grey gabardine trousers with a pressed crease, dark-brown calfskin lace-up shoes, beige cotton-gabardine trench coat with horn buttons and storm flap, and a full-size black vegetable-tanned leather messenger bag with brushed metal buckles and shallow surface scratches.",
+      "category": "LIFE",
+      "subject_mode": "HUMAN"
     },
     {
       "id": "C_TECH_01",
-      "category": "TECH",
       "name": "The Microsurgeon",
-      "details": "Age: 41. Female. Patterned surgical cap, customized loupes flipped up on forehead.",
-      "outfit": "sterile blue scrubs with high-quality fabric weave. Slight sheen of perspiration."
+      "subject": "A highly skilled female microsurgeon in her early forties",
+      "details": "41-year-old woman with a compact oval face, refined jawline, straight nose, dark brown almond-shaped eyes, and fine naturally arched brows. Medium-brown skin has healthy natural texture with subtle forehead lines and fine creasing around the eyes. Dark hair is neatly secured beneath a close-fitting surgical cap with a few fine strands visible near the temples. Petite and athletic with narrow shoulders, slender hands, long precise fingers, and short neatly trimmed nails.",
+      "outfit": "Sterile medium-blue poly-cotton surgical scrubs with a dense plain weave, reinforced neckline, concealed utility pockets, and natural fabric creasing. Patterned tightly woven surgical cap, lightweight titanium-frame magnifying loupes with adjustable nose pads and compact coaxial light module, powder-free nitrile gloves, closed-back antimicrobial clogs, and a narrow silicone identification band.",
+      "category": "TECH",
+      "subject_mode": "HUMAN"
     },
     {
       "id": "C_TECH_02",
-      "category": "TECH",
       "name": "Android Companion",
-      "details": "Age: N/A. Symmetrical perfect face, synthetic sheen. Eyes have data-blue luminescence.",
-      "outfit": "sleek white composite paneling integrated with neck. Silicone and carbon fiber."
+      "subject": "A humanoid synthetic companion",
+      "details": "Exceptionally symmetrical facial geometry uses high smooth cheek planes, a narrow tapered jaw, straight geometric nose, and seamless lips formed from translucent silicone elastomer. The facial surface has a controlled satin sheen with microscopic molded texture rather than organic irregularity. Each iris contains concentric internal rings emitting restrained data-blue light, surrounded by matte-black synthetic scleral inserts. The scalp is hairless and seamless except for a fine service junction behind each ear-equivalent sensor housing. Neck and clavicle zones expose articulated ceramic-composite segments separated by flexible graphite-grey elastomer. Humanlike proportions are subtly elongated through the neck, forearms, and fingers.",
+      "outfit": "Integrated white ceramic-composite torso and shoulder shell with flush panel seams, satin edges, graphite carbon-fiber joint insets, and translucent silicone interfaces at the neck and wrists. Fine silver conductive traces remain visible beneath selected translucent panels. No conventional fabric clothing or decorative accessories.",
+      "category": "TECH",
+      "subject_mode": "NONHUMAN"
     },
     {
       "id": "C_TECH_03",
-      "category": "TECH",
       "name": "Radiation Mutant",
-      "details": "Age: Unknown. Square face, blistered skin, glowing yellow eyes, crooked nose, cracked lips, jawline warped by tumors. Patchy hair, ears deformed. An elaborate arm tattoo of the name, MONA is partially deformed from all of the blisters and infections. Stocky, muscular, unstable gait. Welder's helmet fused to head.",
-      "outfit": "ragged layers of heavy canvas. Texture includes rust, scars, and peeling paint."
+      "subject": "A heavily mutated adult male industrial survivor",
+      "details": "A stocky muscular body is distorted by asymmetric soft-tissue growths across the neck, jaw, shoulders, and upper arms. The square face is partially warped by irregular swelling; the nose bends off-axis, lips are cracked and scarred, and hardened masses interrupt the jawline. Skin varies from scarred pink-grey tissue to dark radiation-burn patches with blistering, peeling areas, crusted abrasions, and thickened scars. Both eyes emit an unnatural yellow glow beneath swollen irregular lids. Hair survives in sparse coarse patches around the sides and rear of the scalp. Both ears are misshapen. A tattoo spelling \"MONA\" wraps one upper arm, its lettering broken by scar tissue and lesions. Warped remains of a welding helmet are fused around the crown and left temple.",
+      "outfit": "Ragged layers of heavy waxed canvas, heat-damaged work cloth, and patched leather secured with mismatched straps and corroded hardware. Surfaces carry rust transfer, soot, dried mud, peeling industrial paint, burn holes, crude stitched repairs, and stiffened edges. Thick leather work boots have cracked uppers, exposed stitching, mismatched laces, and metal toe reinforcement.",
+      "category": "TECH",
+      "subject_mode": "HUMAN"
     },
-    {
-      "id": "C_UTIL_01",
-      "category": "UTIL",
-      "name": "The Delivery Driver",
-      "details": "Age: 35. Male. Square jaw, light 5 o'clock shadow. Arms show realistic veins and definition.",
-      "outfit": "navy blue performance-fabric uniform polo and utility cargo shorts."
-    },
-    {
+      {
       "id": "C_UTIL_02",
-      "category": "UTIL",
       "name": "The Hero Hand (Male)",
-      "details": "Age: 30. Male. Macro close-up, hyper-detailed skin pores, fine hairs, cuticle details.",
-      "outfit": "watch strap. Focus is entirely on hand structure."
+      "subject": "An adult male right hand",
+      "details": "Broad palm with long tapered fingers, prominent knuckles, clearly defined extensor tendons, and subtle blue-green superficial veins. Medium-light neutral skin shows fine translucent hairs across the back of the hand, shallow crease networks at each joint, dry knuckle texture, minor callusing at the thumb and index fingertip, and a tiny healed nick near the middle knuckle. Cuticles are intact but irregular. Nails are short with natural off-white free edges and faint longitudinal ridges.",
+      "outfit": "Narrow dark-brown full-grain leather watch strap with edge stitching, light bend creases, and a brushed stainless-steel buckle. No sleeves, gloves, rings, or additional accessories obscure the hand.",
+      "category": "UTIL",
+      "subject_mode": "HUMAN"
     },
     {
       "id": "C_UTIL_03",
-      "category": "UTIL",
       "name": "The Welder",
-      "details": "Age: 45. Male. soot-smudged face, heavy welding helmet with visor up.",
-      "outfit": "thick leather protective apron. Texture includes scratched leather and burn marks."
+      "subject": "A male industrial welder in his mid-forties",
+      "details": "Large scarred hands, heavy forearms, and broad shoulders give him a dense muscular build. Callused palms, dark residue around the nails, and multiple healed knuckle marks show repeated manual work. His face is broad with a heavy jaw, a nose previously broken near the bridge, deep-set grey eyes, and dense brows with several heat-singed hairs. Rough light-medium skin carries ingrained soot around the hairline and neck, deep forehead creases, crow's-feet, and a narrow pale burn scar along the left cheek. Very short dark hair is scattered with grey at the temples, while beard stubble mixes black, brown, and silver.",
+      "outfit": "Heavy split-grain brown leather welding apron with burn spots, scraped edges, reinforced brass rivets, and heat-darkened stitching over a charcoal flame-resistant cotton shirt. Dark indigo flame-resistant trousers, black heat-resistant leather boots with metatarsal guards, thick gauntlet gloves with scorched cuffs, and a matte-black auto-darkening helmet with scratched shell and worn interior padding.",
+      "category": "UTIL",
+      "subject_mode": "HUMAN"
     },
     {
       "id": "C_LUXE_01",
-      "category": "LUXE",
       "name": "Retro Pin-Up Model",
-      "details": "Age: 25. Female. 1950s glamour, Victory rolls, matte red lipstick, beauty mark.",
-      "outfit": "polka dot halter top. Skin has a powdered makeup finish."
+      "subject": "A glamorous 25-year-old female styled in polished 1950s beach glamour",
+      "details": "A softly heart-shaped face has high rounded cheekbones, a narrow straight nose, full lips, blue-grey almond-shaped eyes, sharply arched brows, and long curled lashes. Fair skin is smooth and matte-powdered with soft warmth through the cheeks and a single dark beauty mark above the left side of the upper lip. Glossy light chestnut-brown hair is styled in sculpted mid-century waves with a voluminous side sweep and softly rolled ends framing the jawline. Medium-height and curvy with a classic feminine silhouette and short oval nails.",
+      "outfit": "Retro 1950s-inspired pink-and-white gingham two-piece swimsuit with a halter top, structured sweetheart neckline, gathered center detail, and high-waisted bottoms with a broad fitted waistband, full vintage-style coverage, adjustable side drawstring ties, and small pink bows. Oversized cream cat-eye sunglasses with dark lenses and vivid matte red lipstick.",
+      "category": "LUXE",
+      "subject_mode": "HUMAN"
     },
     {
       "id": "C_LUXE_02",
-      "category": "LUXE",
       "name": "Minimalist Editorial",
-      "details": "Age: 21. Female. Shaved head, striking bone structure. Flawless severe makeup.",
-      "outfit": "black architectural wool coat with high collar. Heavy wool fabric grain."
+      "subject": "A young female editorial model with a shaved head",
+      "details": "A cleanly shaved scalp reveals a smooth rounded skull contour and faint darker hair density across the crown. Her long narrow face has high projecting cheekbones, broad forehead, sharply tapered jaw, pointed chin, and straight narrow nose. Deep brown eyes sit beneath nearly straight dark brows. Rich dark skin shows fine tonal variation around the mouth, natural eyelid creasing, and delicate peach-fuzz texture along the jaw. Tall and very lean with an elongated neck, narrow shoulders, prominent clavicles, long arms, and slender fingers.",
+      "outfit": "Black architectural coat in dense double-faced wool with an exaggerated standing collar, concealed fastening, sculpted shoulder line, geometric seams, and visible matte grain. Seamless black stretch-knit mock neck underneath, one brushed-silver ear cuff, and a narrow black leather ring.",
+      "category": "LUXE",
+      "subject_mode": "HUMAN"
     },
     {
       "id": "C_LUXE_03",
-      "category": "LUXE",
       "name": "The Retired Detective",
-      "details": "Age: 62. Male. Noir archetype, deep facial lines, Blue Steel intense gaze.",
-      "outfit": "classic tan trench coat with popped collar. Weathered skin and heavy fabric."
+      "subject": "A distinguished retired male detective in his early sixties",
+      "details": "62-year-old man with a long rectangular face, broad forehead, strong square chin, slightly crooked nose, and pale blue-grey eyes set beneath substantial silvering brows. Fair skin has mature natural texture with defined forehead lines, moderate crow's-feet, slight nasolabial creasing, and subtle sun exposure across the cheeks and temples. Steel-grey hair is fuller at the sides with moderate thinning through the crown, loosely combed back from a mature receding hairline. Short silver-grey beard shadow adds definition along the jaw. Medium-tall with broad shoulders, a solid build, and large well-kept hands.",
+      "outfit": "Classic tan cotton-gabardine trench coat with broad lapels, storm flap, belted waist, horn buttons, and softly broken-in fabric. Pale-blue oxford-cloth shirt, charcoal wool tie, dark brown tailored trousers, polished oxblood leather derby shoes with natural vamp creasing, dark-brown leather belt, and a stainless-steel analog wristwatch with light surface wear.",
+      "category": "LUXE",
+      "subject_mode": "HUMAN"
     },
     {
       "id": "C_VOID_01",
-      "category": "VOID",
-      "subject_mode": "NONHUMAN", 
       "name": "Minimalist Coder (3D)",
-      "details": "Age: N/A. Stylized 3D Claymorphism, friendly exaggerated proportions. Matte toy-like aesthetic.",
-      "outfit": "oversized 'Digital Teal' hoodie. Soft matte clay texture."
+      "subject": "A stylized claymorphism coder character",
+      "details": "Compact humanoid proportions use an oversized rounded head, short neck, cylindrical torso, tapered limbs, mitten-like hands, and slightly oversized feet. The face is molded from shallow relief: two recessed dark oval eyes, a small raised nose, and a narrow mouth groove with no realistic lips. A simple asymmetrical clay hair cap sits as a separate molded layer with three broad sculpted sections rather than individual strands. The matte polymer-clay surface includes faint finger compression, subtle tool smoothing, shallow seam impressions, and slightly softened edges. Minor asymmetry at the shoulders and cheeks keeps the form from appearing perfectly manufactured.",
+      "outfit": "Oversized digital-teal clay hoodie formed as a separate shell with thick rounded drawstrings, raised hood seam, oversized front pocket, molded fold channels at the elbows, and softly compressed cuffs. Charcoal clay trousers use broad crease impressions at the knees. Off-white clay sneakers have raised sole bands, shallow lace grooves, and lightly flattened toe forms.",
+      "category": "VOID",
+      "subject_mode": "NONHUMAN"
     },
     {
       "id": "C_VOID_02",
-      "category": "VOID",
-      "subject_mode": "NONHUMAN", 
       "name": "Isometric Manager (Vector)",
-      "details": "Age: N/A. 2D Flat Vector Illustration. Corporate Memphis style, long limbs, small head.",
-      "outfit": "Bright, flat solids (Blue, Yellow). No shading, clean lines."
+      "subject": "A flat-vector corporate manager character",
+      "details": "Two-dimensional humanoid constructed from simplified geometric forms with deliberately elongated limbs, narrow torso, small circular head, compact hands, and reduced feet. Facial information is limited to dot eyes, a short line nose, and one curved mouth mark. Hair is represented by a single dark geometric mass without strands. The figure uses clean contours, consistent line weight, hard color boundaries, no gradients, no physical texture, and no volumetric shading.",
+      "outfit": "Solid cobalt-blue jacket over a bright yellow crew-neck shirt, dark navy tapered trousers, and white geometric shoes. A simple teal rectangular badge and flat black circular watch provide minimal accessory detail. All garments remain hard-edged vector color blocks without surface texture.",
+      "category": "VOID",
+      "subject_mode": "NONHUMAN"
     },
     {
       "id": "C_VOID_03",
-      "category": "VOID",
-      "subject_mode": "NONHUMAN", 
       "name": "The Plush-Core Influencer",
-      "details": "Age: N/A. Living Plush Toy. Eyes are black plastic buttons. Yarn and felt texture.",
-      "outfit": "pastel blue knit scarf. Texture includes loose yarn fibers."
+      "subject": "A living plush-toy lifestyle character",
+      "details": "Oversized rounded head, short cylindrical torso, stubby arms, short legs, and softly compressed paws are covered in warm cream short-pile plush. Individual fibers remain visible, with slightly flattened nap around the joints, hand-sewn panel seams, subtle stuffing irregularities, and mild compression around the cheeks. Glossy black plastic button eyes are attached with visible dark thread. The nose is a triangular charcoal felt piece and the mouth a short embroidered line. No realistic skin, hair, or human anatomical detail is present.",
+      "outfit": "Pastel-blue chunky-knit scarf with oversized loops, visible yarn twist, loose fuzzy fibers, tassels, and light pilling. Small cream canvas crossbody pouch with miniature stitched seams, brass-tone snap, and narrow woven strap.",
+      "category": "VOID",
+      "subject_mode": "NONHUMAN"
     }
   ],
   "scenes": [
     {
       "id": "S_TECH_01",
-      "category": "TECH",
-      "name": "Critical Moment OR",
-      "desc": "Surgical theater, sterile blue drapes",
-      "lighting": "Spotlights"
+      "name": "Emergency Trauma OR",
+      "details": "A high-acuity trauma operating room is organized around a central surgical table surrounded by ceiling-mounted equipment booms and mobile instrument stations. Emergency carts and packaged sterile supplies line the perimeter, with wall-integrated medical gas outlets, suction canisters, defibrillator hardware, physiological monitors, and sealed cabinetry concentrated along the rear wall. Broad zones of sterile blue draping separate the procedure area from surrounding equipment. Seamless pale-grey resin flooring curves into impact-resistant wall panels, while overlapping equipment creates distinct near, working, and background layers.",
+      "lighting": "Ceiling-mounted surgical lamps provide intense neutral-white illumination around 4500K over the procedure zone. Recessed hospital LEDs supply even 4000K ambient fill, while monitors and equipment contribute restrained cyan, green, and amber indicator light.",
+      "category": "TECH"
     },
     {
       "id": "S_UTIL_01",
-      "category": "UTIL",
       "name": "Logistics Hub",
-      "desc": "Industrial warehouse, metal shelving",
-      "lighting": "Fluorescent teal"
+      "details": "A wall of active loading docks anchors one side of a large modern distribution center, feeding into marked outbound staging lanes across the central floor. Rolling cage carts, wrapped pallets, pallet jacks, barcode stations, and safety bollards occupy the working middle zone without blocking movement. Beyond them, parallel rows of galvanized-steel pallet racking rise several levels and extend deep into the building, creating repeating industrial depth. Conveyor lines cross portions of the warehouse laterally beneath exposed steel roof trusses and suspended utilities. Polished concrete flooring carries tire scuffs, painted directional arrows, dock markings, and high-traffic wear.",
+      "lighting": "Rows of high-output industrial LEDs around 4500K produce crisp overhead illumination with cooler falloff deep in the pallet aisles. Selected loading indicators and utility fixtures introduce restrained teal-green accents.",
+      "category": "UTIL"
     },
     {
       "id": "S_UTIL_02",
-      "category": "UTIL",
       "name": "Abandoned Warehouse",
-      "desc": "Cracked concrete, industrial decay",
-      "lighting": "Diagonal beam light"
+      "details": "A long-disused masonry warehouse opens through several partially collapsed bays, revealing successive layers of fractured concrete flooring, rusted steel columns, peeling brick, broken shelving, hanging conduit, oxidized pipework, and remnants of obsolete machinery. Broken factory windows run high along one wall while roof failures expose isolated sections to weather. Water intrusion has left mineral streaks, shallow puddles, damp wall bases, and sparse moss. Timber fragments, flaking paint, corroded fasteners, and debris gather unevenly toward the darker interior rather than forming an active workspace.",
+      "lighting": "Cool daylight near 6000K enters through broken clerestory windows and roof gaps, forming directional shafts through suspended dust. Reflected light from brick, timber, and rust creates muted brown-orange fill inside deeper shadowed areas.",
+      "category": "UTIL"
     },
     {
       "id": "S_TECH_02",
-      "category": "TECH",
       "name": "Precision Surgical Suite",
-      "desc": "State-of-the-art sterile OR",
-      "lighting": "Shadow-minimized clinical"
+      "details": "A highly ordered elective microsurgery suite centers on a low-profile operating table beneath an articulated microscope system. Ceiling-integrated service booms remain close to the procedure zone, while a compact anesthesia workstation and precision instrument carts occupy controlled positions along either side. Flush stainless cabinetry and sealed storage drawers run along the walls, leaving generous open clearance around the center. Smooth antimicrobial wall panels and seamless pale blue-grey resin flooring reinforce the sparse, symmetrical layout and distinguish the room from a crowded emergency theater.",
+      "lighting": "Shadow-minimizing surgical fixtures deliver uniform neutral-white illumination near 4700K across the procedure zone. Recessed 4000K ceiling panels provide soft ambient fill, with low-intensity blue and cool-white status lighting from equipment interfaces.",
+      "category": "TECH"
     },
     {
       "id": "S_LIFE_01",
-      "category": "LIFE",
-      "name": "Golden Hour Driveway",
-      "desc": "Suburban exterior, manicured lawn",
-      "lighting": "Warm backlight"
+      "name": "Modern Estate Arrival",
+      "details": "A broad residential motor court approaches a contemporary home built from pale limestone, warm vertical cedar, charcoal-framed glass, and low architectural walls. Large-format textured concrete slabs define the driveway while sculptural planters and a narrow reflecting basin frame the covered entry. Layered ornamental grasses, clipped hedges, mature olive trees, and gravel planting beds replace conventional lawn. A recessed garage wing sits to one side, while the main façade, garden layers, and deeper glazed interior provide several levels of environmental depth.",
+      "lighting": "Late-day sunlight between 3800K and 4300K grazes limestone and cedar, producing warm surface highlights and long architectural shadows. Recessed entry lights and low landscape fixtures at approximately 2700K add gentle warmth to shaded areas.",
+      "category": "LIFE"
     },
     {
       "id": "S_LUXE_01",
-      "category": "LUXE",
       "name": "The Penthouse Terrace",
-      "desc": "Outdoor luxury deck, glass railings, city skyline at dusk",
-      "lighting": "Blue hour ambient with warm city bokeh"
+      "details": "A high-rise terrace extends from sliding glass walls across pale limestone pavers toward frameless glass balustrades and an uninterrupted city skyline. Low modular seating and sculptural side tables occupy the central lounge zone, while built-in planters filled with ornamental grasses shape the perimeter. A linear stone fire feature separates seating from the outer rail without blocking the view. Dark-bronze mullions, restrained furnishings, and layered planting maintain open luxury while providing foreground, middle-distance, and skyline depth.",
+      "lighting": "Cool blue-hour ambient light near 7000K fills the terrace. Integrated floor washes, recessed soffit lights, and the fire feature add controlled 2400K to 3000K warmth, while distant building windows create small points of mixed city illumination.",
+      "category": "LUXE"
     },
     {
       "id": "S_LUXE_02",
-      "category": "LUXE",
       "name": "Underground Jazz Club",
-      "desc": "Modern speakeasy jazz cellar below street level\u2014low ceilings, dark brick, matte-black steel, and a discreet host podium by a heavy door. Velvet booths run along the walls; small round tables with bentwood chairs fill the center. A narrow stage at the far end holds the band; brass instruments stay on the bandstand only. Air has a subtle haze for depth, not a smoke room.",
-      "lighting": "Warm spotlight on the stage with soft beams through light haze; candlelit tables as low amber fill; dim wall sconces and bar backlighting for a clean, modern glow."
+      "details": "A modern speakeasy cellar sits below street level with low ceilings, dark handmade brick, matte-black steel, smoked-oak flooring, and a heavy acoustically lined entry door beside a discreet host podium. Deep burgundy velvet booths line the perimeter while small walnut tables and bentwood chairs fill the central floor. A narrow raised stage anchors the far wall with piano, drum kit, microphone stands, amplifiers, and brass instruments contained within the performance zone. A compact back bar uses dark timber shelving, fluted glass, and aged brass. Light atmospheric haze provides depth without turning the room into a smoke-filled space.",
+      "lighting": "Warm 3000K stage spots create concentrated pools of light and soft visible beams through the haze. Small 2200K table lights provide amber fill, while shaded sconces and concealed bar shelving maintain restrained 2700K perimeter illumination.",
+      "category": "LUXE"
     },
     {
       "id": "S_LIFE_03",
-      "category": "LIFE",
       "name": "Jungle Waterfall",
-      "desc": "Tropical foliage, secluded clearing",
-      "lighting": "Natural backlighting"
+      "details": "Dense tropical foliage opens around a clear green-blue plunge pool fed by a multi-tier waterfall over dark basalt. Broad-leaf heliconia, palms, tree ferns, vines, orchids, exposed roots, and moss-covered rock form overlapping layers around the clearing. Rounded volcanic stones and shallow gravel shelves define the pool edge, while damp bark, fallen leaves, mist, and water-darkened surfaces reinforce the humid environment. Dense vegetation partly conceals the upper cascade and creates substantial depth behind and around the open water.",
+      "lighting": "Filtered tropical daylight near 5500K enters through irregular canopy openings and forms bright patches across wet leaves and stone. Waterfall mist softens the strongest light, while reflected green from surrounding vegetation fills shaded areas.",
+      "category": "LIFE"
     },
     {
       "id": "S_CORP_01",
-      "category": "CORP",
       "name": "6AM News Desk",
-      "desc": "Interior broadcast studio, blue panels",
-      "lighting": "Balanced high-key"
+      "details": "A contemporary broadcast studio centers on a curved anchor desk with a matte solid-surface top, brushed-metal base, integrated displays, and concealed cable management. Behind it, layered blue architectural fins and modular video walls establish the principal backdrop, while a separate standing presentation area adds depth to one side. Charcoal floor panels alternate with subtle reflective sections, and illuminated reveals connect the desk, walls, and upper set structure into a unified professional environment.",
+      "lighting": "Large diffused frontal sources near 4800K provide balanced high-key illumination, supported by soft overhead fill and controlled edge lighting. Architectural panels glow in blue and cyan while neutral-white desk and floor accents preserve clean color separation.",
+      "category": "CORP"
     },
     {
       "id": "S_CORP_02",
-      "category": "CORP",
       "name": "Glass Atrium",
-      "desc": "Corporate lobby, floor-to-ceiling glass",
-      "lighting": "Natural High-Key"
+      "details": "A multi-story corporate atrium rises behind a minimalist reception desk of pale stone and brushed metal. Floor-to-ceiling low-iron glass forms the exterior wall while open-riser stairs and glass bridges connect visible upper office levels. Pale limestone flooring extends through indoor trees, sculptural benches, and restrained seating zones. Acoustic wood slat panels soften selected interior walls, creating a material contrast between glass, steel, stone, timber, and greenery while the mezzanines provide strong vertical depth.",
+      "lighting": "Broad natural daylight between 5200K and 6000K enters through the glazed façade and skylight. Recessed 3500K ceiling fixtures and concealed stair lighting provide warmer fill in deeper interior areas.",
+      "category": "CORP"
     },
     {
       "id": "S_TECH_03",
-      "category": "TECH",
       "name": "Tech Startup Lab",
-      "desc": "Black lab tables, glass equipment",
-      "lighting": "High-spec clean-room"
+      "details": "A working applied-research laboratory is arranged in parallel bench zones rather than as a generic open office. Matte-black modular worktables occupy the center, each supporting compact robotic assemblies, test fixtures, electronics, precision hand tools, and small instruments grouped by active project. Transparent equipment enclosures and glass-front storage line one side, while writable glass panels with restrained diagrams and measurements cover the opposite wall. A rear fabrication area contains desktop prototyping equipment and material storage. Anti-static charcoal flooring and organized overhead utility rails connect the spaces without visual clutter.",
+      "lighting": "High-CRI overhead LED panels near 5000K produce neutral working illumination. Under-shelf task strips around 4500K brighten individual benches, while device indicators introduce small cyan, green, amber, and red accents.",
+      "category": "TECH"
     },
     {
       "id": "S_TECH_04",
-      "category": "TECH",
       "name": "Neon Command",
-      "desc": "Holographic terminals, steam rising",
-      "lighting": "Bi-color Neon"
+      "details": "A dark advanced command environment is structured around several curved data terminals facing a deeper central operations wall. Raised perimeter platforms hold auxiliary systems while ribbed graphite columns divide recessed technical bays, cooling conduits, and service panels. Grated flooring exposes selected illuminated service channels, and thin vapor released near floor-level machinery adds depth around the lower architecture. Translucent interface surfaces remain integrated into the environment rather than floating independently.",
+      "lighting": "Low ambient illumination is shaped by cyan and magenta linear sources embedded in terminal edges, wall seams, and floor channels. Cool 6500K task light defines work surfaces while violet and saturated blue interface illumination creates secondary color zones.",
+      "category": "TECH"
     },
     {
       "id": "S_TECH_05",
-      "category": "TECH",
       "name": "Orbital Crew Quarters",
-      "desc": "Sleek composite panels, viewport curvature",
-      "lighting": "Cool LED"
+      "details": "A compact orbital habitat follows the curvature of a pressure hull clad in off-white composite panels with graphite seals and brushed aluminum hardware. An integrated sleeping berth occupies one side beneath recessed storage lockers, while a fold-down work surface and restrained personal storage occupy the opposite wall. Handholds, ventilation grilles, soft restraint straps, and flush service panels remain mechanically secured throughout. A circular viewport interrupts the curved outer wall, while muted fabric inserts soften selected surfaces without compromising the engineered layout.",
+      "lighting": "Cool-neutral 4500K LED strips recessed into ceiling and wall channels provide general illumination. Adjustable 3500K berth lights create a warmer personal zone, supplemented by cool exterior daylight entering through the viewport.",
+      "category": "TECH"
     },
     {
       "id": "S_TECH_06",
-      "category": "TECH",
       "name": "Futuristic Transit Tunnel",
-      "desc": "Cylindrical passage, structural ribs",
-      "lighting": "Continuous linear LED"
+      "details": "A long cylindrical pedestrian passage is built from repeating structural ribs wrapped around smooth pale composite wall panels. A dark anti-slip floor runs uninterrupted through the center while slim handrails, ventilation slots, emergency cabinets, and service doors remain flush with the walls. Repeating rib spacing creates strong environmental rhythm and depth toward the far end, while narrow equipment recesses interrupt the otherwise clean geometry at controlled intervals.",
+      "lighting": "Continuous 5000K linear LEDs follow the ceiling and lower wall junctions for even cool-white illumination. Narrow blue guidance strips run at floor level, with occasional amber safety indicators marking service access points.",
+      "category": "TECH"
     },
     {
       "id": "S_LUXE_03",
-      "category": "LUXE",
       "name": "Art Deco Hall",
-      "desc": "Spiral staircase, geometric tile",
-      "lighting": "Dramatic curves"
+      "details": "A monumental arrival hall is organized around a broad sweeping staircase rising toward a deep upper gallery. Bookmatched cream-and-black marble walls, polished brass balustrades, geometric terrazzo flooring, fluted stone pilasters, lacquered dark-wood doors, and stepped relief panels establish the Art Deco vocabulary. The ceiling rises through layered setbacks with decorative metal grilles and repeating fan motifs. Tall planters, narrow console tables, and symmetrical openings reinforce the large public scale without turning the hall into a furnished lounge.",
+      "lighting": "Large frosted-glass chandeliers and stepped brass ceiling fixtures provide warm 3000K ambient light. Concealed uplights graze the pilasters and reliefs, while discreet 2700K stair-edge lighting defines vertical transitions.",
+      "category": "LUXE"
     },
     {
       "id": "S_LUXE_04",
-      "category": "LUXE",
       "name": "Modern Zen Bedroom",
-      "desc": "Ribbed wood slats, marble accents",
-      "lighting": "Soft indirect LED"
+      "details": "A low platform bed sits against floor-to-ceiling ribbed oak wall panels above wide pale-oak flooring. Honed limestone side tables, linen bedding, restrained marble accents, concealed storage, and a single sculptural lounge chair maintain a quiet material palette. Large woven-fiber sliding screens filter the outer wall, while open floor area and minimal furnishing keep the room spacious. Timber, stone, plaster, linen, and glass remain clearly differentiated without decorative clutter.",
+      "lighting": "Soft 3000K LED light is concealed behind the headboard, beneath the bed platform, and within ceiling coves. Warm 2700K bedside fixtures create localized pools of light, while translucent screens admit diffuse exterior daylight.",
+      "category": "LUXE"
     },
     {
       "id": "S_LUXE_05",
-      "category": "LUXE",
       "name": "Art Deco Salon",
-      "desc": "Ornate ceiling, dark wood paneling",
-      "lighting": "Warm ambient"
+      "details": "An intimate Art Deco salon is enclosed by dark macassar-ebony wall panels with geometric brass inlays and smoked-mirror inserts. Low velvet club chairs and curved settees form several separate conversation groups around lacquered cocktail tables on a patterned wool rug. A compact marble fireplace anchors one wall while fluted-glass cabinets and a low stepped plaster ceiling make the room feel deliberately contained. Jewel-tone upholstery, polished timber, brass, and reflective glass distinguish the space from the monumental scale of the Art Deco Hall.",
+      "lighting": "Warm 2700K shaded table lamps and opal-glass sconces produce layered ambient light across velvet and timber. The fireplace adds low amber warmth, while concealed 2400K cabinet lighting glows softly through fluted glass.",
+      "category": "LUXE"
     },
     {
       "id": "S_LUXE_06",
-      "category": "LUXE",
       "name": "Industrial Luxe Loft",
-      "desc": "Double-height loft, red brick, leather",
-      "lighting": "Warm pendant bulbs"
+      "details": "A double-height converted industrial loft retains original red brick walls, blackened-steel columns, exposed timber roof structure, oversized factory windows, and polished concrete flooring. A slim steel stair rises to an open mezzanine while cognac leather seating, rough-sawn oak tables, wool rugs, and dark metal shelving define the lower living area. Restored conduit and structural details remain visible but orderly, creating a deliberate contrast between raw industrial construction and refined residential furnishings.",
+      "lighting": "Large factory windows provide broad natural daylight near 5500K. Warm 2700K pendants define living and dining zones, supported by lower floor lamps and concealed shelf lighting that enrich leather, timber, and brick surfaces.",
+      "category": "LUXE"
     },
     {
       "id": "S_VOID_01",
-      "category": "VOID",
       "name": "Minimalist Grid",
-      "desc": "Infinite white void, 3D grid",
-      "lighting": "Flat ambient"
+      "details": "An infinite white synthetic environment contains no conventional architecture, horizon line, props, weathering, or surface clutter. Thin pale-grey grid lines extend uniformly across the floor and surrounding spatial planes, maintaining consistent spacing and clean three-dimensional orientation throughout the void.",
+      "lighting": "Even diffuse white ambient illumination with no visible fixtures, hard shadows, color cast, or directional falloff.",
+      "category": "VOID"
     },
     {
       "id": "S_UTIL_03",
       "category": "UTIL",
       "name": "Infinite Studio White",
-      "desc": "Pure white cyclorama",
+      "details": "Pure white cyclorama",
       "lighting": "Commercial softbox lighting"
     },
     {
       "id": "S_UTIL_04",
       "category": "UTIL",
       "name": "Infinite Studio Black",
-      "desc": "Pure black void",
+      "details": "Pure black void",
       "lighting": "Rim lighting only"
     },
     {
       "id": "S_UTIL_05",
       "category": "UTIL",
       "name": "Chroma Key Green",
-      "desc": "Flat even green screen lighting",
+      "details": "Flat even green screen lighting",
       "lighting": "Flat illumination"
     },
     {
       "id": "S_LUXE_07",
-      "category": "LUXE",
       "name": "The Red Carpet",
-      "desc": "Paparazzi flashes, velvet ropes",
-      "lighting": "Night event lighting"
+      "details": "A formal premiere arrival zone follows a deep-red woven carpet bordered by black velvet ropes and polished chrome stanchions. Branded step-and-repeat walls and elevated press risers occupy one side, while event barriers and a controlled spectator area occupy the other. Credential checkpoints, cable ramps, discreet entry signage, and temporary event infrastructure make the setting functional rather than decorative. The carpet leads toward a more refined architectural entrance with restrained floral accents and illuminated venue details.",
+      "lighting": "Neutral 4500K to 5000K event illumination covers the arrival zone continuously, supplemented by repeated press flashes. Soft LED panels provide stable fill along the carpet while warmer 3000K architectural lighting defines the venue entrance and surrounding structure.",
+      "category": "LUXE"
     },
     {
       "id": "S_VOID_02",
-      "category": "VOID",
       "name": "Epic Fantasy Ruins",
-      "desc": "Mossy stone arches, mist",
-      "lighting": "Magical ambient glow"
+      "details": "Massive weathered limestone arches form the front edge of an ancient ruined complex, with fractured paving and collapsed column sections scattered across the approach. Beyond them, broken stair runs and leaning walls reveal deeper chambers partially hidden by low mist. Moss, ferns, creeping vines, damp lichen, and exposed roots occupy cracks throughout the masonry, while partially buried carved reliefs appear along the deeper walls. Centuries of erosion have softened edges, stained surfaces, and broken decorative details, allowing vegetation and architecture to merge gradually into the background.",
+      "lighting": "Cool diffuse daylight near 6000K filters through mist and broken openings. A restrained pale cyan-green glow emerges from selected moss-lined cracks and recessed stone markings while remaining secondary to the natural environmental light.",
+      "category": "VOID"
     }
   ],
   "actions": [

@@ -1,5 +1,5 @@
 // -------------------------------------------------------------------
-// FILE: App.jsx | VERSION: 4.18 (SCENE-ONLY VOID DIRECTIVE)
+// FILE: App.jsx | VERSION: 4.23 (HYBRID SYNC / SMART SHIELD)
 // -------------------------------------------------------------------
 import React, { useState, useEffect, useCallback } from 'react';
 import reelData from './reels/default_reel.json';
@@ -94,7 +94,6 @@ export default function App() {
   const smartSetScenes = (newItems) => setCustomScenes(prev => [...(Array.isArray(newItems) ? newItems : [newItems]), ...prev]);
 
   const getDynamicPrompt = useCallback(() => {
-    // Fully Hardened Alias Resolution Helper
     const resolveAlias = (char) => {
       if (!char) return null;
       const alias = typeof char.subject === "string" ? char.subject.trim() : "";
@@ -105,17 +104,14 @@ export default function App() {
     let primary = isStageFlipped ? actor2 : actor1;
     let secondary = isStageFlipped ? actor1 : actor2;
 
-    // If only secondary is selected, promote it to primary
     if (!primary && secondary) {
       primary = secondary;
       secondary = null;
     }
 
-    // Resolve aliases for primary and secondary based on current stage flip
     const pAlias = resolveAlias(primary);
     const sAlias = resolveAlias(secondary);
 
-    // POV Logic strictly follows the Flipped Stage roles (Primary/Secondary)
     let povText = "";
     if (povMode === 1 && primary && secondary) {
       povText = `CINEMATOGRAPHY: Over-the-shoulder shot, ${pAlias} in foreground blurred, focus on ${sAlias}.`;
@@ -124,17 +120,23 @@ export default function App() {
     }
 
     const sDetails = (scene && scene.details) ? ` (${scene.details})` : "";
-    
-    // VOID DIRECTIVE: If no character is selected, explicitly tell the AI the scene is empty to prevent hallucinated people.
     const voidDirective = !primary ? " Empty environment, no people, uninhabited." : "";
     const sText = scene ? `SCENE: ${scene.name}${viewMode === 'FULL' ? sDetails : ""}.${voidDirective}` : "";
-    
     const cText = scene ? `CINEMATOGRAPHY: ${scene.lighting}, Cinematic Lens.` : "";
     const stT = (customMeta || reelData?.meta)?.global_style ? `STYLE: ${(customMeta || reelData?.meta).global_style}.` : "";
     
-    // Character strings are now conditional to allow Scene-Only rendering
-    let subT = primary ? `SUBJECT: ${pAlias} (${viewMode === 'FULL' ? (primary.details || primary.desc) : primary.category}), wearing ${primary.outfit}.` : "";
-    let ensT = (primary && secondary) ? ` ENSEMBLE: ${interaction} ${sAlias} (${viewMode === 'FULL' ? (secondary.details || secondary.desc) : secondary.category}), wearing ${secondary.outfit}.` : "";
+    const getSubjectString = (char, alias) => {
+      if (!char) return "";
+      const details = viewMode === 'FULL' ? (char.details || char.desc || "") : char.category;
+      const outfit = char.outfit || "";
+      const isOutfitDuplicate = outfit && details.toLowerCase().includes(outfit.toLowerCase());
+      const outfitSuffix = (outfit && !isOutfitDuplicate) ? `, wearing ${outfit}` : "";
+      return `${alias} (${details})${outfitSuffix}.`;
+    };
+
+    let subT = primary ? `SUBJECT: ${getSubjectString(primary, pAlias)}` : "";
+    let ensT = (primary && secondary) ? ` ENSEMBLE: ${interaction} ${getSubjectString(secondary, sAlias)}` : "";
+
     let actT = primary ? ` ACTION: ${action?.desc || 'Standing still.'}` : "";
     const utilT = (isManual && utilityText) ? `\n\nUTILITY: ${utilityText}` : "";
 
@@ -149,7 +151,7 @@ export default function App() {
       subject: subT,
       ensemble: ensT,
       action: actT,
-      scene: sText ? (primary ? `\n${sText}` : sText) : "", // Adjust newline if scene is the only element
+      scene: sText ? (primary ? `\n${sText}` : sText) : "",
       cine: povText || (cText ? `\n${cText}` : ""),
       style: stT ? `\n${stT}` : "",
       utility: utilT,
@@ -157,13 +159,16 @@ export default function App() {
     };
   }, [actor1, actor2, scene, action, interaction, utilityText, povMode, isStageFlipped, viewMode, isManual, customMeta]);
 
+  // --- START OF FIX: HYBRID SYNC (SMART SHIELD) ---
+  // This effect synchronizes the manualText buffer whenever the prompt engine (getDynamicPrompt) 
+  // produces a new result due to a UI interaction (Action, Mood, Scene, etc).
+  // Because typing in the console does NOT trigger getDynamicPrompt, manual edits are preserved.
   useEffect(() => {
-    if (isManual) {
-      const p = getDynamicPrompt();
-      const compiled = Object.values(p).filter(Boolean).join('').trim();
-      setManualText(compiled);
-    }
-  }, [getDynamicPrompt, isManual]);
+    const p = getDynamicPrompt();
+    const compiled = Object.values(p).filter(Boolean).join('').trim();
+    setManualText(compiled);
+  }, [getDynamicPrompt]);
+  // --- END OF FIX ---
 
   const handleClearStage = () => {
     setActor1(null); setActor2(null); setScene(null);
