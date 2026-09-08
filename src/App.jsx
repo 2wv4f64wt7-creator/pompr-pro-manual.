@@ -1,5 +1,9 @@
 // -------------------------------------------------------------------
-// FILE: App.jsx | VERSION: 4.23 (HYBRID SYNC / SMART SHIELD)
+// FILE: App.jsx | VERSION: 5.0 (STRICT MODE SAFE / TAG SYNC)
+// DESCRIPTION: Completely rewrote the Manual Mode sync engine to 
+// bypass React 18 Strict Mode double-invocation bugs (StackBlitz safe).
+// Uses a stateless tag-targeted Regex to perfectly preserve user 
+// edits while allowing UI buttons to hot-swap their own sections.
 // -------------------------------------------------------------------
 import React, { useState, useEffect, useCallback } from 'react';
 import reelData from './reels/default_reel.json';
@@ -54,6 +58,9 @@ export default function App() {
   const [seed, setSeed] = useState("");
   const [isManual, setIsManual] = useState(false);
   const [manualText, setManualText] = useState("");
+  
+  // V5.0 FIX: StackBlitz-Safe State Tracking
+  const [lastAppliedDp, setLastAppliedDp] = useState({});
 
   const [viewMode, setViewMode] = useState('FULL');
   const [isStageFlipped, setIsStageFlipped] = useState(false);
@@ -64,7 +71,7 @@ export default function App() {
 
   const normalize = (item, type) => {
     if (!item) return null;
-    return {
+    return { 
       ...item, 
       id: item.id || `AUTO_${type}_${Date.now()}_${Math.random()}`, 
       name: item.name || "Untitled", 
@@ -121,22 +128,12 @@ export default function App() {
 
     const sDetails = (scene && scene.details) ? ` (${scene.details})` : "";
     const voidDirective = !primary ? " Empty environment, no people, uninhabited." : "";
-    const sText = scene ? `SCENE: ${scene.name}${viewMode === 'FULL' ? sDetails : ""}.${voidDirective}` : "";
+    const sText = scene ? `SCENE: ${scene.name}${viewMode === 'FULL' ? sDetails : ""}. ${voidDirective}` : "";
     const cText = scene ? `CINEMATOGRAPHY: ${scene.lighting}, Cinematic Lens.` : "";
     const stT = (customMeta || reelData?.meta)?.global_style ? `STYLE: ${(customMeta || reelData?.meta).global_style}.` : "";
-    
-    const getSubjectString = (char, alias) => {
-      if (!char) return "";
-      const details = viewMode === 'FULL' ? (char.details || char.desc || "") : char.category;
-      const outfit = char.outfit || "";
-      const isOutfitDuplicate = outfit && details.toLowerCase().includes(outfit.toLowerCase());
-      const outfitSuffix = (outfit && !isOutfitDuplicate) ? `, wearing ${outfit}` : "";
-      return `${alias} (${details})${outfitSuffix}.`;
-    };
 
-    let subT = primary ? `SUBJECT: ${getSubjectString(primary, pAlias)}` : "";
-    let ensT = (primary && secondary) ? ` ENSEMBLE: ${interaction} ${getSubjectString(secondary, sAlias)}` : "";
-
+    let subT = primary ? `SUBJECT: ${pAlias} (${viewMode === 'FULL' ? (primary.details || primary.desc) : primary.category}), wearing ${primary.outfit}.` : "";
+    let ensT = (primary && secondary) ? ` ENSEMBLE: ${interaction} ${sAlias} (${viewMode === 'FULL' ? (secondary.details || secondary.desc) : secondary.category}), wearing ${secondary.outfit}.` : "";
     let actT = primary ? ` ACTION: ${action?.desc || 'Standing still.'}` : "";
     const utilT = (isManual && utilityText) ? `\n\nUTILITY: ${utilityText}` : "";
 
@@ -159,22 +156,81 @@ export default function App() {
     };
   }, [actor1, actor2, scene, action, interaction, utilityText, povMode, isStageFlipped, viewMode, isManual, customMeta]);
 
-  // --- START OF FIX: HYBRID SYNC (SMART SHIELD) ---
-  // This effect synchronizes the manualText buffer whenever the prompt engine (getDynamicPrompt) 
-  // produces a new result due to a UI interaction (Action, Mood, Scene, etc).
-  // Because typing in the console does NOT trigger getDynamicPrompt, manual edits are preserved.
+  // V5.0 FIX: Strict Mode Safe / Tag-Targeted Sync Engine
   useEffect(() => {
-    const p = getDynamicPrompt();
-    const compiled = Object.values(p).filter(Boolean).join('').trim();
-    setManualText(compiled);
-  }, [getDynamicPrompt]);
-  // --- END OF FIX ---
+    const currentDp = getDynamicPrompt();
+    let hasChanges = false;
+    const changedKeys = [];
+
+    // Diff against safely stored state rather than a volatile ref
+    Object.keys(currentDp).forEach(key => {
+      if (currentDp[key] !== lastAppliedDp[key]) {
+        hasChanges = true;
+        changedKeys.push(key);
+      }
+    });
+
+    if (hasChanges) {
+      if (isManual) {
+        setManualText(prevText => {
+          let newText = prevText;
+          
+          const prefixes = {
+            subject: "SUBJECT:", ensemble: "ENSEMBLE:", action: "ACTION:",
+            scene: "SCENE:", cine: "CINEMATOGRAPHY:", style: "STYLE:",
+            utility: "UTILITY:", commercialTail: "--cref"
+          };
+          
+          // Escape tags for Regex
+          const allPrefixes = Object.values(prefixes).map(p => p.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|');
+
+          changedKeys.forEach(key => {
+            const prefix = prefixes[key];
+            const newGeneratedVal = currentDp[key] || "";
+
+            if (prefix) {
+              const safePrefix = prefix.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+              // Notice: No 'g' flag. This prevents lastIndex state bugs across replacements.
+              const regex = new RegExp(`\\s*${safePrefix}[\\s\\S]*?(?=(?:${allPrefixes})|$)`);
+              
+              if (newGeneratedVal) {
+                if (regex.test(newText)) {
+                  newText = newText.replace(regex, ` ${newGeneratedVal.trim()} `);
+                } else {
+                  newText = `${newText} ${newGeneratedVal.trim()} `;
+                }
+              } else {
+                newText = newText.replace(regex, ' ');
+              }
+            }
+          });
+
+          // Formatting pass: preserve POMPR line breaks
+          newText = newText.replace(/[ \t]{2,}/g, ' ').trim();
+          newText = newText.replace(/\s*(SCENE:|CINEMATOGRAPHY:|STYLE:|UTILITY:)/g, '\n$1');
+          return newText.trim();
+        });
+      } else {
+        // Auto Mode logic remains untouched
+        setManualText(Object.values(currentDp).filter(Boolean).join('').trim());
+      }
+      
+      // Save baseline for the next cycle
+      setLastAppliedDp(currentDp);
+    }
+  }, [getDynamicPrompt, isManual, lastAppliedDp]);
 
   const handleClearStage = () => {
-    setActor1(null); setActor2(null); setScene(null);
-    setAction(reelData.actions[0]); setUtilityText(""); setSeed("");
-    setIsManual(false); setManualText(""); 
-    setIsStageFlipped(false); setPovMode(0);
+    setActor1(null);
+    setActor2(null);
+    setScene(null);
+    setAction(reelData.actions[0]);
+    setUtilityText("");
+    setSeed("");
+    setIsManual(false);
+    setManualText("");
+    setIsStageFlipped(false);
+    setPovMode(0);
   };
 
   const triggerRandomix = () => {
@@ -186,7 +242,9 @@ export default function App() {
       setActor1(a1);
       if (Math.random() > 0.7 && characters.length > 1) {
         setActor2(characters.filter(c => c.id !== a1.id)[Math.floor(Math.random() * (characters.length - 1))]);
-      } else { setActor2(null); }
+      } else {
+        setActor2(null);
+      }
     }
     if (actions.length > 0) {
       const baseAct = actions[Math.floor(Math.random() * actions.length)];
@@ -195,24 +253,20 @@ export default function App() {
       const isHuman = a1?.subject_mode !== "NONHUMAN";
       const cleanDesc = (baseAct.text || baseAct.desc || "").replace(/\[SUBJECT\]\s*/gi, '');
       const suffix = motionMode === 'VIDEO' ? 'Cinematic motion sequence.' : 'Cinematic frozen still-frame.';
-      const compiled = isHuman 
-        ? `${randMood} ${baseAct.name} (${cleanDesc}, intensity level ${randInt}. ${suffix})` 
-        : `${baseAct.name} (${cleanDesc}. ${suffix})`;
+      const compiled = isHuman ? `${randMood} ${baseAct.name} (${cleanDesc}, intensity level ${randInt}. ${suffix})` : `${baseAct.name} (${cleanDesc}. ${suffix})`;
       setAction({ ...baseAct, desc: compiled });
     }
     setSeed(Math.floor(Math.random() * 10000000).toString());
   };
 
-  const config = (layoutMode === 'CASTING') ? { s: '50%', c: '50%', p: '0%', hud: true, op: 0 } : 
-                 (layoutMode === 'DIRECTING') ? { s: '40px', c: '40px', p: 'calc(100% - 80px)', hud: false, op: 1 } :
-                 { s: '30%', c: '30%', p: '40%', hud: false, op: 1 };
+  const config = (layoutMode === 'CASTING') ? { s: '50%', c: '50%', p: '0%', hud: true, op: 0 } : (layoutMode === 'DIRECTING') ? { s: '40px', c: '40px', p: 'calc(100% - 80px)', hud: false, op: 1 } : { s: '30%', c: '30%', p: '40%', hud: false, op: 1 };
 
   return (
     <div style={{ height: '100vh', width: '100vw', display: 'flex', flexDirection: 'column', background: '#0a0a0a', overflow: 'hidden', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
       {isMobile && (
         <div style={{ position: 'fixed', inset: 0, background: '#000', zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '40px', textAlign: 'center' }}>
-          <h2 style={{ color: '#ff8a00', fontSize: '14px', letterSpacing: '2px', fontWeight: '900', marginBottom: '20px' }}>UNSUPPORTED VIEWPORT</h2>
-          <p style={{ color: '#fff', fontSize: '11px', lineHeight: '1.6', opacity: 0.8 }}>POMPR V2.1 requires a larger display. Please switch to a Laptop, Tablet (Landscape), or Desktop computer to access the workstation.</p>
+          <h2 style={{ color: '#ff8a00', fontSize: '14px', letterSpacing: '2px', fontWeight: '900', marginBottom: '20px' }}>UNSUPPORTED VIEWPORT </h2>
+          <p style={{ color: '#fff', fontSize: '11px', lineHeight: '1.6', opacity: 0.8 }}>POMPR V2.1 requires a larger display. Please switch to a Laptop, Tablet (Landscape), or Desktop computer to access the workstation. </p>
         </div>
       )}
 
@@ -222,38 +276,34 @@ export default function App() {
         <div style={{ transition: 'all 0.5s ease-in-out', width: config.s, borderRight: '1px solid #111', position: 'relative' }}>
           {layoutMode !== 'DIRECTING' ? (
              <ReelColumn 
-               title="SCENE RIG" 
-               items={scenes} 
+               title="SCENE RIG" items={scenes} 
                activeIds={scene ? [scene.id] : []} 
-               colorTheme="blue" 
-               onAddNew={() => setShowSceneModal(true)} 
+               colorTheme="blue" onAddNew={() => setShowSceneModal(true)} 
                onSelect={(s) => setScene(s.id === scene?.id ? null : s)} 
                onExport={(item) => {}} 
              />
           ) : (
-            <div onClick={()=>setLayoutMode('CASTING')} style={{ width: '100%', height: '100%', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', writingMode: 'vertical-rl', fontSize: '10px', fontWeight: '900', color:'#3b82f6', background: '#000' }}>S C E N E</div>
+            <div onClick={()=>setLayoutMode('CASTING')} style={{ width: '100%', height: '100%', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', writingMode: 'vertical-rl', fontSize: '10px', fontWeight: '900', color: '#3b82f6', background: '#000' }}>S C E N E</div>
           )}
         </div>
         
         <div style={{ transition: 'all 0.5s ease-in-out', width: config.c, borderRight: '1px solid #111', position: 'relative' }}>
           {layoutMode !== 'DIRECTING' ? (
             <ReelColumn 
-              title="CHARACTER" 
-              items={characters} 
+              title="CHARACTER" items={characters} 
               activeIds={[actor1?.id, actor2?.id].filter(Boolean)} 
-              colorTheme="orange" 
-              onAddNew={() => setShowCastModal(true)} 
+              colorTheme="orange" onAddNew={() => setShowCastModal(true)} 
               onSelect={(char) => { if (activeSlot === 1) setActor1(actor1?.id === char.id ? null : char); else setActor2(actor2?.id === char.id ? null : char); }} 
               onExport={(item) => {}}
               headerSlot={
                 <div style={{ background: 'rgba(0,0,0,0.3)', padding: '6px', borderRadius: '4px', display: 'flex', gap: '5px', marginBottom: '15px' }}>
-                  <button onClick={() => setActiveSlot(1)} style={{ flex: 1, fontSize: '10px', padding: '8px', background: activeSlot === 1 ? '#ff8a00' : 'transparent', color: 'white', border: 'none', cursor: 'pointer', fontWeight: '900', borderRadius: '4px' }}>ACTOR 1</button>
-                  <button onClick={() => setActiveSlot(2)} style={{ flex: 1, fontSize: '10px', padding: '8px', background: activeSlot === 2 ? '#ff8a00' : 'transparent', color: 'white', border: 'none', cursor: 'pointer', fontWeight: '900', borderRadius: '4px' }}>ACTOR 2</button>
+                  <button onClick={() => setActiveSlot(1)} style={{ flex: 1, fontSize: '10px', padding: '8px', background: activeSlot === 1 ? '#ff8a00' : 'transparent', color: 'white', border: 'none', cursor: 'pointer', fontWeight: '900', borderRadius: '4px' }}>ACTOR 1 </button>
+                  <button onClick={() => setActiveSlot(2)} style={{ flex: 1, fontSize: '10px', padding: '8px', background: activeSlot === 2 ? '#ff8a00' : 'transparent', color: 'white', border: 'none', cursor: 'pointer', fontWeight: '900', borderRadius: '4px' }}>ACTOR 2 </button>
                 </div>
               }
             />
           ) : (
-            <div onClick={()=>setLayoutMode('CASTING')} style={{ width: '100%', height: '100%', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', writingMode: 'vertical-rl', fontSize: '10px', fontWeight: '900', color:'#f59e0b', background: '#000' }}>C H A R A C T E R</div>
+            <div onClick={()=>setLayoutMode('CASTING')} style={{ width: '100%', height: '100%', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', writingMode: 'vertical-rl', fontSize: '10px', fontWeight: '900', color: '#f59e0b', background: '#000' }}>C H A R A C T E R</div>
           )}
         </div>
         
