@@ -1,8 +1,8 @@
 // -------------------------------------------------------------------
-// FILE: App.jsx | VERSION: 5.1.2 (SCL + NONHUMAN NORMALIZATION FIX)
-// DESCRIPTION: Updated normalize() to automatically infer subject_mode: 
-// "NONHUMAN" for vehicles, machinery, and objects when explicit metadata 
-// is missing, ensuring ActionMatrixV2 correctly hides emotion/pose controls.
+// FILE: App.jsx | VERSION: 5.1.3 (CUSTOM ACTIONS ACCUMULATION FIX)
+// DESCRIPTION: Fixed onImportActions in TechVaultModal to accumulate 
+// incoming custom actions using spread syntax, preventing multi-reel 
+// imports from wiping out previously loaded custom actions.
 // -------------------------------------------------------------------
 import React, { useState, useEffect, useCallback } from 'react';
 import reelData from './reels/default_reel.json';
@@ -147,7 +147,6 @@ export default function App() {
   const normalize = (item, type) => {
     if (!item) return null;
     
-    // Defensive Non-Human Inference Check for Reels without explicit subject_mode
     let mode = item.subject_mode;
     if (!mode && type === 'CHAR') {
       const inspectString = `${item.category || ''} ${item.name || ''} ${item.details || ''} ${item.description || ''}`.toLowerCase();
@@ -186,6 +185,9 @@ export default function App() {
 
   const smartSetCharacters = (newItems) => setCustomCharacters(prev => [...(Array.isArray(newItems) ? newItems : [newItems]), ...prev]);
   const smartSetScenes = (newItems) => setCustomScenes(prev => [...(Array.isArray(newItems) ? newItems : [newItems]), ...prev]);
+  
+  // FIX: Smart accumulation for custom actions
+  const smartSetActions = (newItems) => setCustomActions(prev => [...(Array.isArray(newItems) ? newItems : [newItems]), ...prev]);
 
   const getDynamicPrompt = useCallback(() => {
     const statePayload = { actor1, actor2, scene, action, interaction, utilityText, povMode, isStageFlipped, viewMode, motionMode, customMeta };
@@ -371,7 +373,18 @@ export default function App() {
       
       {showCastModal && <CastingModal onClose={() => setShowCastModal(false)} onSave={smartSetCharacters} />} 
       {showSceneModal && <SceneBuilderModal onClose={() => setShowSceneModal(false)} onSave={smartSetScenes} />}
-      {showVault && <TechVaultModal onClose={() => setShowVault(false)} isMatrixSilenced={isMatrixSilenced} setIsMatrixSilenced={setIsMatrixSilenced} exportData={{ customCharacters, customScenes, customActions, activeReelMeta: customMeta }} onImportCharacters={smartSetCharacters} onImportScenes={smartSetScenes} onImportActions={setCustomActions} onImportMeta={setCustomMeta} />}
+      {showVault && (
+        <TechVaultModal 
+          onClose={() => setShowVault(false)} 
+          isMatrixSilenced={isMatrixSilenced} 
+          setIsMatrixSilenced={setIsMatrixSilenced} 
+          exportData={{ customCharacters, customScenes, customActions, activeReelMeta: customMeta }} 
+          onImportCharacters={smartSetCharacters} 
+          onImportScenes={smartSetScenes} 
+          onImportActions={smartSetActions} // <-- FIX: Hooked up smart accumulation handler
+          onImportMeta={setCustomMeta} 
+        />
+      )}
     </div>
   );
 }
