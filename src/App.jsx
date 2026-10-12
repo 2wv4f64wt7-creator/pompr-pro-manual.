@@ -1,9 +1,8 @@
 // -------------------------------------------------------------------
-// FILE: App.jsx | VERSION: 5.0 (STRICT MODE SAFE / TAG SYNC)
-// DESCRIPTION: Completely rewrote the Manual Mode sync engine to 
-// bypass React 18 Strict Mode double-invocation bugs (StackBlitz safe).
-// Uses a stateless tag-targeted Regex to perfectly preserve user 
-// edits while allowing UI buttons to hot-swap their own sections.
+// FILE: App.jsx | VERSION: 5.1.2 (SCL + NONHUMAN NORMALIZATION FIX)
+// DESCRIPTION: Updated normalize() to automatically infer subject_mode: 
+// "NONHUMAN" for vehicles, machinery, and objects when explicit metadata 
+// is missing, ensuring ActionMatrixV2 correctly hides emotion/pose controls.
 // -------------------------------------------------------------------
 import React, { useState, useEffect, useCallback } from 'react';
 import reelData from './reels/default_reel.json';
@@ -19,12 +18,89 @@ import TechVaultModal from './components/TechVaultModal';
 const SAFE_INTERACTIONS = ["With", "Facing", "Ignoring", "Talking to", "Confronting", "Arguing with", "Fighting"];
 const MOODS = ['CALM', 'HAPPY', 'FOCUSED', 'FEARFUL', 'ANGRY', 'POWERFUL'];
 
+// --- SCL FEATURE FLAG & CONTROL PROFILES ---
+const ENABLE_SCL = true;
+
+const REEL_PROFILES = {
+  ABSTRACT_MOTION: { type: 'MOTION', focus: ['trajectory', 'speed', 'temporal', 'flow'] },
+  VEHICLE: { type: 'VEHICLE', focus: ['geometry', 'materials', 'tracking', 'environment'] },
+  CHARACTER: { type: 'CHARACTER', focus: ['identity', 'wardrobe', 'pose', 'continuity'] },
+  GENERAL: { type: 'GENERAL', focus: ['composition', 'lighting', 'fidelity'] }
+};
+
+const getReelProfile = (scene, action, motionMode) => {
+  if (motionMode === 'VIDEO') return REEL_PROFILES.ABSTRACT_MOTION;
+  if (scene?.category === 'VEHICLE' || action?.category === 'POWR') return REEL_PROFILES.VEHICLE;
+  if (scene?.category === 'CHARACTER' || scene === null) return REEL_PROFILES.CHARACTER;
+  return REEL_PROFILES.GENERAL;
+};
+
+const buildMasterControlContract = ({ actor1, actor2, scene, action, interaction, povMode, isStageFlipped, viewMode, motionMode, customMeta }) => {
+  const resolveAlias = (char) => {
+    if (!char) return null;
+    const alias = typeof char.subject === "string" ? char.subject.trim() : "";
+    const name = typeof char.name === "string" ? char.name.trim() : "";
+    return alias || name || "Untitled";
+  };
+
+  let pPrimary = isStageFlipped ? actor2 : actor1;
+  let pSecondary = isStageFlipped ? actor1 : actor2;
+
+  if (!pPrimary && pSecondary) {
+    pPrimary = pSecondary;
+    pSecondary = null;
+  }
+
+  const pAlias = resolveAlias(pPrimary);
+  const sAlias = resolveAlias(pSecondary);
+  const profile = getReelProfile(scene, action, motionMode);
+
+  let povText = "";
+  if (povMode === 1 && pPrimary && pSecondary) {
+    povText = `CINEMATOGRAPHY: Over-the-shoulder shot, ${pAlias} in foreground blurred, focus on ${sAlias}.`;
+  } else if (povMode === 2 && pPrimary && pSecondary) {
+    povText = `CINEMATOGRAPHY: Over-the-shoulder shot, ${sAlias} in foreground blurred, focus on ${pAlias}.`;
+  }
+
+  const sDetails = (scene && scene.details) ? ` (${scene.details})` : "";
+  const voidDirective = !pPrimary ? " Empty environment, no people, uninhabited." : "";
+  const sText = scene ? `SCENE: ${scene.name}${viewMode === 'FULL' ? sDetails : ""}. ${voidDirective}` : "";
+  const cText = scene ? `CINEMATOGRAPHY: ${scene.lighting}, Cinematic Lens.` : "";
+  const stT = (customMeta || reelData?.meta)?.global_style ? `STYLE: ${(customMeta || reelData?.meta).global_style}.` : "";
+
+  let subT = pPrimary ? `SUBJECT: ${pAlias} (${viewMode === 'FULL' ? (pPrimary.details || pPrimary.desc || pPrimary.description || '') : pPrimary.category}), wearing ${pPrimary.outfit || ''}.` : "";
+  let ensT = (pPrimary && pSecondary) ? ` ENSEMBLE: ${interaction} ${sAlias} (${viewMode === 'FULL' ? (pSecondary.details || pSecondary.desc || pSecondary.description || '') : pSecondary.category}), wearing ${pSecondary.outfit || ''}.` : "";
+  
+  let actT = pPrimary ? ` ACTION: ${action?.desc || action?.text || 'Standing still.'}` : "";
+  if (motionMode === 'VIDEO' && profile.type === 'MOTION') {
+    actT = pPrimary ? ` ACTION: High-speed temporal motion sequence, optical flow alignment, continuous trajectory physics. (${action?.desc || action?.text || 'Moving.'})` : "";
+  }
+
+  if (viewMode === 'SHORT' && pPrimary) {
+    subT = `SUBJECT: ${pAlias} Ref #1, ${pPrimary.outfit || ''}.`;
+    ensT = pSecondary ? ` ENSEMBLE: ${interaction} ${sAlias} Ref #2, ${pSecondary.outfit || ''}.` : "";
+  }
+
+  const cref = (pPrimary?.refUrl ? ` --cref ${pPrimary.refUrl}` : "") + (pSecondary?.refUrl ? ` --cref ${pSecondary.refUrl}` : "");
+
+  return {
+    subject: subT,
+    ensemble: ensT,
+    action: actT,
+    scene: sText ? (pPrimary ? `\n${sText}` : sText) : "",
+    cine: povText || (cText ? `\n${cText}` : ""),
+    style: stT ? `\n${stT}` : "",
+    utility: "",
+    commercialTail: cref.trim()
+  };
+};
+
 export default function App() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [layoutMode, setLayoutMode] = useState('WORKSTATION');
 
   useEffect(() => {
-    document.title = "POMPR | V2.1";
+    document.title = "POMPR | V2.1 SCL";
     const handleResize = () => {
       const width = window.innerWidth;
       setIsMobile(width < 768);
@@ -59,7 +135,6 @@ export default function App() {
   const [isManual, setIsManual] = useState(false);
   const [manualText, setManualText] = useState("");
   
-  // V5.0 FIX: StackBlitz-Safe State Tracking
   const [lastAppliedDp, setLastAppliedDp] = useState({});
 
   const [viewMode, setViewMode] = useState('FULL');
@@ -71,8 +146,20 @@ export default function App() {
 
   const normalize = (item, type) => {
     if (!item) return null;
+    
+    // Defensive Non-Human Inference Check for Reels without explicit subject_mode
+    let mode = item.subject_mode;
+    if (!mode && type === 'CHAR') {
+      const inspectString = `${item.category || ''} ${item.name || ''} ${item.details || ''} ${item.description || ''}`.toLowerCase();
+      const nonHumanKeywords = ['vehicle', 'car', 'truck', 'boat', 'ship', 'plane', 'aircraft', 'train', 'tank', 'mech', 'robot', 'drone', 'bike', 'motorcycle'];
+      if (nonHumanKeywords.some(keyword => inspectString.includes(keyword))) {
+        mode = "NONHUMAN";
+      }
+    }
+
     return { 
       ...item, 
+      subject_mode: mode || item.subject_mode,
       id: item.id || `AUTO_${type}_${Date.now()}_${Math.random()}`, 
       name: item.name || "Untitled", 
       details: item.details || item.description || item.desc || "", 
@@ -101,68 +188,35 @@ export default function App() {
   const smartSetScenes = (newItems) => setCustomScenes(prev => [...(Array.isArray(newItems) ? newItems : [newItems]), ...prev]);
 
   const getDynamicPrompt = useCallback(() => {
-    const resolveAlias = (char) => {
-      if (!char) return null;
-      const alias = typeof char.subject === "string" ? char.subject.trim() : "";
-      const name = typeof char.name === "string" ? char.name.trim() : "";
-      return alias || name || "Untitled";
-    };
+    const statePayload = { actor1, actor2, scene, action, interaction, utilityText, povMode, isStageFlipped, viewMode, motionMode, customMeta };
+    
+    const dp = ENABLE_SCL ? buildMasterControlContract(statePayload) : (() => {
+      let primary = isStageFlipped ? actor2 : actor1;
+      let secondary = isStageFlipped ? actor1 : actor2;
+      if (!primary && secondary) { primary = secondary; secondary = null; }
+      const pAlias = primary?.subject || primary?.name || "Untitled";
+      const sAlias = secondary?.subject || secondary?.name || "Untitled";
+      return {
+        subject: primary ? `SUBJECT: ${pAlias}` : "",
+        ensemble: (primary && secondary) ? ` ENSEMBLE: ${interaction} ${sAlias}` : "",
+        action: primary ? ` ACTION: ${action?.desc || action?.text || 'Standing still.'}` : "",
+        scene: scene ? `SCENE: ${scene.name}` : "",
+        cine: "",
+        style: "",
+        utility: (isManual && utilityText) ? `\n\nUTILITY: ${utilityText}` : "",
+        commercialTail: ""
+      };
+    })();
 
-    let primary = isStageFlipped ? actor2 : actor1;
-    let secondary = isStageFlipped ? actor1 : actor2;
-
-    if (!primary && secondary) {
-      primary = secondary;
-      secondary = null;
-    }
-
-    const pAlias = resolveAlias(primary);
-    const sAlias = resolveAlias(secondary);
-
-    let povText = "";
-    if (povMode === 1 && primary && secondary) {
-      povText = `CINEMATOGRAPHY: Over-the-shoulder shot, ${pAlias} in foreground blurred, focus on ${sAlias}.`;
-    } else if (povMode === 2 && primary && secondary) {
-      povText = `CINEMATOGRAPHY: Over-the-shoulder shot, ${sAlias} in foreground blurred, focus on ${pAlias}.`;
-    }
-
-    const sDetails = (scene && scene.details) ? ` (${scene.details})` : "";
-    const voidDirective = !primary ? " Empty environment, no people, uninhabited." : "";
-    const sText = scene ? `SCENE: ${scene.name}${viewMode === 'FULL' ? sDetails : ""}. ${voidDirective}` : "";
-    const cText = scene ? `CINEMATOGRAPHY: ${scene.lighting}, Cinematic Lens.` : "";
-    const stT = (customMeta || reelData?.meta)?.global_style ? `STYLE: ${(customMeta || reelData?.meta).global_style}.` : "";
-
-    let subT = primary ? `SUBJECT: ${pAlias} (${viewMode === 'FULL' ? (primary.details || primary.desc) : primary.category}), wearing ${primary.outfit}.` : "";
-    let ensT = (primary && secondary) ? ` ENSEMBLE: ${interaction} ${sAlias} (${viewMode === 'FULL' ? (secondary.details || secondary.desc) : secondary.category}), wearing ${secondary.outfit}.` : "";
-    let actT = primary ? ` ACTION: ${action?.desc || 'Standing still.'}` : "";
     const utilT = (isManual && utilityText) ? `\n\nUTILITY: ${utilityText}` : "";
+    return { ...dp, utility: utilT };
+  }, [actor1, actor2, scene, action, interaction, utilityText, povMode, isStageFlipped, viewMode, isManual, motionMode, customMeta]);
 
-    if (viewMode === 'SHORT' && primary) {
-      subT = `SUBJECT: ${pAlias} Ref #1, ${primary.outfit}.`;
-      ensT = secondary ? ` ENSEMBLE: ${interaction} ${sAlias} Ref #2, ${secondary.outfit}.` : "";
-    }
-
-    const cref = (primary?.refUrl ? ` --cref ${primary.refUrl}` : "") + (secondary?.refUrl ? ` --cref ${secondary.refUrl}` : "");
-
-    return {
-      subject: subT,
-      ensemble: ensT,
-      action: actT,
-      scene: sText ? (primary ? `\n${sText}` : sText) : "",
-      cine: povText || (cText ? `\n${cText}` : ""),
-      style: stT ? `\n${stT}` : "",
-      utility: utilT,
-      commercialTail: cref.trim()
-    };
-  }, [actor1, actor2, scene, action, interaction, utilityText, povMode, isStageFlipped, viewMode, isManual, customMeta]);
-
-  // V5.0 FIX: Strict Mode Safe / Tag-Targeted Sync Engine
   useEffect(() => {
     const currentDp = getDynamicPrompt();
     let hasChanges = false;
     const changedKeys = [];
 
-    // Diff against safely stored state rather than a volatile ref
     Object.keys(currentDp).forEach(key => {
       if (currentDp[key] !== lastAppliedDp[key]) {
         hasChanges = true;
@@ -174,14 +228,12 @@ export default function App() {
       if (isManual) {
         setManualText(prevText => {
           let newText = prevText;
-          
           const prefixes = {
             subject: "SUBJECT:", ensemble: "ENSEMBLE:", action: "ACTION:",
             scene: "SCENE:", cine: "CINEMATOGRAPHY:", style: "STYLE:",
             utility: "UTILITY:", commercialTail: "--cref"
           };
           
-          // Escape tags for Regex
           const allPrefixes = Object.values(prefixes).map(p => p.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|');
 
           changedKeys.forEach(key => {
@@ -190,7 +242,6 @@ export default function App() {
 
             if (prefix) {
               const safePrefix = prefix.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-              // Notice: No 'g' flag. This prevents lastIndex state bugs across replacements.
               const regex = new RegExp(`\\s*${safePrefix}[\\s\\S]*?(?=(?:${allPrefixes})|$)`);
               
               if (newGeneratedVal) {
@@ -205,17 +256,14 @@ export default function App() {
             }
           });
 
-          // Formatting pass: preserve POMPR line breaks
           newText = newText.replace(/[ \t]{2,}/g, ' ').trim();
           newText = newText.replace(/\s*(SCENE:|CINEMATOGRAPHY:|STYLE:|UTILITY:)/g, '\n$1');
           return newText.trim();
         });
       } else {
-        // Auto Mode logic remains untouched
         setManualText(Object.values(currentDp).filter(Boolean).join('').trim());
       }
       
-      // Save baseline for the next cycle
       setLastAppliedDp(currentDp);
     }
   }, [getDynamicPrompt, isManual, lastAppliedDp]);
@@ -265,8 +313,8 @@ export default function App() {
     <div style={{ height: '100vh', width: '100vw', display: 'flex', flexDirection: 'column', background: '#0a0a0a', overflow: 'hidden', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
       {isMobile && (
         <div style={{ position: 'fixed', inset: 0, background: '#000', zIndex: 9999, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '40px', textAlign: 'center' }}>
-          <h2 style={{ color: '#ff8a00', fontSize: '14px', letterSpacing: '2px', fontWeight: '900', marginBottom: '20px' }}>UNSUPPORTED VIEWPORT </h2>
-          <p style={{ color: '#fff', fontSize: '11px', lineHeight: '1.6', opacity: 0.8 }}>POMPR V2.1 requires a larger display. Please switch to a Laptop, Tablet (Landscape), or Desktop computer to access the workstation. </p>
+          <h2 style={{ color: '#ff8a00', fontSize: '14px', letterSpacing: '2px', fontWeight: '900', marginBottom: '20px' }}>UNSUPPORTED VIEWPORT</h2>
+          <p style={{ color: '#fff', fontSize: '11px', lineHeight: '1.6', opacity: 0.8 }}>POMPR V2.1 SCL requires a larger display. Please switch to a Laptop, Tablet (Landscape), or Desktop computer to access the workstation.</p>
         </div>
       )}
 
@@ -297,8 +345,8 @@ export default function App() {
               onExport={(item) => {}}
               headerSlot={
                 <div style={{ background: 'rgba(0,0,0,0.3)', padding: '6px', borderRadius: '4px', display: 'flex', gap: '5px', marginBottom: '15px' }}>
-                  <button onClick={() => setActiveSlot(1)} style={{ flex: 1, fontSize: '10px', padding: '8px', background: activeSlot === 1 ? '#ff8a00' : 'transparent', color: 'white', border: 'none', cursor: 'pointer', fontWeight: '900', borderRadius: '4px' }}>ACTOR 1 </button>
-                  <button onClick={() => setActiveSlot(2)} style={{ flex: 1, fontSize: '10px', padding: '8px', background: activeSlot === 2 ? '#ff8a00' : 'transparent', color: 'white', border: 'none', cursor: 'pointer', fontWeight: '900', borderRadius: '4px' }}>ACTOR 2 </button>
+                  <button onClick={() => setActiveSlot(1)} style={{ flex: 1, fontSize: '10px', padding: '8px', background: activeSlot === 1 ? '#ff8a00' : 'transparent', color: 'white', border: 'none', cursor: 'pointer', fontWeight: '900', borderRadius: '4px' }}>ACTOR 1</button>
+                  <button onClick={() => setActiveSlot(2)} style={{ flex: 1, fontSize: '10px', padding: '8px', background: activeSlot === 2 ? '#ff8a00' : 'transparent', color: 'white', border: 'none', cursor: 'pointer', fontWeight: '900', borderRadius: '4px' }}>ACTOR 2</button>
                 </div>
               }
             />
